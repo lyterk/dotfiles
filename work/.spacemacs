@@ -29,54 +29,29 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
-   dotspacemacs-configuration-layers
-   '(
-     clojure
-     racket
-     nginx
-     markdown
-     yaml
-     sql
-     javascript
-     html
-     csv
-     python
-     ivy
-     auto-completion
-     emacs-lisp
-     git
-     ;; source-control
-     markdown
-     org
-     scala
-     ess
-     journal
-     syntax-checking
-     (shell :variables
-            shell-default-height 10
-            shell-default-position 'bottom
-            shell-default-shell 'eshell
-            )
-     spell-checking
-     syntax-checking
-     ;; version-control
-     )
+   dotspacemacs-configuration-layers '(clojure racket nginx markdown yaml sql javascript html csv
+                                               python ivy auto-completion emacs-lisp git
+                                               ;; source-control
+                                               markdown org scala ess journal syntax-checking (shell
+                                                                                               :variables
+                                                                                               shell-default-height
+                                                                                               10
+                                                                                               shell-default-position
+                                                                                               'bottom
+                                                                                               shell-default-shell
+                                                                                               'eshell)
+                                               spell-checking syntax-checking
+                                               ;; version-control
+                                               )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages
-   '(
-     browse-kill-ring
-     company
-     company-anaconda
-     emmet-mode
-     ;; evil-dvorak
-     yasnippet
-     rg
-     systemd
-     ;; flycheck
-     )
+   dotspacemacs-additional-packages '(browse-kill-ring company company-anaconda emmet-mode
+                                                       ;; evil-dvorak
+                                                       yasnippet rg systemd
+                                                       ;; flycheck
+                                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -148,17 +123,15 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         spacemacs-light)
+   dotspacemacs-themes '(spacemacs-dark spacemacs-light)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-font '("Source Code Pro"
-                               :size 13
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.1)
+   dotspacemacs-font '("Source Code Pro" :size 13
+                       :weight normal
+                       :width normal
+                       :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -312,8 +285,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup nil
-   ))
+   dotspacemacs-whitespace-cleanup nil))
 
 (defun dotspacemacs/user-init ()
   "Initialization function for user code.
@@ -321,8 +293,7 @@ It is called immediately after `dotspacemacs/init', before layer configuration
 executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
-  )
+`dotspacemacs/user-config' first.")
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -332,241 +303,286 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-(set-frame-parameter (selected-frame) 'alpha '(93 93))
-(add-to-list 'default-frame-alist '(alpha 93 93))
+  (set-frame-parameter (selected-frame) 'alpha
+                       '(93
+                         93))
+  (add-to-list 'default-frame-alist '(alpha 93 93))
 
-(setenv "WORKON_HOME" "/home/local/ANT/kllyter/.anaconda3/envs")
+  (setenv "WORKON_HOME" "/home/local/ANT/kllyter/.anaconda3/envs")
 
-(require 'org-crypt)
-(org-crypt-check-auto-save)
-(org-crypt-use-before-save-magic)
-(setq org-tags-exclude-from-inheritance (quote ("crypt")))
-;; GPG key to use for encryption
-;; Either the Key ID or set to nil to use symmetric encryption.
+  (require 'org-crypt)
+  (org-crypt-check-auto-save)
+  (org-crypt-use-before-save-magic)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
 
-(define-key evil-normal-state-map (kbd "SPC w w") 'ace-window)
-(define-key evil-normal-state-map (kbd "SPC w W") 'other-window)
+  (define-key evil-normal-state-map (kbd "SPC w w") 'ace-window)
+  (define-key evil-normal-state-map (kbd "SPC w W") 'other-window)
 
-; (spacemacs/set-leader-keys-for-major-mode 'web-mode "SPC")
+                                        ; (spacemacs/set-leader-keys-for-major-mode 'web-mode "SPC")
 
-(setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?z ?\' ?\,))
+  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?z ?\' ?\,))
 
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((python . t)))
+  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
 
-(setq org-default-notes-file "~/Documents/org/captured.org")
-(setq org-capture-templates
-      (quote (("d" "dependency" entry (file "~/Documents/org/dependencies.org")
-               "* DEP %?\n%U\n%a\n" :clock-in t :clock-resume t)
-              ("t" "todo" entry (file "~/Documents/org/todo.org")
-                "* TODO %?\n%U\n%a\n" :clock-in t :clock-resume t))))
+  (setq org-default-notes-file "~/Documents/org/captured.org")
+  (setq org-capture-templates (quote (("d" "dependency" entry (file
+                                                               "~/Documents/org/dependencies.org")
+                                       "* DEP %?\n%U\n%a\n"
+                                       :clock-in t
+                                       :clock-resume t)
+                                      ("t" "todo" entry (file "~/Documents/org/todo.org")
+                                       "* TODO %?\n%U\n%a\n"
+                                       :clock-in t
+                                       :clock-resume t))))
 
-(setq ivy-height 30)
+  (setq ivy-height 30)
 
-(setq org-journal-dir "~/Documents/personal/journal")
-(setq org-journal-file-format "%Y-%m-%d.org")
-(setq org-journal-enable-encryption nil)
-(setq org-agenda-files (list org-journal-dir))
-(setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
-;; (evil-define-key 'normal org-journal-mode-map (kbd "j d") 'org-decrypt-entry)
+  (setq org-journal-dir "~/Documents/personal/journal")
+  (setq org-journal-file-format "%Y-%m-%d.org")
+  (setq org-journal-enable-encryption nil)
+  (setq org-agenda-files (list org-journal-dir))
+  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
+  ;; (evil-define-key 'normal org-journal-mode-map (kbd "j d") 'org-decrypt-entry)
 
-(setq org-crypt-key "E0569B15818ED2A6")
+  (setq org-crypt-key "E0569B15818ED2A6")
 
-(defun revert-buffer-no-confirm ()
-  "Revert buffer without confirmation."
-  (interactive)
-  (revert-buffer :ignore-auto :noconfirm))
-(define-key evil-normal-state-map (kbd "SPC r R") 'revert-buffer-no-confirm)
+  (defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive)
+    (revert-buffer
+     :ignore-auto
+     :noconfirm))
+  (define-key evil-normal-state-map (kbd "SPC r R") 'revert-buffer-no-confirm)
 
-(browse-kill-ring-default-keybindings)
+  (browse-kill-ring-default-keybindings)
 
-(defun move-line-up ()
-  (interactive)
-  (transpose-lines 1)
-  (forward-line -2))
+  (defun move-line-up ()
+    (interactive)
+    (transpose-lines 1)
+    (forward-line -2))
 
-(defun move-line-down ()
-  (interactive)
-  (forward-line 1)
-  (transpose-lines 1)
-  (forward-line -1))
-(global-set-key (kbd "M-<up>") 'move-line-up)
-(global-set-key (kbd "M-<down>") 'move-line-down)
+  (defun move-line-down ()
+    (interactive)
+    (forward-line 1)
+    (transpose-lines 1)
+    (forward-line -1))
+  (global-set-key (kbd "M-<up>") 'move-line-up)
+  (global-set-key (kbd "M-<down>") 'move-line-down)
 
-(require 'ldap)
+  (require 'ldap)
 
-(defvar phonetool-server-host "ldap.amazon.com")
-(defvar phonetool-server-port 389)
-(defvar phonetool-ldapsearch-prog "/usr/bin/ldapsearch") ; not the old one in /opt/third-party
-(defvar phonetool-ldapsearch-args (list "-LL" "-tt" "-x")) ; add -x for anonymous login
-(defvar phonetool-buffer-name "*phonetool*")
+  (defvar phonetool-server-host "ldap.amazon.com")
+  (defvar phonetool-server-port 389)
+  (defvar phonetool-ldapsearch-prog "/usr/bin/ldapsearch") ; not the old one in /opt/third-party
+  (defvar phonetool-ldapsearch-args (list "-LL" "-tt" "-x")) ; add -x for anonymous login
+  (defvar phonetool-buffer-name "*phonetool*")
 
-(defun phonetool-abbreviate-cn (cn)
-  (cond
-   ((null cn) "")
-   ((string-equal "None" cn) "None")
-   (t (progn
-       ;; Most names look like Firstname Lastname (uid), but a couple
-       ;; of people have a parenthetical department, like "Michelle
-       ;; Wilson (Legal) (wilson)".  Require the uid to be followed
-       ;; by a comma.
-        (string-match (rx "cn="
-                          (submatch (* (char alpha space ".")))
-                          (*? anything)
-                         "(" (submatch (* (char alpha))) ")," )
-                     cn)
-        (concat (match-string 1 cn) "(" (match-string 2 cn) ")")))))
+  (defun phonetool-abbreviate-cn (cn)
+    (cond ((null cn) "")
+          ((string-equal "None" cn) "None")
+          (t (progn
+               ;; Most names look like Firstname Lastname (uid), but a couple
+               ;; of people have a parenthetical department, like "Michelle
+               ;; Wilson (Legal) (wilson)".  Require the uid to be followed
+               ;; by a comma.
+               (string-match (rx "cn=" (submatch (* (char alpha space ".")))
+                                 (*? anything) "(" (submatch (* (char alpha))) ")," ) cn)
+               (concat (match-string 1 cn) "(" (match-string 2 cn) ")")))))
 
-(defun phonetool-cn-to-uid (cn)
-  (cond
-   ((null cn) "")
-   ((string-equal "None" cn) "None")
-   (t (progn
-       ;; Most names look like Firstname Lastname (uid), but a couple
-       ;; of people have a parenthetical department, like "Michelle
-       ;; Wilson (Legal) (wilson)".  Require the uid to be followed
-       ;; by a comma.
-        (string-match (rx "cn="
-                          (*? anything)
-                         "(" (submatch (* (char alpha))) ")," )
-                     cn)
-        (match-string 1 cn)))))
+  (defun phonetool-cn-to-uid (cn)
+    (cond ((null cn) "")
+          ((string-equal "None" cn) "None")
+          (t (progn
+               ;; Most names look like Firstname Lastname (uid), but a couple
+               ;; of people have a parenthetical department, like "Michelle
+               ;; Wilson (Legal) (wilson)".  Require the uid to be followed
+               ;; by a comma.
+               (string-match (rx "cn=" (*? anything) "(" (submatch (* (char alpha))) ")," ) cn)
+               (match-string 1 cn)))))
 
-(defun phonetool-ldap (uid)
-  (with-temp-message (concat "Looking up " uid)
-    (let ((result-list (ldap-search (concat "uid=" uid))))
-      (while (and result-list (null (car result-list)))
-        (setq result-list (cdr result-list)))
-      (if result-list
-          (car result-list)
-        (error "No such user")))))
+  (defun phonetool-ldap (uid)
+    (with-temp-message (concat "Looking up " uid)
+      (let ((result-list (ldap-search (concat "uid=" uid))))
+        (while (and result-list
+                    (null (car result-list)))
+          (setq result-list (cdr result-list)))
+        (if result-list (car result-list)
+          (error
+           "No such user")))))
 
-(defun phonetool-managed-string (ldap-record)
-  (let ((manager (cadr (assoc "manager" ldap-record))))
-    (concat " ... managed by "
-            (if (string= manager "None")
-               "nobody: you're looking at a Big Cheesen"
-              (phonetool-user-details (phonetool-ldap (phonetool-cn-to-uid manager)) nil)))))
+  (defun phonetool-managed-string (ldap-record)
+    (let ((manager (cadr (assoc "manager" ldap-record))))
+      (concat " ... managed by " (if (string= manager "None")
+                                     "nobody: you're looking at a Big Cheesen"
+                                   (phonetool-user-details (phonetool-ldap (phonetool-cn-to-uid
+                                                                            manager)) nil)))))
 
-(defun phonetool-manages-string (ldap-record)
-  (mapconcat
-   (lambda (l)
-     (if (string-equal (car l) "amznmanageremployees")
-         (concat " ... manages "
-                 (phonetool-user-details (phonetool-ldap (phonetool-cn-to-uid (nth 1 l))) nil))
-      ""))
-  ldap-record ""))
+  (defun phonetool-manages-string (ldap-record)
+    (mapconcat (lambda (l)
+                 (if (string-equal (car l) "amznmanageremployees")
+                     (concat " ... manages " (phonetool-user-details (phonetool-ldap
+                                                                      (phonetool-cn-to-uid (nth 1
+                                                                                                l)))
+                                                                     nil)) "")) ldap-record ""))
 
-(defun phonetool-user-details (ldap-record showreports)
-  (let* ((person (cadr (assoc "uid" ldap-record)))
-         (name (cadr (assoc "gecos" ldap-record)))
-         (description (cadr (assoc "description" ldap-record)))
-         (dept (cadr (assoc "amzndeptname" ldap-record)))
-         (city (cadr (assoc "amznlocdescr" ldap-record)))
-         (room (cadr (assoc "roomnumber" ldap-record)))
-         (since (cadr (assoc "amznyearsinservice" ldap-record))))
-    (concat person ": "
-               name " (" description ") works in "
-               dept " (" room "/" city ")"
-               " since " since "n"
-                (if showreports
-                    (concat (phonetool-managed-string ldap-record)
-                            (phonetool-manages-string ldap-record))
-                 ""))))
+  (defun phonetool-user-details (ldap-record showreports)
+    (let* ((person (cadr (assoc "uid" ldap-record)))
+           (name (cadr (assoc "gecos" ldap-record)))
+           (description (cadr (assoc "description" ldap-record)))
+           (dept (cadr (assoc "amzndeptname" ldap-record)))
+           (city (cadr (assoc "amznlocdescr" ldap-record)))
+           (room (cadr (assoc "roomnumber" ldap-record)))
+           (since (cadr (assoc "amznyearsinservice" ldap-record))))
+      (concat person ": " name " (" description ") works in " dept " (" room "/" city ")" " since "
+              since "n" (if showreports (concat (phonetool-managed-string ldap-record)
+                                                (phonetool-manages-string ldap-record)) ""))))
 
-(defun phonetool-badge-photo (ldap-record)
-  (create-image (cadr (assoc "jpegphoto" ldap-record)) 'jpeg t))
+  (defun phonetool-badge-photo (ldap-record)
+    (create-image (cadr (assoc "jpegphoto" ldap-record)) 'jpeg t))
 
-(defun phonetool-show-person (person)
- "Display phone tool information for user PERSON in a buffer.
+  (defun phonetool-show-person (person)
+    "Display phone tool information for user PERSON in a buffer.
 
 PERSON must be a user name."
-  (interactive (list (read-string "Person: " (thing-at-point 'word))))
-  (let ((ldap-default-host phonetool-server-host)
-        (ldap-default-port phonetool-server-port)
-        (ldap-default-base "o=amazon.com")
-  (ldap-ldapsearch-prog phonetool-ldapsearch-prog)
-  (ldap-ldapsearch-args phonetool-ldapsearch-args)
-        (ldap-host-parameters-alist '(("ldap.amazon.com" auth simple))))
-    (if (string= person "")
-        (error "No uid given"))
-    (let ((buf (get-buffer-create phonetool-buffer-name)))
-      (save-excursion
-        (set-buffer buf)
-        (goto-char (point-max))
-        (let ((ldap-record (phonetool-ldap person)))
-          (insert-image (phonetool-badge-photo ldap-record))
-          (insert-string "n" (phonetool-user-details ldap-record t))))
+    (interactive (list (read-string "Person: " (thing-at-point 'word))))
+    (let ((ldap-default-host phonetool-server-host)
+          (ldap-default-port phonetool-server-port)
+          (ldap-default-base "o=amazon.com")
+          (ldap-ldapsearch-prog phonetool-ldapsearch-prog)
+          (ldap-ldapsearch-args phonetool-ldapsearch-args)
+          (ldap-host-parameters-alist '(("ldap.amazon.com" auth simple))))
+      (if (string= person "")
+          (error
+           "No uid given"))
+      (let ((buf (get-buffer-create phonetool-buffer-name)))
+        (save-excursion (set-buffer buf)
+                        (goto-char (point-max))
+                        (let ((ldap-record (phonetool-ldap person)))
+                          (insert-image (phonetool-badge-photo ldap-record))
+                          (insert-string "n" (phonetool-user-details ldap-record t))))
         (pop-to-buffer buf)
         (goto-char (point-max))
         (recenter -1))))
 
-(provide 'phonetool)
+  (provide 'phonetool)
 
-(setq python-shell-interpreter "ipython")
-(setq python-shell-interpreter-interactive-args "--simple-prompt -i")
-(add-hook 'python-mode-hook (lambda ()
-                              (flycheck-mode 1)
-                              (semantic-mode 1)
-                              (setq flycheck-checker 'python-pylint
-                                    flycheck-pylintrc "~/.pylintrc")))
+  (setq python-shell-interpreter "ipython")
+  (setq python-shell-interpreter-interactive-args "--simple-prompt -i")
+  (add-hook 'python-mode-hook (lambda ()
+                                (flycheck-mode 1)
+                                (semantic-mode 1)
+                                (setq flycheck-checker 'python-pylint flycheck-pylintrc
+                                      "~/.pylintrc")))
 
-(defun global-disable-mode (mode-fn)
-  (interactive "a")
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer (funcall mode-fn -1))))
+  (defun global-disable-mode (mode-fn)
+    (interactive "a")
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer (funcall mode-fn -1))))
 
-(defun run-python-locally (&rest args)
-  (interactive (progn (require 'nadvice)
-                      (advice-eval-interactive-spec
-                       (cadr (interactive-form #'run-python)))))
-  (let ((default-directory user-emacs-directory))
-    (apply #'run-python args)))
+  (defun run-python-locally
+      (&rest
+       args)
+    (interactive (progn
+                   (require 'nadvice)
+                   (advice-eval-interactive-spec (cadr (interactive-form #'run-python)))))
+    (let ((default-directory user-emacs-directory))
+      (apply #'run-python args)))
 
-(eval-when-compile (require 'cl-lib))
-(defun nadvice/python-shell-send-string/fix-local-process
-    (old-fun string &optional process)
-  (cl-letf ((old-psstf (symbol-function #'python-shell--save-temp-file))
-            ((symbol-function #'python-shell--save-temp-file)
-             (lambda (string)
-               (let ((default-directory
-                       ;; if buffer is a remote file, but the process is not
-                       ;; save the temp file locally, instead of remotely
-                       (if (and buffer-file-name
-                                (file-remote-p buffer-file-name)
-                                (not (plist-get 'remote-tty
-                                                (process-plist process))))
-                           user-emacs-directory
-                         default-directory)))
-                 (funcall old-psstf string)))))
-    (funcall old-fun string process)))
+  (eval-when-compile
+    (require 'cl-lib))
+  (defun nadvice/python-shell-send-string/fix-local-process (old-fun string &optional process)
+    (cl-letf ((old-psstf (symbol-function #'python-shell--save-temp-file))
+              ((symbol-function #'python-shell--save-temp-file)
+               (lambda (string)
+                 (let ((default-directory
+                         ;; if buffer is a remote file, but the process is not
+                         ;; save the temp file locally, instead of remotely
+                         (if (and buffer-file-name
+                                  (file-remote-p buffer-file-name)
+                                  (not (plist-get 'remote-tty (process-plist process)))) user-emacs-directory default-directory)))
+                   (funcall old-psstf string)))))
+      (funcall old-fun string process)))
 
-(advice-add 'python-shell-send-string :around
-            #'nadvice/python-shell-send-string/fix-local-process)
+  (advice-add 'python-shell-send-string
+              :around #'nadvice/python-shell-send-string/fix-local-process)
 
-(eval-after-load "company"
-  '(add-to-list 'company-backends 'company-anaconda))
-;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(package-selected-packages
-   (quote
-    (org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode yasnippet web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
- '(paradox-github-token t)
- '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 78 :width normal :foundry "ADBO" :family "Source Code Pro"))))))
+  (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda))
+  ;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)
+  ;; Do not write anything past this comment. This is where Emacs will
+  ;; auto-generate custom variable definitions.
+  (custom-set-variables
+   ;; custom-set-variables was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(evil-want-Y-yank-to-eol nil)
+   '(package-selected-packages (quote (org-journal noflet ensime company sbt-mode scala-mode tern
+                                                   web-beautify livid-mode skewer-mode simple-httpd
+                                                   json-mode json-snatcher json-reformat
+                                                   js2-refactor multiple-cursors js2-mode js-doc
+                                                   coffee-mode yasnippet web-mode tagedit slim-mode
+                                                   scss-mode sass-mode pug-mode less-css-mode
+                                                   helm-css-scss haml-mode emmet-mode evil-dvorak
+                                                   org-projectile org-present org-pomodoro alert
+                                                   log4e gntp org-download htmlize gnuplot smeargle
+                                                   orgit magit-gitflow helm-gitignore gitignore-mode
+                                                   gitconfig-mode gitattributes-mode git-timemachine
+                                                   git-messenger git-link evil-magit ws-butler winum
+                                                   which-key volatile-highlights vi-tilde-fringe
+                                                   uuidgen use-package toc-org spaceline powerline
+                                                   restart-emacs request rainbow-delimiters popwin
+                                                   persp-mode pcre2el paradox spinner
+                                                   org-plus-contrib org-bullets open-junk-file
+                                                   neotree move-text macrostep lorem-ipsum
+                                                   linum-relative link-hint info+ indent-guide hydra
+                                                   hungry-delete hl-todo highlight-parentheses
+                                                   highlight-numbers parent-mode
+                                                   highlight-indentation hide-comnt help-fns+
+                                                   helm-themes helm-swoop helm-projectile
+                                                   helm-mode-manager helm-make projectile pkg-info
+                                                   epl helm-flx helm-descbinds helm-ag
+                                                   google-translate golden-ratio flx-ido flx
+                                                   fill-column-indicator fancy-battery eyebrowse
+                                                   expand-region exec-path-from-shell
+                                                   evil-visualstar evil-visual-mark-mode
+                                                   evil-unimpaired evil-tutor evil-surround
+                                                   evil-search-highlight-persist evil-numbers
+                                                   evil-nerd-commenter evil-mc evil-matchit
+                                                   evil-lisp-state smartparens evil-indent-plus
+                                                   evil-iedit-state iedit evil-exchange evil-escape
+                                                   evil-ediff evil-args evil-anzu anzu evil goto-chg
+                                                   undo-tree eval-sexp-fu highlight elisp-slime-nav
+                                                   dumb-jump f s diminish define-word
+                                                   column-enforce-mode clean-aindent-mode bind-map
+                                                   bind-key auto-highlight-symbol auto-compile
+                                                   packed dash aggressive-indent adaptive-wrap
+                                                   ace-window ace-link ace-jump-helm-line helm avy
+                                                   helm-core popup async)))
+   '(paradox-github-token t)
+   '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
+  (custom-set-faces
+   ;; custom-set-faces was added by Custom.
+   ;; If you edit it by hand, you could mess it up, so be careful.
+   ;; Your init file should contain only one such instance.
+   ;; If there is more than one, they won't work right.
+   '(default ((t
+               (:inherit nil
+                         :stipple nil
+                         :background "#292b2e"
+                         :foreground "#b2b2b2"
+                         :inverse-video nil
+                         :box nil
+                         :strike-through nil
+                         :overline nil
+                         :underline nil
+                         :slant normal
+                         :weight normal
+                         :height 78
+                         :width normal
+                         :foundry "ADBO"
+                         :family "Source Code Pro"))))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -574,9 +590,49 @@ PERSON must be a user name."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(magit-git-executable "git")
- '(package-selected-packages
-   (quote
-    (fuzzy flyspell-correct-ivy flyspell-correct company-web web-completion-data company-tern dash-functional company-statistics company-anaconda clojure-snippets auto-yasnippet auto-dictionary ac-ispell auto-complete systemd flycheck-pos-tip pos-tip flycheck org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode yasnippet web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(package-selected-packages (quote (elisp-format org-journal noflet ensime company sbt-mode
+                                                  scala-mode tern web-beautify livid-mode
+                                                  skewer-mode simple-httpd json-mode json-snatcher
+                                                  json-reformat js2-refactor multiple-cursors
+                                                  js2-mode js-doc coffee-mode yasnippet web-mode
+                                                  tagedit slim-mode scss-mode sass-mode pug-mode
+                                                  less-css-mode helm-css-scss haml-mode emmet-mode
+                                                  evil-dvorak org-projectile org-present
+                                                  org-pomodoro alert log4e gntp org-download htmlize
+                                                  gnuplot smeargle orgit magit-gitflow
+                                                  helm-gitignore gitignore-mode gitconfig-mode
+                                                  gitattributes-mode git-timemachine git-messenger
+                                                  git-link evil-magit ws-butler winum which-key
+                                                  volatile-highlights vi-tilde-fringe uuidgen
+                                                  use-package toc-org spaceline powerline
+                                                  restart-emacs request rainbow-delimiters popwin
+                                                  persp-mode pcre2el paradox spinner
+                                                  org-plus-contrib org-bullets open-junk-file
+                                                  neotree move-text macrostep lorem-ipsum
+                                                  linum-relative link-hint info+ indent-guide hydra
+                                                  hungry-delete hl-todo highlight-parentheses
+                                                  highlight-numbers parent-mode
+                                                  highlight-indentation hide-comnt help-fns+
+                                                  helm-themes helm-swoop helm-projectile
+                                                  helm-mode-manager helm-make projectile pkg-info
+                                                  epl helm-flx helm-descbinds helm-ag
+                                                  google-translate golden-ratio flx-ido flx
+                                                  fill-column-indicator fancy-battery eyebrowse
+                                                  expand-region exec-path-from-shell evil-visualstar
+                                                  evil-visual-mark-mode evil-unimpaired evil-tutor
+                                                  evil-surround evil-search-highlight-persist
+                                                  evil-numbers evil-nerd-commenter evil-mc
+                                                  evil-matchit evil-lisp-state smartparens
+                                                  evil-indent-plus evil-iedit-state iedit
+                                                  evil-exchange evil-escape evil-ediff evil-args
+                                                  evil-anzu anzu evil goto-chg undo-tree
+                                                  eval-sexp-fu highlight elisp-slime-nav dumb-jump f
+                                                  s diminish define-word column-enforce-mode
+                                                  clean-aindent-mode bind-map bind-key
+                                                  auto-highlight-symbol auto-compile packed dash
+                                                  aggressive-indent adaptive-wrap ace-window
+                                                  ace-link ace-jump-helm-line helm avy helm-core
+                                                  popup async)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 (custom-set-faces
@@ -584,4 +640,19 @@ PERSON must be a user name."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "default" :family "default")))))
+ '(default ((t
+             (:inherit nil
+                       :stipple nil
+                       :background "#292b2e"
+                       :foreground "#b2b2b2"
+                       :inverse-video nil
+                       :box nil
+                       :strike-through nil
+                       :overline nil
+                       :underline nil
+                       :slant normal
+                       :weight normal
+                       :height 100
+                       :width normal
+                       :foundry "default"
+                       :family "default")))))
