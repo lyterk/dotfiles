@@ -1,10 +1,8 @@
 #!/bin/zsh
-############################
-# .make.sh
-# This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
-############################
 
-########## Variables
+echo "############################"
+echo "########### HOME ###########"
+echo "############################"
 
 dir=~/.dotfiles/                    # dotfiles directory
 

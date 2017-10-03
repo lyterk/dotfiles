@@ -18,3 +18,4 @@ wheels/
 *.egg
 MANIFEST
 venv/
+.zsh_history

@@ -1,7 +1,7 @@
 # Set up the prompt
 
 source $HOME/.local/bin/antigen.zsh
-
+Making 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
