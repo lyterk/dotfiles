@@ -5,8 +5,6 @@ echo "############################"
 echo "########### HOME ###########"
 echo "############################"
 
-dir=~/.dotfiles/                    # dotfiles directory
-
 cd $dir
 
 for file in $dir/.*; do
@@ -18,4 +16,4 @@ for file in $dir/.*; do
     fi
 done
 
-# Here is the different part
+# This is different too
