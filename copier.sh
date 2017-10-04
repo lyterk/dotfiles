@@ -4,7 +4,7 @@ echo "############################"
 echo "########### HOME ###########"
 echo "############################"
 
-cd $dir
+$dir=~/dotfiles
 
 for file in $dir/.*; do
     base=$(basename $file)
