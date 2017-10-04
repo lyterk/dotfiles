@@ -11,12 +11,6 @@ for file in $dir/.*; do
     if [[ "$base" != ".git" ]]; then
            echo $base
            rm ~/$base
-           ln -s $file ~/$basename
+           ln -s $file ~/.$basename
     fi
 done
-
-# This was the thing on the master branch
-
-# This was the thing on the master branch too
-
-# Third thing on the master branch

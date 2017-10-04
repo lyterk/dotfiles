@@ -13,5 +13,5 @@ for file in $dir/.*; do
     base=$(basename $file)
     echo $base
     rm ~/$base
-    ln -s $file ~/$base
+    ln -s $file ~/.$base
 done
