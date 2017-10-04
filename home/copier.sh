@@ -14,3 +14,5 @@ for file in $dir/*; do
         ln -s $file ~/.$base
     fi
 done
+
+# test ssh key
