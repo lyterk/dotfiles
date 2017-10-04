@@ -5,7 +5,7 @@ echo "############################"
 
 ########## Variables
 
-dir=~/.dotfiles/work/                    # dotfiles directory
+dir=~/dotfiles/work/                    # dotfiles directory
 
 cd $dir
 

@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-dir=~/dotfiles/                    # dotfiles directory
 echo "############################"
 echo "########### HOME ###########"
 echo "############################"
@@ -18,4 +17,4 @@ for file in $dir/.*; do
     fi
 done
 
-# Here is the different part
+# also disagree here
