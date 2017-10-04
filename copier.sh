@@ -1,6 +1,11 @@
 #!/bin/zsh
 
 dir=~/dotfiles/                    # dotfiles directory
+echo "############################"
+echo "########### HOME ###########"
+echo "############################"
+
+dir=~/.dotfiles/                    # dotfiles directory
 
 cd $dir
 

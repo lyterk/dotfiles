@@ -48,8 +48,10 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(browse-kill-ring company company-anaconda emmet-mode
+                                                       jinja2
                                                        ;; evil-dvorak
                                                        yasnippet rg systemd
+                                                       w3m
                                                        ;; flycheck
                                                        )
    ;; A list of packages that cannot be updated.
@@ -590,49 +592,9 @@ PERSON must be a user name."
  ;; If there is more than one, they won't work right.
  '(evil-want-Y-yank-to-eol nil)
  '(magit-git-executable "git")
- '(package-selected-packages (quote (elisp-format org-journal noflet ensime company sbt-mode
-                                                  scala-mode tern web-beautify livid-mode
-                                                  skewer-mode simple-httpd json-mode json-snatcher
-                                                  json-reformat js2-refactor multiple-cursors
-                                                  js2-mode js-doc coffee-mode yasnippet web-mode
-                                                  tagedit slim-mode scss-mode sass-mode pug-mode
-                                                  less-css-mode helm-css-scss haml-mode emmet-mode
-                                                  evil-dvorak org-projectile org-present
-                                                  org-pomodoro alert log4e gntp org-download htmlize
-                                                  gnuplot smeargle orgit magit-gitflow
-                                                  helm-gitignore gitignore-mode gitconfig-mode
-                                                  gitattributes-mode git-timemachine git-messenger
-                                                  git-link evil-magit ws-butler winum which-key
-                                                  volatile-highlights vi-tilde-fringe uuidgen
-                                                  use-package toc-org spaceline powerline
-                                                  restart-emacs request rainbow-delimiters popwin
-                                                  persp-mode pcre2el paradox spinner
-                                                  org-plus-contrib org-bullets open-junk-file
-                                                  neotree move-text macrostep lorem-ipsum
-                                                  linum-relative link-hint info+ indent-guide hydra
-                                                  hungry-delete hl-todo highlight-parentheses
-                                                  highlight-numbers parent-mode
-                                                  highlight-indentation hide-comnt help-fns+
-                                                  helm-themes helm-swoop helm-projectile
-                                                  helm-mode-manager helm-make projectile pkg-info
-                                                  epl helm-flx helm-descbinds helm-ag
-                                                  google-translate golden-ratio flx-ido flx
-                                                  fill-column-indicator fancy-battery eyebrowse
-                                                  expand-region exec-path-from-shell evil-visualstar
-                                                  evil-visual-mark-mode evil-unimpaired evil-tutor
-                                                  evil-surround evil-search-highlight-persist
-                                                  evil-numbers evil-nerd-commenter evil-mc
-                                                  evil-matchit evil-lisp-state smartparens
-                                                  evil-indent-plus evil-iedit-state iedit
-                                                  evil-exchange evil-escape evil-ediff evil-args
-                                                  evil-anzu anzu evil goto-chg undo-tree
-                                                  eval-sexp-fu highlight elisp-slime-nav dumb-jump f
-                                                  s diminish define-word column-enforce-mode
-                                                  clean-aindent-mode bind-map bind-key
-                                                  auto-highlight-symbol auto-compile packed dash
-                                                  aggressive-indent adaptive-wrap ace-window
-                                                  ace-link ace-jump-helm-line helm avy helm-core
-                                                  popup async)))
+ '(package-selected-packages
+   (quote
+    (w3m elisp-format org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode yasnippet web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 (custom-set-faces
@@ -640,19 +602,4 @@ PERSON must be a user name."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t
-             (:inherit nil
-                       :stipple nil
-                       :background "#292b2e"
-                       :foreground "#b2b2b2"
-                       :inverse-video nil
-                       :box nil
-                       :strike-through nil
-                       :overline nil
-                       :underline nil
-                       :slant normal
-                       :weight normal
-                       :height 100
-                       :width normal
-                       :foundry "default"
-                       :family "default")))))
+ '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "default" :family "default")))))
