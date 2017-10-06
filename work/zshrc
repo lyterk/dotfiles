@@ -40,7 +40,7 @@ alias sagr="sag remove"
 alias acs="apt-cache search"
 alias acm="apt-cache madison"
 alias svba="source venv/bin/activate"
-alias sz="source ~/.zshrc"
+alias sz="source ~/dotfiles/work/copier.sh && source ~/.zshrc"
 
 alias la='ls -lAFh'   #long list,show almost all,show type,human readable
 alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
@@ -51,7 +51,7 @@ alias monroot='psql -h fba-analysis-monster.db.amazon.com -p 8192 -d monster -U 
 alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
 alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias wb="~/.local/share/sql_workbench/sqlworkbench.sh &"
-alias vboxnewip="VBoxManage guestproperty get b7e0428d-6059-4431-b3e4-f7cba0b0ddbe /VirtualBox/GuestInfo/Net/0/V4/IP"
+alias vboxnewip="VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP"
 alias desk="$(vboxnewip | cut -c7-)"
 alias tunnel="ssh -L 3306:fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com"
 alias finance="mysql -h fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com ssof -u kllyter -pbetterbetterbe -P 3306"
