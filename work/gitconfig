@@ -4,4 +4,4 @@
   cmd = emacsclient -c -a \"\"  --eval \"(ediff-merge-files-with-ancestor \\\"$LOCAL\\\" \\\"$REMOTE\\\" \\\"$BASE\\\" nil \\\"$MERGED\\\")\"
 [user]
 	name = Kevin Lyter
-	email = lyterk@gmail.com
+	email = kllyter@amazon.com
