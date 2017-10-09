@@ -29,31 +29,45 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
-   dotspacemacs-configuration-layers '(clojure racket nginx markdown yaml sql javascript html csv
-                                               python ivy auto-completion emacs-lisp git
-                                               ;; source-control
-                                               markdown org scala ess journal syntax-checking (shell
-                                                                                               :variables
-                                                                                               shell-default-height
-                                                                                               10
-                                                                                               shell-default-position
-                                                                                               'bottom
-                                                                                               shell-default-shell
-                                                                                               'eshell)
-                                               spell-checking syntax-checking
-                                               ;; version-control
-                                               )
+   dotspacemacs-configuration-layers '(racket
+                                       nginx
+                                       markdown
+                                       yaml
+                                       sql
+                                       javascript
+                                       html
+                                       csv
+                                       python
+                                       ivy
+                                       auto-completion
+                                       emacs-lisp
+                                       git
+                                       markdown
+                                       org
+                                       scala
+                                       ess
+                                       journal
+                                       syntax-checking (shell
+                                                        :variables
+                                                        shell-default-height 10
+                                                        shell-default-position 'bottom
+                                                        shell-default-shell 'eshell)
+                                       spell-checking
+                                       syntax-checking)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(browse-kill-ring company company-anaconda emmet-mode
-                                                       jinja2
-                                                       ;; evil-dvorak
-                                                       yasnippet rg systemd
-                                                       w3m
-                                                       ;; flycheck
-                                                       )
+   dotspacemacs-additional-packages '(browse-kill-ring
+                                      company
+                                      company-anaconda
+                                      emmet-mode
+                                      jinja2
+                                      org-twbs
+                                      rg
+                                      systemd
+                                      w3m
+                                      yasnippet)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.

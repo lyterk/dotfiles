@@ -62,10 +62,9 @@ values."
                                       evil-smartparens
                                       flycheck
                                       flycheck-rust
-                                      ;; journal
                                       kotlin-mode
                                       navi-mode
-                                      org-crypt
+                                      org-twbs
                                       outshine
                                       outorg
                                       parinfer
