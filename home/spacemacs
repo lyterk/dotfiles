@@ -50,7 +50,9 @@ values."
                                               shell-default-position 'bottom)
                                        ;; spell-checking
                                        syntax-checking
-                                       version-control)
+                                       version-control
+                                       w3m
+                                       )
 
   ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -362,6 +364,9 @@ you should place your code here."
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
     (add-hook 'racer-mode-hook #'company-mode)
+
+    ;; Custom leader keys
+    (spacemacs/set-leader-keys "og" 'w3m-search)
 
     ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
     (defun slurp (file)
