@@ -1,3 +1,4 @@
+#!/bin/zsh
 # Set up the prompt
 
 source $HOME/.local/bin/antigen.zsh
@@ -52,13 +53,19 @@ alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root
 alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias wb="~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias vboxnewip="VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP"
-alias desk="$(vboxnewip | cut -c7-)"
 alias tunnel="ssh -L 3306:fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com"
 alias finance="mysql -h fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com ssof -u kllyter -pbetterbetterbe -P 3306"
+alias edae="emacs --daemon &> ~/.emacs.d/log/$(date '+%m-%d-%y').log & "
 
 SOUND_FOLDER="$HOME/Music"
 alias pat='(play $HOME/Music/right_answer.mp3 2> /dev/null &)'
 alias poke='(play $HOME/Music/wrong_answer.mp3 2> /dev/null &)'
+
+sdesk () {
+    desk_ip=eval "/usr/bin/VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP";
+    eval "ssh kllyter@$desk_ip;"
+}
+export desk="$(vboxnewip | cut -c7-)"
 
 sme () {
     ssh kllyter@$1;

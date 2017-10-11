@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 PATH=$(getconf PATH)
 
 BROWSER=/usr/bin/firefox

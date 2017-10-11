@@ -1,3 +1,5 @@
+#!/bin/zsh
+
 LOCAL_BIN=~/.local/bin
 ANACONDA_BIN=/home/local/ANT/kllyter/.anaconda3/bin
 

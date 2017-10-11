@@ -64,10 +64,9 @@ values."
                                       evil-smartparens
                                       flycheck
                                       flycheck-rust
-                                      ;; journal
                                       kotlin-mode
                                       navi-mode
-                                      org-crypt
+                                      org-twbs
                                       outshine
                                       outorg
                                       parinfer
@@ -371,6 +370,9 @@ you should place your code here."
     (add-hook 'rust-mode-hook #'racer-mode)
     (add-hook 'racer-mode-hook #'eldoc-mode)
     (add-hook 'racer-mode-hook #'company-mode)
+
+    ;; Custom leader keys
+    (spacemacs/set-leader-keys "og" 'w3m-search)
 
     ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
     (add-hook 'elisp-mode-hook #'flycheck-mode)
