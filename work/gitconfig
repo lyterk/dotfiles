@@ -5,3 +5,6 @@
 [user]
 	name = Kevin Lyter
 	email = kllyter@amazon.com
+[credential]
+	helper = !aws codecommit credential-helper $@
+	UseHttpPath = true

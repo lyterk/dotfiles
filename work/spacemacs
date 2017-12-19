@@ -29,32 +29,34 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
-   dotspacemacs-configuration-layers '(racket
-                                       nginx
-                                       markdown
-                                       yaml
-                                       sql
-                                       javascript
-                                       html
-                                       csv
-                                       python
-                                       ivy
+   dotspacemacs-configuration-layers '(
                                        auto-completion
+                                       csv
                                        emacs-lisp
-                                       git
-                                       markdown
-                                       org
-                                       scala
                                        ess
+                                       git
+                                       helm
+                                       html
+                                       javascript
                                        journal
+                                       markdown
+                                       markdown
+                                       nginx
+                                       org
+                                       python
+                                       racket
+                                       rust
+                                       scala
+                                       spell-checking
+                                       sql
                                        syntax-checking
+                                       w3m
+                                       yaml
                                        (shell
                                         :variables
                                         shell-default-height 10
                                         shell-default-position 'bottom
                                         shell-default-shell 'eshell)
-                                       spell-checking
-                                       w3m
                                        )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -64,8 +66,11 @@ values."
                                       company
                                       company-anaconda
                                       emmet-mode
-                                      jinja2
-                                      org-twbs
+                                      flycheck-mypy
+                                      helm-spotify
+                                      ;; jinja2
+                                      logview
+                                      ox-twbs
                                       rg
                                       systemd
                                       yasnippet
@@ -335,16 +340,62 @@ you should place your code here."
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
   ;; GPG key to use for encryption
   ;; Either the Key ID or set to nil to use symmetric encryption.
+  (setq-default evil-escape-key-sequence "jk")
+
+  (defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation"
+    (interactive)
+    (revert-buffer :ignore-auto :noconfirm))
+
+  (eval-when-compile
+    (require 'cl))
+
+  (defun get-buffers-matching-mode (mode)
+    "Returns a list of buffers where their major-mode is equal to MODE"
+    (let ((buffer-mode-matches '()))
+      (dolist (buf (buffer-list))
+        (with-current-buffer buf
+          (if (eq mode major-mode)
+              (add-to-list 'buffer-mode-matches buf))))
+      buffer-mode-matches))
+
+  (defun multi-occur-in-this-mode ()
+    "Show all lines matching REGEXP in buffers with this major mode."
+    (interactive)
+    (multi-occur
+     (get-buffers-matching-mode major-mode)
+     (car (occur-read-primary-args))))
+
+  (defun pat-poke (patp)
+    (interactive)
+    (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
+           (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
+      (start-process "Pat Poke" "Poking" "play" sound-file)))
 
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
-  (spacemacs/set-leader-keys "og" 'w3m-search)
+  (spacemacs/set-leader-keys "og" 'helm-google-suggest)
+  (spacemacs/set-leader-keys "ooo" 'occur)
+  (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
+  (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
+  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
+  (spacemacs/set-leader-keys "otc" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
+  (spacemacs/set-leader-keys "ots" '(lambda () (interactive) (switch-to-buffer "spacemacs")))
+  (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
+  (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
+  (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
 
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  ;; (spacemacs/set-leader-keys-for-major-mode 'epa-list-keys)
                                         ; (spacemacs/set-leader-keys-for-major-mode 'web-mode "SPC")
 
-  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?z ?\' ?\,))
+  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
 
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
+
+  (setq python-shell-interpreter (substitute-in-file-name "$HOME/.anaconda3/bin/ipython"))
+  (setq python-shell-interpreter-args "-i --simple-prompt")
 
   (setq org-default-notes-file "~/Documents/org/captured.org")
   (setq org-capture-templates (quote (("d" "dependency" entry (file
@@ -357,6 +408,7 @@ you should place your code here."
                                        :clock-in t
                                        :clock-resume t))))
 
+  (setq reb-re-syntax 'string)
   (setq ivy-height 30)
 
   (setq org-journal-dir "~/Documents/personal/journal")
@@ -390,6 +442,15 @@ you should place your code here."
     (forward-line -1))
   (global-set-key (kbd "M-<up>") 'move-line-up)
   (global-set-key (kbd "M-<down>") 'move-line-down)
+
+
+
+  ;; (require 'flycheck-mypy)
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  ;; (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  ;; (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  ;; (setq ensime-startup-notification nil)
 
   (require 'ldap)
 
@@ -488,8 +549,7 @@ PERSON must be a user name."
 
   (provide 'phonetool)
 
-  (setq python-shell-interpreter "ipython")
-  (setq python-shell-interpreter-interactive-args "--simple-prompt -i")
+  (setq python-shell-interpreter "python")
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)
@@ -500,6 +560,8 @@ PERSON must be a user name."
     (interactive "a")
     (dolist (buffer (buffer-list))
       (with-current-buffer buffer (funcall mode-fn -1))))
+
+  (setq racer-rust-src-path "/home/local/ANT/kllyter/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
 
   (defun run-python-locally
       (&rest
@@ -545,7 +607,7 @@ PERSON must be a user name."
                                                    coffee-mode web-mode tagedit slim-mode
                                                    scss-mode sass-mode pug-mode less-css-mode
                                                    helm-css-scss haml-mode emmet-mode evil-dvorak
-                                                   org-projectile org-present org-pomodoro alert
+                                                   org-present org-pomodoro alert
                                                    log4e gntp org-download htmlize gnuplot smeargle
                                                    orgit magit-gitflow helm-gitignore gitignore-mode
                                                    gitconfig-mode gitattributes-mode git-timemachine
@@ -612,7 +674,7 @@ PERSON must be a user name."
  '(magit-git-executable "git")
  '(package-selected-packages
    (quote
-    (yaml-mode systemd sql-indent racket-mode faceup nginx-mode mmm-mode markdown-toc markdown-mode gh-md ess-smart-equals ess-R-data-view ctable ess julia-mode company-tern helm-w3m w3m rg browse-kill-ring yapfify xterm-color wgrep smex shell-pop pyvenv pytest pyenv-mode py-isort pip-requirements multi-term live-py-mode ivy-hydra hy-mode dash-functional fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck eshell-z eshell-prompt-extras esh-help cython-mode csv-mode counsel-projectile counsel swiper ivy company-web web-completion-data company-statistics company-anaconda company auto-dictionary anaconda-mode pythonic ac-ispell auto-complete orgit js2-refactor ensime ox-twbs org-journal noflet sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-projectile org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (org-projectile logview datetime org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 (custom-set-faces
@@ -621,3 +683,27 @@ PERSON must be a user name."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "default" :family "default")))))
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(evil-want-Y-yank-to-eol nil)
+ '(magit-git-executable "git")
+ '(package-selected-packages
+   (quote
+    (yapfify yaml-mode xterm-color toml-mode systemd symon string-inflection sql-indent shell-pop rg racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pip-requirements password-generator overseer org-category-capture org-brain org-plus-contrib nginx-mode nameless mvn multi-term mmm-mode meghanada maven-test-mode markdown-toc markdown-mode live-py-mode impatient-mode hy-mode helm-w3m w3m helm-spotify multi helm-pydoc helm-purpose window-purpose imenu-list helm-company helm-c-yasnippet groovy-mode groovy-imports pcache gradle-mode gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-rust seq flycheck-pos-tip pos-tip flycheck-mypy flycheck evil-org magit magit-popup git-commit ghub let-alist with-editor evil-lion ess-R-data-view org-projectile logview datetime org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(paradox-github-token t)
+ '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 100 :width normal :foundry "default" :family "default")))))
+)
