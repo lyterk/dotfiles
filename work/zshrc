@@ -59,8 +59,6 @@ alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root
 alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias wb="~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias vboxnewip="VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP"
-alias tunnel="ssh -L 3306:fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com"
-# alias finance="mysql -h fbafinance-metrics.cdekw264nrry.us-west-2.rds.amazonaws.com ssof -u kllyter -pbetterbetterbe -P 3306"
 alias edae="emacs --daemon &> ~/.emacs.d/log/$(date '+%m-%d-%y').log & "
 
 SOUND_FOLDER="$HOME/Music"
@@ -122,3 +120,4 @@ decrypt_journal () {
     rm -rf personal.tar.gz;
     cd $CURR
 }
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

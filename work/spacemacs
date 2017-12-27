@@ -340,7 +340,7 @@ you should place your code here."
   (setq org-tags-exclude-from-inheritance (quote ("crypt")))
   ;; GPG key to use for encryption
   ;; Either the Key ID or set to nil to use symmetric encryption.
-  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-key-sequence "rcg")
 
   (defun revert-buffer-no-confirm ()
     "Revert buffer without confirmation"
@@ -383,6 +383,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "ots" '(lambda () (interactive) (switch-to-buffer "spacemacs")))
   (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
   (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
+  (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
 
   (define-key yas-minor-mode-map (kbd "TAB") nil)
