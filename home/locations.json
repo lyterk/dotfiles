@@ -1,0 +1,6 @@
+{
+    "config.fish": "$HOME/.config/fish/config.fish",
+    "gitconfig": "$HOME/.gitconfig",
+    "gitignore": "$HOME/.gitignore",
+    "spacemacs": "$HOME/.spacemacs"
+}
