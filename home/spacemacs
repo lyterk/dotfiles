@@ -30,13 +30,17 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers '(
+                                       shell-scripts
+                                       c-c++
+                                       haskell
                                        racket
                                        auto-completion
                                        csv
                                        emacs-lisp
                                        git
+                                       go
+                                       helm
                                        html
-                                       ivy
                                        javascript
                                        markdown
                                        markdown
@@ -51,8 +55,10 @@ values."
                                        ;; spell-checking
                                        syntax-checking
                                        version-control
-                                       w3m
+                                       yaml
                                        )
+                                       ;; w3m
+
 
   ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -61,15 +67,17 @@ values."
    dotspacemacs-additional-packages '(
                                       racer-mode
                                       elisp-format
+                                      eloud
                                       evil-smartparens
                                       flycheck
                                       flycheck-rust
-                                      kotlin-mode
+                                      go-autocomplete
                                       navi-mode
                                       org-twbs
                                       outshine
                                       outorg
                                       parinfer
+                                      protobuf-mode
                                       rg
                                       rust-playground
                                       ;; w3m
@@ -319,70 +327,72 @@ before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   ;; (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
   (push '("ensime" . "melpa-stable") package-pinned-packages)
-  (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
-  (setq-default evil-escape-key-sequence "jj")
-  (setq org-journal-dir "~/documents/thoughts-and-journals/journal/")
-  (setq org-journal-date-format "%B %d, %Y")
-  (setq org-journal-file-format "%Y-%m-%d.org.gpg")
-  (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
-  (setq racer-rust-src-path "/home/kev/.local/share/rust/src") ;; Rust source code PATH
+  ;; (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
+  (setq-default evil-escape-key-sequence ",."))
+  ;; (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
+
+  ;; (setq racer-rust-src-path "/home/kev/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
+  ;; Rust source code PATH
 
 ;;; KEYBINDING CUSTOMIZATION
-  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s))
-  (defun dotspacemacs/user-config ()
-    "Configuration function for user code.
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
     ;;; Font attributes
-    (set-face-attribute 'default nil
-                        :font "Source Code Pro"
-                        :height 100)
+  (set-face-attribute 'default nil
+                      :font "Source Code Pro"
+                      :height 100)
 
-    (spacemacs/set-leader-keys "ww" 'ace-window)
-    (spacemacs/set-leader-keys "wW" 'other-window)
-    (spacemacs/set-leader-keys "fet" 'dotspacemacs/test-dotfile)
+  (spacemacs/set-leader-keys "ww" 'ace-window)
+  (spacemacs/set-leader-keys "wW" 'other-window)
+  (spacemacs/set-leader-keys "fet" 'dotspacemacs/test-dotfile)
 
-    ;; Personal bindings
-    (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
-    (spacemacs/set-leader-keys "og" 'w3m-search)
+  ;; Personal bindings
+  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
+  (spacemacs/set-leader-keys "og" 'w3m-search)
 
-    (spacemacs/set-leader-keys-for-major-mode
-      'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
-      "ed" 'org-decrypt-entry)
+  (spacemacs/set-leader-keys-for-major-mode
+    'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
+    "ed" 'org-decrypt-entry)
 
-    ;; Transparency
-    (set-frame-parameter (selected-frame) 'alpha '(87 87))
-    (add-to-list 'default-frame-alist '(alpha 87 87))
+  ;; Transparency
+  (set-frame-parameter (selected-frame) 'alpha '(87 87))
+  (add-to-list 'default-frame-alist '(alpha 87 87))
 
-    ;; Rust mode
-    (add-hook 'rust-mode-hook #'racer-mode)
-    (add-hook 'racer-mode-hook #'eldoc-mode)
-    (add-hook 'racer-mode-hook #'company-mode)
-    (define-key spacemacs-rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
-    (setq company-tooltip-align-annotations t)
-    (require 'epa-file)
-    (require 'org-crypt)
-    (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-    (setq org-crypt-key "2C01AD18CA8495E4")
-    (add-hook 'rust-mode-hook #'racer-mode)
-    (add-hook 'racer-mode-hook #'eldoc-mode)
-    (add-hook 'racer-mode-hook #'company-mode)
+  ;; Rust mode
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
+  (define-key spacemacs-rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
+  (setq company-tooltip-align-annotations t)
+  (require 'epa-file)
+  (require 'org-crypt)
+  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+  (setq org-crypt-key "2C01AD18CA8495E4")
+  (add-hook 'rust-mode-hook #'racer-mode)
+  (add-hook 'racer-mode-hook #'eldoc-mode)
+  (add-hook 'racer-mode-hook #'company-mode)
 
-    ;; Custom leader keys
-    (spacemacs/set-leader-keys "og" 'w3m-search)
+  ;; Custom leader keys
+  (spacemacs/set-leader-keys "og" 'helm-google-suggest)
 
-    ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
-    (add-hook 'elisp-mode-hook #'flycheck-mode)
-    (defun slurp (file)
-      (split-string (with-temp-buffer (insert-file-contents file)
-                                      (buffer-substring-no-properties
-                                       (point-min)
-                                       (point-max))) "\n"))
+  ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+  (add-hook 'elisp-mode-hook #'flycheck-mode)
+  (defun slurp (file)
+    (split-string (with-temp-buffer (insert-file-contents file)
+                                    (buffer-substring-no-properties
+                                     (point-min)
+                                     (point-max))) "\n"))
 
-    (setq paradox-github-token (first (slurp "~/.credentials/.github"))))
+  (setq paradox-github-token (first (slurp "~/.credentials/.github")))
+
+  (add-to-list 'load-path "/home/kev/.local/bin")
+  (add-to-list 'load-path "/home/kev/.go/bin")
+  (add-to-list 'load-path "/home/kev/code/golang/bin")
 
   (defun move-line-up ()
     (interactive)
@@ -411,32 +421,3 @@ you should place your code here."
 ;; -*- buffer-auto-save-file-name: nil; -*-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(evil-want-Y-yank-to-eol nil)
- '(org-mode-hook
-   (quote
-    (spacemacs/load-yasnippet flyspell-mode
-                              #[0 "\300\301\302\303\304$\207"
-                                  [add-hook change-major-mode-hook org-show-block-all append local]
-                                  5]
-                              #[0 "\300\301\302\303\304$\207"
-                                  [add-hook change-major-mode-hook org-babel-show-result-all append local]
-                                  5]
-                              org-babel-result-hide-spec org-babel-hide-all-hashes toc-org-enable org-journal-update-auto-mode-alist org-download-enable org-bullets-mode spacemacs//org-babel-do-load-languages spacemacs/add-org-surrounds evil-org-mode org-eldoc-load spacemacs//init-company-org-mode company-mode)) t)
- '(package-selected-packages
-   (quote
-    (helm-w3m yaoddmuse parinfer org-journal web-mode web-beautify toml-mode tagedit slim-mode scss-mode sass-mode rust-playground ranger racer pug-mode org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-download noflet outshine outorg mmm-mode markdown-toc markdown-mode livid-mode skewer-mode simple-httpd less-css-mode kotlin-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc htmlize haml-mode gnuplot gh-md flycheck-rust seq flycheck evil-smartparens magit magit-popup git-commit with-editor ensime sbt-mode scala-mode emmet-mode csv-mode tern company coffee-mode cargo rust-mode yasnippet auto-complete elisp-format navi-mode rg xterm-color smeargle shell-pop orgit multi-term magit-gitflow gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter fuzzy flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip evil-magit eshell-z eshell-prompt-extras esh-help diff-hl company-web web-completion-data company-tern dash-functional company-statistics company-anaconda auto-yasnippet auto-dictionary ac-ispell dired-details yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode anaconda-mode pythonic evil-dvorak ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
- '(paradox-automatically-star t)
- '(paradox-github-token t)
- '(rust-rustfmt-bin "~/.cargo/bin/rustfmt")
- '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
