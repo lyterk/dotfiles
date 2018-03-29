@@ -57,7 +57,6 @@ values."
                                        version-control
                                        yaml
                                        )
-                                       ;; w3m
 
 
   ;; List of additional packages that will be installed without being
@@ -80,7 +79,6 @@ values."
                                       protobuf-mode
                                       rg
                                       rust-playground
-                                      ;; w3m
                                       )
 
   ;; A list of packages that cannot be updated.
