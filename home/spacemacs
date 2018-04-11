@@ -350,7 +350,17 @@ you should place your code here."
 
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
-  (spacemacs/set-leader-keys "fet" 'dotspacemacs/test-dotfile)
+  (spacemacs/set-leader-keys "og" 'helm-google-suggest)
+  (spacemacs/set-leader-keys "ooo" 'occur)
+  (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
+  (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
+  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
+  (spacemacs/set-leader-keys "otc" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
+  (spacemacs/set-leader-keys "ots" '(lambda () (interactive) (switch-to-buffer "spacemacs")))
+  (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
+  (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
+  (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
+  (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
 
   ;; Personal bindings
   (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
@@ -381,6 +391,8 @@ you should place your code here."
   ;; Custom leader keys
   (spacemacs/set-leader-keys "og" 'helm-google-suggest)
 
+  (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
+
   ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
   (add-hook 'elisp-mode-hook #'flycheck-mode)
   (defun slurp (file)
@@ -389,7 +401,6 @@ you should place your code here."
                                      (point-min)
                                      (point-max))) "\n"))
 
-  ;; (setq paradox-github-token (first (slurp "~/.credentials/.github")))
 
   (add-to-list 'load-path "/home/kev/.local/bin")
   (add-to-list 'load-path "/home/kev/.go/bin")
@@ -404,6 +415,10 @@ you should place your code here."
         "(do (require 'figwheel-sidecar.repl-api)
            (figwheel-sidecar.repl-api/start-figwheel!)
            (figwheel-sidecar.repl-api/cljs-repl))")
+
+  (setq cider-repl-wrap-history t)
+  (setq cider-repl-history-size 10000)
+  (setq cider-repl-history-file "~/.cider-repl-history")
 
   (defun move-line-up ()
     (interactive)
