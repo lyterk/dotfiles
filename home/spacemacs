@@ -58,7 +58,6 @@ values."
                                        version-control
                                        yaml
                                        )
-                                       ;; w3m
 
 
   ;; List of additional packages that will be installed without being
