@@ -15,4 +15,3 @@ alias na "ls"
 
 set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
-
