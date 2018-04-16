@@ -1,0 +1,117 @@
+Host d
+     HostName fba-analytics-1d-fa4069c7.us-east-1.amazon.com
+     Port 22
+     User kllyter
+
+Host e
+     HostName 10.1.139.31 
+     Port 22
+     User kllyter
+
+Host f
+     HostName 10.200.175.191
+     Port 22
+     User kllyter
+
+Host desk
+     HostName kllyter-4.desktop.amazon.com
+     Port 22
+     User kllyter
+
+Host cdesk
+     Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
+     User kllyter
+
+Host dask
+     HostName 10.0.1.35
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+host va-bastion
+     HostName 54.88.92.152
+     User ec2-user
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+host ami
+     HostName 10.0.1.125
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+host finan
+     HostName 10.0.1.82
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+host va0
+     HostName 10.0.1.100
+     User ec2-user
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+host va4
+     HostName 10.0.1.228
+     User ec2-user
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host big
+     HostName 10.0.1.53
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+
+Host admin
+     HostName 10.0.1.230
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/admin-pair.pem
+
+Host aur
+     HostName 52.200.239.159
+     User ubuntu
+     IdentityFile ~/.ssh/temp-kllyter.pem
+
+Host vpct
+     HostName 34.200.252.171
+     User ubuntu
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host bitbucket
+     User git
+     HostName bitbucket.org
+     IdentityFile ~/.ssh/bitbucket/id_rsa
+
+Host va1
+     HostName 10.0.1.241
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host hcary
+     HostName dev-dsk-hcary-2c-31a8548a.us-west-2.amazon.com
+     User kllyter
+
+Host redis
+     HostName 35.172.16.196
+     User ec2-user
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host r2
+     HostName 34.200.221.53
+     User ubuntu
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host fsoqa
+     HostName dev-dsk-kllyter-2c-67664c66.us-west-2.amazon.com
+     User kllyter
+
+Host rsac
+     HostName 10.0.1.11
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/redshift-access-machine.pem

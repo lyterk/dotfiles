@@ -6,6 +6,7 @@ home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
 
 files = {
+    "config": home / ".ssh/config"
     "config.fish": home / ".local/share/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
@@ -19,7 +20,9 @@ for _, value in files.items():
     print(value)
     try:
         value.unlink()
-    except FileNotFoundError:
+        value.parent.mkdir(parents=True)
+    except Exception as exc:
+        print(exc)
         pass
 
 # Create new symlink from dotfiles directory
