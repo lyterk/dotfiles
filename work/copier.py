@@ -6,7 +6,7 @@ home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
 
 files = {
-    "config": home / ".ssh/config"
+    "config": home / ".ssh/config",
     "config.fish": home / ".local/share/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
