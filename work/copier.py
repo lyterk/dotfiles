@@ -7,7 +7,7 @@ dotfiles_path = home / "dotfiles" / "work"
 
 files = {
     "config": home / ".ssh/config",
-    "config.fish": home / ".local/share/fish/config.fish",
+    "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
     "spacemacs": home / ".spacemacs",

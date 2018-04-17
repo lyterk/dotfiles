@@ -13,6 +13,8 @@ alias bre "brazil-runtime-exec"
 alias brep "bre python bin/manage.py"
 alias bwsm "brazil ws --sync --md"
 
+alias python=python3
+
 alias la 'ls -lAFh'   #long list,show almost all,show type,human readable
 alias lr 'ls -tRFh'   #sorted by date,recursive,show type,human readable
 alias lt 'ls -ltFh'   #long list,sorted by date,show type,human readable
@@ -38,7 +40,9 @@ set -x EDITOR "/usr/bin/emacsclient -t"
 set -x JAVA_HOME /usr/lib/jvm/java-8-openjdk/jre
 set -x LOCAL_BIN $HOME/.local/bin
 set -x CONDA_BIN $HOME/.anaconda3/bin
+set -x SDETOOLS /apollo/env/SDETools/bin
+set -x OCTANE /apollo/env/OctaneBrazilTools/bin
 
 set -x RUST_SRC_PATH $HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 set -x RUST_BIN $HOME/.cargo/bin
-set -gx PATH $PATH $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN
+set -gx PATH $PATH $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
