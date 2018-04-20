@@ -34,6 +34,14 @@ set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $HOME/Music/right_answer.mp3 2> /dev/null'
 alias poke 'play $HOME/Music/wrong_answer.mp3 2> /dev/null'
 
+# Test if fisher is installed, if not install
+if not type -q fisher
+    curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
+else
+    # fisher pipenv
+    # fisher pisces
+end
+
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 

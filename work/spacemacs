@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     restclient
      shell-scripts
      sql
      javascript
@@ -43,8 +44,8 @@ values."
      emacs-lisp
      git
      org
-     scala
-     ess
+     ;; scala
+     ;; ess
      journal
      ranger
      (shell :variables
@@ -150,7 +151,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-font '("Source Code Pro"
-                               :size 13
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -332,6 +333,10 @@ you should place your code here."
                          93))
   (add-to-list 'default-frame-alist '(alpha 93 93))
 
+  ;; (set-face-attribute 'default nil :family "Source Code Pro")
+  ;; Setting the font in the normal spacemacs settings doesn't seem to work on mac.
+  (set-face-attribute 'default nil :height 96)
+
   (setenv "WORKON_HOME" "/home/local/ANT/kllyter/.anaconda3/envs")
 
   (require 'org-crypt)
@@ -386,7 +391,9 @@ you should place your code here."
   (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
   (spacemacs/set-leader-keys "os" 'sort-lines-nocase)
-  (spacemacs/set-leader-keys "ol" 'toggle-truncate-lines)
+  (spacemacs/set-leader-keys "olt" 'toggle-truncate-lines)
+  (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
+  (spacemacs/set-leader-keys "oln" 'linum-mode)
 
   (spacemacs/set-leader-keys-for-major-mode 'dired-mode "ow" 'wdired-change-to-wdired-mode)
 
@@ -397,6 +404,8 @@ you should place your code here."
 
   (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
 
+  (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
+
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
 
   (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/home/kllyter/.miniconda3/bin" "/home/kllyter/.anaconda3/bin"))
@@ -406,7 +415,7 @@ you should place your code here."
                                      "/Users/kllyter/.miniconda3/bin"
                                      "/home/kllyter/.miniconda3/bin"
                                      "/home/kllyter/.anaconda3/bin")))
-  (setq python-shell-interpreter /Users/kllyter/.remote-python.sh
+  (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "-i --simple-prompt")
 
   (setq org-default-notes-file "~/Documents/org/captured.org")
@@ -686,7 +695,7 @@ PERSON must be a user name."
  '(magit-git-executable "git")
  '(package-selected-packages
    (quote
-    (flycheck org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (company-restclient ob-restclient ob-http know-your-http-well restclient flycheck org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 (custom-set-faces
@@ -694,4 +703,4 @@ PERSON must be a user name."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :foundry "nil" :family "Source Code Pro")))))
+ )
