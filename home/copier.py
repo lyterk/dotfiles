@@ -6,7 +6,7 @@ home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
 files = {
-    "config.fish": home / ".local/share/fish/config.fish",
+    "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
     "spacemacs": home / ".spacemacs",

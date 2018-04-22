@@ -347,6 +347,7 @@ you should place your code here."
                       :font "Source Code Pro"
                       :height 100)
 
+  ;; Global leader keys
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
   (spacemacs/set-leader-keys "og" 'helm-google-suggest)
@@ -360,14 +361,22 @@ you should place your code here."
   (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
   (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
-
-  ;; Personal bindings
   (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
   (spacemacs/set-leader-keys "og" 'w3m-search)
+  (spacemacs/set-leader-keys "olt" 'toggle-truncate-lines)
+  (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
+  (spacemacs/set-leader-keys "oln" 'linum-mode)
 
+  ;; Mode-specific leader keys
   (spacemacs/set-leader-keys-for-major-mode
     'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
     "ed" 'org-decrypt-entry)
+  (spacemacs/set-leader-keys-for-major-mode
+    'epa-key-mode
+    "m" 'epa-mark-key
+    "u" 'epa-unmark-key)
+
+  (spacemacs)
 
   ;; Transparency
   (set-frame-parameter (selected-frame) 'alpha '(87 87))
@@ -386,9 +395,7 @@ you should place your code here."
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
-
-  ;; Custom leader keys
-  (spacemacs/set-leader-keys "og" 'helm-google-suggest)
+  (add-hook 'org-mode-hook 'visual-line-mode)
 
   (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
 
@@ -418,6 +425,9 @@ you should place your code here."
   (setq cider-repl-wrap-history t)
   (setq cider-repl-history-size 10000)
   (setq cider-repl-history-file "~/.cider-repl-history")
+
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "--simple-prompt -i")
 
   (defun move-line-up ()
     (interactive)
