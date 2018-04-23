@@ -1,0 +1,8 @@
+* VPN
+All of this has to be sudo, so I think it's worthwhile to start a sudo-copier.py
+** To start, have a file ready called auth.txt that contains username and password.
+** wget https://www.privateinternetaccess.com/openvpn/openvpn.zip , unzip
+** find and replace in all of those auth-user-pass with auth-user-pass auth.txt
+** Change the owner of everything to root:network
+** Move it all to /etc/openvpn/client, creating if necessary
+** Maybe eventually make a thing that connects on wifi access.

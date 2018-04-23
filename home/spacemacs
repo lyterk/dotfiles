@@ -354,7 +354,6 @@ you should place your code here."
   (spacemacs/set-leader-keys "ooo" 'occur)
   (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
   (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
-  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
   (spacemacs/set-leader-keys "otc" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
   (spacemacs/set-leader-keys "ots" '(lambda () (interactive) (switch-to-buffer "spacemacs")))
   (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
@@ -363,7 +362,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
   (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
   (spacemacs/set-leader-keys "og" 'w3m-search)
-  (spacemacs/set-leader-keys "olt" 'toggle-truncate-lines)
+  (spacemacs/set-leader-keys "oll" 'toggle-truncate-lines)
   (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
   (spacemacs/set-leader-keys "oln" 'linum-mode)
 
@@ -375,8 +374,9 @@ you should place your code here."
     'epa-key-mode
     "m" 'epa-mark-key
     "u" 'epa-unmark-key)
-
-  (spacemacs)
+  (spacemacs/set-leader-keys-for-major-mode
+    'dired-mode
+    "od" 'wdired-change-to-wdired-mode)
 
   ;; Transparency
   (set-frame-parameter (selected-frame) 'alpha '(87 87))
@@ -397,6 +397,7 @@ you should place your code here."
   (add-hook 'racer-mode-hook #'company-mode)
   (add-hook 'org-mode-hook 'visual-line-mode)
 
+  (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
   (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
 
   ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
