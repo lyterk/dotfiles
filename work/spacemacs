@@ -69,6 +69,7 @@ values."
                                       helm-spotify
                                       logview
                                       ox-mediawiki
+                                      pipenv
                                       rg
                                       systemd
                                       yasnippet
@@ -337,8 +338,6 @@ you should place your code here."
   ;; Setting the font in the normal spacemacs settings doesn't seem to work on mac.
   (set-face-attribute 'default nil :height 96)
 
-  (setenv "WORKON_HOME" "/home/local/ANT/kllyter/.anaconda3/envs")
-
   (require 'org-crypt)
   (org-crypt-check-auto-save)
   (org-crypt-use-before-save-magic)
@@ -375,7 +374,7 @@ you should place your code here."
     (interactive)
     (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
            (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
-      (start-process "Pat Poke" "Poking" "play" sound-file)))
+      (start-process "Pat Poke" "Poking" "afplay" sound-file)))
 
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
@@ -384,13 +383,13 @@ you should place your code here."
   (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
   (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
   (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
-  (spacemacs/set-leader-keys "otc" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
-  (spacemacs/set-leader-keys "ots" '(lambda () (interactive) (switch-to-buffer "spacemacs")))
+  (spacemacs/set-leader-keys "otc" (lambda () (interactive) (switch-to-buffer "*scratch*")))
   (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
   (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
-  (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
+  (spacemacs/set-leader-keys "omw" 'mark-whole-buffer)
+  (spacemacs/set-leader-keys "owc" 'whitespace-cleanup)
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
-  (spacemacs/set-leader-keys "os" 'sort-lines-nocase)
+  (spacemacs/set-leader-keys "osl" 'sort-lines-nocase)
   (spacemacs/set-leader-keys "olt" 'toggle-truncate-lines)
   (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
   (spacemacs/set-leader-keys "oln" 'linum-mode)
@@ -572,7 +571,6 @@ PERSON must be a user name."
 
   (provide 'phonetool)
 
-  (setq python-shell-interpreter "ipython3")
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)))
@@ -695,7 +693,7 @@ PERSON must be a user name."
  '(magit-git-executable "git")
  '(package-selected-packages
    (quote
-    (company-restclient ob-restclient ob-http know-your-http-well restclient flycheck org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (pipenv org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc)))))
 (custom-set-faces

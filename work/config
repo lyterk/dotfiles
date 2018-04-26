@@ -1,24 +1,16 @@
 Host d
      HostName fba-analytics-1d-fa4069c7.us-east-1.amazon.com
-     Port 22
      User kllyter
 
 Host e
      HostName 10.1.139.31 
-     Port 22
      User kllyter
 
 Host f
      HostName 10.200.175.191
-     Port 22
      User kllyter
 
 Host desk
-     HostName kllyter-4.desktop.amazon.com
-     Port 22
-     User kllyter
-
-Host cdesk
      Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
      User kllyter
 
