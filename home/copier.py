@@ -7,10 +7,11 @@ dotfiles_path = home / "dotfiles" / "home"
 
 files = {
     "config.fish": home / ".config/fish/config.fish",
-    "gitconfig": home / ".gitconfig",
-    "gitignore": home / ".gitignore",
-    "spacemacs": home / ".spacemacs",
-    "pip.conf": home / ".pip/pip.conf"
+    "gitconfig":   home / ".gitconfig",
+    "gitignore":   home / ".gitignore",
+    "spacemacs":   home / ".spacemacs",
+    "pip.conf":    home / ".pip/pip.conf",
+    "kdewalletrc": home / ".config/kdewalletrc"
 }
 
 # Remove existing symlinked destinations

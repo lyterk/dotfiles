@@ -32,11 +32,11 @@ values."
    dotspacemacs-configuration-layers '(
                                        clojure
                                        shell-scripts
-                                       c-c++
-                                       haskell
+                                       ;; c-c++
+                                       ;; haskell
                                        racket
                                        auto-completion
-                                       csv
+                                       ;; csv
                                        emacs-lisp
                                        git
                                        go
@@ -44,10 +44,10 @@ values."
                                        html
                                        javascript
                                        markdown
-                                       markdown
+                                       nixos
                                        org
                                        python
-                                       ranger
+                                       ;; ranger
                                        rust
                                        scala
                                        (shell :variables
@@ -429,6 +429,10 @@ you should place your code here."
 
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "--simple-prompt -i")
+
+  (defun cljs-node-repl ()
+    (interactive)
+    (run-clojure "lein trampoline run -m clojure.main repl.clj"))
 
   (defun move-line-up ()
     (interactive)

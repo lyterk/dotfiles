@@ -1,14 +1,14 @@
-#!/bin/zsh
+#!/bin/fish
 
-PATH=$(getconf PATH)
+set PATH (getconf PATH)
 
-BROWSER=/usr/bin/firefox
-EDITOR="/usr/bin/emacsclient -t"
+set BROWSER /usr/bin/firefox
+set EDITOR "/usr/bin/emacsclient -t"
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
-export LOCAL_BIN=$HOME/.local/bin
-export CONDA_BIN=$HOME/.anaconda3/bin
+set -gx JAVA_HOME /usr/lib/jvm/java-8-openjdk/jre
+set -gx LOCAL_BIN $HOME/.local/bin
+set -gx CONDA_BIN $HOME/.anaconda3/bin
 
-export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
-export RUST_BIN=$HOME/.cargo/bin
-export PATH=$PATH:$JAVA_HOME:$LOCAL_BIN:$RUST_SRC_PATH:$RUST_BIN:$CONDA_BIN
+set -gx RUST_SRC_PATH $HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+set -gx RUST_BIN $HOME/.cargo/bin
+set -gx PATH $CONDA_BIN:$PATH:$JAVA_HOME:$LOCAL_BIN:$RUST_SRC_PATH:$RUST_BIN
