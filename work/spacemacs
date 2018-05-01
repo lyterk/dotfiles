@@ -470,6 +470,11 @@ you should place your code here."
   (setq org-journal-enable-encryption nil)
   (setq org-agenda-files (list org-journal-dir))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
+  (copy-face 'default 'calendar-iso-week-header-face)
+  (set-face-attribute 'calendar-iso-week-header-face nil
+                      :height 0.7)
+  (setq calendar-intermonth-header (propertize "WK"
+                                               'font-lock-face 'calendar-iso-week-header-face))
   ;; (evil-define-key 'normal org-journal-mode-map (kbd "j d") 'org-decrypt-entry)
 
   (setq org-crypt-key "E0569B15818ED2A6")

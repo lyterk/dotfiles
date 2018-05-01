@@ -10,6 +10,7 @@ alias sz "source ~/dotfiles/work/copier.sh; and source ~/.zshrc"
 
 alias bb "brazil-build"
 alias bre "brazil-runtime-exec"
+alias bte "brazil-test-exec"
 alias brep "bre python bin/manage.py"
 alias bwsm "brazil ws --sync --md"
 
@@ -37,23 +38,18 @@ alias poke 'play $HOME/Music/wrong_answer.mp3 2> /dev/null'
 # Test if fisher is installed, if not install
 if not type -q fisher
     curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
-else
-    # fisher pipenv
-    # fisher pisces
 end
 
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 
-set -x JAVA_HOME /usr/lib/jvm/java-8-openjdk/jre
 set -x LOCAL_BIN $HOME/.local/bin
-set -x CONDA_BIN $HOME/.anaconda3/bin
+set -x CONDA_BIN $HOME/.miniconda3/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x SDETOOLS /apollo/env/SDETools/bin
 set -x OCTANE /apollo/env/OctaneBrazilTools/bin
 
-set -x RUST_SRC_PATH $HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 set -x RUST_BIN $HOME/.cargo/bin
-set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
+set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin
 
-set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
+set -gx PATH $BASE_PATH $TOOLBOX $LOCAL_BIN $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
