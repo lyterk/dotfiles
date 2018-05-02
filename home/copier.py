@@ -18,8 +18,8 @@ files = {
 for _, value in files.items():
     print(value)
     try:
-        value.parent.mkdir(parents=True, exist_ok=True)
         value.unlink()
+        value.parent.mkdir(parents=True, exist_ok=True)
     except FileNotFoundError:
         pass
     except Exception as exc:

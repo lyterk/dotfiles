@@ -20,7 +20,7 @@ for _, value in files.items():
     print(value)
     try:
         value.unlink()
-        value.parent.mkdir(parents=True)
+        value.parent.mkdir(parents=True, exist_ok=True)
     except Exception as exc:
         print(exc)
         pass
