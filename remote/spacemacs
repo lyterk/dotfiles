@@ -405,6 +405,7 @@ you should place your code here."
 
   (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
 
+  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
 
   (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/home/kllyter/.miniconda3/bin" "/home/kllyter/.anaconda3/bin"))
 
@@ -413,43 +414,8 @@ you should place your code here."
                                      "/Users/kllyter/.miniconda3/bin"
                                      "/home/kllyter/.miniconda3/bin"
                                      "/home/kllyter/.anaconda3/bin")))
-
-
-  ;;; Python
-  (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "-i --simple-prompt")
-  (add-hook 'python-mode-hook 'flycheck-mode)
-  (setq flycheck-python-pylint-executable "/usr/local/bin/flake8")
-  (add-hook 'python-mode-hook (lambda ()
-                                (flycheck-mode 1)
-                                (semantic-mode 1)))
-  ;; (defun run-python-locally
-  ;;     (&rest
-  ;;      args)
-  ;;   (interactive (progn
-  ;;                  (require 'nadvice)
-  ;;                  (advice-eval-interactive-spec (cadr (interactive-form #'run-python)))))
-  ;;   (let ((default-directory user-emacs-directory))
-  ;;     (apply #'run-python args)))
-
-  (eval-when-compile
-    (require 'cl-lib))
-  (defun nadvice/python-shell-send-string/fix-local-process (old-fun string &optional process)
-    (cl-letf ((old-psstf (symbol-function #'python-shell--save-temp-file))
-              ((symbol-function #'python-shell--save-temp-file)
-               (lambda (string)
-                 (let ((default-directory
-                         ;; if buffer is a remote file, but the process is not
-                         ;; save the temp file locally, instead of remotely
-                         (if (and buffer-file-name
-                                  (file-remote-p buffer-file-name)
-                                  (not (plist-get 'remote-tty (process-plist process)))) user-emacs-directory default-directory)))
-                   (funcall old-psstf string)))))
-      (funcall old-fun string process)))
-
-  (advice-add 'python-shell-send-string
-              :around #'nadvice/python-shell-send-string/fix-local-process)
 
   (setq org-default-notes-file "~/Documents/org/captured.org")
   (setq org-capture-templates (quote (("d" "dependency" entry (file
@@ -470,11 +436,6 @@ you should place your code here."
   (setq org-journal-enable-encryption nil)
   (setq org-agenda-files (list org-journal-dir))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
-  (copy-face 'default 'calendar-iso-week-header-face)
-  (set-face-attribute 'calendar-iso-week-header-face nil
-                      :height 0.7)
-  (setq calendar-intermonth-header (propertize "WK"
-                                               'font-lock-face 'calendar-iso-week-header-face))
   ;; (evil-define-key 'normal org-journal-mode-map (kbd "j d") 'org-decrypt-entry)
 
   (setq org-crypt-key "E0569B15818ED2A6")
@@ -507,6 +468,11 @@ you should place your code here."
     (let ((sort-fold-case t))
       (call-interactively 'sort-lines)))
 
+  (add-hook 'python-mode-hook 'flycheck-mode)
+
+  ;; (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  ;; (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  ;; (setq ensime-startup-notification nil)
 
   (require 'ldap)
 
@@ -605,6 +571,9 @@ PERSON must be a user name."
 
   (provide 'phonetool)
 
+  (add-hook 'python-mode-hook (lambda ()
+                                (flycheck-mode 1)
+                                (semantic-mode 1)))
 
   (defun global-disable-mode (mode-fn)
     (interactive "a")
@@ -613,6 +582,32 @@ PERSON must be a user name."
 
   (setq racer-rust-src-path "/home/local/ANT/kllyter/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
 
+  ;; (defun run-python-locally
+  ;;     (&rest
+  ;;      args)
+  ;;   (interactive (progn
+  ;;                  (require 'nadvice)
+  ;;                  (advice-eval-interactive-spec (cadr (interactive-form #'run-python)))))
+  ;;   (let ((default-directory user-emacs-directory))
+  ;;     (apply #'run-python args)))
+
+  (eval-when-compile
+    (require 'cl-lib))
+  (defun nadvice/python-shell-send-string/fix-local-process (old-fun string &optional process)
+    (cl-letf ((old-psstf (symbol-function #'python-shell--save-temp-file))
+              ((symbol-function #'python-shell--save-temp-file)
+               (lambda (string)
+                 (let ((default-directory
+                         ;; if buffer is a remote file, but the process is not
+                         ;; save the temp file locally, instead of remotely
+                         (if (and buffer-file-name
+                                  (file-remote-p buffer-file-name)
+                                  (not (plist-get 'remote-tty (process-plist process)))) user-emacs-directory default-directory)))
+                   (funcall old-psstf string)))))
+      (funcall old-fun string process)))
+
+  (advice-add 'python-shell-send-string
+              :around #'nadvice/python-shell-send-string/fix-local-process)
 
   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda))
   ;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)

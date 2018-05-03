@@ -3,7 +3,7 @@
 from pathlib import Path
 
 home = Path("~").expanduser()
-dotfiles_path = home / "dotfiles" / "work"
+dotfiles_path = home / "dotfiles" / "remote"
 
 files = {
     "config": home / ".ssh/config",

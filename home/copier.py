@@ -11,15 +11,16 @@ files = {
     "gitconfig":     home / ".gitconfig",
     "gitignore":     home / ".gitignore",
     "spacemacs":     home / ".spacemacs",
-    "pip.conf":      home / ".pip/pip.conf"
+    "pip.conf":      home / ".pip/pip.conf",
+    "kdewalletrc":   home / ".config/kdewalletrc"
 }
 
 # Remove existing symlinked destinations
 for _, value in files.items():
     print(value)
     try:
-        value.parent.mkdir(parents=True, exist_ok=True)
         value.unlink()
+        value.parent.mkdir(parents=True, exist_ok=True)
     except FileNotFoundError:
         pass
     except Exception as exc:
