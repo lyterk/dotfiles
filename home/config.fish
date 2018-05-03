@@ -18,8 +18,13 @@ alias na "ls"
 
 set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
+set -gx GOPATH $HOME/.local/go
+
+mkdir -p $GOPATH $GOPATH/bin
 
 set RASP_GCC /usr/local/bin/aarch64-none-elf/bin
 set NPM_HOME /home/kev/.npm-packages/bin
+set CARGO $HOME/.cargo/bin
+set BASE_PATH /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/lib/jvm/default/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl
 
-set -gx PATH $PATH $RASP_GCC $NPM_HOME
+set -gx PATH $BASE_PATH $RASP_GCC $NPM_HOME $CARGO $GOPATH/bin
