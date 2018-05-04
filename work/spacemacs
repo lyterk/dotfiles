@@ -409,18 +409,15 @@ you should place your code here."
   (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/home/kllyter/.miniconda3/bin" "/home/kllyter/.anaconda3/bin"))
 
   (setq exec-path (append exec-path (list
-                                     "/Users/kllyter/.anaconda3/bin/"
-                                     "/Users/kllyter/.miniconda3/bin"
-                                     "/home/kllyter/.miniconda3/bin"
-                                     "/home/kllyter/.anaconda3/bin")))
-
+                                     "/Users/kllyter/.miniconda/bin")))
 
   ;;; Python
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "-i --simple-prompt")
   (add-hook 'python-mode-hook 'flycheck-mode)
-  (setq flycheck-python-pylint-executable "/usr/local/bin/flake8")
+  (setq flycheck-python-pylint-executable "/Users/kllyter/.local/bin/pylint")
+  (setq flycheck-pylintrc "/Users/kllyter/.pylintrc")
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)))
