@@ -14,27 +14,9 @@ Host desk
      Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
      User kllyter
 
-Host dask
-     HostName 10.0.1.35
-     User ubuntu
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
 host va-bastion
      HostName 54.88.92.152
      User ec2-user
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-host ami
-     HostName 10.0.1.125
-     User ubuntu
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-host finan
-     HostName 10.0.1.82
-     User ubuntu
-     ProxyCommand ssh -W %h:%p va-bastion
      IdentityFile ~/.ssh/fba-analysis-redshift.pem
 
 host va0
@@ -49,28 +31,11 @@ host va4
      ProxyCommand ssh -W %h:%p va-bastion
      IdentityFile ~/.ssh/fba-analysis-redshift.pem
 
-Host big
-     HostName 10.0.1.53
-     User ubuntu
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-
 Host admin
      HostName 10.0.1.230
      User ubuntu
      ProxyCommand ssh -W %h:%p va-bastion
      IdentityFile ~/.ssh/admin-pair.pem
-
-Host aur
-     HostName 52.200.239.159
-     User ubuntu
-     IdentityFile ~/.ssh/temp-kllyter.pem
-
-Host vpct
-     HostName 34.200.252.171
-     User ubuntu
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
 
 Host bitbucket
      User git
@@ -87,23 +52,15 @@ Host hcary
      HostName dev-dsk-hcary-2c-31a8548a.us-west-2.amazon.com
      User kllyter
 
-Host redis
-     HostName 35.172.16.196
-     User ec2-user
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-Host r2
-     HostName 34.200.221.53
-     User ubuntu
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
 Host fsoqa
      HostName dev-dsk-kllyter-2c-67664c66.us-west-2.amazon.com
      User kllyter
 
-Host rsac
-     HostName 10.0.1.11
-     User ubuntu
+Host emr
+     HostName 10.0.1.191
+     User hadoop
      ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/redshift-access-machine.pem
+     IdentityFile ~/.ssh/emr-ssh-access.pem
+     ServerAliveInterval 120
+     LocalForward 8042 127.0.0.1:8042
+

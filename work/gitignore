@@ -174,3 +174,4 @@ wheels/
 MANIFEST
 venv/
 .zsh_history
+*.mypy_cache/
