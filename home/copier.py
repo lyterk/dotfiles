@@ -6,13 +6,14 @@ home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
 files = {
-    "config.fish":   home / ".config/fish/config.fish",
-    "emacs.service": home / ".config/systemd/user/emacs.service",
-    "gitconfig":     home / ".gitconfig",
-    "gitignore":     home / ".gitignore",
-    "spacemacs":     home / ".spacemacs",
-    "pip.conf":      home / ".pip/pip.conf",
-    "kdewalletrc":   home / ".config/kdewalletrc"
+    "config.fish":               home / ".config/fish/config.fish",
+    "systemd/emacs.service":     home / ".config/systemd/user/emacs.service",
+    "systemd/syncthing.service": home / ".config/systemd/user/syncthing.service",
+    "gitconfig":                 home / ".gitconfig",
+    "gitignore":                 home / ".gitignore",
+    "spacemacs":                 home / ".spacemacs",
+    "pip.conf":                  home / ".pip/pip.conf",
+    "kdewalletrc":               home / ".config/kdewalletrc"
 }
 
 # Remove existing symlinked destinations
