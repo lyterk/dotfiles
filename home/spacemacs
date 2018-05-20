@@ -139,7 +139,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner 999
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -319,22 +319,6 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil))
 
-(defun dotspacemacs/user-init ()
-  "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
-  ;; (push '("melpa-stable" . "stable.melpa.org/packages/") configuration-layer--elpa-archives)
-  (push '("ensime" . "melpa-stable") package-pinned-packages)
-  ;; (setq-default flycheck-scalastylerc "/usr/local/etc/scalastyle_config.xml")
-  (setq-default evil-escape-key-sequence ",."))
-  ;; (setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
-
-  ;; (setq racer-rust-src-path "/home/kev/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
-  ;; Rust source code PATH
-
 ;;; KEYBINDING CUSTOMIZATION
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -367,7 +351,7 @@ you should place your code here."
   (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
   (spacemacs/set-leader-keys "oln" 'linum-mode)
   (spacemacs/set-leader-keys "osc" 'whitespace-cleanup)
-  
+
 
   ;; Mode-specific leader keys
   (spacemacs/set-leader-keys-for-major-mode
@@ -391,14 +375,60 @@ you should place your code here."
   (add-hook 'racer-mode-hook #'company-mode)
   (define-key spacemacs-rust-mode-map (kbd "TAB") #'company-indent-or-complete-common)
   (setq company-tooltip-align-annotations t)
+
   (require 'epa-file)
   (require 'org-crypt)
-  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
-  (setq org-crypt-key "2C01AD18CA8495E4")
+  ;; (setq org-tags-exclude-from-inheritance (quote ("crypt")))
+
+  (org-crypt-use-before-save-magic)
+  (setq org-crypt-key "DF0567A05B291E1C")
+  ;; (setq org-agenda-files '("~/org" "~/code" "~/code/dagger"))
+
+  ;; GPG key to use for encryption
+  ;; Either the Key ID or set to nil to use symmetric encryption.
+
+  (add-hook 'org-mode-hook 'visual-line-mode)
+  (setq auto-save-default nil)
+  ;; Auto-saving does not cooperate with org-crypt.el: so you need
+  ;; to turn it off if you plan to use org-crypt.el quite often.
+  ;; Otherwise, you'll get an (annoying) message each time you
+  ;; start Org.
+
+  ;; To turn it off only locally, you can insert this:
+  ;;
+  ;; -*- buffer-auto-save-file-name: nil; -*-
+  ;; Do not write anything past this comment. This is where Emacs will
+  ;; auto-generate custom variable definitions.
+
+  (defun find-org-file-recursively (&optional directory filext)
+    "Return .org and .org_archive files recursively from DIRECTORY.
+If FILEXT is provided, return files with extension FILEXT instead."
+    (interactive "DDirectory: ")
+    (let* (org-file-list
+           (case-fold-search t)       ; filesystems are case sensitive
+           (file-name-regex "^[^.#].*") ; exclude dot, autosave, and backup files
+           (filext (or filext "org$\\\|org_archive"))
+           (fileregex (format "%s\\.\\(%s$\\)" file-name-regex filext))
+           (cur-dir-list (directory-files directory t file-name-regex)))
+      ;; loop over directory listing
+      (dolist (file-or-dir cur-dir-list org-file-list) ; returns org-file-list
+        (cond
+         ((file-regular-p file-or-dir) ; regular files
+          (if (string-match fileregex file-or-dir) ; org files
+              (add-to-list 'org-file-list file-or-dir)))
+         ((file-directory-p file-or-dir)
+          (dolist (org-file (find-org-file-recursively file-or-dir filext)
+                            org-file-list) ; add files found to result
+            (add-to-list 'org-file-list org-file)))))))
+
+  (setq org-agenda-text-search-extra-files
+        (append (find-org-file-recursively "~/org/" "gpg")
+                (find-org-file-recursively "~/code/" "gpg")))
+
+
   (add-hook 'rust-mode-hook #'racer-mode)
   (add-hook 'racer-mode-hook #'eldoc-mode)
   (add-hook 'racer-mode-hook #'company-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode)
 
   (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
   (setq projectile-globally-ignored-directories
@@ -415,8 +445,6 @@ you should place your code here."
 
 
   (add-to-list 'load-path "/home/kev/.local/bin")
-  (add-to-list 'load-path "/home/kev/.go/bin")
-  (add-to-list 'load-path "/home/kev/code/golang/bin")
   (add-to-list 'exec-path "/home/kev/.npm-packages/bin")
 
   (setq load-path (delete-dups load-path))
