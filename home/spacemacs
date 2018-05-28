@@ -332,6 +332,10 @@ you should place your code here."
                       :font "Source Code Pro"
                       :height 100)
 
+  ;; ----------------------------------------------------------------------- ;;
+  ;; ----------------------------- KEY BINDINGS ---------------------------- ;;
+  ;; ----------------------------------------------------------------------- ;;
+
   ;; Global leader keys -- change existing
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
@@ -380,6 +384,10 @@ you should place your code here."
   (spacemacs/set-leader-keys-for-major-mode
     'dired-mode
     "od" 'wdired-change-to-wdired-mode)
+
+  ;; ----------------------------------------------------------------------- ;;
+  ;; -------------------------- END KEY BINDINGS --------------------------- ;;
+  ;; ----------------------------------------------------------------------- ;;
 
   ;; Transparency
   (set-frame-parameter (selected-frame) 'alpha '(87 87))
