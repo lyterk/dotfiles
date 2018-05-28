@@ -332,6 +332,13 @@ you should place your code here."
                       :font "Source Code Pro"
                       :height 100)
 
+  (defun pat-poke (patp)
+    (interactive)
+    (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
+           (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
+      ;; Play at slightly decreased volume, so I don't deafen myself.
+      (start-process "Pat Poke" "Poking" "play" "--volume" "0.2" sound-file)))
+
   ;; ----------------------------------------------------------------------- ;;
   ;; ----------------------------- KEY BINDINGS ---------------------------- ;;
   ;; ----------------------------------------------------------------------- ;;
@@ -350,12 +357,16 @@ you should place your code here."
   (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
   (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
 
-  ;; t local prefix -- go to buffer
-  (spacemacs/set-leader-keys "otc" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
+  ;; b local prefix -- go to buffer
+  (spacemacs/set-leader-keys "obs" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
 
-  ;; p local -- pat/poke
+  ;; p local -- play sounds
   (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
   (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
+  (spacemacs/set-leader-keys "opn" 'helm-spotify-plus-next)
+  (spacemacs/set-leader-keys "opb" 'helm-spotify-plus-previous)
+  (spacemacs/set-leader-keys "opp" 'helm-spotify-plus-toggle-play-pause)
+  (spacemacs/set-leader-keys "ops" 'helm-spotify-plus)
 
   ;; mark-whole buffer
   (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
