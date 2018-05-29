@@ -32,8 +32,6 @@ values."
    dotspacemacs-configuration-layers '(
                                        clojure
                                        shell-scripts
-                                       ;; c-c++
-                                       ;; haskell
                                        racket
                                        auto-completion
                                        emacs-lisp
@@ -45,7 +43,6 @@ values."
                                        markdown
                                        org
                                        python
-                                       ;; ranger
                                        restclient
                                        rust
                                        scala
@@ -382,6 +379,9 @@ you should place your code here."
   ;; s local -- space and replacement operations
   (spacemacs/set-leader-keys "osc" 'whitespace-cleanup)
   (spacemacs/set-leader-keys "osr" 'replace-regexp)
+
+  ;; z local -- ispell and folds
+  (spacemacs/set-leader-keys "oz" 'ispell-buffer)
 
 
   ;; Mode-specific leader keys
