@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
+     racket
      restclient
      shell-scripts
      sql
@@ -71,6 +73,7 @@ values."
                                       ox-mediawiki
                                       pipenv
                                       rg
+                                      rust-playground
                                       systemd
                                       yasnippet
                                       )
@@ -421,18 +424,18 @@ you should place your code here."
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)))
-  (flycheck-define-checker
-      python-mypy ""
-      :command ("mypy"
-                "--ignore-missing-imports"
-                "--fast-parser"
-                "--python-version" "3.6"
-                source-original)
-      :error-patterns
-      ((error-line-start (file-name) ":" line ": error: " line-end))
-      :modes python-mode)
-  (add-to-list 'flycheck-checkers 'python-mypy t)
-  (flycheck-add-next-checker 'python-pylint 'python-mypy t)
+  ;; (flycheck-define-checker
+  ;;     python-mypy ""
+  ;;     :command ("mypy"
+  ;;               "--ignore-missing-imports"
+  ;;               "--fast-parser"
+  ;;               "--python-version" "3.6"
+  ;;               source-original)
+  ;;     :error-patterns
+  ;;     ((error-line-start (file-name) ":" line ": error: " line-end))
+  ;;     :modes python-mode)
+  ;; (add-to-list 'flycheck-checkers 'python-mypy t)
+  ;; (flycheck-add-next-checker 'python-pylint 'python-mypy t)
   ;; (defun run-python-locally
   ;;     (&rest
   ;;      args)

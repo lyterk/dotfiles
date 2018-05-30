@@ -1,29 +1,43 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
-from pathlib import Path
+import os
+import errno
 
-home = Path("~").expanduser()
-dotfiles_path = home / "dotfiles" / "remote"
+home = os.path.expanduser('~')
+dotfiles_path = home + '/dotfiles/remote'
 
 files = {
-    "config": home / ".ssh/config",
-    "config.fish": home / ".config/fish/config.fish",
-    "gitconfig": home / ".gitconfig",
-    "gitignore": home / ".gitignore",
-    "spacemacs": home / ".spacemacs",
-    "aspell.en.pws": home / ".aspell.en.pws",
-    "pylintrc": home / ".pylintrc"
+    'config': home + '/.ssh/config',
+    'config.fish': home + '/.config/fish/config.fish',
+    'gitconfig': home + '/.gitconfig',
+    'gitignore': home + '/.gitignore',
+    'spacemacs': home + '/.spacemacs',
+    'aspell.en.pws': home + '/.aspell.en.pws',
+    'pylintrc': home + '/.pylintrc'
 }
 
 # Remove existing symlinked destinations
 for _, value in files.items():
-    print(value)
     try:
-        value.unlink()
-        value.parent.mkdir(parents=True, exist_ok=True)
+        os.unlink(value)
+    except OSError as o:
+        if o.errno == errno.EEXIST:
+            pass
+        else:
+            raise
     except Exception as exc:
         print(exc)
-        pass
+    try:
+        parent = os.path.dirname(value)
+        os.makedirs(parent)
+    except OSError as o:
+        if o.errno == errno.EEXIST:
+            pass
+        else:
+            raise
+    except Exception:
+        raise
+
 
 # Create new symlink from dotfiles directory
-[value.symlink_to(dotfiles_path / key) for key, value in files.items()]
+[os.symlink(os.path.join(dotfiles_path, key), value) for key, value in files.items()]
