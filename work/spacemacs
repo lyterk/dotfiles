@@ -378,7 +378,7 @@ you should place your code here."
     (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
            (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
       ;; Play at slightly decreased volume, so I don't deafen myself.
-      (start-process "Pat Poke" "Poking" "play" "--volume" "0.2" sound-file)))
+      (start-process "Pat Poke" "Poking" "afplay" "--volume" "1.0" sound-file)))
 
   ;; ----------------------------------------------------------------------- ;;
   ;; ----------------------------- KEY BINDINGS ---------------------------- ;;
