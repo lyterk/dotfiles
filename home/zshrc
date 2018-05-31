@@ -36,5 +36,5 @@ alias sz "source ~/.zshrc"
 alias na "ls"
 
 source ~/.zshenv
-exec /bin/fish
+# exec /bin/fish
 # antigen apply

@@ -1,3 +1,5 @@
+bind \e\b backward-kill-word
+
 alias spac "sudo pacman"
 alias spacs "spac -S"
 alias sagi "spacs"
@@ -19,8 +21,6 @@ alias na "ls"
 set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
 set -gx GOPATH $HOME/.local/go
-
-mkdir -p $GOPATH $GOPATH/bin
 
 set RASP_GCC /usr/local/bin/aarch64-none-elf/bin
 set NPM_HOME /home/kev/.npm-packages/bin
