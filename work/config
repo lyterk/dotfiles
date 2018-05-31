@@ -57,10 +57,10 @@ Host fsoqa
      User kllyter
 
 Host emr
-     HostName 10.0.1.191
+     HostName 10.0.1.135
      User hadoop
      ProxyCommand ssh -W %h:%p va-bastion
      IdentityFile ~/.ssh/emr-ssh-access.pem
      ServerAliveInterval 120
-     LocalForward 8042 127.0.0.1:8042
+     LocalForward 8890 127.0.0.1:8890
 

@@ -31,6 +31,8 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     rust
+     racket
      restclient
      shell-scripts
      sql
@@ -71,6 +73,7 @@ values."
                                       ox-mediawiki
                                       pipenv
                                       rg
+                                      rust-playground
                                       systemd
                                       yasnippet
                                       )
@@ -374,27 +377,72 @@ you should place your code here."
     (interactive)
     (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
            (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
-      (start-process "Pat Poke" "Poking" "afplay" sound-file)))
+      ;; Play at slightly decreased volume, so I don't deafen myself.
+      (start-process "Pat Poke" "Poking" "afplay" "--volume" "1.0" sound-file)))
 
+  ;; ----------------------------------------------------------------------- ;;
+  ;; ----------------------------- KEY BINDINGS ---------------------------- ;;
+  ;; ----------------------------------------------------------------------- ;;
+
+  ;; Global leader keys -- change existing
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
+  (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
+
+  ;; Personal leader keys (o global prefix)
+  ;; Search google
   (spacemacs/set-leader-keys "og" 'helm-google-suggest)
+
+  ;; o local prefix -- occur
   (spacemacs/set-leader-keys "ooo" 'occur)
   (spacemacs/set-leader-keys "oom" 'multi-occur-in-this-mode)
   (spacemacs/set-leader-keys "oob" 'multi-occur-in-matching-buffers)
-  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
-  (spacemacs/set-leader-keys "otc" (lambda () (interactive) (switch-to-buffer "*scratch*")))
+
+  ;; b local prefix -- go to buffer
+  (spacemacs/set-leader-keys "obs" '(lambda () (interactive) (switch-to-buffer "*scratch*")))
+
+  ;; p local -- play sounds
   (spacemacs/set-leader-keys "opa" (lambda () (interactive (pat-poke t))))
   (spacemacs/set-leader-keys "opo" (lambda () (interactive (pat-poke nil))))
-  (spacemacs/set-leader-keys "omw" 'mark-whole-buffer)
-  (spacemacs/set-leader-keys "owc" 'whitespace-cleanup)
-  (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
-  (spacemacs/set-leader-keys "osl" 'sort-lines-nocase)
-  (spacemacs/set-leader-keys "olt" 'toggle-truncate-lines)
+  (spacemacs/set-leader-keys "opn" 'helm-spotify-plus-next)
+  (spacemacs/set-leader-keys "opb" 'helm-spotify-plus-previous)
+  (spacemacs/set-leader-keys "opp" 'helm-spotify-plus-toggle-play-pause)
+  (spacemacs/set-leader-keys "ops" 'helm-spotify-plus)
+
+  ;; mark-whole buffer
+  (spacemacs/set-leader-keys "ow" 'mark-whole-buffer)
+
+  ;; rot-13
+  (spacemacs/set-leader-keys "or" 'toggle-rot13-mode)
+
+  ;; l local -- line operations
+  (spacemacs/set-leader-keys "oll" 'toggle-truncate-lines)
   (spacemacs/set-leader-keys "olw" 'toggle-word-wrap)
   (spacemacs/set-leader-keys "oln" 'linum-mode)
 
-  (spacemacs/set-leader-keys-for-major-mode 'dired-mode "ow" 'wdired-change-to-wdired-mode)
+  ;; s local -- space and replacement operations
+  (spacemacs/set-leader-keys "osc" 'whitespace-cleanup)
+  (spacemacs/set-leader-keys "osr" 'replace-regexp)
+
+  ;; z local -- ispell and folds
+  (spacemacs/set-leader-keys "oz" 'ispell-buffer)
+
+
+  ;; Mode-specific leader keys
+  (spacemacs/set-leader-keys-for-major-mode
+    'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
+    "ed" 'org-decrypt-entry)
+  (spacemacs/set-leader-keys-for-major-mode
+    'epa-key-mode
+    "m" 'epa-mark-key
+    "u" 'epa-unmark-key)
+  (spacemacs/set-leader-keys-for-major-mode
+    'dired-mode
+    "od" 'wdired-change-to-wdired-mode)
+
+  ;; ----------------------------------------------------------------------- ;;
+  ;; -------------------------- END KEY BINDINGS --------------------------- ;;
+  ;; ----------------------------------------------------------------------- ;;
 
   ;; (define-key yas-minor-mode-map (kbd "TAB") nil)
 
@@ -421,18 +469,18 @@ you should place your code here."
   (add-hook 'python-mode-hook (lambda ()
                                 (flycheck-mode 1)
                                 (semantic-mode 1)))
-  (flycheck-define-checker
-      python-mypy ""
-      :command ("mypy"
-                "--ignore-missing-imports"
-                "--fast-parser"
-                "--python-version" "3.6"
-                source-original)
-      :error-patterns
-      ((error-line-start (file-name) ":" line ": error: " line-end))
-      :modes python-mode)
-  (add-to-list 'flycheck-checkers 'python-mypy t)
-  (flycheck-add-next-checker 'python-pylint 'python-mypy t)
+  ;; (flycheck-define-checker
+  ;;     python-mypy ""
+  ;;     :command ("mypy"
+  ;;               "--ignore-missing-imports"
+  ;;               "--fast-parser"
+  ;;               "--python-version" "3.6"
+  ;;               source-original)
+  ;;     :error-patterns
+  ;;     ((error-line-start (file-name) ":" line ": error: " line-end))
+  ;;     :modes python-mode)
+  ;; (add-to-list 'flycheck-checkers 'python-mypy t)
+  ;; (flycheck-add-next-checker 'python-pylint 'python-mypy t)
   ;; (defun run-python-locally
   ;;     (&rest
   ;;      args)

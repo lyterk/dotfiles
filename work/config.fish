@@ -6,7 +6,7 @@ alias sagr "sag remove"
 alias acs "apt-cache search"
 alias acm "apt-cache madison"
 alias svba "source venv/bin/activate"
-alias sz "source ~/dotfiles/work/copier.sh; and source ~/.zshrc"
+alias sf "~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias bb "brazil-build"
 alias bre "brazil-runtime-exec"
@@ -41,6 +41,8 @@ else
     # fisher pisces
 end
 
+set -gx AIRFLOW_HOME /Users/kllyter/airflow_home
+
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 
@@ -53,3 +55,11 @@ set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
 
 set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
+
+function sync_dots
+    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ hcary:~/dotfiles
+end

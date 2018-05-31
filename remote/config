@@ -48,6 +48,8 @@ host va4
      User ec2-user
      ProxyCommand ssh -W %h:%p va-bastion
      IdentityFile ~/.ssh/fba-analysis-redshift.pem
+     LocalForward 5000 127.0.0.1:5000
+     ServerAliveInterval 180
 
 Host big
      HostName 10.0.1.53
