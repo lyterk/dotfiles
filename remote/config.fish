@@ -46,7 +46,7 @@ set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 
 set -x LOCAL_BIN $HOME/.local/bin
-set -x CONDA_BIN $HOME/miniconda/bin
+set -x CONDA_BIN $HOME/.miniconda3/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x SDETOOLS /apollo/env/SDETools/bin
 set -x OCTANE /apollo/env/OctaneBrazilTools/bin
