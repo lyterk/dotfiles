@@ -19,7 +19,8 @@ files = {
 # Remove existing symlinked destinations
 for _, value in files.items():
     try:
-        os.unlink(value)
+        if os.path.exists(value):
+            os.unlink(value)
     except OSError as o:
         if o.errno == errno.EEXIST:
             pass
