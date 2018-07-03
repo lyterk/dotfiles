@@ -56,6 +56,8 @@ set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2
 
 set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
 
+set -gx SHELL /usr/local/bin/fish
+
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
     rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles

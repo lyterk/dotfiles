@@ -64,3 +64,7 @@ Host emr
      ServerAliveInterval 120
      LocalForward 8890 127.0.0.1:8890
 
+Host coco
+     User git
+     HostName git-codecommit.us-east-1.amazonaws.com/v1/repos/fba-airflow
+     IdentityFile ~/.ssh/coco/id_rsa

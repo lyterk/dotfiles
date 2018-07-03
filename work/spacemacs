@@ -29,36 +29,24 @@ values."
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
-   dotspacemacs-configuration-layers
-   '(
-     rust
-     racket
-     restclient
-     shell-scripts
-     sql
-     javascript
-     html
-     csv
-     python
-     ivy
-     auto-completion
-     ;; better-defaults
-     emacs-lisp
-     git
-     org
-     ;; scala
-     ;; ess
-     journal
-     ranger
-     (shell :variables
-            shell-default-height 10
-            shell-default-position 'bottom
-            shell-default-shell 'eshell
-            )
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
-     )
+   dotspacemacs-configuration-layers '(
+                                       auto-completion
+                                       git
+                                       ivy
+                                       javascript
+                                       markdown
+                                       notmuch
+                                       python
+                                       restclient
+                                       (shell :variables
+                                              shell-default-height 10
+                                              shell-default-position 'bottom
+                                              shell-default-shell 'eshell
+                                              )
+                                       spell-checking
+                                       syntax-checking
+                                       version-control
+                                       )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -67,14 +55,13 @@ values."
                                       browse-kill-ring
                                       company
                                       company-anaconda
+                                      elfeed
                                       emmet-mode
                                       flycheck
-                                      helm-spotify-plus
                                       logview
-                                      ox-mediawiki
+                                      notmuch
                                       pipenv
                                       rg
-                                      rust-playground
                                       systemd
                                       yasnippet
                                       )
@@ -156,7 +143,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-font '("Source Code Pro"
-                               :size 16
+                               :size 13
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -184,7 +171,7 @@ values."
    ;; works in the GUI. (default nil)
    dotspacemacs-distinguish-gui-tab nil
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
-   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
    ;; there. (default t)
    dotspacemacs-retain-visual-state-on-shift t
@@ -333,14 +320,16 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  (require 'dash)
+
   (set-frame-parameter (selected-frame) 'alpha
                        '(93
                          93))
   (add-to-list 'default-frame-alist '(alpha 93 93))
 
-  ;; (set-face-attribute 'default nil :family "Source Code Pro")
+  (set-face-attribute 'default nil :family "Source Code Pro")
   ;; Setting the font in the normal spacemacs settings doesn't seem to work on mac.
-  (set-face-attribute 'default nil :height 96)
+  (set-face-attribute 'default nil :height 92)
 
   (require 'org-crypt)
   (org-crypt-check-auto-save)
@@ -373,6 +362,16 @@ you should place your code here."
     (multi-occur
      (get-buffers-matching-mode major-mode)
      (car (occur-read-primary-args))))
+
+  (setq-default dotspacemacs-configuration-layers
+                '(
+                  (auto-completion :variables
+                                   auto-completion-return-key-behavior 'complete
+                                   auto-completion-tab-key-behavior 'cycle
+                                   auto-completion-complete-with-key-sequence nil
+                                   auto-completion-complete-with-key-sequence-delay 0.1
+                                   auto-completion-private-snippets-directory nil)
+                  ))
 
   (defun pat-poke (patp)
     (interactive)
@@ -509,16 +508,48 @@ you should place your code here."
   (advice-add 'python-shell-send-string
               :around #'nadvice/python-shell-send-string/fix-local-process)
 
-  (setq org-default-notes-file "~/Documents/org/captured.org")
-  (setq org-capture-templates (quote (("d" "dependency" entry (file
-                                                               "~/Documents/org/dependencies.org")
-                                       "* DEP %?\n%U\n%a\n"
-                                       :clock-in t
-                                       :clock-resume t)
-                                      ("t" "todo" entry (file "~/Documents/org/todo.org")
-                                       "* TODO %?\n%U\n%a\n"
-                                       :clock-in t
-                                       :clock-resume t))))
+  (require 'gnutls)
+  (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
+
+  (setq org-cycle-separator-lines 0)
+  (setq org-default-notes-file "~/org/2018.org")
+  (setq org-capture-templates (quote
+                               (
+                                ("r" "respond" entry
+                                 (file
+                                  "~/org/2018.mac.org.gpg")
+                                 "*** RESPOND %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t)
+                                ("j" "interruption" entry
+                                 (file
+                                  "~/org/2018.mac.org.gpg")
+                                 "*** INTERRUPT %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t)
+                                ("n" "note" entry
+                                 (file
+                                  "~/org/2018.mac.org.gpg")
+                                 "*** NOTE %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t)
+                                ("m" "meeting" entry
+                                 (file
+                                  "~/org/2018.mac.org.gpg")
+                                 "*** MEETING %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t)
+                                ("h" "habit" entry
+                                 (file
+                                  "~/org/2018.mac.org.gpg")
+                                 "*** HABIT %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t)
+                                ("t" "task" entry
+                                 (file "~/org/2018.mac.org.gpg")
+                                 "*** TODO %?\n%U\n%a\n"
+                                 :clock-in t
+                                 :clock-resume t))))
 
   (setq reb-re-syntax 'string)
   (setq ivy-height 30)
@@ -622,6 +653,14 @@ you should place your code here."
                                                                                                 l)))
                                                                      nil)) "")) ldap-record ""))
 
+  (defun phonetool-manages-list (ldap-record)
+    (mapcar (lambda (l)
+              (if (string-equal (car l) "amznmanageremployees")
+                  (let ((x
+                         (phonetool-ldap (phonetool-cn-to-uid (nth 1 l)))))
+                    x))) ldap-record))
+
+
   (defun phonetool-user-details (ldap-record showreports)
     (let* ((person (cadr (assoc "uid" ldap-record)))
            (name (cadr (assoc "gecos" ldap-record)))
@@ -637,6 +676,38 @@ you should place your code here."
   (defun phonetool-badge-photo (ldap-record)
     (create-image (cadr (assoc "jpegphoto" ldap-record)) 'jpeg t))
 
+  (defun phonetool-title-and-reports (person)
+    (let* ((ldap-default-host phonetool-server-host)
+           (ldap-default-port phonetool-server-port)
+           (ldap-default-base "o=amazon.com")
+           (ldap-ldapsearch-prog phonetool-ldapsearch-prog)
+           (ldap-ldapsearch-args phonetool-ldapsearch-args)
+           (ldap-host-parameters-alist '(("ldap.amazon.com" auth simple)))
+           (ldap-record (phonetool-ldap person))
+           (cn-title (list person
+                           (car (cdr (car
+                                      (-filter (lambda (pair) (string= (car pair) "description")) ldap-record))))))
+           (managed-ldaps (-map (lambda (el) (phonetool-cn-to-uid (car (cdr el))))
+                                (-filter (lambda (pair) (string= (car pair) "amznmanageremployees")) ldap-record))))
+      (list cn-title managed-ldaps)))
+
+  (defun phonetool-looping-reports-and-title (seed)
+    (setq to-search (list seed))
+    (setq searched '())
+    (setq results '())
+    (while (not (null to-search))
+      (let* ((current (pop to-search))
+             (title-and-reports (phonetool-title-and-reports current)))
+        (if (not (member current searched))
+            (progn
+              (print current)
+              (setq results (cons (car title-and-reports) results))
+              (setq searched (cons current searched))
+              (setq to-search (append (car (cdr title-and-reports)) to-search)))))))
+
+  ;; (phonetool-looping-reports-and-title "mitchkem")
+
+  ;; (setq y (phonetool-title-and-reports "mitchkem"))
   (defun phonetool-show-person (person)
     "Display phone tool information for user PERSON in a buffer.
 
@@ -663,6 +734,48 @@ PERSON must be a user name."
 
   (provide 'phonetool)
 
+  ;; (require 'mu4e)
+
+  ;; (require 'smtpmail)
+
+  ;; (setq mu4e-maildir "~/Mail")
+
+  ;; (setq mu4e-sent-folder "/Amazon/Sent Items"
+  ;;       mu4e-drafts-folder "/Amazon/Drafts"
+  ;;       mu4e-trash-folder  "/Amazon/Deleted Items"
+  ;;       user-mail-address "kllyter@amazon.com"
+  ;;       smtpmail-default-smtp-server "ballard.amazon.com"
+  ;;       smtpmail-local-domain "amazon.com"
+  ;;       smtpmail-smtp-user "ANT\\kllyter"
+  ;;       smtpmail-smtp-server "ballard.amazon.com"
+  ;;       smtpmail-stream-type 'starttls
+  ;;       smtpmail-smtp-service 1587)
+
+  ;; ;; If you face the CA issue as me:
+  ;; ;; (setq starttls-extra-arguments '("--x509cafile" "/usr/local/etc/openssl/certs/Amazon.com InfoSec CA G3.pem"))
+
+  ;; (setq mu4e-get-mail-command "offlineimap"
+  ;;       send-mail-function 'smtpmail-send-it
+  ;;       ;; mu4e-update-interval 300 ;; I found updating interval is quite annoying; prefer to use "U" to do that explicitly
+  ;;       message-kill-buffer-on-exit t)
+
+  ;; ;; http://www.djcbsoftware.nl/code/mu/mu4e/Displaying-rich_002dtext-messages.html#Displaying-rich_002dtext-messages
+  ;; ;; For Mac's HTML mails
+  ;; ;; (setq mu4e-html2text-command
+  ;; ;;       "textutil -stdin -format html -convert txt -stdout")
+  ;; (setq mu4e-html2text-command "w3m -T text/html")
+
+  ;; ;; you can quickly switch to your Inbox -- press ja
+  ;; (setq mu4e-maildir-shortcuts
+  ;;       '(("/Amazon/INBOX"               . ?a)
+  ;;         ;; Add others if needed.
+  ;;         ))
+  ;; ;; http://www.djcbsoftware.nl/code/mu/mu4e/Bookmarks.html
+  ;; ;; Add new bookmarks to searches -- press br
+  ;; (add-to-list 'mu4e-bookmarks
+  ;;              '("from:pipelines or from:p4admin or from:aloha-automation"
+  ;;                "Trash to Delete"
+  ;;                ?r))
 
   (defun global-disable-mode (mode-fn)
     (interactive "a")
@@ -755,13 +868,18 @@ PERSON must be a user name."
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(evil-want-Y-yank-to-eol nil)
+ '(gnutls-trustfiles
+   (quote
+    ("/usr/local/etc/openssl/cert.pem" "/etc/ssl/certs/ca-certificates.crt" "/etc/pki/tls/certs/ca-bundle.crt" "/etc/ssl/ca-bundle.pem" "/usr/ssl/certs/ca-bundle.crt" "/usr/local/share/certs/ca-root-nss.crt" "/etc/ssl/cert.pem" "/usr/local/etc/libressl/cert.pem")))
  '(line-number-mode nil)
  '(magit-git-executable "git")
  '(package-selected-packages
    (quote
-    (org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (magit magit-popup ghub org-plus-contrib git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-commit with-editor git-gutter flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip diff-hl auto-dictionary evil-mu4e offlineimap org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
+ '(reb-re-syntax (quote string) t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))
+ '(send-mail-function (quote mailclient-send-it))
  '(shell-file-name "/bin/bash")
  '(tool-bar-mode nil))
 (custom-set-faces

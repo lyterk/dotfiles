@@ -57,3 +57,5 @@ set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin
 
 set -gx PATH $BASE_PATH $TOOLBOX $LOCAL_BIN $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE $IMPROVEMENT $BTPT
+
+set -gx SHELL /apollo/env/envImprovement/bin/fish
