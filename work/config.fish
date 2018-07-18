@@ -51,12 +51,15 @@ set -x CONDA_BIN $HOME/.miniconda/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x SDETOOLS /apollo/env/SDETools/bin
 
+set -x NODE_PATH /usr/local/opt/node@8/bin
+
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
 
-set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE
+set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE $NODE_PATH
 
 set -gx SHELL /usr/local/bin/fish
+set -gx EDITOR vim
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
