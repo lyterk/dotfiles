@@ -31,15 +31,17 @@ values."
   ;; List of configuration layers to load.
   dotspacemacs-configuration-layers '(
                                       auto-completion
-                                      git
                                       emacs-lisp
+                                      git
                                       html
                                       ivy
                                       javascript
                                       markdown
                                       notmuch
                                       python
+                                      racket
                                       restclient
+                                      rust
                                       (shell :variables
                                             shell-default-height 10
                                             shell-default-position 'bottom
@@ -62,6 +64,7 @@ values."
                                     emmet-mode
                                     fish-mode
                                     flycheck
+                                    helm-projectile
                                     logview
                                     evil-mu4e
                                     notmuch
@@ -69,6 +72,7 @@ values."
                                     prettier-js
                                     rg
                                     rjsx-mode
+                                    rust-playground
                                     systemd
                                     yasnippet
                                     w3m
@@ -440,7 +444,7 @@ you should place your code here."
 (spacemacs/set-leader-keys-for-major-mode
     'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
     "ed" 'org-decrypt-entry)
-  (spacemacs/set-leader-keys-for-major-mode
+(spacemacs/set-leader-keys-for-major-mode
     'epa-key-mode
     "m" 'epa-mark-key
     "u" 'epa-unmark-key)
@@ -464,12 +468,12 @@ you should place your code here."
 
   (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/home/kllyter/.miniconda3/bin" "/home/kllyter/.anaconda3/bin"))
 
-  (setq load-path (append load-path (list "/usr/local/opt/node@8/bin")))
+  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/opt/node@8/bin"))
   (setq exec-path (append exec-path (list
-                                     "/Users/kllyter/.miniconda/bin")))
+                                     "/Users/kllyter/.miniconda/bin"))
   (setq load-path (delete-dups load-path))
   (setq exec-path (delete-dups exec-path))
-
+  (setenv "PATH" (string-join (delete-dups (split-string (getenv "PATH") ":")) ":"))
 
   ;;; Python
   (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
@@ -749,11 +753,11 @@ PERSON must be a user name."
   (setq js2-strict-missing-semi-warning nil)
   (setq js-indent-align-list-continuation nil)
 
-  (setq prettier-command "/usr/local/bin/prettier")
+  (setq prettier-command "prettier")
   (setq prettier-js-args '(
-                           "--trailing-comma" "es6"
+                           "--trailing-comma" "es5"
                            "--print-width" "120"
-                           "--bracket-spacing" "true"))
+                           "--arrow-parens" "avoid"))
 
   (add-hook 'js2-mode-hook 'prettier-js-mode)
   (add-hook 'web-mode-hook 'prettier-js-mode)
@@ -788,8 +792,7 @@ PERSON must be a user name."
     (dolist (buffer (buffer-list))
       (with-current-buffer buffer (funcall mode-fn -1))))
 
-  (setq racer-rust-src-path "/home/local/ANT/kllyter/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
-
+  (setq racer-rust-src-path "/home/local/ANT/kllyter/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
 
   (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda))
   ;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)
@@ -893,7 +896,7 @@ PERSON must be a user name."
      (:name "boss" :query "tag:boss"))))
  '(package-selected-packages
    (quote
-    (format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(reb-re-syntax (quote string) t)
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))
@@ -905,4 +908,4 @@ PERSON must be a user name."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Source Code Pro" :foundry "nil" :slant normal :weight normal :height 130 :width normal)))))
+ )
