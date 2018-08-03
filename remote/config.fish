@@ -55,7 +55,7 @@ set -x BTPT /apollo/env/BrazilThirdPartyTool/bin
 
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin
-set -x $GORDIAN /apollo/env/GordianKnot/bin
+set -x GORDIAN /apollo/env/GordianKnot/bin
 
 set -gx PATH $BASE_PATH $TOOLBOX $LOCAL_BIN $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE $IMPROVEMENT $BTPT $GORDIAN
 
