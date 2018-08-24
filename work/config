@@ -1,13 +1,13 @@
 Host d
-     HostName fba-analytics-1d-fa4069c7.us-east-1.amazon.com
+     HostName fba-analytics-1d-b669f299.us-east-1.amazon.com
      User kllyter
 
 Host e
-     HostName 10.1.139.31 
+     HostName fba-analytics-1e-0a4ffacc.us-east-1.amazon.com 
      User kllyter
 
 Host f
-     HostName 10.200.175.191
+     HostName fba-analytics-1f-c369290f.us-east-1.amazon.com 
      User kllyter
 
 Host desk
