@@ -582,36 +582,19 @@ If FILEXT is provided, return files with extension FILEXT instead."
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((epa-encrypt-file-to "lyter@fastmail.com")))))
 
-(let*
-    ((base03    "#002b36")
-     (base02    "#073642")
-     (base01    "#586e75")
-     (base00    "#657b83")
-     (base0     "#839496")
-     (base1     "#93a1a1")
-     (base2     "#eee8d5")
-     (base3     "#fdf6e3")
-     (yellow    "#b58900")
-     (orange    "#cb4b16")
-     (red       "#dc322f")
-     (magenta   "#d33682")
-     (violet    "#6c71c4")
-     (blue      "#268bd2")
-     (cyan      "#2aa198")
-     (green     "#859900"))
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   ;; '(rainbow-blocks-depth-1-face ((t (:foreground "grey"))))
-
-   '(rainbow-blocks-depth-1-face ((t (:foreground "#268bd2"))))
-   '(rainbow-blocks-depth-2-face ((t (:foreground "#cb4b16"))))
-   '(rainbow-blocks-depth-3-face ((t (:foreground "#859900"))))
-   '(rainbow-blocks-depth-4-face ((t (:foreground "#93a1a1"))))
-   '(rainbow-blocks-depth-5-face ((t (:foreground "#d33682"))))
-   '(rainbow-blocks-depth-6-face ((t (:foreground "#b58900"))))
-   '(rainbow-blocks-depth-7-face ((t (:foreground "#2aa198"))))
-   '(rainbow-blocks-depth-8-face ((t (:foreground "#dc322f"))))
-   '(rainbow-blocks-depth-9-face ((t (:foreground "#fdf6e3"))))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ ;; '(rainbow-blocks-depth-1-face ((t (:foreground "grey"))))
+ 
+ '(rainbow-blocks-depth-1-face ((t (:foreground "#dc322f"))))
+ '(rainbow-blocks-depth-2-face ((t (:foreground "orange"))))
+ '(rainbow-blocks-depth-3-face ((t (:foreground "gold"))))
+ '(rainbow-blocks-depth-4-face ((t (:foreground "olive drab"))))
+ '(rainbow-blocks-depth-5-face ((t (:foreground "DarkOliveGreen1"))))
+ '(rainbow-blocks-depth-6-face ((t (:foreground "turquoise"))))
+ '(rainbow-blocks-depth-7-face ((t (:foreground "royal blue"))))
+ '(rainbow-blocks-depth-8-face ((t (:foreground "purple"))))
+ '(rainbow-blocks-depth-9-face ((t (:foreground "orchid")))))
