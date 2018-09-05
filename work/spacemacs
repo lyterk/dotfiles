@@ -321,16 +321,16 @@ values."
     ))
 
   (defun dotspacemacs/user-init ()
-  "Initialization function for user code.
+    "Initialization function for user code.
   It is called immediately after `dotspacemacs/init', before layer configuration
   executes.
   This function is mostly useful for variables that need to be set
   before packages are loaded. If you are unsure, you should try in setting them in
   `dotspacemacs/user-config' first."
-  )
+    )
 
-  (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
+(defun dotspacemacs/user-config ()
+    "Configuration function for user code.
   This function is called at the very end of Spacemacs initialization after
   layers configuration.
   This is the place where most of your configurations should be done. Unless it is
@@ -466,7 +466,7 @@ values."
     ;; (spacemacs/set-leader-keys-for-major-mode 'epa-list-keys)
                                           ; (spacemacs/set-leader-keys-for-major-mode 'web-mode "SPC")
 
-    (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\' ?\,))
+    (setq aw-keys '(?a ?o ?e ?u ?h ?t ?n ?s ?- ?\; ?q ?j ?k ?x ?b ?m ?w ?v ?\'))
 
     (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
 
@@ -475,13 +475,13 @@ values."
 
     (setenv "PATH" (concat (getenv "PATH") ":/usr/local/opt/node@8/bin"))
     (setq exec-path (append exec-path (list
-                                      "/Users/kllyter/.miniconda/bin"))
-    ;; (setq load-path (delete-dups load-path))
-    ;; (setq exec-path (delete-dups exec-path))
+                                      "/Users/kllyter/.miniconda/bin")))
+    (setq load-path (delete-dups load-path))
+    (setq exec-path (delete-dups exec-path))
     (setenv "PATH" (string-join (delete-dups (split-string (getenv "PATH") ":")) ":"))
 
     ;;; Python
-    (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
+    ;; (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "-i --simple-prompt")
     (add-hook 'python-mode-hook 'flycheck-mode)
@@ -579,7 +579,7 @@ values."
     (setq org-journal-file-format "%Y-%m-%d.org")
     (setq org-journal-enable-encryption nil)
     (setq org-agenda-files (list org-journal-dir))
-    (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
+    ;; (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
     (copy-face 'default 'calendar-iso-week-header-face)
     (set-face-attribute 'calendar-iso-week-header-face nil
                         :height 0.7)
@@ -881,7 +881,7 @@ values."
                           :height 78
                           :width normal
                           :foundry "ADBO"
-                          :family "Source Code Pro"))))))
+                          :family "Source Code Pro")))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

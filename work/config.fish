@@ -20,8 +20,8 @@ alias la 'ls -lAFh'   #long list,show almost all,show type,human readable
 alias lr 'ls -tRFh'   #sorted by date,recursive,show type,human readable
 alias lt 'ls -ltFh'   #long list,sorted by date,show type,human readable
 
-alias mon 'psql -h fba-analysis-monster.db.amazon.com -p 8192 -d monster -U fba_analysis'
-alias monroot 'psql -h fba-analysis-monster.db.amazon.com -p 8192 -d monster -U root'
+alias mon 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
+alias monroot 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
 alias gol 'psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
 alias wells 'psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias wb "~/.local/share/sql_workbench/sqlworkbench.sh &"
