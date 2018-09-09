@@ -21,6 +21,13 @@ alias ed "emacs --daemon > ~/.emacs.d/logs/(date '+%m-%d-%y').log &"
 alias sz "source ~/.zshrc"
 alias na "ls"
 
+alias ppush "pass git push origin master"
+alias ppull "pass git pull origin master"
+
+set -x GTK_IM_MODULE "fcitx"
+set -x QT_IM_MODULE "fcitx"
+set -x XMODIFIERS "@im=fcitx"
+
 set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
 set -gx GOPATH $HOME/.local/go

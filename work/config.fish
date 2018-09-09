@@ -29,6 +29,9 @@ alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
 alias vipy "$VIRTUAL_ENV/bin/ipython"
 
+alias ppush "pass git push origin master"
+alias ppull "pass git pull origin master"
+
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $HOME/Music/right_answer.mp3 2> /dev/null'
 alias poke 'play $HOME/Music/wrong_answer.mp3 2> /dev/null'

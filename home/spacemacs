@@ -31,6 +31,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers '(
+                                       haskell
                                        clojure
                                        shell-scripts
                                        racket
@@ -491,14 +492,9 @@ If FILEXT is provided, return files with extension FILEXT instead."
   (setq org-agenda-text-search-extra-files
         (append (find-org-file-recursively "~/org/" "gpg")
                 (find-org-file-recursively "~/code/" "gpg")))
-  (setq org-agenda-file-regexp "\\`[^.].*\\.org.gpg\\'")
+  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
 
   ;; (setq org-todo-keywords )
-
-
-  (add-hook 'rust-mode-hook #'racer-mode)
-  (add-hook 'racer-mode-hook #'eldoc-mode)
-  (add-hook 'racer-mode-hook #'company-mode)
 
   (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
   (setq projectile-globally-ignored-directories
@@ -507,6 +503,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
 
   ;; (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
   (add-hook 'elisp-mode-hook #'flycheck-mode)
+  (add-hook 'elisp-mode-hook #'rainbow-blocks-mode)
   (defun slurp (file)
     (split-string (with-temp-buffer (insert-file-contents file)
                                     (buffer-substring-no-properties
@@ -589,12 +586,12 @@ If FILEXT is provided, return files with extension FILEXT instead."
  ;; If there is more than one, they won't work right.
  ;; '(rainbow-blocks-depth-1-face ((t (:foreground "grey"))))
  
- '(rainbow-blocks-depth-1-face ((t (:foreground "#dc322f"))))
- '(rainbow-blocks-depth-2-face ((t (:foreground "orange"))))
- '(rainbow-blocks-depth-3-face ((t (:foreground "gold"))))
- '(rainbow-blocks-depth-4-face ((t (:foreground "olive drab"))))
- '(rainbow-blocks-depth-5-face ((t (:foreground "DarkOliveGreen1"))))
- '(rainbow-blocks-depth-6-face ((t (:foreground "turquoise"))))
- '(rainbow-blocks-depth-7-face ((t (:foreground "royal blue"))))
- '(rainbow-blocks-depth-8-face ((t (:foreground "purple"))))
- '(rainbow-blocks-depth-9-face ((t (:foreground "orchid")))))
+ '(rainbow-blocks-depth-1-face ((t (:foreground "SpringGreen"))))
+ '(rainbow-blocks-depth-2-face ((t (:foreground "SteelBlue1"))))
+ '(rainbow-blocks-depth-3-face ((t (:foreground "MediumPurple1"))))
+ '(rainbow-blocks-depth-4-face ((t (:foreground "HotPink"))))
+ '(rainbow-blocks-depth-5-face ((t (:foreground "coral"))))
+ '(rainbow-blocks-depth-6-face ((t (:foreground "OrangeRed"))))
+ '(rainbow-blocks-depth-7-face ((t (:foreground "gold"))))
+ '(rainbow-blocks-depth-8-face ((t (:foreground "SlateGray3"))))
+ '(rainbow-blocks-depth-9-face ((t (:foreground "white")))))
