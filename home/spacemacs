@@ -510,6 +510,9 @@ If FILEXT is provided, return files with extension FILEXT instead."
                                      (point-min)
                                      (point-max))) "\n"))
 
+  (let ((creds (slurp "/Users/kllyter/.local/share/api_keys/spotify")))
+    (setq spotify-access-key-id (car creds)
+          spotify-access-secret (cadr creds)))
 
   (add-to-list 'exec-path "/home/kev/.local/bin")
   (add-to-list 'exec-path "/home/kev/.cargo/bin")
