@@ -38,6 +38,7 @@ values."
                                        auto-completion
                                        emacs-lisp
                                        git
+                                       go
                                        helm
                                        html
                                        java
@@ -510,13 +511,25 @@ If FILEXT is provided, return files with extension FILEXT instead."
                                      (point-min)
                                      (point-max))) "\n"))
 
+  ;; It gets old setting something in PATH or exec-path, not setting it in the
+  ;; other, and then realizing that one isn't displaying in the other. Force
+  ;; them to be the same thing here.
+  (setenv "PATH"
+          (concat (getenv "PATH")
+                  (string-join
+                   '(":"
+                     "/home/kev/code/golang/bin"
+                     "/home/kev/.local/bin"
+                     "/home/kev/.cargo/bin"
+                     "/home/kev/.npm-packages/bin"))))
 
-  (add-to-list 'exec-path "/home/kev/.local/bin")
-  (add-to-list 'exec-path "/home/kev/.cargo/bin")
-  (add-to-list 'exec-path "/home/kev/.npm-packages/bin")
+  (setq exec-path (split-string (getenv "PATH") ":"))
 
   (setq load-path (delete-dups load-path))
   (setq exec-path (delete-dups exec-path))
+
+  (setq go-home "/home/kev/code/golang")
+  (setenv "GOPATH" go-home)
 
   (require 'cider)
   (setq cider-cljs-lein-repl
@@ -585,7 +598,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  ;; '(rainbow-blocks-depth-1-face ((t (:foreground "grey"))))
- 
+
  '(rainbow-blocks-depth-1-face ((t (:foreground "SpringGreen"))))
  '(rainbow-blocks-depth-2-face ((t (:foreground "SteelBlue1"))))
  '(rainbow-blocks-depth-3-face ((t (:foreground "MediumPurple1"))))
