@@ -3,11 +3,11 @@ Host d
      User kllyter
 
 Host e
-     HostName fba-analytics-1e-0a4ffacc.us-east-1.amazon.com 
+     HostName fba-analytics-1e-0a4ffacc.us-east-1.amazon.com
      User kllyter
 
 Host f
-     HostName fba-analytics-1f-c369290f.us-east-1.amazon.com 
+     HostName fba-analytics-1f-c369290f.us-east-1.amazon.com
      User kllyter
 
 Host look1
@@ -73,8 +73,8 @@ Host emr
      LocalForward 8890 127.0.0.1:8890
 
 Host git-codecommit.*.amazonaws.com
-     User APKAIU7GZAAKMFI562VQ
-     IdentityFile ~/.ssh/codecommit_id_rsa
+     User APKAI6ODUOJNVUSMGF3A
+     IdentityFile ~/.ssh/coco/id_rsa
 
 Host ags
      User ubuntu
