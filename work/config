@@ -46,7 +46,7 @@ Host admin
      IdentityFile ~/.ssh/admin-pair.pem
 
 Host bitbucket
-     User git
+     User txru
      HostName bitbucket.org
      IdentityFile ~/.ssh/bitbucket/id_rsa
 

@@ -45,6 +45,7 @@ values."
                                       racket
                                       restclient
                                       rust
+                                      scala
                                       (shell :variables
                                             shell-default-height 10
                                             shell-default-position 'bottom
@@ -475,6 +476,8 @@ values."
 
     (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/Users/kllyter/.anaconda3/bin/" "/Users/kllyter/.miniconda3/bin" "/home/kllyter/.miniconda3/bin" "/home/kllyter/.anaconda3/bin"))
 
+    (setenv "JAVA_HOME" (string-trim (shell-command-to-string "/usr/libexec/java_home")))
+
     (setenv "PATH" (concat (getenv "PATH") ":/usr/local/opt/node@8/bin"))
     (setq exec-path (append exec-path (list
                                       "/Users/kllyter/.miniconda/bin")))
@@ -577,10 +580,7 @@ values."
     (setq reb-re-syntax 'string)
     (setq ivy-height 30)
 
-    (setq org-journal-dir "~/Documents/personal/journal")
-    (setq org-journal-file-format "%Y-%m-%d.org")
-    (setq org-journal-enable-encryption nil)
-    (setq org-agenda-files (list org-journal-dir))
+    (setq org-agenda-files '("~/org/todos.org"))
     (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
     (copy-face 'default 'calendar-iso-week-header-face)
     (set-face-attribute 'calendar-iso-week-header-face nil
@@ -602,6 +602,12 @@ values."
     (let ((creds (slurp "/Users/kllyter/.local/share/api_keys/spotify")))
       (setq spotify-access-key-id (car creds)
             spotify-access-secret (cadr creds)))
+
+    (let ((creds (slurp "/Users/kllyter/.aws/emacs-credentials")))
+      (setq aws-access-key (car creds)
+            aws-secret-key (cadr creds))
+      (setenv "AWS_ACCESS_KEY_ID" aws-access-key)
+      (setenv "AWS_SECRET_ACCESS_KEY" aws-secret-key))
 
     (defun revert-buffer-no-confirm ()
       "Revert buffer without confirmation."
@@ -825,7 +831,7 @@ values."
     ;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)
     ;; Do not write anything past this comment. This is where Emacs will
     ;; auto-generate custom variable definitions.
-    
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -860,14 +866,10 @@ values."
  '(send-mail-function (quote mailclient-send-it))
  '(shell-file-name "/bin/bash")
  '(tool-bar-mode nil))
-    
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "#292b2e" :foreground "#b2b2b2" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 78 :width normal :foundry "ADBO" :family "Source Code Pro")))))
-
-
-
-
