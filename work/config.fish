@@ -49,6 +49,9 @@ set -gx AIRFLOW_HOME /Users/kllyter/airflow_home
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 
+# Java home is gonna have to be a little weird to keep workbench working
+set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
+# set -x JAVA_HOME (/usr/libexec/java_home)
 set -x LOCAL_BIN $HOME/.local/bin
 set -x CONDA_BIN $HOME/.miniconda/bin
 set -x TOOLBOX $HOME/.toolbox/bin
@@ -59,7 +62,7 @@ set -x NODE_PATH /usr/local/opt/node@8/bin
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
 
-set -gx PATH $BASE_PATH $TOOLBOX $JAVA_HOME $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE $NODE_PATH
+set -gx PATH $CONDA_BIN $BASE_PATH $TOOLBOX $JDK_BIN $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $SDETOOLS $OCTANE $NODE_PATH
 
 set -gx SHELL /usr/local/bin/fish
 set -gx EDITOR vim
