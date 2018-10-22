@@ -10,11 +10,7 @@ Host f
      HostName fba-analytics-1f-c369290f.us-east-1.amazon.com
      User kllyter
 
-Host look1
-     HostName ags-analytics-servers-1a-826f9440.us-east-1.amazon.com
-     User kllyter
-
-Host look2
+Host look
      HostName ags-analytics-servers-1a-17752b3c.us-east-1.amazon.com
      User kllyter
 
@@ -77,6 +73,18 @@ Host git-codecommit.*.amazonaws.com
      IdentityFile ~/.ssh/coco/id_rsa
 
 Host ags
-     User ubuntu
-     HostName ec2-54-165-85-196.compute-1.amazonaws.com
+     User fba
+     HostName 52.23.158.183
      IdentityFile ~/.ssh/ags/vacuum-analyze.pem
+
+Host af
+     User ubuntu
+     HostName 52.23.178.217
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host vac
+     User ubuntu
+     HostName 52.91.115.232 
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem

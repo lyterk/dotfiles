@@ -21,9 +21,10 @@ alias lr 'ls -tRFh'   #sorted by date,recursive,show type,human readable
 alias lt 'ls -ltFh'   #long list,sorted by date,show type,human readable
 
 alias mon 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
-alias monroot 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
+alias monr 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
 alias gol 'psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
 alias wells 'psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
+alias ags 'psql -h agsanalytics01.cuv0wvsrttvh.us-east-1.redshift.amazonaws.com -p 8192 -d agsanalytics -U ags_root'
 alias wb "~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
@@ -44,14 +45,18 @@ else
     # fisher pisces
 end
 
-set -gx AIRFLOW_HOME /Users/kllyter/airflow_home
+set -gx AIRFLOW_HOME /Users/kllyter/airflow
 
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
+set -x GOHOME /Users/kllyter/go
+set -x GOBIN $GOHOME/bin
+set -x NVM_DIR /Users/kllyter/.nvm
 
 # Java home is gonna have to be a little weird to keep workbench working
-set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
-# set -x JAVA_HOME (/usr/libexec/java_home)
+# Using jenv to set this now. Sigh.
+# set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
+set -x JAVA_HOME (/usr/libexec/java_home -v 1.8.0)
 set -x LOCAL_BIN $HOME/.local/bin
 set -x CONDA_BIN $HOME/.miniconda/bin
 set -x TOOLBOX $HOME/.toolbox/bin
@@ -62,7 +67,7 @@ set -x NODE_PATH /usr/local/opt/node@8/bin
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
 
-set -gx PATH $CONDA_BIN $BASE_PATH $TOOLBOX $JDK_BIN $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $SDETOOLS $OCTANE $NODE_PATH
+set -gx PATH $CONDA_BIN $BASE_PATH $TOOLBOX $JDK_BIN $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $SDETOOLS $OCTANE $NODE_PATH $GOBIN
 
 set -gx SHELL /usr/local/bin/fish
 set -gx EDITOR vim
