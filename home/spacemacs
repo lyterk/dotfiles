@@ -41,6 +41,7 @@ values."
                                        go
                                        helm
                                        html
+                                       ipython-notebook
                                        java
                                        javascript
                                        latex
@@ -80,7 +81,7 @@ values."
                                       parinfer
                                       pass
                                       racer-mode
-                                      rainbow-blocks-mode
+                                      rainbow-blocks
                                       rainbow-mode
                                       ripgrep
                                       rjsx-mode
