@@ -30,6 +30,7 @@ values."
   dotspacemacs-configuration-layer-path '()
   ;; List of configuration layers to load.
   dotspacemacs-configuration-layers '(
+                                      nginx
                                       ruby
                                       yaml
                                       auto-completion
@@ -63,31 +64,32 @@ values."
   ;; packages, then consider creating a layer. You can also put the
   ;; configuration in `dotspacemacs/user-config'.
   dotspacemacs-additional-packages '(
-                                    browse-kill-ring
-                                    circe
-                                    company
-                                    company-anaconda
-                                    csv-mode
-                                    dockerfile-mode
-                                    elfeed
-                                    emmet-mode
-                                    epresent
-                                    evil-mu4e
-                                    fish-mode
-                                    flycheck
-                                    helm-projectile
-                                    logview
-                                    notmuch
-                                    ox-twbs
-                                    pipenv
-                                    prettier-js
-                                    rg
-                                    rjsx-mode
-                                    rust-playground
-                                    systemd
-                                    w3m
-                                    yasnippet
-                                    )
+                                     blacken
+                                     browse-kill-ring
+                                     circe
+                                     company
+                                     company-anaconda
+                                     csv-mode
+                                     dockerfile-mode
+                                     elfeed
+                                     emmet-mode
+                                     epresent
+                                     evil-mu4e
+                                     fish-mode
+                                     flycheck
+                                     helm-projectile
+                                     logview
+                                     notmuch
+                                     ox-twbs
+                                     pipenv
+                                     prettier-js
+                                     rg
+                                     rjsx-mode
+                                     rust-playground
+                                     systemd
+                                     w3m
+                                     yasnippet
+                                     )
     ;; A list of packages that cannot be updated.
     dotspacemacs-frozen-packages '()
     ;; A list of packages that will not be installed and loaded.
@@ -497,7 +499,8 @@ values."
     (setq flycheck-pylintrc "/Users/kllyter/.pylintrc")
     (add-hook 'python-mode-hook (lambda ()
                                   (flycheck-mode 1)
-                                  (semantic-mode 1)))
+                                  (semantic-mode 1)
+                                  (blacken-mode 1)))
     ;; (flycheck-define-checker
     ;;     python-mypy ""
     ;;     :command ("mypy"
@@ -862,7 +865,7 @@ values."
      (:name "boss" :query "tag:boss"))))
  '(package-selected-packages
    (quote
-    (dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))

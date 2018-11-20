@@ -30,6 +30,8 @@ alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
 alias vipy "$VIRTUAL_ENV/bin/ipython"
 
+alias pahvo 'psql -h pahvo.cakudculty6n.us-east-1.rds.amazonaws.com -p 5432 -d pahvo -U airflow_test_user'
+
 alias ppush "pass git push origin master"
 alias ppull "pass git pull origin master"
 
