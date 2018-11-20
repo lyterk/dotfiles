@@ -91,7 +91,10 @@ Host vac
 Host vtest
      User ubuntu
      HostName 35.169.117.24 
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem# Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+# Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
+
 # for details and contact information.
 
 # Do not try to proxy when going straight to a bastion host
