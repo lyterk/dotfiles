@@ -24,6 +24,10 @@ alias na "ls"
 alias ppush "pass git push origin master"
 alias ppull "pass git pull origin master"
 
+alias vre "sudo systemctl restart openvpn-client@client.service"
+alias vsto "sudo systemctl stop openvpn-client@client.service"
+alias vsta "sudo systemctl start openvpn-client@client.service"
+
 set -x GTK_IM_MODULE "fcitx"
 set -x QT_IM_MODULE "fcitx"
 set -x XMODIFIERS "@im=fcitx"

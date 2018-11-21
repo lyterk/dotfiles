@@ -31,15 +31,12 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers '(
-                                       yaml
-                                       haskell
+                                       auto-completion
                                        clojure
                                        common-lisp
-                                       shell-scripts
-                                       racket
-                                       auto-completion
                                        emacs-lisp
                                        git
+                                       haskell
                                        helm
                                        html
                                        javascript
@@ -47,16 +44,19 @@ values."
                                        org
                                        pandoc
                                        python
+                                       racket
                                        restclient
                                        rust
                                        scala
                                        (shell :variables
                                               shell-default-height 30
                                               shell-default-position 'bottom)
+                                       shell-scripts
                                        spell-checking
                                        syntax-checking
                                        version-control
                                        w3m
+                                       yaml
                                        )
 
 
@@ -65,7 +65,6 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      ein
                                       evil-smartparens
                                       flycheck
                                       flycheck-clojure
@@ -73,6 +72,7 @@ values."
                                       flycheck-pos-tip
                                       flycheck-rust
                                       helm-spotify-plus
+                                      kotlin-mode
                                       navi-mode
                                       org-twbs
                                       outorg
@@ -85,8 +85,8 @@ values."
                                       ripgrep
                                       rjsx-mode
                                       rust-playground
-                                      wgrep
                                       w3m
+                                      wgrep
                                       )
 
   ;; A list of packages that cannot be updated.
@@ -541,6 +541,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
         python-shell-interpreter-args "--simple-prompt -i")
 
   ;;; Clojure/Script
+  (require 'flycheck-joker)
   (require 'cider)
   (setq cider-cljs-lein-repl
         "(do (require 'figwheel-sidecar.repl-api)
@@ -589,7 +590,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (slime-company slime common-lisp-snippets wgrep flycheck-joker ein ripgrep rainbow-mode pass password-store-otp password-store company-emacs-eclim eclim auctex-latexmk pandoc-mode ox-pandoc ht offlineimap notmuch company-auctex auctex elfeed-web elfeed multi rainbow-blocks ox-twbs helm-spotify-plus helm-spotify flycheck-clojure restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well helm-w3m w3m flyspell-correct-helm flyspell-correct auto-dictionary indium rjsx-mode clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rust-playground rg restart-emacs ranger rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode protobuf-mode popwin pip-requirements persp-mode pcre2el parinfer paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets open-junk-file noflet neotree navi-mode outshine outorg multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang indent-guide hydra hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc go-autocomplete gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck-haskell flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-smartparens evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode eloud elisp-slime-nav elisp-format dumb-jump disaster diminish diff-hl define-word cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-c-headers company-anaconda company column-enforce-mode coffee-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo rust-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
+    (kotlin-mode slime-company slime common-lisp-snippets wgrep flycheck-joker ein ripgrep rainbow-mode pass password-store-otp password-store company-emacs-eclim eclim auctex-latexmk pandoc-mode ox-pandoc ht offlineimap notmuch company-auctex auctex elfeed-web elfeed multi rainbow-blocks ox-twbs helm-spotify-plus helm-spotify flycheck-clojure restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well helm-w3m w3m flyspell-correct-helm flyspell-correct auto-dictionary indium rjsx-mode clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rust-playground rg restart-emacs ranger rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode protobuf-mode popwin pip-requirements persp-mode pcre2el parinfer paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets open-junk-file noflet neotree navi-mode outshine outorg multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang indent-guide hydra hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc go-autocomplete gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck-haskell flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-smartparens evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode eloud elisp-slime-nav elisp-format dumb-jump disaster diminish diff-hl define-word cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-c-headers company-anaconda company column-enforce-mode coffee-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo rust-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((epa-encrypt-file-to "lyter@fastmail.com")))))
 
