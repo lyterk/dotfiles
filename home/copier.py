@@ -6,16 +6,17 @@ home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
 files = {
-    "config.fish":               home / ".config/fish/config.fish",
-    "systemd/emacs.service":     home / ".config/systemd/user/emacs.service",
+    "config.fish": home / ".config/fish/config.fish",
+    "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/syncthing.service": home / ".config/systemd/user/syncthing.service",
-    "systemd/redshift.service":  home / ".config/systemd/user/redshift.service",
-    "gitconfig":                 home / ".gitconfig",
-    "gitignore":                 home / ".gitignore",
-    "spacemacs":                 home / ".spacemacs",
-    "pip.conf":                  home / ".pip/pip.conf",
-    "kdewalletrc":               home / ".config/kdewalletrc",
-    "redshift.conf":             home / ".config/redshift.conf"
+    "systemd/redshift.service": home / ".config/systemd/user/redshift.service",
+    "gitconfig": home / ".gitconfig",
+    "gitignore": home / ".gitignore",
+    "spacemacs": home / ".spacemacs",
+    "pip.conf": home / ".pip/pip.conf",
+    "kdewalletrc": home / ".config/kdewalletrc",
+    "redshift.conf": home / ".config/redshift.conf",
+    "flake8": home / ".config/flake8",
 }
 
 # Remove existing symlinked destinations

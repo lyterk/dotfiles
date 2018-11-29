@@ -6,13 +6,14 @@ home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
 
 files = {
-    "config":        home / ".ssh/config",
-    "config.fish":   home / ".config/fish/config.fish",
-    "gitconfig":     home / ".gitconfig",
-    "gitignore":     home / ".gitignore",
-    "spacemacs":     home / ".spacemacs",
+    "config": home / ".ssh/config",
+    "config.fish": home / ".config/fish/config.fish",
+    "gitconfig": home / ".gitconfig",
+    "gitignore": home / ".gitignore",
+    "spacemacs": home / ".spacemacs",
     "aspell.en.pws": home / ".aspell.en.pws",
-    "pylintrc":      home / ".pylintrc"
+    "pylintrc": home / ".pylintrc",
+    "flake8": home / ".config/flake8",
 }
 
 # Remove existing symlinked destinations

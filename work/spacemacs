@@ -492,7 +492,7 @@ values."
 
     ;;; Python
     ;; (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
-    (setq python-shell-interpreter "ipython"
+    (setq python-shell-interpreter "/Users/kllyter/.miniconda/bin/ipython"
           python-shell-interpreter-args "-i --simple-prompt")
     (add-hook 'python-mode-hook 'flycheck-mode)
     (setq flycheck-python-pylint-executable "/Users/kllyter/.local/bin/pylint")
