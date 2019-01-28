@@ -16,9 +16,10 @@ alias bwsm "brazil ws --sync --md"
 
 alias python=python3
 
-alias la 'ls -lAFh'   #long list,show almost all,show type,human readable
-alias lr 'ls -tRFh'   #sorted by date,recursive,show type,human readable
-alias lt 'ls -ltFh'   #long list,sorted by date,show type,human readable
+alias ls 'exa'
+alias la 'exa -laFh'   #long list,show almost all,show type,human readable
+alias lr 'exa -tRFh'   #sorted by date,recursive,show type,human readable
+alias lt 'exa -ltFh'   #long list,sorted by date,show type,human readable
 
 alias mon 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
 alias monr 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
@@ -79,5 +80,4 @@ function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
     rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
     rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ hcary:~/dotfiles
 end

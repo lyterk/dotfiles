@@ -33,6 +33,13 @@ alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
 alias vipy "$VIRTUAL_ENV/bin/ipython"
 
+alias shinystart='sudo start shiny-server'
+alias shinystop='sudo stop shiny-server'
+alias shinystatus='sudo status shiny-server'
+#alias shinyrestart='sudo stop shiny-server && start shiny-server'
+alias shinylogs='less /var/log/shiny-server.log'
+alias shinyconfig='sudo vim /etc/shiny-server/shiny-server.conf'
+
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $HOME/Music/right_answer.mp3 2> /dev/null'
 alias poke 'play $HOME/Music/wrong_answer.mp3 2> /dev/null'
@@ -60,3 +67,5 @@ set -x GORDIAN /apollo/env/GordianKnot/bin
 set -gx PATH $BASE_PATH $TOOLBOX $LOCAL_BIN $RUST_BIN $CONDA_BIN $SDETOOLS $OCTANE $IMPROVEMENT $BTPT $GORDIAN
 
 set -gx SHELL /apollo/env/envImprovement/bin/fish
+
+

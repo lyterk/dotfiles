@@ -60,27 +60,27 @@ Host fsoqa
      HostName dev-dsk-kllyter-2c-67664c66.us-west-2.amazon.com
      User kllyter
 
-Host emr
-     HostName ec2-54-208-29-250.compute-1.amazonaws.com
-     User hadoop
-     IdentityFile ~/.ssh/emr-ssh-access.pem
-     ServerAliveInterval 120
-     LocalForward 8890 127.0.0.1:8890
-
 Host git-codecommit.*.amazonaws.com
-     User APKAI6ODUOJNVUSMGF3A
+     User APKAJBSUIEXPYJVX2LIA
      IdentityFile ~/.ssh/coco/id_rsa
-
-Host ags
-     User fba
-     HostName 52.23.158.183
-     IdentityFile ~/.ssh/ags/vacuum-analyze.pem
 
 Host af
      User ubuntu
-     HostName 34.224.83.193
+     HostName 34.201.15.16
      ServerAliveInterval 120
      IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host tmp
+     User ec2-user
+     HostName 100.26.101.57
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+
+Host emr
+     User ec2-user
+     HostName 52.23.231.56
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/emr-ssh-access.pem
 
 Host vac
      User ubuntu
@@ -88,9 +88,9 @@ Host vac
      ServerAliveInterval 120
      IdentityFile ~/.ssh/queue-scheduler.pem
 
-Host vtest
+Host vpc
      User ubuntu
-     HostName 35.169.117.24 
+     HostName 34.200.234.223
      IdentityFile ~/.ssh/fba-analysis-redshift.pem
 
 # Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
