@@ -30,6 +30,8 @@ alias wb "~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
 alias vipy "$VIRTUAL_ENV/bin/ipython"
+alias d ddgr
+alias g googler
 
 alias pahvo 'psql -h pahvo.cakudculty6n.us-east-1.rds.amazonaws.com -p 5432 -d pahvo -U airflow_test_user'
 
@@ -55,6 +57,7 @@ set -x EDITOR "/usr/bin/emacsclient -t"
 set -x GOHOME /Users/kllyter/go
 set -x GOBIN $GOHOME/bin
 set -x NVM_DIR /Users/kllyter/.nvm
+set -x NODE_PATH $HOME/.nvm/versions/node/v8.12.0/bin
 
 # Java home is gonna have to be a little weird to keep workbench working
 # Using jenv to set this now. Sigh.
@@ -64,8 +67,6 @@ set -x LOCAL_BIN $HOME/.local/bin
 set -x CONDA_BIN $HOME/.miniconda/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x SDETOOLS /apollo/env/SDETools/bin
-
-set -x NODE_PATH /usr/local/opt/node@8/bin
 
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
@@ -81,3 +82,21 @@ function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
     rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
 end
+
+function dbash
+    sudo docker exec -it (echo (sudo docker ps | grep $argv | cut -d " " -f1)) bash
+end
+
+alias rsync_intern='rsync --progress -a --exclude .git --exclude __pycache__ ~/internal-api/src/FBAAirflowInternalServices/ desk:~/internal_api/src/FBAAirflowInternalServices/'
+# fswatch -o /Users/kllyter/internal_api/src/FBAAirflowInternalServices | while read f; rsync_intern; end
+
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.fish
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.fish
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish ]; and . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.fish

@@ -21,19 +21,13 @@ Host desk
 host va-bastion
      HostName 54.88.92.152
      User ec2-user
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-host va0
-     HostName 10.0.1.100
-     User ec2-user
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
 
 host va4
      HostName 10.0.1.228
      User ec2-user
      ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
 
 Host admin
      HostName 10.0.1.230
@@ -46,16 +40,6 @@ Host bitbucket
      HostName bitbucket.org
      IdentityFile ~/.ssh/bitbucket/id_rsa
 
-Host va1
-     HostName 10.0.1.241
-     User ubuntu
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-Host hcary
-     HostName dev-dsk-hcary-2c-31a8548a.us-west-2.amazon.com
-     User kllyter
-
 Host fsoqa
      HostName dev-dsk-kllyter-2c-67664c66.us-west-2.amazon.com
      User kllyter
@@ -66,15 +50,15 @@ Host git-codecommit.*.amazonaws.com
 
 Host af
      User ubuntu
-     HostName 34.201.15.16
+     HostName 34.238.10.103 
      ServerAliveInterval 120
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
 
-Host tmp
-     User ec2-user
-     HostName 100.26.101.57
+Host naf
+     User ubuntu
+     HostName 34.238.10.103 
      ServerAliveInterval 120
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
 
 Host emr
      User ec2-user
@@ -82,167 +66,160 @@ Host emr
      ServerAliveInterval 120
      IdentityFile ~/.ssh/emr-ssh-access.pem
 
-Host vac
-     User ubuntu
-     HostName 18.206.197.13
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/queue-scheduler.pem
+# # Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
 
-Host vpc
-     User ubuntu
-     HostName 34.200.234.223
-     IdentityFile ~/.ssh/fba-analysis-redshift.pem
+# # for details and contact information.
 
-# Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
+# # Do not try to proxy when going straight to a bastion host
+# host security-bastions-prod*
+#         ProxyCommand none
 
-# for details and contact information.
+# host *.corp.amazon.com *.corp.amazon.com. *corp*.amazon.com *corp*.amazon.com. *.desktop.amazon.com *.desktop.amazon.com. dev-dsk-*.amazon.com dev-dsk-*.amazon.com. *integ*.amazon.com *integ*.amazon.com. *sealab*.amazon.com *sealab*.amazon.com. *tod*.amazon.com *-i-d-*.amazon.com *-i-pd-*.amazon.com
+#         ProxyCommand none
 
-# Do not try to proxy when going straight to a bastion host
-host security-bastions-prod*
-        ProxyCommand none
+# # Configuration for db.amazon.com CNAMEs. We need to identify where the end host
+# # is via DNS in order to pick the right bastion
+# host *.db*.amazon.com *.db? *.db?? .db
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-`echo %h | xargs host | grep alias | awk '{print $6}' | awk -F. '{print $2}' | sed -E 's/[0-9]{1,}$//' | tail -n 1`.amazon.com
 
-host *.corp.amazon.com *.corp.amazon.com. *corp*.amazon.com *corp*.amazon.com. *.desktop.amazon.com *.desktop.amazon.com. dev-dsk-*.amazon.com dev-dsk-*.amazon.com. *integ*.amazon.com *integ*.amazon.com. *sealab*.amazon.com *sealab*.amazon.com. *tod*.amazon.com *-i-d-*.amazon.com *-i-pd-*.amazon.com
-        ProxyCommand none
+# # Configuration for DUB/EU-WEST-1
+# host *.dub*.amazon.com *.dub*.amazon.com. *.dub? *.dub?? *.eu-west-1.amazon.com *.eu-west-1.amazon.com. *.eu-west-1
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
 
-# Configuration for db.amazon.com CNAMEs. We need to identify where the end host
-# is via DNS in order to pick the right bastion
-host *.db*.amazon.com *.db? *.db?? .db
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-`echo %h | xargs host | grep alias | awk '{print $6}' | awk -F. '{print $2}' | sed -E 's/[0-9]{1,}$//' | tail -n 1`.amazon.com
+# # Configuration for GRU
+# host !bastion* *.gru*.amazon.com *.gru*.amazon.com. *.gru? *.gru?? *.sa-east-*.amazon.com *.sa-east-*.amazon.com. *.sa-east-?
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-gru.amazon.com
 
-# Configuration for DUB/EU-WEST-1
-host *.dub*.amazon.com *.dub*.amazon.com. *.dub? *.dub?? *.eu-west-1.amazon.com *.eu-west-1.amazon.com. *.eu-west-1
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
+# # Configuration for IAD/VDC/US-EAST
+# host *.iad*.amazon.com *.iad*.amazon.com. *.iad? *.iad?? *.vdc.amazon.com *.vdc.amazon.com. *.vdc *.us-east-*.amazon.com *.us-east-*.amazon.com. *.us-east-?
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-iad.amazon.com
 
-# Configuration for GRU
-host !bastion* *.gru*.amazon.com *.gru*.amazon.com. *.gru? *.gru?? *.sa-east-*.amazon.com *.sa-east-*.amazon.com. *.sa-east-?
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-gru.amazon.com
+# # Configuration for LUX. LUX hosts are in the same network fabric as DUB.
+# host *.lux*.amazon.com *.lux*.amazon.com. *.lux? *.lux??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
 
-# Configuration for IAD/VDC/US-EAST
-host *.iad*.amazon.com *.iad*.amazon.com. *.iad? *.iad?? *.vdc.amazon.com *.vdc.amazon.com. *.vdc *.us-east-*.amazon.com *.us-east-*.amazon.com. *.us-east-?
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-iad.amazon.com
+# # Configuration for NRT
+# host *.nrt*.amazon.com *.nrt*.amazon.com. *.nrt? *.nrt?? *.ap-northeast-*.amazon.com *.ap-northeast-*.amazon.com. *.ap-northeast-?
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-nrt.amazon.com
 
-# Configuration for LUX. LUX hosts are in the same network fabric as DUB.
-host *.lux*.amazon.com *.lux*.amazon.com. *.lux? *.lux??
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-dub.amazon.com
+# # Configuration for PDX/US-WEST-2
+# host *.pdx*.amazon.com *.pdx*.amazon.com. *.pdx? *.pdx?? *.us-west-2.amazon.com *.us-west-2.amazon.com. *.us-west-2
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-pdx.amazon.com
 
-# Configuration for NRT
-host *.nrt*.amazon.com *.nrt*.amazon.com. *.nrt? *.nrt?? *.ap-northeast-*.amazon.com *.ap-northeast-*.amazon.com. *.ap-northeast-?
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-nrt.amazon.com
+# # Configuration for PEK
+# host *.pek*.amazon.com *.pek*.amazon.com. *.pek? *.pek??  *.cn-north-*.amazon.com
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-pek.amazon.com
 
-# Configuration for PDX/US-WEST-2
-host *.pdx*.amazon.com *.pdx*.amazon.com. *.pdx? *.pdx?? *.us-west-2.amazon.com *.us-west-2.amazon.com. *.us-west-2
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-pdx.amazon.com
+# # Configuration for SEA
+# host *.sea*.amazon.com *.sea*.amazon.com. *.sea? *.sea??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-sea.amazon.com
 
-# Configuration for PEK
-host *.pek*.amazon.com *.pek*.amazon.com. *.pek? *.pek??  *.cn-north-*.amazon.com
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-pek.amazon.com
+# # Configuration for SFO
+# host !bastion* *.sfo*.amazon.com *.sfo*.amazon.com. *.sfo? *.sfo??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-sfo.amazon.com
 
-# Configuration for SEA
-host *.sea*.amazon.com *.sea*.amazon.com. *.sea? *.sea??
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-sea.amazon.com
+# # Configuration for SIN
+# host !bastion* *.sin*.amazon.com *.sin*.amazon.com. *.sin? *.sin?? *.ap-southeast-1.amazon.com *.ap-southeast-1.amazon.com. *.ap-southeast-1
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-sin.amazon.com
 
-# Configuration for SFO
-host !bastion* *.sfo*.amazon.com *.sfo*.amazon.com. *.sfo? *.sfo??
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-sfo.amazon.com
+# # Configuration for SYD
+# host !bastion* *.syd*.amazon.com *.syd*.amazon.com. *.syd? *.syd?? *.ap-southeast-2.amazon.com *.ap-southeast-2.amazon.com. *.ap-southeast-2
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p security-bastions-prod-syd.amazon.com
 
-# Configuration for SIN
-host !bastion* *.sin*.amazon.com *.sin*.amazon.com. *.sin? *.sin?? *.ap-southeast-1.amazon.com *.ap-southeast-1.amazon.com. *.ap-southeast-1
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-sin.amazon.com
+# # Configuration for FRA/EU-CENTRAL-1
+# host !bastion* *.fra*.amazon.com *.fra*.amazon.com. *.fra? *.fra?? *.eu-central-1.amazon.com *.eu-central-1.amazon.com. *.eu-central-1
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-fra.amazon.com
 
-# Configuration for SYD
-host !bastion* *.syd*.amazon.com *.syd*.amazon.com. *.syd? *.syd?? *.ap-southeast-2.amazon.com *.ap-southeast-2.amazon.com. *.ap-southeast-2
-        HostName %h
-        ProxyCommand ssh -W %h:%p security-bastions-prod-syd.amazon.com
+# # Configuration for BJS/CN-NORTH-1
+# host !bastion* *.bjs*.amazon.com *.bjs*.amazon.com. *.bjs? *.bjs?? *.cn-north-1.amazon.com *.cn-north-1.amazon.com. *.cn-north-1
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-bjs.amazon.com
 
-# Configuration for FRA/EU-CENTRAL-1
-host !bastion* *.fra*.amazon.com *.fra*.amazon.com. *.fra? *.fra?? *.eu-central-1.amazon.com *.eu-central-1.amazon.com. *.eu-central-1
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-fra.amazon.com
+# # Configuration for ICN
+# host !bastion* *.icn*.amazon.com *.icn*.amazon.com. *.icn? *.icn??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-icn.amazon.com
 
-# Configuration for BJS/CN-NORTH-1
-host !bastion* *.bjs*.amazon.com *.bjs*.amazon.com. *.bjs? *.bjs?? *.cn-north-1.amazon.com *.cn-north-1.amazon.com. *.cn-north-1
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-bjs.amazon.com
+# # Configuration for ZHY/CN-NORTHWEST-1
+# host !bastion* *.zhy*.amazon.com *.zhy*.amazon.com. *.zhy? *.zhy?? *.cn-northwest-1.amazon.com *.cn-northwest-1.amazon.com. *.cn-northwest-1
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-zhy.amazon.com
 
-# Configuration for ICN
-host !bastion* *.icn*.amazon.com *.icn*.amazon.com. *.icn? *.icn??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-icn.amazon.com
+# # Configuration for BOM
+# host !bastion* *.bom*.amazon.com *.bom*.amazon.com. *.bom? *.bom??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-bom.amazon.com
 
-# Configuration for ZHY/CN-NORTHWEST-1
-host !bastion* *.zhy*.amazon.com *.zhy*.amazon.com. *.zhy? *.zhy?? *.cn-northwest-1.amazon.com *.cn-northwest-1.amazon.com. *.cn-northwest-1
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-zhy.amazon.com
+# # Configuration for CMH
+# host !bastion* *.cmh*.amazon.com *.cmh*.amazon.com. *.cmh? *.cmh??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-cmh.amazon.com
 
-# Configuration for BOM
-host !bastion* *.bom*.amazon.com *.bom*.amazon.com. *.bom? *.bom??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-bom.amazon.com
+# # Configuration for LHR
+# host !bastion* *.lhr*.amazon.com *.lhr*.amazon.com. *.lhr? *.lhr??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-lhr.amazon.com
 
-# Configuration for CMH
-host !bastion* *.cmh*.amazon.com *.cmh*.amazon.com. *.cmh? *.cmh??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-cmh.amazon.com
+# # Configuration for YUL
+# host !bastion* *.yul*.amazon.com *.yul*.amazon.com. *.yul? *.yul??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-yul.amazon.com
 
-# Configuration for LHR
-host !bastion* *.lhr*.amazon.com *.lhr*.amazon.com. *.lhr? *.lhr??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-lhr.amazon.com
+# # Configuration for PDT
+# host !bastion* *.pdt*.amazon.com *.pdt*.amazon.com. *.pdt? *.pdt??
+#         HostName %h
+#         ProxyCommand mssh bastion-pdt.amazon.com nc %h %p
 
-# Configuration for YUL
-host !bastion* *.yul*.amazon.com *.yul*.amazon.com. *.yul? *.yul??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-yul.amazon.com
+# # Configuration for CDG
+# host !bastion* *.cdg*.amazon.com *.cdg*.amazon.com. *.cdg? *.cdg??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-cdg.amazon.com
 
-# Configuration for PDT
-host !bastion* *.pdt*.amazon.com *.pdt*.amazon.com. *.pdt? *.pdt??
-        HostName %h
-        ProxyCommand mssh bastion-pdt.amazon.com nc %h %p
+# # Configuration for MXP
+# host !bastion* *.mxp*.amazon.com *.mxp*.amazon.com. *.mxp? *.mxp??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-mxp.amazon.com
 
-# Configuration for CDG
-host !bastion* *.cdg*.amazon.com *.cdg*.amazon.com. *.cdg? *.cdg??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-cdg.amazon.com
+# # Configuration for KIX
+# host !bastion* *.kix*.amazon.com *.kix*.amazon.com. *.kix? *.kix??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-kix.amazon.com
 
-# Configuration for MXP
-host !bastion* *.mxp*.amazon.com *.mxp*.amazon.com. *.mxp? *.mxp??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-mxp.amazon.com
+# # Configuration for OSU
+# host !bastion* *.osu*.amazon.com *.osu*.amazon.com. *.osu? *.osu??
+#         HostName %h
+#         ProxyCommand mssh bastion-osu.amazon.com nc %h %p
 
-# Configuration for KIX
-host !bastion* *.kix*.amazon.com *.kix*.amazon.com. *.kix? *.kix??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-kix.amazon.com
+# # Configuration for ARN
+# host !bastion* *.arn*.amazon.com *.arn*.amazon.com. *.arn? *.arn??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-arn.amazon.com
 
-# Configuration for OSU
-host !bastion* *.osu*.amazon.com *.osu*.amazon.com. *.osu? *.osu??
-        HostName %h
-        ProxyCommand mssh bastion-osu.amazon.com nc %h %p
+# # Configuration for HKG
+# host !bastion* *.hkg*.amazon.com *.hkg*.amazon.com. *.hkg? *.hkg??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-hkg.amazon.com
 
-# Configuration for ARN
-host !bastion* *.arn*.amazon.com *.arn*.amazon.com. *.arn? *.arn??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-arn.amazon.com
+# # Configuration for BAH
+# host !bastion* *.bah*.amazon.com *.bah*.amazon.com. *.bah? *.bah??
+#         HostName %h
+#         ProxyCommand ssh -W %h:%p bastion-bah.amazon.com
 
-# Configuration for HKG
-host !bastion* *.hkg*.amazon.com *.hkg*.amazon.com. *.hkg? *.hkg??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-hkg.amazon.com
+# # End Prod Bastion config
 
-# Configuration for BAH
-host !bastion* *.bah*.amazon.com *.bah*.amazon.com. *.bah? *.bah??
-        HostName %h
-        ProxyCommand ssh -W %h:%p bastion-bah.amazon.com
-
-# End Prod Bastion config
+host *
+    controlmaster auto
+    controlpath /tmp/ssh-%r@%h:%p

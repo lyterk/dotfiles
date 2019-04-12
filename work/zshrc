@@ -38,15 +38,11 @@ alias la='ls -lAFh'   #long list,show almost all,show type,human readable
 alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
 alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
 
-postgresql://fba-analysis:8apC2Qkf2kmoty5:fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com:8192/monster
-alias svm="vboxmanage startvm 'Amazon Linux 64-bit' --type headless"
 alias mon='psql -h fba-analysis-monster.db.amazon.com -p 8192 -d monster -U fba_analysis'
 alias monroot="psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root"
 alias monroot='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
 alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
 alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
-alias wb="~/.local/share/sql_workbench/sqlworkbench.sh &"
-alias vboxnewip="VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP"
 alias edae="emacs --daemon &> ~/.emacs.d/log/$(date '+%m-%d-%y').log & "
 alias et="emacsclient -t"
 alias vipy="$VIRTUAL_ENV/bin/ipython"
@@ -55,59 +51,8 @@ SOUND_FOLDER="$HOME/Music"
 alias pat='(play $HOME/Music/right_answer.mp3 2> /dev/null &)'
 alias poke='(play $HOME/Music/wrong_answer.mp3 2> /dev/null &)'
 
-
-sdesk () {
-    desk_ip=eval "/usr/bin/VBoxManage guestproperty get 91e28c12-a3da-41c1-96f9-a68ba79579b3 /VirtualBox/GuestInfo/Net/0/V4/IP";
-    eval "ssh kllyter@$desk_ip;"
-}
-export desk="$(vboxnewip | cut -c7-)"
-
-sme () {
-    ssh kllyter@$1;
-}
-
-psql_alias () {
-    echo 'psql -h $1 -p 8192 --dbname $2 --username $3';
-    eval 'psql -h $1 -p 8192 --dbname $2 --username $3';
-}
-
-monster () {
-    eval 'psql_alias fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com monster fba_analysis'
-}
-
-goldman () {
-    eval 'psql_alias fba-goldman.c5g1ihldokmx.us-east-1.redshift.amazonaws.com goldman root'
-}
-
-
-export NVM_DIR="/home/local/ANT/kllyter/.nvm"
+export NVM_DIR="/Users/kllyter/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-# eval "$(pyenv init -)"
-# pyenv virtualenvwrapper
-
-REMOTE_DOCUMENTS=/home/kllyter/Documents
-
-encrypt_journal () {
-    CURR=$(pwd)
-    cd ~/Documents
-    FILE_NAME=personal_$(date +"%Y-%m-%d").tar.gz
-    tar -czf $FILE_NAME personal;
-    rm -rf personal;
-    gpg -e -r kllyter $FILE_NAME;
-    rm $FILE_NAME;
-    cp $FILE_NAME.gpg personal_backups
-    cd $CURR
-}
-
-decrypt_journal () {
-    CURR=$(pwd)
-    cd ~/Documents
-    DECRYPTEE=$(ls -t personal_20*) | head -1
-    gpg -d -o personal.tar.gz $DECRYPTEE
-    rm $DECRYPTEE;
-    tar -xvf personal.tar.gz personal;
-    rm -rf personal.tar.gz;
-    cd $CURR
-}
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. /Users/kllyter/.miniconda/etc/profile.d/conda.sh

@@ -46,6 +46,7 @@ values."
                                       org
                                       python
                                       racket
+                                      react
                                       restclient
                                       rust
                                       scala
@@ -80,6 +81,7 @@ values."
                                      flycheck
                                      helm-projectile
                                      logview
+                                     lsp-mode
                                      notmuch
                                      ox-twbs
                                      pipenv
@@ -357,10 +359,6 @@ values."
   ;; Setting the font in the normal spacemacs settings doesn't seem to work on mac.
   (set-face-attribute 'default nil :height 92)
 
-  (require 'org-crypt)
-  (org-crypt-check-auto-save)
-  (org-crypt-use-before-save-magic)
-  (setq org-tags-exclude-from-inheritance (quote ("crypt")))
   ;; GPG key to use for encryption
   ;; Either the Key ID or set to nil to use symmetric encryption.
   (setq-default evil-escape-key-sequence "zv")
@@ -450,6 +448,8 @@ values."
   (spacemacs/set-leader-keys "osc" 'whitespace-cleanup)
   (spacemacs/set-leader-keys "osr" 'replace-regexp)
 
+  ;; y local -- yasnippet
+  (spacemacs/set-leader-keys "oye" 'yas-expand)
   ;; z local -- ispell and folds
   (spacemacs/set-leader-keys "oz" 'ispell-buffer)
 
@@ -484,12 +484,14 @@ values."
 
     (setenv "JAVA_HOME" (string-trim (shell-command-to-string "/usr/libexec/java_home")))
 
-    (setenv "PATH" (concat (getenv "PATH") ":/usr/local/opt/node@8/bin"))
+    (setenv "PATH" (concat (getenv "PATH") ":/Users/kllyter/.config/nvm/8.1.2/bin"))
     (setq exec-path (append exec-path (list
                                       "/Users/kllyter/.miniconda/bin")))
     (setq load-path (delete-dups load-path))
     (setq exec-path (delete-dups exec-path))
     (setenv "PATH" (string-join (delete-dups (split-string (getenv "PATH") ":")) ":"))
+
+    (setq dired-listing-switches "-alh")
 
     ;;; Python
     ;; (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
@@ -596,7 +598,6 @@ values."
                                                 'font-lock-face 'calendar-iso-week-header-face))
     ;; (evil-define-key 'normal org-journal-mode-map (kbd "j d") 'org-decrypt-entry)
 
-    (setq org-crypt-key "E0569B15818ED2A6")
 
     (setq restclient-same-buffer-response t)
 
@@ -784,6 +785,7 @@ values."
 
     (setq js2-strict-missing-semi-warning nil)
     (setq js-indent-align-list-continuation nil)
+    (setq js-indent-level 2)
 
     (setq prettier-command "prettier")
     (setq prettier-js-args '(
@@ -832,7 +834,7 @@ values."
       (dolist (buffer (buffer-list))
         (with-current-buffer buffer (funcall mode-fn -1))))
 
-    (setq racer-rust-src-path "/home/local/ANT/kllyter/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
+    (setq racer-rust-src-path "/Users/kllyter/.rustup/toolchains/stable-x86_64-apple-darwin/lib/rustlib/src/rust/src"))
 
     (eval-after-load "company" '(add-to-list 'company-backends 'company-anaconda))
     ;; (define-key evil-insert-state-map (kbd "C-x o") 'ace-window)
@@ -866,7 +868,7 @@ values."
      (:name "boss" :query "tag:boss"))))
  '(package-selected-packages
    (quote
-    (chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (lsp-mode ht chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))
