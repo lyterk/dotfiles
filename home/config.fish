@@ -19,6 +19,7 @@ alias et "emacsclient -t"
 alias ed "emacs --daemon > ~/.emacs.d/logs/(date '+%m-%d-%y').log &"
 
 alias sz "source ~/.zshrc"
+alias ls exa
 alias na "ls"
 
 alias ppush "pass git push origin master"
