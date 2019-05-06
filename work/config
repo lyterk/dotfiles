@@ -50,15 +50,9 @@ Host git-codecommit.*.amazonaws.com
 
 Host af
      User ubuntu
-     HostName 34.238.10.103 
+     HostName 54.82.142.75
      ServerAliveInterval 120
-     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
-
-Host naf
-     User ubuntu
-     HostName 34.238.10.103 
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/aws/airflow.pem
 
 Host emr
      User ec2-user

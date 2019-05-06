@@ -14,6 +14,7 @@ files = {
     "aspell.en.pws": home / ".aspell.en.pws",
     "pylintrc": home / ".pylintrc",
     "flake8": home / ".config/flake8",
+    "jsbeautifyrc": home / ".jsbeautifyrc",
 }
 
 # Remove existing symlinked destinations

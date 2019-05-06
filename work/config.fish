@@ -27,6 +27,7 @@ alias gol 'psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root
 alias wells 'psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias ags 'psql -h agsanalytics01.cuv0wvsrttvh.us-east-1.redshift.amazonaws.com -p 8192 -d agsanalytics -U ags_root'
 alias wb "~/.local/share/sql_workbench/sqlworkbench.sh &"
+alias emacsclient "/Applications/Emacs.app/Contents/MacOS/bin/emacsclient"
 alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
 alias vipy "$VIRTUAL_ENV/bin/ipython"
@@ -62,6 +63,7 @@ set -x NODE_PATH $HOME/.nvm/versions/node/v8.12.0/bin
 # Java home is gonna have to be a little weird to keep workbench working
 # Using jenv to set this now. Sigh.
 # set -x JAVA_HOME /Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home/
+set -x EMACS_HOME /Applications/Emacs.app/Contents/MacOS/bin
 set -x JAVA_HOME (/usr/libexec/java_home -v 1.8.0)
 set -x LOCAL_BIN $HOME/.local/bin
 set -x CONDA_BIN $HOME/.miniconda/bin
@@ -71,7 +73,7 @@ set -x SDETOOLS /apollo/env/SDETools/bin
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin /usr/local/MacGPG2/bin
 
-set -gx PATH $CONDA_BIN $BASE_PATH $TOOLBOX $JDK_BIN $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $SDETOOLS $OCTANE $NODE_PATH $GOBIN
+set -gx PATH $EMACS_HOME $CONDA_BIN $BASE_PATH $TOOLBOX $JDK_BIN $LOCAL_BIN $RUST_SRC_PATH $RUST_BIN $SDETOOLS $OCTANE $NODE_PATH $GOBIN
 
 set -gx SHELL /usr/local/bin/fish
 set -gx EDITOR vim
