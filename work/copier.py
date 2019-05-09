@@ -10,11 +10,11 @@ files = {
     "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
-    "spacemacs": home / ".spacemacs",
     "aspell.en.pws": home / ".aspell.en.pws",
     "pylintrc": home / ".pylintrc",
     "flake8": home / ".config/flake8",
     "jsbeautifyrc": home / ".jsbeautifyrc",
+    "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css"
 }
 
 # Remove existing symlinked destinations
