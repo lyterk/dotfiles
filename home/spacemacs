@@ -4,8 +4,8 @@
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
-You should not put any user code in this function besides modifying the variable
-values."
+  You should not put any user code in this function besides modifying the variable
+  values."
   (setq-default
    ;; Base distribution to use. This is a layer contained in the directory
    ;; `+distribution'. For now available distributions are `spacemacs-base'
@@ -75,8 +75,10 @@ values."
                                       flycheck-joker
                                       flycheck-pos-tip
                                       flycheck-rust
-                                      helm-ggtags
+                                      helm-gtags
+                                      ;; helm-pass
                                       helm-spotify-plus
+                                      lsp-mode
                                       kotlin-mode
                                       navi-mode
                                       org-twbs
@@ -329,6 +331,7 @@ values."
    ;; (default nil)
    dotspacemacs-whitespace-cleanup nil))
 
+
 ;;; KEYBINDING CUSTOMIZATION
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
@@ -344,10 +347,10 @@ you should place your code here."
 
   (defun pat-poke (patp)
     (interactive)
-    (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
+    (let* ((file-direction (if patp "right_answer.mp4" "wrong_answer.mp4"))
            (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
       ;; Play at slightly decreased volume, so I don't deafen myself.
-      (start-process "Pat Poke" "Poking" "play" "--volume" "0.2" sound-file)))
+      (start-process "Pat Poke" "Poking" "play" "--volume" "1.3" sound-file)))
 
   ;; (defun dired-sort-criteria (criteria)
   ;;   "sort-dired by different criteria by Robert Gloeckner "
@@ -449,11 +452,8 @@ you should place your code here."
   (setq racer-rust-src-path "/home/kev/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src")
 
   (require 'epa-file)
-  (require 'org-crypt)
   ;; (setq org-tags-exclude-from-inheritance (quote ("crypt")))
 
-  (org-crypt-use-before-save-magic)
-  (setq org-crypt-key "DF0567A05B291E1C")
   (setq org-agenda-files '("~/org" "~/code" "~/code/dagger" "~/code/formmaker"))
 
   (setq org-cycle-separator-lines 0)
@@ -462,11 +462,6 @@ you should place your code here."
   ;; Either the Key ID or set to nil to use symmetric encryption.
 
   (add-hook 'org-mode-hook 'visual-line-mode)
-  (setq auto-save-default nil)
-  ;; Auto-saving does not cooperate with org-crypt.el: so you need
-  ;; to turn it off if you plan to use org-crypt.el quite often.
-  ;; Otherwise, you'll get an (annoying) message each time you
-  ;; start Org.
 
   ;; To turn it off only locally, you can insert this:
   ;;
@@ -564,6 +559,29 @@ If FILEXT is provided, return files with extension FILEXT instead."
   (add-hook 'clojurescript-mode-hook #'rainbow-blocks-mode)
   (add-hook 'clojure-mode-hook #'rainbow-blocks-mode)
 
+  ;;; C/C++
+  (use-package helm-gtags
+    :init
+    (progn
+      (setq helm-gtags-ignore-case t
+            helm-gtags-auto-update t
+            helm-gtags-use-input-at-cursor t
+            helm-gtags-pulse-at-cursor t
+            helm-gtags-prefix-key "\C-cg"
+            helm-gtags-suggested-key-mapping t)
+
+      ;; Enable helm-gtags-mode in Dired so you can jump to any tag
+      ;; when navigate project tree with Dired
+      (add-hook 'dired-mode-hook 'helm-gtags-mode)
+
+      ;; Enable helm-gtags-mode in Eshell for the same reason as above
+      (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+
+      ;; Enable helm-gtags-mode in languages that GNU Global supports
+      (add-hook 'c-mode-hook 'helm-gtags-mode)
+      (add-hook 'c++-mode-hook 'helm-gtags-mode)
+      (add-hook 'java-mode-hook 'helm-gtags-mode)
+      (add-hook 'asm-mode-hook 'helm-gtags-mode)))
 
   (defun move-line-up ()
     (interactive)
@@ -575,7 +593,9 @@ If FILEXT is provided, return files with extension FILEXT instead."
     (transpose-lines 1)
     (forward-line -1))
   (global-set-key (kbd "M-<up>") 'move-line-up)
-  (global-set-key (kbd "M-<down>") 'move-line-down))
+  (global-set-key (kbd "M-<down>") 'move-line-down)
+
+  (setq-default evil-escape-key-sequence "cg"))
 ;;; </dotspacemacs/userconfig>
 
 ;; GPG key to use for encryption
@@ -603,7 +623,7 @@ If FILEXT is provided, return files with extension FILEXT instead."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (helm-gtags nginx-mode blacken sql-indent kotlin-mode slime-company slime common-lisp-snippets wgrep flycheck-joker ein ripgrep rainbow-mode pass password-store-otp password-store company-emacs-eclim eclim auctex-latexmk pandoc-mode ox-pandoc ht offlineimap notmuch company-auctex auctex elfeed-web elfeed multi rainbow-blocks ox-twbs helm-spotify-plus helm-spotify flycheck-clojure restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well helm-w3m w3m flyspell-correct-helm flyspell-correct auto-dictionary indium rjsx-mode clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rust-playground rg restart-emacs ranger rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode protobuf-mode popwin pip-requirements persp-mode pcre2el parinfer paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets open-junk-file noflet neotree navi-mode outshine outorg multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang indent-guide hydra hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc go-autocomplete gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck-haskell flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-smartparens evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode eloud elisp-slime-nav elisp-format dumb-jump disaster diminish diff-hl define-word cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-c-headers company-anaconda company column-enforce-mode coffee-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo rust-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
+    (helm-pass auth-source-pass lsp-mode helm-gtags nginx-mode blacken sql-indent kotlin-mode slime-company slime common-lisp-snippets wgrep flycheck-joker ein ripgrep rainbow-mode pass password-store-otp password-store company-emacs-eclim eclim auctex-latexmk pandoc-mode ox-pandoc ht offlineimap notmuch company-auctex auctex elfeed-web elfeed multi rainbow-blocks ox-twbs helm-spotify-plus helm-spotify flycheck-clojure restclient-helm ob-restclient ob-http company-restclient restclient know-your-http-well helm-w3m w3m flyspell-correct-helm flyspell-correct auto-dictionary indium rjsx-mode clojure-snippets clj-refactor inflections edn paredit peg cider-eval-sexp-fu cider seq queue clojure-mode yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit spaceline powerline smeargle slim-mode shell-pop scss-mode sass-mode rust-playground rg restart-emacs ranger rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode protobuf-mode popwin pip-requirements persp-mode pcre2el parinfer paradox spinner orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-bullets open-junk-file noflet neotree navi-mode outshine outorg multi-term move-text mmm-mode markdown-toc markdown-mode magit-gitflow macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc intero insert-shebang indent-guide hydra hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-hoogle helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets haml-mode google-translate golden-ratio go-guru go-eldoc go-autocomplete gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flycheck-rust flycheck-pos-tip pos-tip flycheck-haskell flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-smartparens evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit magit-popup git-commit ghub let-alist with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight eshell-z eshell-prompt-extras esh-help ensime sbt-mode scala-mode emmet-mode eloud elisp-slime-nav elisp-format dumb-jump disaster diminish diff-hl define-word cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-go go-mode company-ghci company-ghc ghc haskell-mode company-cabal company-c-headers company-anaconda company column-enforce-mode coffee-mode cmm-mode cmake-mode clean-aindent-mode clang-format cargo rust-mode bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-compile packed anaconda-mode pythonic f dash s aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
  '(paradox-github-token t)
  '(safe-local-variable-values (quote ((epa-encrypt-file-to "lyter@fastmail.com")))))
 

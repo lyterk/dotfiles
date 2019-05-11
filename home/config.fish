@@ -33,15 +33,17 @@ set -x GTK_IM_MODULE "fcitx"
 set -x QT_IM_MODULE "fcitx"
 set -x XMODIFIERS "@im=fcitx"
 set -gx GOPATH ~/code/golang
+set -gx DOOMPATH ~/.emacs.d/bin
 
 set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
 set -gx GOBIN $GOPATH/bin
 set -gx LOCALBIN $HOME/.local/bin
 
+set EMACS_PATH /home/kev/.emacs.d/bin
 set RASP_GCC /usr/local/bin/aarch64-none-elf/bin
 set NPM_HOME /home/kev/.npm-packages/bin
 set CARGO $HOME/.cargo/bin
 set BASE_PATH /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/lib/jvm/default/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl
 
-set -gx PATH $BASE_PATH $RASP_GCC $NPM_HOME $CARGO $GOPATH/bin $LOCALBIN $GOBIN
+set -gx PATH $BASE_PATH $EMACS_PATH $RASP_GCC $NPM_HOME $CARGO $GOPATH/bin $LOCALBIN $GOBIN $DOOMPATH
