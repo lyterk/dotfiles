@@ -21,13 +21,7 @@ Host desk
 host va-bastion
      HostName 54.88.92.152
      User ec2-user
-     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
-
-host va4
-     HostName 10.0.1.228
-     User ec2-user
-     ProxyCommand ssh -W %h:%p va-bastion
-     IdentityFile ~/.ssh/aws/fba-analysis-redshift.pem
+     IdentityFile ~/.ssh/fba-analysis-redshift.pem
 
 Host admin
      HostName 10.0.1.230
@@ -52,13 +46,17 @@ Host af
      User ubuntu
      HostName 54.82.142.75
      ServerAliveInterval 120
-     IdentityFile ~/.ssh/aws/airflow.pem
+     IdentityFile ~/.ssh/airflow.pem
 
 Host emr
      User ec2-user
      HostName 52.23.231.56
      ServerAliveInterval 120
      IdentityFile ~/.ssh/emr-ssh-access.pem
+
+Host styerp
+     User kllyter
+     HostName styerp.aka.corp.amazon.com
 
 # # Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
 

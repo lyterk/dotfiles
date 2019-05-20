@@ -14,6 +14,7 @@ alias bte "brazil-test-exec"
 alias brep "bre python bin/manage.py"
 alias bwsm "brazil ws --sync --md"
 
+alias i=ipython
 alias python=python3
 
 alias mon 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
@@ -38,36 +39,30 @@ set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'
 alias poke 'play $SOUND_FOLDER/wrong_answer.mp3 2> /dev/null'
 
-# Test if fisher is installed, if not install
-if not type -q fisher
-    curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs https://git.io/fisher
-else
-    # fisher pipenv
-    # fisher pisces
-end
-
 set -gx AIRFLOW_HOME $HOME/airflow
 
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
-set -x GOHOME /Users/kllyter/go
-# set -x GOBIN $GOHOME/bin
+set -x GOPATH $HOME/code/go
+set -x GOBIN $GOPATH/bin
 
 # set -x NODE_PATH $HOME/.nvm/versions/node/v8.12.0/bin
 
 # set -x JAVA_HOME (/usr/libexec/java_home -v 1.8.0)
 set -x LOCAL_BIN $HOME/.local/bin
 # set -x CONDA_BIN $HOME/.miniconda/bin
-# set -x TOOLBOX $HOME/.toolbox/bin
+set -x TOOLBOX $HOME/.toolbox/bin
 # set -x SDETOOLS /apollo/env/SDETools/bin
 
+set -x GO_HOME /usr/lib/go-1.11/
+set -x EMACS_PATH $HOME/.emacs.d/bin
 set -x RUST_BIN $HOME/.cargo/bin
 set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin
 
-set -gx PATH $BASE_PATH $LOCAL_BIN $RUST_BIN
+set -gx PATH $BASE_PATH $LOCAL_BIN $RUST_BIN $EMACS_PATH $TOOLBOX $GO_HOME/bin $GOBIN
 
 set -gx SHELL /usr/bin/fish
-set -gx EDITOR vim
+set -gx EDITOR "emacsclient -t"
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles

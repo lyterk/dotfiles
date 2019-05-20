@@ -71,7 +71,7 @@ values."
                                      calfw
                                      chicken-scheme
                                      circe
-                                     finalize-buffer
+                                     ;; finalize-buffer
                                      company
                                      company-anaconda
                                      csv-mode
@@ -633,15 +633,15 @@ values."
                                          (point-min)
                                          (point-max))) "\n"))
 
-      (let ((creds (slurp (home ".local/share/api_keys/spotify"))))
-        (setq spotify-access-key-id (car creds)
-              spotify-access-secret (cadr creds)))
+      ;; (let ((creds (slurp (home ".local/share/api_keys/spotify"))))
+      ;;   (setq spotify-access-key-id (car creds)
+      ;;         spotify-access-secret (cadr creds)))
 
-      (let ((creds (slurp (home ".aws/emacs-credentials"))))
-        (setq aws-access-key (car creds)
-              aws-secret-key (cadr creds))
-        (setenv "AWS_ACCESS_KEY_ID" aws-access-key)
-        (setenv "AWS_SECRET_ACCESS_KEY" aws-secret-key))
+      ;; (let ((creds (slurp (home ".aws/emacs-credentials"))))
+      ;;   (setq aws-access-key (car creds)
+      ;;         aws-secret-key (cadr creds))
+      ;;   (setenv "AWS_ACCESS_KEY_ID" aws-access-key)
+      ;;   (setenv "AWS_SECRET_ACCESS_KEY" aws-secret-key))
 
       (defun revert-buffer-no-confirm ()
         "Revert buffer without confirmation."
@@ -880,7 +880,7 @@ values."
      (:name "boss" :query "tag:boss"))))
  '(package-selected-packages
    (quote
-    (helm-spotify-plus multi calfw-org calfw excorporate nadvice url-http-ntlm fsm systemd sql-indent smex pipenv ivy-hydra flyspell-correct-ivy flycheck-pos-tip evil-mu4e elfeed counsel-projectile counsel swiper ivy atomic-chrome websocket emr clang-format paredit list-utils lsp-mode ht chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (yapfify xterm-color w3m shell-pop rjsx-mode rg wgrep pyvenv pytest pyenv-mode py-isort prettier-js pip-requirements ob-restclient ob-http multi-term mmm-mode markdown-toc magit-popup logview datetime extmap live-py-mode key-chord lv hy-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct pos-tip flycheck fish-mode magit transient git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-web web-completion-data company-tern dash-functional company-statistics company-restclient restclient know-your-http-well company-anaconda markdown-mode browse-kill-ring auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete helm-spotify-plus multi calfw-org calfw excorporate nadvice url-http-ntlm fsm systemd sql-indent smex pipenv ivy-hydra flyspell-correct-ivy flycheck-pos-tip evil-mu4e elfeed counsel-projectile counsel swiper ivy atomic-chrome websocket emr clang-format paredit list-utils lsp-mode ht chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))
