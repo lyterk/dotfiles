@@ -4,6 +4,8 @@ from pathlib import Path
 
 home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
+snippets_source = home / "dotfiles" / "snippets"
+snippets_destination = home / ".emacs.d" / "private" / "snippets"
 
 files = {
     "config": home / ".ssh/config",
@@ -16,6 +18,17 @@ files = {
     "jsbeautifyrc": home / ".jsbeautifyrc",
     "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css"
 }
+
+for dir in snippets_source.iterdir():
+    Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
+    for snippet in dir.iterdir():
+        try:
+            (snippets_destination / dir.name / snippet.name).symlink_to(snippets_source / dir.name / snippet.name)
+        except:
+            (snippets_destination / dir.name / snippet.name).unlink()
+            (snippets_destination / dir.name / snippet.name).symlink_to(snippets_source / dir.name / snippet.name)
+
+
 
 # Remove existing symlinked destinations
 for _, value in files.items():
