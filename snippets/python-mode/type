@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#name : type
+#key : type
+#contributor : kllyter
+# --
+# type: ($1) -> ${2:None}

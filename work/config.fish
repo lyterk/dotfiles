@@ -16,6 +16,7 @@ alias bwsm "brazil ws --sync --md"
 
 alias i=ipython
 alias python=python3
+alias pipi="pip3 install --user"
 
 alias mon 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
 alias monr 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
