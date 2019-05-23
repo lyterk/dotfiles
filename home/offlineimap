@@ -1,0 +1,72 @@
+[general]
+ui = ttyui
+accounts = Fastmail, Lyterk, Lyterk91
+metadata = /home/kev/.mail/.offlineimap
+
+[Account Fastmail]
+localrepository = LocalFM
+remoterepository = RemoteFM
+
+[Account Lyterk]
+localrepository = LocalLyterk
+remoterepository = RemoteLyterk
+
+[Account Lyterk91]
+localrepository = LocalLyterk91
+remoterepository = RemoteLyterk91
+
+[Repository LocalFM]
+type = Maildir
+localfolders = /home/kev/.mail/fastmail
+#subscribedonly = no
+#sep = /
+
+[Repository RemoteFM]
+type = IMAP
+remotehost = imap.fastmail.com
+remoteuser = txru@sent.com
+remotepass = t358rpspbzvba4wu
+remoteport = 993
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+ssl_version = tls1_2
+expunge = no
+folderfilter = lambda foldername: foldername not in ['INBOX.Trash']
+maxconnections = 3
+readonly = True
+
+[Repository LocalLyterk]
+type = Maildir
+localfolders = /home/kev/.mail/lyterk
+
+[Repository RemoteLyterk]
+type = IMAP
+remotehost = imap.gmail.com
+remoteuser = lyterk@gmail.com
+remotepass = grxtmozevqtcsllp
+remoteport = 993
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+ssl_version = tls1_2
+expunge = no
+folderfilter = lambda foldername: foldername in ['INBOX']
+maxconnections = 3
+readonly = True
+
+[Repository LocalLyterk91]
+type = Maildir
+localfolders = /home/kev/.mail/lyterk91
+
+[Repository RemoteLyterk91]
+type = IMAP
+remotehost = imap.gmail.com
+remoteuser = lyterk91@gmail.com
+remotepass = qzjufppzaudrstwf
+remoteport = 993
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+ssl = yes
+ssl_version = tls1_2
+expunge = no
+folderfilter = lambda foldername: foldername in ['INBOX']
+maxconnections = 3
+readonly = True
