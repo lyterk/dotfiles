@@ -88,6 +88,7 @@ values."
                                      flycheck
                                      flycheck-pycheckers
                                      helm-c-yasnippet
+                                     helm-lsp
                                      helm-projectile
                                      helm-spotify-plus
                                      js2-refactor
@@ -366,6 +367,8 @@ values."
   you should place your code here."
     (defun home (&rest path)
       (string-join (append (list (getenv "HOME")) path) "/"))
+
+    (yas-load-directory (home ".emacs.d/private/snippets"))
 
     (require 'alert)
     (require 'atomic-chrome)
