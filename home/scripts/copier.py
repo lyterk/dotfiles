@@ -16,6 +16,7 @@ firefox_profile = (
 
 files = {
     "spacemacs": home / ".spacemacs",
+    "config": home / ".ssh" / "config",
     "config.fish": home / ".config/fish/config.fish",
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/redshift.service": home / ".config/systemd/user/redshift.service",

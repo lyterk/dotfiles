@@ -1,0 +1,21 @@
+# LocalForward Client:PORT Remote:PORT
+
+Host bitbucket
+     HostName bitbucket.org
+     User git
+     IdentityFile /home/kev/.ssh/bitbucket/id_rsa
+
+Host mithras
+     HostName 192.168.0.103
+     User kev
+     IdentityFile /home/kev/.ssh/mithras/id_rsa
+     LocalForward 127.0.0.1:8385 127.0.0.1:8384
+
+Host aetius
+     HostName 192.168.0.101
+     User kev
+
+Host r
+     HostName 10.11.99.1
+     User root
+     IdentityFile /home/kev/.ssh/remarkable/id_rsa
