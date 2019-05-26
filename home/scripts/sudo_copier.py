@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from pathlib import Path as P
+import shutil
 
 home = P.home()
 dotfiles_path = home / "dotfiles" / "home" / "sudo"
@@ -31,7 +32,7 @@ for file_path in vpn_source.iterdir():
             # print(vpn_destination / file_path.name)
             (vpn_destination / file_path.name).unlink()
         except Exception as exc:
-            # print(exc)
-        (vpn_destination / file_path.name).symlink_to(file_path)
+            pass
+        shutil.copy(str(file_path), str(vpn_destination / file_path.name))
     except Exception as exc:
         print(exc)
