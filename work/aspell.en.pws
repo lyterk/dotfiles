@@ -1,10 +1,11 @@
-personal_ws-1.1 en 39 
+personal_ws-1.1 en 42 
 asin
 isoformat
 pgdb
 gms
 getLogger
 fetchall
+kllyter
 mc
 tcp
 asins
@@ -20,16 +21,18 @@ asdict
 ldom
 args
 ketama
+styerp
 MBC
 timedelta
 parameterized
 VPCs
 dct
 kwargs
+sustainably
 json
 Instantiation
-YoY
 yoy
+YoY
 whitelisted
 ssof
 nodelay
