@@ -19,7 +19,6 @@ alias et "emacsclient -t"
 alias ed "emacs --daemon > $HOME/.emacs.d/logs/(date '+%m-%d-%y').log &"
 
 alias sz "source $HOME/.zshrc"
-alias ls exa
 alias na "ls"
 
 alias ppush "pass git push origin master"
@@ -39,15 +38,23 @@ set -gx BROWSER /usr/bin/firefox
 set -gx EDITOR "/usr/bin/emacsclient -t"
 set -gx GOBIN $GOPATH/bin
 set -gx LOCALBIN $HOME/.local/bin
+set -gx SNAP_BIN /snap/bin
 
-set FLUTTER_PATH $HOME/.local/share/flutter/bin
-set RASP_GCC /usr/local/bin/aarch64-none-elf/bin
+# set FLUTTER_PATH $HOME/.local/share/flutter/bin
+# set RASP_GCC /usr/local/bin/aarch64-none-elf/bin
+nvm use 10.15.3
 set NPM_HOME $HOME/.npm-packages/bin
 set CARGO $HOME/.cargo/bin
 set BASE_PATH /usr/local/bin /usr/bin /bin /usr/local/sbin /usr/lib/jvm/default/bin /usr/bin/site_perl /usr/bin/vendor_perl /usr/bin/core_perl
 
-set -gx PATH $BASE_PATH $EMACS_PATH $RASP_GCC $NPM_HOME $CARGO $GOPATH/bin $LOCALBIN $GOBIN $DOOMPATH $FLUTTER_PATH $DART_PATH
+set -gx PATH $BASE_PATH $EMACS_PATH $RASP_GCC $NPM_HOME $CARGO $GOPATH/bin $LOCALBIN $SNAP_BIN
 
 function fish_title
     true
+end
+
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
 end

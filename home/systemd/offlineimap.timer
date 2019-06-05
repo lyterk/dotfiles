@@ -1,0 +1,11 @@
+[Unit]
+Description=Offlineimap Query Timer
+
+[Timer]
+OnStartupSec=1m
+OnUnitInactiveSec=5m
+Unit=offlineimap-oneshot.service
+
+[Install]
+WantedBy=mail.target
+
