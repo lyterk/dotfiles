@@ -400,7 +400,7 @@ values."
     (setq holiday-islamic-holidays nil)
     (setq holiday-oriental-holidays nil)
     (setq holiday-other-holidays nil)
-    (setq excorporate-configuration '("kllyter@amazon.com" "https://exch-usw.amazon.com"))
+    (setq excorporate-configuration '("kllyter@amazon.com" . "https://exch-usw.amazon.com"))
 
     (setq-default evil-escape-key-sequence "cg")
 
@@ -490,7 +490,7 @@ values."
 
     ;; Mode-specific leader keys
     (spacemacs/set-leader-keys-for-major-mode
-        'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
+        'org-mode ";" 'org-set-tags-command "ec" 'org-encrypt-entry
         "ed" 'org-decrypt-entry)
     (spacemacs/set-leader-keys-for-major-mode
         'epa-key-mode

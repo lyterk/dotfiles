@@ -46,9 +46,12 @@ set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
+set -x LOCALBIN $HOME/.local/bin
 
 set -gx SHELL /usr/bin/fish
 set -gx EDITOR "emacsclient -t"
+
+set -gx PATH $PATH $GOBIN $LOCALBIN
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
