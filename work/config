@@ -44,6 +44,17 @@ Host git-codecommit.*.amazonaws.com
 
 Host git* ForwardX11 no GSSAPIAuthentication no
 
+host fare
+     HostName 52.40.208.161
+     User ubuntu
+     IdentityFile ~/.ssh/user-scripting-box.pem
+
+host demobastion
+     HostName 10.3.5.172
+     User ubuntu
+     ProxyCommand ssh -W %h:%p va-bastion
+     IdentityFile ~/.ssh/user-scripting-pair.pem
+
 Host af
      User ubuntu
      HostName 54.82.142.75
