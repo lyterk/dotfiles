@@ -1,10 +1,10 @@
-#!/usr/local/bin/fish
+#!/usr/bin/fish
 
-set nm /usr/local/bin/notmuch
+set nm /usr/bin/notmuch
 set me "kllyter"
-set boss "skipark" "flatleyk"
-set team "skipark" "hcary" "foot" "djcoop"
-set relatives "teaff" "albaum" "flatleyk" "bingrou" "esthekim" "kandiks" "sinduri"
+set boss "skipark" "aurelv"
+set team "skipark" "foot" "djcoop" "styerp" "malav" "momallor"
+set relatives "vaggi" "soufiane" "njw" "bls" "kwillet"
 set domain "@amazon.com"
 set retrieval "Retrieval using the IMAP4 protocol failed for the following message"
 set password_notify "Project Austin Redshift Cluster - Monthly Automated Password Change"
@@ -13,7 +13,7 @@ set deinbox -inbox -unread
 eval $nm new
 
 function nm_tag
-    /usr/local/bin/notmuch tag $argv
+    /usr/bin/notmuch tag $argv
 end
 
 # More likely to be to me
@@ -24,7 +24,7 @@ nm_tag +boss_to_me +boss "to:$me$domain AND from:$boss$domain"
 
 nm_tag +boss_broadcast +boss "to:skinet$domain AND from:$boss$domain"
 
-nm_tag +ball_so_hard "to:ball-so-hard"
+nm_tag +joannste_team "to:joanste-team$domain"
 
 for user in $team
     nm_tag +team "from:$user$domain OR to:$user$domain"

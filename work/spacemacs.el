@@ -1,4 +1,3 @@
-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -377,6 +376,7 @@ values."
     (require 'alert)
     (require 'atomic-chrome)
     (require 'dash)
+    (require 'lsp-mode)
     (require 'key-chord)
 
 (set-frame-parameter (selected-frame) 'alpha '85)
@@ -526,7 +526,7 @@ values."
       (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" my-miniconda-path))
 
       (setenv "JAVA_HOME" (string-trim (shell-command-to-string "/usr/libexec/java_home")))
-      (setenv "PATH" (concat (getenv "PATH") ":" (home ".config/nvm/8.1.2/bin")))
+      (setenv "PATH" (concat (getenv "PATH") ":" (home ".config/nvm/12.2.0/bin") (home ".nvm/versions/node/v12.2.0/bin")))
       (setq exec-path (append exec-path (list my-miniconda-path)))
       (setq load-path (delete-dups (append load-path (list (home ".nvm/versions/node/v12.2.0/bin/")))))
       (setq exec-path (delete-dups exec-path))
@@ -544,8 +544,7 @@ values."
 
       (add-hook 'python-mode-hook (lambda ()
                                     (blacken-mode 1)
-                                    (flycheck-pycheckers-setup)
-                                    (lsp-python-enable)))
+                                    (flycheck-pycheckers-setup)))
 
       (setq flycheck-pycheckers-checkers '(pylint mypy3))
 
@@ -555,6 +554,7 @@ values."
       ;;                                  (lsp-python-enable)))
       (setq-default dotspacemacs-configuration-layers
                     '((python :variables python-test-runner 'pytest)))
+      (setq python-test-runner 'pytest)
       ;; (flycheck-define-checker
       ;;     python-mypy ""
       ;;     :command ("mypy"
@@ -598,7 +598,7 @@ values."
       (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
 
       (setq org-cycle-separator-lines 0)
-      (setq org-default-notes-file "~/org/2010.org")
+      (setq org-default-notes-file "~/org/2019.org")
 
       (setq reb-re-syntax 'string)
 

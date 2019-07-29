@@ -13,11 +13,13 @@ files = {
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
     "aspell.en.pws": home / ".aspell.en.pws",
+    "spacemacs.el": home / ".spacemacs",
     "pylintrc": home / ".pylintrc",
     "flake8": home / ".config/flake8",
     "jsbeautifyrc": home / ".jsbeautifyrc",
     "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
+    "offlineimaprc": home / ".offlineimaprc",
 }
 
 for dir in snippets_source.iterdir():

@@ -1,0 +1,28 @@
+[general]
+ui = basic
+accounts = amazon
+pythonfile = ~/dotfiles/work/offlineimap.py
+
+[Account amazon]
+remoterepository = Remote
+localrepository = Local
+ 
+[Repository Remote]
+type = IMAP
+# If this is on Ubuntu, uncomment the following sslcacertfile line.  You also
+# need to install the "amazon-pidgin" package to get this CA cert.
+sslcacertfile = ~/.local/share/Amazon.com Internal Root Certificate Authority.pem
+ssl = yes
+remotehost = ballard.amazon.com
+remoteport = 1993
+remoteuser = ANT\\kllyter
+remotepasseval = mailpasswd("outlook")
+# this will ensure that only the INBOX is synced
+folderfilter = lambda foldername: re.search('INBOX', foldername)
+# If you don't want local changes to sync back to the server (e.g. deleting
+# mail in the maildir will delete them on the server), uncomment this line:
+#readonly = yes
+ 
+[Repository Local]
+type = Maildir 
+localfolders = ~/mail/synced
