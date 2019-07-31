@@ -3,6 +3,7 @@
 set nm /usr/bin/notmuch
 set me "kllyter"
 set boss "skipark" "aurelv"
+set director "joanste"
 set team "skipark" "foot" "djcoop" "styerp" "malav" "momallor"
 set relatives "vaggi" "soufiane" "njw" "bls" "kwillet"
 set domain "@amazon.com"
@@ -25,6 +26,7 @@ nm_tag +boss_to_me +boss "to:$me$domain AND from:$boss$domain"
 nm_tag +boss_broadcast +boss "to:skinet$domain AND from:$boss$domain"
 
 nm_tag +joannste_team "to:joanste-team$domain"
+nm_tag +director "from:$director$domain"
 
 for user in $team
     nm_tag +team "from:$user$domain OR to:$user$domain"
@@ -57,6 +59,8 @@ nm_tag +tickets "from:remedy$domain OR (Ticket AND Correspondence)"
 nm_tag +permissions "from:permissions-notifier"
 
 nm_tag +trash -inbox -unread "Undeliverable: QA Flash for"
+
+nm_tag +sim from:"issues$domain"
 
 # Interest lists and chatter
 

@@ -49,13 +49,14 @@ set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
 set -x LOCALBIN $HOME/.local/bin
 set -x NODEPATH $HOME/.nvm/versions/node/v12.2.0/bin
-set -x CARGOPATH $HOME/.cargo/bin/
+set -x CARGOPATH $HOME/.cargo/bin
+set -x TOOLBOX $HOME/.toolbox/bin
 
 
 set -gx SHELL /usr/bin/fish
 set -gx EDITOR "emacsclient -t"
 
-set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH
+set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
