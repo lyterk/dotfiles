@@ -3,7 +3,7 @@
 set nm /usr/bin/notmuch
 set me "kllyter"
 set boss "skipark" "aurelv"
-set director "joanste"
+set director "joannste"
 set team "skipark" "foot" "djcoop" "styerp" "malav" "momallor"
 set relatives "vaggi" "soufiane" "njw" "bls" "kwillet"
 set domain "@amazon.com"

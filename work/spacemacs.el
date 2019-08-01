@@ -40,6 +40,7 @@ This function should only modify configuration layer settings."
                                       emacs-lisp
                                       git
                                       go
+                                      helm
                                       html
                                       ivy
                                       javascript
@@ -50,7 +51,6 @@ This function should only modify configuration layer settings."
                                       (notmuch :variables
                                                notmuch-message-deleted-tags '("+deleted" "-inbox" "-unread"))
                                       org
-                                      python
                                       (python :variables
                                               python-test-runner 'pytest)
                                       racket

@@ -19,6 +19,8 @@ files = {
     "jsbeautifyrc": home / ".jsbeautifyrc",
     "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
+    "systemd/offlineimap.service": home / ".config/systemd/user/offlineimap.service",
+    "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
     "offlineimaprc": home / ".offlineimaprc",
 }
 
