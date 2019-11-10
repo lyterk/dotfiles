@@ -20,7 +20,8 @@ for key, value in files.items():
         except Exception as exc:
             print(exc)
         value.parent.mkdir(parents=True, exist_ok=True)
-        value.symlink_to(dotfiles_path / key)
+        shutil.copy(str(dotfiles_path / key), str(value))
+        # value.symlink_to(dotfiles_path / key)
     except Exception as exc:
         print(exc)
 

@@ -1,0 +1,6 @@
+/* https://superuser.com/questions/603218/how-to-make-the-aboutblank-page-black-or-any-other-color-in-firefox */
+/* Change the loading document background so it isn't so blaringly bright. */
+@-moz-document url(about:blank) {
+    html,body { background: #2f3e5d; }
+    /* html,body { background: black; } */
+}

@@ -19,3 +19,8 @@ Host r
      HostName 10.11.99.1
      User root
      IdentityFile /home/kev/.ssh/remarkable/id_rsa
+
+Host ec2
+     HostName 3.220.199.128
+     User ubuntu
+     IdentityFile /home/kev/.ssh/compute/ec2-access.pem
