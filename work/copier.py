@@ -13,21 +13,29 @@ files = {
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
     "aspell.en.pws": home / ".aspell.en.pws",
+    "spacemacs.el": home / ".spacemacs",
     "pylintrc": home / ".pylintrc",
     "flake8": home / ".config/flake8",
     "jsbeautifyrc": home / ".jsbeautifyrc",
-    "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css"
+    "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
+    "systemd/bell.service": home / ".config/systemd/user/bell.service",
+    "systemd/offlineimap.service": home / ".config/systemd/user/offlineimap.service",
+    "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
+    "offlineimaprc": home / ".offlineimaprc",
 }
 
 for dir in snippets_source.iterdir():
     Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
     for snippet in dir.iterdir():
         try:
-            (snippets_destination / dir.name / snippet.name).symlink_to(snippets_source / dir.name / snippet.name)
+            (snippets_destination / dir.name / snippet.name).symlink_to(
+                snippets_source / dir.name / snippet.name
+            )
         except:
             (snippets_destination / dir.name / snippet.name).unlink()
-            (snippets_destination / dir.name / snippet.name).symlink_to(snippets_source / dir.name / snippet.name)
-
+            (snippets_destination / dir.name / snippet.name).symlink_to(
+                snippets_source / dir.name / snippet.name
+            )
 
 
 # Remove existing symlinked destinations

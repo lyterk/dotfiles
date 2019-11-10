@@ -23,6 +23,7 @@ alias monr 'psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -
 alias gol 'psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
 alias wells 'psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
 alias ags 'psql -h agsanalytics01.cuv0wvsrttvh.us-east-1.redshift.amazonaws.com -p 8192 -d agsanalytics -U ags_root'
+alias fare 'psql -h fare-bi-rs1.cejlc1wjv9tl.us-east-1.redshift.amazonaws.com -p 8192 -d farebirs1 -U dw_virtdashboard_admin'
 alias wb "~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias edae "emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et "emacsclient -t"
@@ -46,24 +47,16 @@ set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
 set -x GOPATH $HOME/code/go
 set -x GOBIN $GOPATH/bin
-
-# set -x NODE_PATH $HOME/.nvm/versions/node/v8.12.0/bin
-
-# set -x JAVA_HOME (/usr/libexec/java_home -v 1.8.0)
-set -x LOCAL_BIN $HOME/.local/bin
-# set -x CONDA_BIN $HOME/.miniconda/bin
+set -x LOCALBIN $HOME/.local/bin
+set -x NODEPATH $HOME/.nvm/versions/node/v12.2.0/bin
+set -x CARGOPATH $HOME/.cargo/bin
 set -x TOOLBOX $HOME/.toolbox/bin
-# set -x SDETOOLS /apollo/env/SDETools/bin
 
-set -x GO_HOME /usr/lib/go-1.11/
-set -x EMACS_PATH $HOME/.emacs.d/bin
-set -x RUST_BIN $HOME/.cargo/bin
-set -x BASE_PATH /usr/local/bin /usr/bin /bin /usr/sbin /sbin
-
-set -gx PATH $BASE_PATH $LOCAL_BIN $RUST_BIN $EMACS_PATH $TOOLBOX $GO_HOME/bin $GOBIN
 
 set -gx SHELL /usr/bin/fish
 set -gx EDITOR "emacsclient -t"
+
+set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles

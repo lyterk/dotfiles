@@ -1,4 +1,3 @@
-;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
 
@@ -31,6 +30,8 @@ values."
   ;; List of configuration layers to load.
   dotspacemacs-configuration-layers '(
                                       auto-completion
+                                      ;; calendar
+                                      ;; dap
                                       emacs-lisp
                                       git
                                       go
@@ -38,9 +39,11 @@ values."
                                       ivy
                                       javascript
                                       lsp
+                                      lua
                                       markdown
                                       nginx
                                       nixos
+                                      notmuch
                                       org
                                       python
                                       racket
@@ -69,9 +72,8 @@ values."
                                      atomic-chrome
                                      blacken
                                      browse-kill-ring
-                                     calfw
-                                     chicken-scheme
-                                     circe
+                                     ;; chicken-scheme
+                                     ;; circe
                                      ;; finalize-buffer
                                      company
                                      company-anaconda
@@ -93,13 +95,16 @@ values."
                                      helm-spotify-plus
                                      js2-refactor
                                      key-chord
+                                     key-quiz
                                      logview
                                      lsp-ui
+                                     org-pomodoro
                                      ox-twbs
                                      prettier-js
                                      rg
                                      rjsx-mode
                                      rust-playground
+                                     srefactor
                                      systemd
                                      w3m
                                      yasnippet
@@ -373,7 +378,11 @@ values."
     (require 'alert)
     (require 'atomic-chrome)
     (require 'dash)
+    (require 'lsp-mode)
     (require 'key-chord)
+
+(set-frame-parameter (selected-frame) 'alpha '85)
+(add-to-list 'default-frame-alist '(alpha . 85))
 
     (if (not (assq 'key-chord-mode minor-mode-alist))
         (setq minor-mode-alist
@@ -383,7 +392,8 @@ values."
 
     ;; The Spacemacs font setting doesn't work for me.
     (set-face-attribute 'default nil :height 110)
-    (setq alert-default-style 'osx-notifier)
+    (setq alert-default-style 'libnotify)
+
 
     (setq holiday-general-holidays t)
     (setq holiday-local-holidays nil)
@@ -394,9 +404,14 @@ values."
     (setq holiday-islamic-holidays nil)
     (setq holiday-oriental-holidays nil)
     (setq holiday-other-holidays nil)
-    (setq excorporate-configuration '("kllyter@amazon.com" "https://exch-usw.amazon.com"))
+    (setq-default
+     excorporate-configuration '(("kllyter@amazon.com" . "https://exch-usw.amazon.com"))
+     org-agenda-include-diary t)
+
 
     (setq-default evil-escape-key-sequence "cg")
+
+
 
     (atomic-chrome-start-server)
 
@@ -429,7 +444,11 @@ values."
       (let* ((file-direction (if patp "right_answer.mp3" "wrong_answer.mp3"))
               (sound-file (substitute-in-file-name (concat "$HOME/Music/" file-direction))))
         ;; Play at slightly decreased volume, so I don't deafen myself.
-        (start-process "Pat Poke" "Poking" "afplay" "--volume" "1.0" sound-file)))
+        (start-process "Pat Poke" "Poking" "aplay" "--volume" "1.0" sound-file)))
+
+    (setq projectile-globally-ignored-directories
+          '("__pycache__" ".mypy_cache" ".idea" ".ensime_cache" ".eunit" ".git" ".hg" ".fslckout" "_FOSSIL_" ".bzr" "_darcs" ".tox" ".svn" ".stack-work"))
+
 
     ;; ----------------------------------------------------------------------- ;;
     ;; ----------------------------- KEY BINDINGS ---------------------------- ;;
@@ -484,7 +503,7 @@ values."
 
     ;; Mode-specific leader keys
     (spacemacs/set-leader-keys-for-major-mode
-        'org-mode ";" 'org-set-tags "ec" 'org-encrypt-entry
+        'org-mode ";" 'org-set-tags-command "ec" 'org-encrypt-entry
         "ed" 'org-decrypt-entry)
     (spacemacs/set-leader-keys-for-major-mode
         'epa-key-mode
@@ -509,12 +528,12 @@ values."
 
 
       (setq my-miniconda-path (home ".miniconda/bin/"))
-      (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/usr/local/MacGPG2/bin" "/usr/local/Cellar/emacs-plus/25.2/libexec/emacs/25.2/x86_64-apple-darwin15.6.0" my-miniconda-path))
+      (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" my-miniconda-path))
 
       (setenv "JAVA_HOME" (string-trim (shell-command-to-string "/usr/libexec/java_home")))
-      (setenv "PATH" (concat (getenv "PATH") ":" (home ".config/nvm/8.1.2/bin")))
+      (setenv "PATH" (concat (getenv "PATH") ":" (home ".config/nvm/12.2.0/bin") (home ".nvm/versions/node/v12.2.0/bin")))
       (setq exec-path (append exec-path (list my-miniconda-path)))
-      (setq load-path (delete-dups load-path))
+      (setq load-path (delete-dups (append load-path (list (home ".nvm/versions/node/v12.2.0/bin/")))))
       (setq exec-path (delete-dups exec-path))
       (setenv "PATH" (string-join (delete-dups (split-string (getenv "PATH") ":")) ":"))
 
@@ -526,12 +545,21 @@ values."
             python-shell-interpreter-args "-i --simple-prompt")
       (setq flycheck-python-pylint-executable (concat my-miniconda-path "pylint"))
       (setq flycheck-pylintrc (home ".pylintrc"))
-      (setq blacken-executable (concat my-miniconda-path "black"))
+      (setq blacken-executable (home ".local/bin" "black"))
 
       (add-hook 'python-mode-hook (lambda ()
                                     (blacken-mode 1)
-                                    (flycheck-pycheckers-setup)
-                                    (lsp-python-enable)))
+                                    (flycheck-pycheckers-setup)))
+
+      (setq flycheck-pycheckers-checkers '(pylint mypy3))
+
+      ;; (remove-hook 'python-mode-hook (lambda ()
+      ;;                                  (blacken-mode 1)
+      ;;                                  (flycheck-pycheckers-setup)
+      ;;                                  (lsp-python-enable)))
+      (setq-default dotspacemacs-configuration-layers
+                    '((python :variables python-test-runner 'pytest)))
+      (setq python-test-runner 'pytest)
       ;; (flycheck-define-checker
       ;;     python-mypy ""
       ;;     :command ("mypy"
@@ -575,50 +603,27 @@ values."
       (add-to-list 'gnutls-trustfiles "/usr/local/etc/openssl/cert.pem")
 
       (setq org-cycle-separator-lines 0)
-      (setq org-default-notes-file "~/org/2018.org")
-      (setq org-capture-templates (quote
-                                  (
-                                    ("r" "respond" entry
-                                    (file
-                                      "~/org/2018.mac.org.gpg")
-                                    "*** RESPOND %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t)
-                                    ("j" "interruption" entry
-                                    (file
-                                      "~/org/2018.mac.org.gpg")
-                                    "*** INTERRUPT %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t)
-                                    ("n" "note" entry
-                                    (file
-                                      "~/org/2018.mac.org.gpg")
-                                    "*** NOTE %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t)
-                                    ("m" "meeting" entry
-                                    (file
-                                      "~/org/2018.mac.org.gpg")
-                                    "*** MEETING %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t)
-                                    ("h" "habit" entry
-                                    (file
-                                      "~/org/2018.mac.org.gpg")
-                                    "*** HABIT %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t)
-                                    ("t" "task" entry
-                                    (file "~/org/2018.mac.org.gpg")
-                                    "*** TODO %?\n%U\n%a\n"
-                                    :clock-in t
-                                    :clock-resume t))))
+      (setq org-default-notes-file "~/org/2019.org")
 
       (setq reb-re-syntax 'string)
-      (setq ivy-height 30)
 
-      (setq org-agenda-files '("~/org/todos.org" "~/org/prospect_projects.org"))
+      (setq org-agenda-files '("~/org/2019.org"))
       (setq org-agenda-file-regexp "\\`[^.].*\\.org\\'")
+
+      (setq org-tag-alist '(("important" . ?i)
+                            ("urgent"    . ?u)
+                            ("airflow"   . ?a)
+                            ("ml"        . ?m)
+                            ("emacs"     . ?e)
+                            ("metadata"  . ?d)
+                            ("aws"       . ?w)
+                            ("productivity" . ?p)
+                            ("blocker"   . ?b)))
+      (setq org-agenda-custom-commands
+            '(("1" "Q1" tags-todo "+important+urgent")
+              ("2" "Q2" tags-todo "+important-urgent")
+              ("3" "Q3" tags-todo "-important+urgent")
+              ("4" "Q4" tags-todo "-important-urgent")))
       (copy-face 'default 'calendar-iso-week-header-face)
       (set-face-attribute 'calendar-iso-week-header-face nil
                           :height 0.7)
@@ -882,7 +887,7 @@ values."
      (:name "boss" :query "tag:boss"))))
  '(package-selected-packages
    (quote
-    (helm-c-yasnippet flycheck-pycheckers lsp-ui lsp-treemacs treemacs pfuture helm-lsp company-lsp yapfify xterm-color w3m shell-pop rjsx-mode rg wgrep pyvenv pytest pyenv-mode py-isort prettier-js pip-requirements ob-restclient ob-http multi-term mmm-mode markdown-toc magit-popup logview datetime extmap live-py-mode key-chord lv hy-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct pos-tip flycheck fish-mode magit transient git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-web web-completion-data company-tern dash-functional company-statistics company-restclient restclient know-your-http-well company-anaconda markdown-mode browse-kill-ring auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete helm-spotify-plus multi calfw-org calfw excorporate nadvice url-http-ntlm fsm systemd sql-indent smex pipenv ivy-hydra flyspell-correct-ivy flycheck-pos-tip evil-mu4e elfeed counsel-projectile counsel swiper ivy atomic-chrome websocket emr clang-format paredit list-utils lsp-mode ht chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+    (org-gcal request-deferred deferred pomodoro key-quiz lua-mode helm-c-yasnippet flycheck-pycheckers lsp-ui lsp-treemacs treemacs pfuture helm-lsp company-lsp yapfify xterm-color w3m shell-pop rjsx-mode rg wgrep pyvenv pytest pyenv-mode py-isort prettier-js pip-requirements ob-restclient ob-http multi-term mmm-mode markdown-toc magit-popup logview datetime extmap live-py-mode key-chord lv hy-mode git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct pos-tip flycheck fish-mode magit transient git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl cython-mode company-web web-completion-data company-tern dash-functional company-statistics company-restclient restclient know-your-http-well company-anaconda markdown-mode browse-kill-ring auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete helm-spotify-plus multi calfw-org calfw excorporate nadvice url-http-ntlm fsm systemd sql-indent smex pipenv ivy-hydra flyspell-correct-ivy flycheck-pos-tip evil-mu4e elfeed counsel-projectile counsel swiper ivy atomic-chrome websocket emr clang-format paredit list-utils lsp-mode ht chicken-scheme blacken nginx-mode dockerfile-mode nix-mode company-nixos-options nixos-options go-guru go-eldoc company-go go-mode ess-smart-equals ess-R-data-view ctable ess julia-mode org-projectile org-category-capture org-mime csv-mode circe epresent ox-twbs rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby yaml-mode racket-mode faceup toml-mode rust-playground racer flycheck-rust cargo rust-mode format-sql org-journal noflet ensime company sbt-mode scala-mode tern web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc coffee-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode evil-dvorak org-present org-pomodoro alert log4e gntp org-download htmlize gnuplot smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
  '(paradox-github-token t)
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((flycheck-disabled-checkers emacs-lisp-checkdoc))))
