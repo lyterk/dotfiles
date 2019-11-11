@@ -31,6 +31,10 @@ alias vipy "$VIRTUAL_ENV/bin/ipython"
 alias d ddgr
 alias g googler
 alias python python3
+alias pip $HOME/.pyenv/shims/pip3
+alias csi "rlwrap csi"
+
+alias ssam "sudo /home/linuxbrew/.linuxbrew/bin/sam"
 
 alias pahvo 'psql -h pahvo.cakudculty6n.us-east-1.rds.amazonaws.com -p 5432 -d pahvo -U airflow_test_user'
 
@@ -45,18 +49,42 @@ set -gx AIRFLOW_HOME $HOME/airflow
 
 set -x BROWSER /usr/bin/firefox
 set -x EDITOR "/usr/bin/emacsclient -t"
-set -x GOPATH $HOME/code/go
-set -x GOBIN $GOPATH/bin
+
+set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+
+
+set -x JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/bin
+set -x JDK_HOME /usr/lib/jvm/java-11-openjdk-amd64
+set -x NPM $HOME/.nvm/versions/node/v8.16.0/bin
 set -x LOCALBIN $HOME/.local/bin
 set -x NODEPATH $HOME/.nvm/versions/node/v12.2.0/bin
 set -x CARGOPATH $HOME/.cargo/bin
 set -x TOOLBOX $HOME/.toolbox/bin
-
+set -x PYENV $HOME/.pyenv/bin
+set -x LINUXBREW /home/linuxbrew/.linuxbrew/bin
+set -x GOPATH $HOME/go
+set -x SNAPPATH /snap/bin
 
 set -gx SHELL /usr/bin/fish
 set -gx EDITOR "emacsclient -t"
 
-set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
+set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX $PYENV $LINUXBREW $NPM $GOPATH/bin $SNAPPATH
+
+status --is-interactive; and source (pyenv init -|psub)
+
+function samall
+    ssam build --use-container --build-dir .sudo-aws-sam/
+    ssam package --s3-bucket sam-dev-kllyter --template-file .sudo-aws-sam/template.yaml --output-template packaged.yaml
+    ssam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
+end
+
+function amall
+    sam build --use-container --build-dir .aws-sam/
+    sam package --s3-bucket sam-dev-kllyter --template-file .aws-sam/template.yaml --output-template packaged.yaml
+    sam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
+end
+
+
 
 function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
@@ -64,6 +92,3 @@ function sync_dots
     rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
     rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
 end
-
-alias rsync_intern='rsync --progress -a --exclude .git --exclude __pycache__ ~/internal-api/src/FBAAirflowInternalServices/ desk:~/internal_api/src/FBAAirflowInternalServices/'
-# fswatch -o /Users/kllyter/internal_api/src/FBAAirflowInternalServices | while read f; rsync_intern; end

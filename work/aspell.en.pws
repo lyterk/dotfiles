@@ -1,4 +1,5 @@
-personal_ws-1.1 en 58 
+personal_ws-1.1 en 62 
+mentorship
 rtype
 ketama
 pgdb
@@ -26,10 +27,12 @@ kllyter
 styerp
 FBA
 gms
+SDEII
 FTBB
 Datanet
 edx
 DictReader
+SDEIs
 redshift
 pylibmc
 sslmode
@@ -39,6 +42,7 @@ hubble
 isoformat
 Instantiation
 sql
+pushdown
 ArgumentParser
 ssof
 anlaysis

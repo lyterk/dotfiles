@@ -17,10 +17,16 @@ files = {
     "pylintrc": home / ".pylintrc",
     "flake8": home / ".config/flake8",
     "jsbeautifyrc": home / ".jsbeautifyrc",
-    "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
+    "userChrome.css": home
+    / ".mozilla/firefox/15naj99r.default-release/chrome/userChrome.css",
+    "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
-    "systemd/offlineimap.service": home / ".config/systemd/user/offlineimap.service",
+    "systemd/offlineimap-oneshot.service": home
+    / ".config/systemd/user/offlineimap-oneshot.service",
+    "systemd/offlineimap-oneshot.timer": home
+    / ".config/systemd/user/offlineimap-oneshot.timer",
     "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
+    "systemd/notmuch.timer": home / ".config/systemd/user/notmuch.timer",
     "offlineimaprc": home / ".offlineimaprc",
 }
 

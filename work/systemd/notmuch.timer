@@ -1,0 +1,9 @@
+[Unit]
+Description=Notmuch Query Timer for account %i
+
+[Timer]
+OnBootSec=1m
+OnUnitInactiveSec=1m
+
+[Install]
+WantedBy=default.target
