@@ -1,10 +1,21 @@
 #!/bin/zsh
 
-LOCAL_BIN=~/.local/bin
-ANACONDA_BIN=/home/local/ANT/kllyter/.anaconda3/bin
+PROMPT='[local] %3~ %# '
 
-CARGO_BIN="$HOME/.cargo/bin"
-PYENV_ROOT="$HOME/.pyenv"
 BRAZIL_BIN="/apollo/env/SDETools/bin"
 
-export PATH=$PATH:$CARGO_BIN:$PYENV_ROOT/bin:$ANACONDA_BIN:$BRAZIL_CLI_BIN:$LOCAL_BIN:$BRAZIL_BIN
+
+# export JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/bin
+export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export NPM=$HOME/.nvm/versions/node/v8.16.0/bin
+export LOCALBIN=$HOME/.local/bin
+export NODEPATH=$HOME/.nvm/versions/node/v12.2.0/bin
+export CARGOPATH=$HOME/.cargo/bin
+export TOOLBOX=$HOME/.toolbox/bin
+export PYENV=$HOME/.pyenv/bin
+export LINUXBREW=/home/linuxbrew/.linuxbrew/bin
+export GOPATH=$HOME/go
+export SNAPPATH=/snap/bin
+
+BASE_PATH=usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+export PATH=$PATH:$GOBIN:$LOCALBIN:$CARGOPATH:$TOOLBOX:$PYENV:$LINUXBREW:$NPM:$GOPATH/bin:$SNAPPATH

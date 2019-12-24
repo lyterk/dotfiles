@@ -9,6 +9,7 @@ alias svba "source venv/bin/activate"
 alias sf "~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias bb "brazil-build"
+alias bbr "bb release"
 alias bre "brazil-runtime-exec"
 alias bte "brazil-test-exec"
 alias brep "bre python bin/manage.py"
@@ -33,6 +34,16 @@ alias g googler
 alias python python3
 alias pip $HOME/.pyenv/shims/pip3
 alias csi "rlwrap csi"
+
+# for package in FBAFareCommon FBAFareMaestroServiceModel FBASparkSettingManager FBAFareMaestroUIWebsiteContent FBAFareMaestroUIService
+#     cd $package
+#     bb
+#     cd ..
+# end
+
+alias bnu "brazil ws create --name"
+alias bp "brazil ws use -p"
+alias bv "brazil ws use -vs"
 
 alias ssam "sudo /home/linuxbrew/.linuxbrew/bin/sam"
 
@@ -87,8 +98,8 @@ end
 
 
 function sync_dots
-    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles &
+    # rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles &
+    # rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles &
+    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles &
 end

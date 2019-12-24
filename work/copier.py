@@ -28,6 +28,8 @@ files = {
     "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
     "systemd/notmuch.timer": home / ".config/systemd/user/notmuch.timer",
     "offlineimaprc": home / ".offlineimaprc",
+    "zshrc": home / ".zshrc",
+    "zprofile": home / ".zprofile",
 }
 
 for dir in snippets_source.iterdir():

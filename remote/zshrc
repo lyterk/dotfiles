@@ -1,4 +1,62 @@
-if [ -z "$ZSH_AUTO_RAN_FISH" ] && [ -x /apollo/env/envImprovement/bin/fish ]; then
-    export ZSH_AUTO_RAN_FISH=YES
-    LD_LIBRARY_PATH=/apollo/env/envImprovement/lib exec /apollo/env/envImprovement/bin/fish
-fi
+case "$TERM" in
+"dumb")
+    export PROMPT="> "
+    ;;
+xterm*|rxvt*|eterm*|screen*)
+    export PROMPT='[%m] %3~ %# '
+
+    ;;
+*)
+    export PROMPT="> "
+    ;;
+esac
+
+alias la="ls -lah"
+
+alias dfs="python3 $HOME/dotfiles/remote/copier.py"
+alias bb="brazil-build"
+alias bbr="bb release"
+alias bre="brazil-runtime-exec"
+alias bte="brazil-test-exec"
+alias bwsm="brazil ws --sync --md"
+alias bnu="brazil ws create --name"
+alias bp="brazil ws use -p"
+alias bv="brazil ws use -vs"
+
+APOLLO=/apollo/env
+
+NPM=$HOME/.config/nvm/12.14.0/bin
+APOLLO_CLI=$APOLLO/ApolloCommandLine
+AWS_HOME=$APOLLO/AmazonAwsCli
+ENV_IMPROVEMENT=$APOLLO/envImprovement
+SDETOOLS=$APOLLO/SDETools
+
+TOOLBOX=$HOME/.toolbox
+
+BASE_PATH=/usr/NX/bin:/usr/local/bin:/bin:/usr/bin:/home/kllyter/bin:/usr/local/sbin:/usr/sbin:/sbin
+export PATH=$BASE_PATH:$AWS_HOME/bin:$APOLLO_CLI/bin:$TOOLBOX/bin:$APOLLO_CLI/bin:$ENV_IMPROVEMENT/bin:$SDETOOLS/bin
+
+export NVM_DIR="$([ -z "$HOME/.config" ] && printf %s "${HOME}/.nvm" || printf %s "$HOME/.config/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
+
+    if [ -n "$nvmrc_path" ]; then
+        local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+        if [ "$nvmrc_node_version" = "N/A" ]; then
+            nvm install
+        elif [ "$nvmrc_node_version" != "$node_version" ]; then
+            nvm use
+        fi
+    elif [ "$node_version" != "$(nvm version default)" ]; then
+        echo "Reverting to nvm default version"
+        nvm use default
+    fi
+}
+# add-zsh-hook chpwd load-nvmrc
+# load-nvmrc

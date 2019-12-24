@@ -40,13 +40,14 @@ This function should only modify configuration layer settings."
      clojure
      emacs-lisp
      git
-     go
+     (go :variables go-tab-width 4)
      helm
      html
      issues
      ivy
      javascript
      haskell
+     latex
      lsp
      lua
      markdown
@@ -67,11 +68,15 @@ This function should only modify configuration layer settings."
      (shell :variables
             shell-default-height 10
             shell-default-position 'bottom
-            shell-default-shell 'eshell
+            shell-default-shell 'vterm
+            shell-default-term-shell "/bin/zsh"
+            multi-term-program "/bin/zsh"
+            shell-file-name "zsh"
             )
      spell-checking
      sql
      syntax-checking
+     typescript
      version-control
      )
 
@@ -96,6 +101,7 @@ This function should only modify configuration layer settings."
                                      csv-mode
                                      dockerfile-mode
                                      elisp-format
+                                     emacs-amazon-libs
                                      emmet-mode
                                      emr
                                      epresent
@@ -128,6 +134,7 @@ This function should only modify configuration layer settings."
                                      systemd
                                      w3m
                                      yasnippet
+                                     yasnippet-snippets
                                      )
 
    ;; A list of packages that cannot be updated.
@@ -546,6 +553,7 @@ before packages are loaded."
   (require 'dash)
   (require 'lsp-mode)
   (require 'key-chord)
+  (require 'ox-xwiki)
 
   (set-frame-parameter (selected-frame) 'alpha '85)
   (add-to-list 'default-frame-alist '(alpha . 85))
@@ -641,11 +649,13 @@ before packages are loaded."
   (global-set-key (kbd "M-<up>") 'move-line-up)
   (global-set-key (kbd "M-<down>") 'move-line-down)
 
+
   ;; Global leader keys -- change existing
   (spacemacs/set-leader-keys "ww" 'ace-window)
   (spacemacs/set-leader-keys "wW" 'other-window)
   (spacemacs/set-leader-keys "rR" 'revert-buffer-no-confirm)
   (spacemacs/set-leader-keys "ps" 'projectile-grep)
+  (spacemacs/set-leader-keys "ass" 'shell)
 
   ;; Personal leader keys (o global prefix)
   ;; Search google
@@ -738,6 +748,19 @@ before packages are loaded."
   (setq grep-find-template "find <D> <X> -type f <F> -exec grep <C> -nH -e <R> '{}' +")
 
 
+  ;; Remote dev machines
+  ;; (setq tramp-shell-prompt-pattern
+  ;;       (rx (or
+  ;;            line-start ">" space)
+  ;;           (and line-start
+  ;;                "["
+  ;;                (one-or-more (or alnum "-"))
+  ;;                "]"
+  ;;                space
+  ;;                (one-or-more (or punct alnum))
+  ;;                space
+  ;;                "%")))
+
   ;; (setq my-miniconda-path (home ".miniconda/bin/"))
   (setq my-local-path (home ".local/bin/"))
   (setq eshell-path-env '("/usr/local/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" my-miniconda-path))
@@ -751,9 +774,13 @@ before packages are loaded."
 
   (setq dired-listing-switches "-alh")
 
+  ;; Javascript
+
   (setq prettier-js-command (home ".npm-packages/bin/prettier"))
   (setq js2-basic-offset 2)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
+
+  (add-to-list 'auto-mode-alist '("\\.ts\\'" . typescript-tsx-mode))
 
       ;;; Python
   ;; (org-babel-do-load-languages 'org-babel-load-languages '((python . t)))
@@ -786,6 +813,8 @@ before packages are loaded."
   (setq org-todo-keywords
         '((sequence "TODO(t)" "IN_PROGRESS(p)" "STALLED" "|" "MOOT" "DONE")))
 
+  (setq org-export-backends '(ascii html latex odt markdown))
+
   ;; Keep that close-paren out of here
   )
 
@@ -804,7 +833,7 @@ This function is called at the very end of Spacemacs initialization."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (ess yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit systemd sql-indent spaceline powerline smex smeargle slim-mode shell-pop scss-mode sass-mode rvm rust-playground ruby-tools ruby-test-mode rubocop rspec-mode robe rjsx-mode rg wgrep restclient-helm restart-emacs rbenv rake rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http noflet nginx-mode neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow magit-popup macrostep lua-mode lsp-ui lorem-ipsum logview datetime extmap livid-mode skewer-mode simple-httpd live-py-mode lispy zoutline linum-relative link-hint key-quiz key-chord json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc ivy-hydra indent-guide hydra lv hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-spotify-plus multi helm-pydoc helm-projectile helm-mode-manager helm-make helm-lsp helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-ivy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pycheckers flycheck-pos-tip pos-tip flycheck flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell excorporate nadvice url-http-ntlm soap-client fsm evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu eshell-z eshell-prompt-extras esh-help epresent ensime sbt-mode scala-mode emr iedit clang-format paredit list-utils emmet-mode elisp-slime-nav elfeed dumb-jump dockerfile-mode diminish diff-hl define-word cython-mode csv-mode counsel-projectile projectile pkg-info epl counsel swiper ivy company-web web-completion-data company-tern tern company-statistics company-restclient restclient know-your-http-well company-lsp lsp-mode spinner ht dash-functional company-go go-mode company-anaconda company column-enforce-mode coffee-mode clean-aindent-mode circe chruby chicken-scheme cargo markdown-mode rust-mode bundler inf-ruby browse-kill-ring blacken bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed atomic-chrome websocket anaconda-mode pythonic f dash s alert log4e gntp aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
+    (typescript-mode yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify w3m volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit systemd sql-indent spaceline powerline smex smeargle slim-mode shell-pop scss-mode sass-mode rvm rust-playground ruby-tools ruby-test-mode rubocop rspec-mode robe rjsx-mode rg wgrep restclient-helm restart-emacs rbenv rake rainbow-delimiters racket-mode faceup racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin pip-requirements persp-mode pcre2el paradox orgit org-projectile org-category-capture org-present org-pomodoro org-mime org-download org-bullets open-junk-file ob-restclient ob-http noflet nginx-mode neotree multi-term move-text mmm-mode minitest markdown-toc magit-gitflow magit-popup macrostep lua-mode lsp-ui lorem-ipsum logview datetime extmap livid-mode skewer-mode simple-httpd live-py-mode lispy zoutline linum-relative link-hint key-quiz key-chord json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc ivy-hydra indent-guide hydra lv hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-spotify-plus multi helm-pydoc helm-projectile helm-mode-manager helm-make helm-lsp helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode google-translate golden-ratio go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md fuzzy flyspell-correct-ivy flyspell-correct-helm flyspell-correct flycheck-rust flycheck-pycheckers flycheck-pos-tip pos-tip flycheck flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell excorporate nadvice url-http-ntlm soap-client fsm evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mu4e evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu eshell-z eshell-prompt-extras esh-help epresent ensime sbt-mode scala-mode emr iedit clang-format paredit list-utils emmet-mode elisp-slime-nav elfeed dumb-jump dockerfile-mode diminish diff-hl define-word cython-mode csv-mode counsel-projectile projectile pkg-info epl counsel swiper ivy company-web web-completion-data company-tern tern company-statistics company-restclient restclient know-your-http-well company-lsp lsp-mode spinner ht dash-functional company-go go-mode company-anaconda company column-enforce-mode coffee-mode clean-aindent-mode circe chruby chicken-scheme cargo markdown-mode rust-mode bundler inf-ruby browse-kill-ring blacken bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed atomic-chrome websocket anaconda-mode pythonic f dash s alert log4e gntp aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ac-ispell auto-complete popup)))
  '(paradox-github-token t)
  '(send-mail-function (quote smtpmail-send-it))
  '(smtpmail-smtp-server "ballard.amazon.com")

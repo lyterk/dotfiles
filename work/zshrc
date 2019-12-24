@@ -27,32 +27,51 @@ alias sagr="sag remove"
 alias acs="apt-cache search"
 alias acm="apt-cache madison"
 alias svba="source venv/bin/activate"
-alias sz="source ~/dotfiles/work/copier.sh && source ~/.zshrc"
+alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias bb="brazil-build"
+alias bbr="bb release"
 alias bre="brazil-runtime-exec"
-alias brep="bre python bin/manage.py"
+alias bte="brazil-test-exec"
 alias bwsm="brazil ws --sync --md"
+alias bnu="brazil ws create --name"
+alias bp="brazil ws use -p"
+alias bv="brazil ws use -vs"
 
-alias la='ls -lAFh'   #long list,show almost all,show type,human readable
-alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
-alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
+alias i=ipython
+alias python=python3
+alias pipi="pip3 install --user"
 
-alias mon='psql -h fba-analysis-monster.db.amazon.com -p 8192 -d monster -U fba_analysis'
-alias monroot="psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root"
-alias monroot='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
-alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
-alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
-alias edae="emacs --daemon &> ~/.emacs.d/log/$(date '+%m-%d-%y').log & "
+alias la="ls -lah"
+
+# alias mon='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
+# alias monr='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
+# alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
+# alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
+# alias ags='psql -h agsanalytics01.cuv0wvsrttvh.us-east-1.redshift.amazonaws.com -p 8192 -d agsanalytics -U ags_root'
+# alias fare='psql -h fare-bi-rs1.cejlc1wjv9tl.us-east-1.redshift.amazonaws.com -p 8192 -d farebirs1 -U dw_virtdashboard_admin'
+# alias wb="nohup ~/.local/share/sql_workbench/sqlworkbench.sh &"
+alias edae="emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et="emacsclient -t"
 alias vipy="$VIRTUAL_ENV/bin/ipython"
-
-SOUND_FOLDER="$HOME/Music"
-alias pat='(play $HOME/Music/right_answer.mp3 2> /dev/null &)'
-alias poke='(play $HOME/Music/wrong_answer.mp3 2> /dev/null &)'
+alias d=ddgr
+alias g=googler
+alias python=python3
+alias pip=$HOME/.pyenv/shims/pip3
 
 export NVM_DIR="/Users/kllyter/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-. /Users/kllyter/.miniconda/etc/profile.d/conda.sh
+
+eval "$(pyenv init -)"
+
+function sync_dots() {
+    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles &
+    # rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
+    # rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
+    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles &
+}
+
+fpath=(~/.zsh/completion $fpath)
+autoload -Uz compinit && compinit -i

@@ -89,6 +89,12 @@ score=yes
 # Maximum number of nested blocks for function / method body
 max-nested-blocks=5
 
+# Unnecessary "%s" after "return" Used in order to highlight an unnecessary
+# block of code following an if containing a return statement. As such, it will
+# warn when it encounters an else following a chain of ifs, all of them
+# containing a return statement.
+no-else-return=disable
+
 
 [LOGGING]
 

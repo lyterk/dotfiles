@@ -31,15 +31,34 @@ host mall
      ForwardAgent yes
      RemoteForward 6050 localhost:52698
 
-Host willet
+Host st
      Hostname spirit-tools-1d-1ec1e145.us-east-1.amazon.com
      User kllyter
 
 Host ela
-     Hostname ec2-34-229-209-144.compute-1.amazonaws.com
+     Hostname ec2-34-229-212-202.compute-1.amazonaws.com
      User ubuntu
      ServerAliveInterval 120
      IdentityFile ~/.ssh/elasticity.pem
+
+Host que
+     Hostname 3.83.151.79 
+     User ubuntu
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/queue_scheduler.pem
+
+host fare
+     HostName 34.212.124.132
+     User ubuntu
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/user-script-box.pem
+
+
+Host af
+     User ubuntu
+     HostName 54.82.142.75
+     ServerAliveInterval 120
+     IdentityFile ~/.ssh/airflow.pem
 
 
 # host va-bastion
@@ -63,16 +82,11 @@ Host ela
 #      HostName 34.230.87.144
 #      IdentityFile ~/.ssh/kllyter-temp.pem
 
-# Host fsoqa
-#      HostName dev-dsk-kllyter-2c-67664c66.us-west-2.amazon.com
-#      User kllyter
+Host fsoqa
+     HostName  dev-dsk-kllyter-2c-2e8d6144.us-west-2.amazon.com 
+     User kllyter
 
 
-# host fare
-#      HostName 34.212.124.132
-#      User ubuntu
-#      ServerAliveInterval 120
-#      IdentityFile ~/.ssh/user-script-box.pem
 
 # host demobastion
 #      HostName 10.3.5.172
@@ -80,11 +94,6 @@ Host ela
 #      ProxyCommand ssh -W %h:%p va-bastion
 #      IdentityFile ~/.ssh/user-script-pair.pem
 
-# Host af
-#      User ubuntu
-#      HostName 54.82.142.75
-#      ServerAliveInterval 120
-#      IdentityFile ~/.ssh/airflow.pem
 
 # Host tmp
 #      User ubuntu

@@ -1,44 +1,30 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import errno
 
-home = os.path.expanduser('~')
-dotfiles_path = home + '/dotfiles/remote'
+from pathlib import Path
+
+home = Path("~").expanduser()
+dotfiles_path = home / "dotfiles/remote"
 
 files = {
-    'config': home + '/.ssh/config',
-    'config.fish': home + '/.config/fish/config.fish',
-    'gitconfig': home + '/.gitconfig',
-    'gitignore': home + '/.gitignore',
-    'spacemacs': home + '/.spacemacs',
-    'aspell.en.pws': home + '/.aspell.en.pws',
-    'pylintrc': home + '/.pylintrc'
+    "config.fish": home / ".config/fish/config.fish",
+    "gitconfig": home / ".gitconfig",
+    "gitignore": home / ".gitignore",
+    "pylintrc": home / ".pylintrc",
+    "zshrc": home / ".zshrc",
 }
-
-# Remove existing symlinked destinations
-for _, value in files.items():
-    try:
-        if os.path.exists(value):
-            os.unlink(value)
-    except OSError as o:
-        if o.errno == errno.EEXIST:
-            pass
-        else:
-            raise
-    except Exception as exc:
-        print(exc)
-    try:
-        parent = os.path.dirname(value)
-        os.makedirs(parent)
-    except OSError as o:
-        if o.errno == errno.EEXIST:
-            pass
-        else:
-            raise
-    except Exception:
-        raise
 
 
 # Create new symlink from dotfiles directory
-[os.symlink(os.path.join(dotfiles_path, key), value) for key, value in files.items()]
+for _, value in files.items():
+    print(value)
+    try:
+        value.unlink()
+        value.parent.mkdir(parents=True, exist_ok=True)
+    except Exception as exc:
+        print(exc)
+        pass
+
+[value.symlink_to(dotfiles_path / key) for key, value in files.items()]
