@@ -27,7 +27,10 @@ files = {
     "redshift.conf": home / ".config/redshift.conf",
     "flake8": home / ".config/flake8",
     "projectile": home / ".projectile",
+    "rustfmt.toml": home / ".config/rustfmt/rustfmt.toml",
     "browser/userChrome.css": firefox_profile / "userChrome.css",
+    "zshenv": home / ".zshenv",
+    "zshrc": home / ".zshrc",
 }
 
 snippets_source = home / "dotfiles" / "snippets"

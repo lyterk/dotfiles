@@ -1,0 +1,12 @@
+Tarrasch/zsh-functional
+Tarrasch/zsh-bd
+
+# Remember defined aliases
+djui/alias-tips
+
+# Never manually change JVM https://github.com/caarlos0/jvm
+caarlos0/jvm
+
+# My theme 
+mafredri/zsh-async
+sindresorhus/pure

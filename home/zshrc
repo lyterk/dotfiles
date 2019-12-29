@@ -1,40 +1,25 @@
 #!/bin/zsh
 
-# source ~/.antigen/antigen.zsh
+alias sa="sudo apt"
+alias sai="sa install"
+alias saud="sa update"
+alias saug="sa upgrade"
+alias sar="sa remove"
+alias saa="sa autoremove"
 
-# Load the oh-my-zsh's library.
-# antigen use oh-my-zsh
+alias et="emacsclient -t"
+alias ec="emacsclient -c"
 
-# Bundles from the default repo (robbyrussell's oh-my-zsh).
-# antigen bundle git
-# antigen bundle heroku
-# antigen bundle pip
-# antigen bundle lein
-# antigen bundle command-not-found
+alias sz="source ~/.zshrc"
+alias na="ls"
+alias la="ls -lah"
 
-# Syntax highlighting bundle.
-# antigen bundle zsh-users/zsh-syntax-highlighting
+alias zup="antibody bundle < ~/dotfiles/home/zsh_plugins.txt > ~/.zsh_plugins.sh"
 
-# Load the theme.
-# antigen theme gianu
+# source ~/.zshenv
 
-# PATH $(getconf PATH)
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
-alias spac "sudo pacman"
-alias spacs "spac -S"
-alias sagi "spacs"
-alias spacsy "spac -Syy"
-alias spacup "spac -Syu"
-alias sagu "spacup"
-alias spacr "spac -Rn"
-alias sagr "spacr"
-
-alias et "emacsclient -t"
-alias ed "emacs --daemon >> ~/.emacs.d/logs/(date '+%m-%d-%y').log &"
-
-alias sz "source ~/.zshrc"
-alias na "ls"
-
-source ~/.zshenv
-# exec /bin/fish
-# antigen apply
+source ~/.zsh_plugins.sh
+# source <(antibody init)
