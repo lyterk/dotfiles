@@ -6,6 +6,7 @@ pythonfile = ~/dotfiles/work/offlineimap.py
 [Account amazon]
 remoterepository = Remote
 localrepository = Local
+postsynchook = ~/dotfiles/work/email_script.fish
  
 [Repository Remote]
 type = IMAP

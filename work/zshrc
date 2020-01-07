@@ -29,6 +29,11 @@ alias acm="apt-cache madison"
 alias svba="source venv/bin/activate"
 alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
+alias sz="source ~/.zshrc"
+
+alias sc="systemctl"
+alias scu="systemctl --user"
+
 alias bb="brazil-build"
 alias bbr="bb release"
 alias bre="brazil-runtime-exec"

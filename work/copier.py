@@ -4,8 +4,12 @@ from pathlib import Path
 
 home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
+
 snippets_source = home / "dotfiles" / "snippets"
 snippets_destination = home / ".emacs.d" / "private" / "snippets"
+
+doom_source = home / "dotfiles" / "work" / "doom.d"
+doom_destination = home / ".doom.d"
 
 files = {
     "config": home / ".ssh/config",
@@ -32,19 +36,25 @@ files = {
     "zprofile": home / ".zprofile",
 }
 
-for dir in snippets_source.iterdir():
-    Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
-    for snippet in dir.iterdir():
-        try:
-            (snippets_destination / dir.name / snippet.name).symlink_to(
-                snippets_source / dir.name / snippet.name
-            )
-        except:
-            (snippets_destination / dir.name / snippet.name).unlink()
-            (snippets_destination / dir.name / snippet.name).symlink_to(
-                snippets_source / dir.name / snippet.name
-            )
+# for dir in snippets_source.iterdir():
+#     Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
+#     for snippet in dir.iterdir():
+#         try:
+#             (snippets_destination / dir.name / snippet.name).symlink_to(
+#                 snippets_source / dir.name / snippet.name
+#             )
+#         except:
+#             (snippets_destination / dir.name / snippet.name).unlink()
+#             (snippets_destination / dir.name / snippet.name).symlink_to(
+#                 snippets_source / dir.name / snippet.name
+#             )
 
+for file in doom_source.iterdir():
+    try:
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
+    except:
+        (doom_destination / file.name).unlink()
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
 
 # Remove existing symlinked destinations
 for _, value in files.items():

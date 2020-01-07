@@ -5,7 +5,7 @@ set me "kllyter"
 set boss "skipark" "aurelv"
 set director "joannste"
 set team "skipark" "foot" "djcoop" "styerp" "malav" "momallor"
-set relatives "vaggi" "soufiane" "njw" "bls" "kwillet"
+set relatives "vaggi" "soufiane" "bls" "kwillet"
 set domain "@amazon.com"
 set retrieval "Retrieval using the IMAP4 protocol failed for the following message"
 set password_notify "Project Austin Redshift Cluster - Monthly Automated Password Change"
@@ -60,7 +60,7 @@ nm_tag +permissions "from:permissions-notifier"
 
 nm_tag +trash -inbox -unread "Undeliverable: QA Flash for"
 
-nm_tag +sim from:"issues$domain"
+nm_tag +sim from:"issues@prod.sim.a2z.com"
 
 # Interest lists and chatter
 
@@ -69,7 +69,7 @@ set interest_lists "bdt-interest" "djangohackers" "dryad-interest" "emacs" "emr-
 set chatter_lists "seattle-chatter"
 
 for list in $interest_lists
-    nm_tag -inbox +$list "to:$list"
+    nm_tag -inbox +$list +interest_list "to:$list$domain"
 end
 
 for list in $chatter_lists

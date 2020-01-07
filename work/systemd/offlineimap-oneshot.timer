@@ -3,7 +3,7 @@ Description=Offlineimap Query Timer for account %i
 
 [Timer]
 OnBootSec=1m
-OnUnitInactiveSec=15m
+OnUnitInactiveSec=5m
 
 [Install]
 WantedBy=default.target
