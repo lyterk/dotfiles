@@ -1,14 +1,14 @@
-#!/bin/fish
+#!/bin/zsh
 
-set PATH (getconf PATH)
+export BASE_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
 
-set BROWSER /usr/bin/firefox
-set EDITOR "/usr/bin/emacsclient -t"
+export BROWSER=/usr/bin/firefox
+export EDITOR="/usr/bin/emacsclient -t"
 
-set -gx JAVA_HOME /usr/lib/jvm/java-8-openjdk/jre
-set -gx LOCAL_BIN $HOME/.local/bin
-set -gx CONDA_BIN $HOME/.anaconda3/bin
+export PYENV_BIN=$HOME/.pyenv/bin
+# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
+export LOCAL_BIN=$HOME/.local/bin
 
-set -gx RUST_SRC_PATH $HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
-set -gx RUST_BIN $HOME/.cargo/bin
-set -gx PATH $CONDA_BIN:$PATH:$JAVA_HOME:$LOCAL_BIN:$RUST_SRC_PATH:$RUST_BIN
+export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
+export CARGO=$HOME/.cargo/bin
+export PATH=$PYENV_BIN:$BASE_PATH:$JAVA_HOME:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH
