@@ -42,6 +42,7 @@ alias bwsm="brazil ws --sync --md"
 alias bnu="brazil ws create --name"
 alias bp="brazil ws use -p"
 alias bv="brazil ws use -vs"
+alias brc="brazil-recursive-command"
 
 alias i=ipython
 alias python=python3
@@ -80,3 +81,5 @@ function sync_dots() {
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+
+source /home/ANT.AMAZON.COM/kllyter/.config/broot/launcher/bash/br

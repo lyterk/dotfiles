@@ -1,3 +1,6 @@
+Host *dev-dsk-kllyter*.amazon.com
+     ProxyCommand none
+
 Host d
      HostName fba-analytics-1d-d4c9d5c2.us-east-1.amazon.com
      # GSSAPIAuthentication yes
@@ -13,23 +16,9 @@ Host f
      # GSSAPIAuthentication yes
      User kllyter
 
-Host look
-     HostName ags-analytics-servers-1a-17752b3c.us-east-1.amazon.com
-     User kllyter
-
 Host desk
      Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
      User kllyter
-
-host mall
-     hostname ec2-54-82-101-165.compute-1.amazonaws.com
-     user ubuntu
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/fees-team.pem
-     LocalForward 9000 localhost:7000
-     LocalForward 6004 localhost:22
-     ForwardAgent yes
-     RemoteForward 6050 localhost:52698
 
 Host st
      Hostname spirit-tools-1d-1ec1e145.us-east-1.amazon.com

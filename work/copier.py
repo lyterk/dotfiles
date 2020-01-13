@@ -15,7 +15,7 @@ files = {
     "config": home / ".ssh/config",
     "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
-    "gitignore": home / ".gitignore",
+    "gitignore": home / ".gitignore_global",
     "aspell.en.pws": home / ".aspell.en.pws",
     "spacemacs.el": home / ".spacemacs",
     "pylintrc": home / ".pylintrc",
@@ -23,6 +23,7 @@ files = {
     "jsbeautifyrc": home / ".jsbeautifyrc",
     "userChrome.css": home
     / ".mozilla/firefox/15naj99r.default-release/chrome/userChrome.css",
+    "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
     "systemd/offlineimap-oneshot.service": home
@@ -57,14 +58,16 @@ for file in doom_source.iterdir():
         (doom_destination / file.name).symlink_to(doom_source / file.name)
 
 # Remove existing symlinked destinations
-for _, value in files.items():
-    print(value)
+for filename, destination_path in files.items():
+    print(destination_path)
     try:
-        value.unlink()
-        value.parent.mkdir(parents=True, exist_ok=True)
+        destination_path.unlink()
+    except:
+        # I don't care if it already exists or not.
+        pass
+    try:
+        destination_path.parent.mkdir(parents=True, exist_ok=True)
+        destination_path.symlink_to(dotfiles_path / filename)
     except Exception as exc:
         print(exc)
         pass
-
-# Create new symlink from dotfiles directory
-[value.symlink_to(dotfiles_path / key) for key, value in files.items()]

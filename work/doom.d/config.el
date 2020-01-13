@@ -49,6 +49,9 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Kevin stuff below
 ;; Set transparency
 (set-frame-parameter (selected-frame) 'alpha '85)
 (add-to-list 'default-frame-alist '(alpha . 85))
+
+(load! "bindings")
