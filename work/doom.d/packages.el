@@ -56,7 +56,7 @@
 (package! ranger)
 ;; Desktop notifications
 (package! alert)
-;; Notmuch links with org files
-(package! org-notmuch)
-;; Java beast
-(package! meghanada)
+;; Querying org files
+(package! org-ql)
+;; Testing email interface
+(package! nm)

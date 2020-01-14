@@ -33,6 +33,7 @@ alias sz="source ~/.zshrc"
 
 alias sc="systemctl"
 alias scu="systemctl --user"
+alias jc="journalctl -xe"
 
 alias bb="brazil-build"
 alias bbr="bb release"

@@ -12,6 +12,7 @@ doom_source = home / "dotfiles" / "work" / "doom.d"
 doom_destination = home / ".doom.d"
 
 files = {
+    # dotfiles
     "config": home / ".ssh/config",
     "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
@@ -24,6 +25,10 @@ files = {
     "userChrome.css": home
     / ".mozilla/firefox/15naj99r.default-release/chrome/userChrome.css",
     "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
+    "offlineimaprc": home / ".offlineimaprc",
+    "zshrc": home / ".zshrc",
+    "zprofile": home / ".zprofile",
+    # Systemd stuff
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
     "systemd/offlineimap-oneshot.service": home
@@ -32,9 +37,7 @@ files = {
     / ".config/systemd/user/offlineimap-oneshot.timer",
     "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
     "systemd/notmuch.timer": home / ".config/systemd/user/notmuch.timer",
-    "offlineimaprc": home / ".offlineimaprc",
-    "zshrc": home / ".zshrc",
-    "zprofile": home / ".zprofile",
+    "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
 }
 
 # for dir in snippets_source.iterdir():
