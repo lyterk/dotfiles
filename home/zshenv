@@ -4,6 +4,7 @@ export BASE_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/defau
 
 export BROWSER=/usr/bin/firefox
 export EDITOR="/usr/bin/emacsclient -t"
+export HISTFILE=.zhistory
 
 export PYENV_BIN=$HOME/.pyenv/bin
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre

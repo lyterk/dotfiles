@@ -1,5 +1,6 @@
 #!/bin/zsh
 
+alias ase="apt search"
 alias sa="sudo apt"
 alias sai="sa install"
 alias saud="sa update"
@@ -15,6 +16,13 @@ alias na="ls"
 alias la="ls -lah"
 
 alias zup="antibody bundle < ~/dotfiles/home/zsh_plugins.txt > ~/.zsh_plugins.sh"
+
+alias vre="sudo systemctl restart openvpn-client@US_Seattle.service"
+alias vsto="sudo systemctl stop openvpn-client@US_Seattle.service"
+alias vsta="sudo systemctl start openvpn-client@US_Seattle.service"
+
+alias sc="sudo systemctl"
+alias scu="systemctl --user"
 
 # source ~/.zshenv
 
