@@ -9,7 +9,7 @@ alias sar="sa remove"
 alias saa="sa autoremove"
 
 alias et="emacsclient -t"
-alias ec="emacsclient -c"
+alias ec="nohup emacsclient -c &> /tmp/emacs.out &"
 
 alias sz="source ~/.zshrc"
 alias na="ls"
@@ -26,8 +26,8 @@ alias scu="systemctl --user"
 
 # source ~/.zshenv
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 
 source ~/.zsh_plugins.sh
 # source <(antibody init)

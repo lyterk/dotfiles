@@ -14,12 +14,13 @@ firefox_profile = (
     home / ".mozilla" / "firefox" / profile.get("Profile0", "Path") / "chrome"
 )
 
+doom_source = home / "dotfiles" / "work" / "doom.d"
+doom_destination = home / ".doom.d"
+
 files = {
     "spacemacs": home / ".spacemacs",
     "config": home / ".ssh" / "config",
     "config.fish": home / ".config/fish/config.fish",
-    "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
-    "systemd/redshift.service": home / ".config/systemd/user/redshift.service",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore",
     "pip.conf": home / ".pip/pip.conf",
@@ -31,24 +32,32 @@ files = {
     "browser/userChrome.css": firefox_profile / "userChrome.css",
     "zshenv": home / ".zshenv",
     "zshrc": home / ".zshrc",
+    "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
+    "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
 }
 
-snippets_source = home / "dotfiles" / "snippets"
-snippets_destination = home / ".emacs.d" / "private" / "snippets"
+for file in doom_source.iterdir():
+    try:
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
+    except:
+        (doom_destination / file.name).unlink()
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
 
-for dir in snippets_source.iterdir():
-    Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
-    for snippet in dir.iterdir():
-        try:
-            (snippets_destination / dir.name / snippet.name).symlink_to(
-                snippets_source / dir.name / snippet.name
-            )
-        except:
-            (snippets_destination / dir.name / snippet.name).unlink()
-            (snippets_destination / dir.name / snippet.name).symlink_to(
-                snippets_source / dir.name / snippet.name
-            )
+# snippets_source = home / "dotfiles" / "snippets"
+# snippets_destination = home / ".emacs.d" / "private" / "snippets"
 
+# for dir in snippets_source.iterdir():
+#     Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
+#     for snippet in dir.iterdir():
+#         try:
+#             (snippets_destination / dir.name / snippet.name).symlink_to(
+#                 snippets_source / dir.name / snippet.name
+#             )
+#         except:
+#             (snippets_destination / dir.name / snippet.name).unlink()
+#             (snippets_destination / dir.name / snippet.name).symlink_to(
+#                 snippets_source / dir.name / snippet.name
+#             )
 
 # Remove existing symlinked destinations
 for name, value in files.items():
