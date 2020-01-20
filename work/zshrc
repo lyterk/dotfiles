@@ -24,7 +24,7 @@ alias sagi="sag install"
 alias sagu="sag update"
 alias saga="sag autoremove"
 alias sagr="sag remove"
-alias acs="apt-cache search"
+alias ase="apt-cache search"
 alias acm="apt-cache madison"
 alias svba="source venv/bin/activate"
 alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
@@ -51,15 +51,10 @@ alias pipi="pip3 install --user"
 
 alias la="ls -lah"
 
-# alias mon='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U fba_analysis'
-# alias monr='psql -h fba-analysis.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d monster -U root'
-# alias gol='psql -h fba-analysis-goldman.db.amazon.com -p 8192 -d goldman -U root'
-# alias wells='psql -h fba-wells.c5g1ihldokmx.us-east-1.redshift.amazonaws.com -p 8192 -d wells -U root'
-# alias ags='psql -h agsanalytics01.cuv0wvsrttvh.us-east-1.redshift.amazonaws.com -p 8192 -d agsanalytics -U ags_root'
-# alias fare='psql -h fare-bi-rs1.cejlc1wjv9tl.us-east-1.redshift.amazonaws.com -p 8192 -d farebirs1 -U dw_virtdashboard_admin'
 # alias wb="nohup ~/.local/share/sql_workbench/sqlworkbench.sh &"
 alias edae="emacs --daemon > ~/.emacs.d/log/'(date '+%m-%d-%y')'.log & "
 alias et="emacsclient -t"
+alias ec="nohup emacsclient -c &> /tmp/nohup_emacs.out &"
 alias vipy="$VIRTUAL_ENV/bin/ipython"
 alias d=ddgr
 alias g=googler

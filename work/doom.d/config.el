@@ -55,37 +55,39 @@
 (add-to-list 'default-frame-alist '(alpha . 85))
 
 ;; Alert settings
-(alert-define-style 'kevin
-                    :notifier
-                    (lambda (info)
-                      (plist-get info :message)
-                      ;; The :title of the alert
-                      (plist-get info :title)
-                      ;; The :category of the alert
-                      (plist-get info :category)
-                      ;; The major-mode this alert relates to
-                      (plist-get info :mode)
-                      ;; The buffer the alert relates to
-                      (plist-get info :buffer)
-                      ;; Severity of the alert.  It is one of:
-                      ;;   `urgent'
-                      ;;   `high'
-                      ;;   `moderate'
-                      ;;   `normal'
-                      ;;   `low'
-                      ;;   `trivial'
-                      (plist-get info :severity)
-                      ;; Whether this alert should persist, or fade away
-                      (plist-get info :persistent)
-                      ;; Data which was passed to `alert'.  Can be
-                      ;; anything.
-                      (plist-get info :data)))
+;; (require 'alert)
+;; (alert-define-style 'kevin
+;;                     :notifier
+;;                     (lambda (info)
+;;                       (plist-get info :message)
+;;                       ;; The :title of the alert
+;;                       (plist-get info :title)
+;;                       ;; The :category of the alert
+;;                       (plist-get info :category)
+;;                       ;; The major-mode this alert relates to
+;;                       (plist-get info :mode)
+;;                       ;; The buffer the alert relates to
+;;                       (plist-get info :buffer)
+;;                       ;; Severity of the alert.  It is one of:
+;;                       ;;   `urgent'
+;;                       ;;   `high'
+;;                       ;;   `moderate'
+;;                       ;;   `normal'
+;;                       ;;   `low'
+;;                       ;;   `trivial'
+;;                       (plist-get info :severity)
+;;                       ;; Whether this alert should persist, or fade away
+;;                       (plist-get info :persistent)
+;;                       ;; Data which was passed to `alert'.  Can be
+;;                       ;; anything.
+;;                       (plist-get info :data)))
 
-                    ;; Removers are optional.  Their job is to remove
-                    ;; the visual or auditory effect of the alert.
-                    ;; :remover
-                    ;; (lambda (info)))
-                    ;; It is the same property list that was passed to
-                    ;; the notifier function.
+;;                     ;; Removers are optional.  Their job is to remove
+;;                     ;; the visual or auditory effect of the alert.
+;;                     ;; :remover
+;;                     ;; (lambda (info)))
+;;                     ;; It is the same property list that was passed to
+;;                     ;; the notifier function.
 
+(load! "functions")
 (load! "bindings")

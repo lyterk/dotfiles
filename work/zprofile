@@ -5,7 +5,7 @@ PROMPT='[local] %3~ %# '
 BRAZIL_BIN="/apollo/env/SDETools/bin"
 
 
-# export JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/bin
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export NPM=$HOME/.nvm/versions/node/v8.16.0/bin
 export LOCALBIN=$HOME/.local/bin

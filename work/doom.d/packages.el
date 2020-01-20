@@ -60,3 +60,7 @@
 (package! org-ql)
 ;; Testing email interface
 (package! nm)
+;; Integrate auth-source with pass
+(package! auth-source-pass)
+;; SPC s e in spacemacs, change all occurences etc.
+(package! auto-highlight-symbol)
