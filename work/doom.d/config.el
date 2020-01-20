@@ -89,5 +89,17 @@
 ;;                     ;; It is the same property list that was passed to
 ;;                     ;; the notifier function.
 
+(defun slurp (file)
+  (split-string (with-temp-buffer (insert-file-contents file)
+                                  (buffer-substring-no-properties
+                                   (point-min)
+                                   (point-max)))))
+
+(let ((spotify-credentials (slurp "/home/ANT.AMAZON.COM/kllyter/.passwords/spotify.txt.gpg")))
+  (setq spotify-oath2-client-secret (car spotify-credentials))
+  (setq spotify-oath2-client-id (car (cdr spotify-credentials))))
+
+(setq spotify-transport 'connect)
+
 (load! "functions")
 (load! "bindings")

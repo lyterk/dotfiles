@@ -64,3 +64,5 @@
 (package! auth-source-pass)
 ;; SPC s e in spacemacs, change all occurences etc.
 (package! auto-highlight-symbol)
+;; Spotify
+(package! spotify)
