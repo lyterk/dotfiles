@@ -50,7 +50,7 @@ alias ssam "sudo /home/linuxbrew/.linuxbrew/bin/sam"
 alias pahvo 'psql -h pahvo.cakudculty6n.us-east-1.rds.amazonaws.com -p 5432 -d pahvo -U airflow_test_user'
 
 alias ppush "pass git push origin master"
-alias ppull "pass git pull origin master"
+alias ppull "pass git pull --rebase origin master"
 
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'

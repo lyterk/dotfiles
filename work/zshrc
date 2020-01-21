@@ -61,6 +61,10 @@ alias g=googler
 alias python=python3
 alias pip=$HOME/.pyenv/shims/pip3
 
+
+alias ppush "pass git push origin master"
+alias ppull "pass git pull origin master"
+
 export NVM_DIR="/Users/kllyter/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
