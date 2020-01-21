@@ -129,3 +129,4 @@
 
 (load! "functions")
 (load! "bindings")
+(load! "autoload")
