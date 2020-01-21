@@ -9,4 +9,6 @@
         :desc "Query-replace RegExp"                        "R"  #'anzu-query-replace-regexp
         :desc "Yank current filename as org link"           "f"  #'copy-file-name
         :desc "Yank current filename::linenum as org link"  "l"  #'copy-file-name-with-number
-        :desc "Ivy pass"                                    "p"  #'+pass/ivy))
+        :desc "Ivy pass"                                    "p"  #'+pass/ivy)
+      ;; (:prefix-map ("a" "applications")
+      ;;   :desc V))
