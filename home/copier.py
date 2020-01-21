@@ -14,7 +14,7 @@ firefox_profile = (
     home / ".mozilla" / "firefox" / profile.get("Profile0", "Path") / "chrome"
 )
 
-doom_source = home / "dotfiles" / "work" / "doom.d"
+doom_source = home / "dotfiles" / "home" / "doom.d"
 doom_destination = home / ".doom.d"
 
 files = {
@@ -39,9 +39,11 @@ files = {
 for file in doom_source.iterdir():
     try:
         (doom_destination / file.name).symlink_to(doom_source / file.name)
+        print(doom_destination / file.name)
     except:
         (doom_destination / file.name).unlink()
         (doom_destination / file.name).symlink_to(doom_source / file.name)
+        print(doom_destination / file.name)
 
 # snippets_source = home / "dotfiles" / "snippets"
 # snippets_destination = home / ".emacs.d" / "private" / "snippets"
