@@ -23,6 +23,7 @@ alias vsta="sudo systemctl start openvpn-client@US_Seattle.service"
 
 alias sc="sudo systemctl"
 alias scu="systemctl --user"
+alias jc="journalctl -xe"
 
 # source ~/.zshenv
 
