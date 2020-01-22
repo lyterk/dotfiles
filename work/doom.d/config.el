@@ -3,6 +3,12 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+(defun home (&rest path)
+  (string-join (append (list (getenv "HOME")) path) "/"))
+
+;; Move this to the dotfiles location, I think this'll be less buggy than symlinking.
+(setq doom-private-dir (home "dotfiles/work/doom.d")
+      doom-modeline-project-root (home "dotfiles/work/doom.d"))
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
@@ -52,8 +58,6 @@
 ;; Kevin stuff below
 ;; Set transparency
 
-(defun home (&rest path)
-  (string-join (append (list (getenv "HOME")) path) "/"))
 
 (set-frame-parameter (selected-frame) 'alpha '85)
 (add-to-list 'default-frame-alist '(alpha . 85))
@@ -126,6 +130,7 @@
   (setq spotify-oath2-client-id (car (cdr spotify-credentials))))
 
 (setq spotify-transport 'connect)
+(setq spotify-remote-mode t)
 
 (load! "functions")
 (load! "bindings")

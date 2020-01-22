@@ -19,13 +19,14 @@ HISTFILE=~/.zsh_history
 
 # Use modern completion system
 
-alias sag="sudo apt"
-alias sagi="sag install"
-alias sagu="sag update"
-alias saga="sag autoremove"
-alias sagr="sag remove"
+alias sa="sudo apt"
+alias sai="sag install"
+alias saud="sa update"
+alias saar="sa autoremove"
+alias sar="sa remove"
 alias ase="apt-cache search"
 alias acm="apt-cache madison"
+
 alias svba="source venv/bin/activate"
 alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 

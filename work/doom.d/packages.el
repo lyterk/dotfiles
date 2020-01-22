@@ -66,3 +66,5 @@
 (package! auto-highlight-symbol)
 ;; Spotify
 (package! spotify)
+;;
+(package! rust-playground)

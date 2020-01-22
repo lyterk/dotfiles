@@ -21,6 +21,7 @@
         :desc "base"                            "b" (λ! (copy-message (file-name-base (or buffer-file-name dired-directory))))
         :desc "directory"                       "d" (λ! (copy-message (file-name-directory (or buffer-file-name dired-directory))))
         :desc "path"                            "p" (λ! (copy-message (file-name-directory (or buffer-file-name dired-directory))))
-        :desc "relative to propject project"    "r" (λ! (copy-message (s-replace (projectile-project-root) "" (or buffer-file-name dired-directory))))))
-      ;; (:prefix-map ("a" "applications")
-      ;;   :desc V))
+        :desc "relative to propject project"    "r" (λ! (copy-message (s-replace (projectile-project-root) "" (or buffer-file-name dired-directory)))))
+      (:prefix-map ("as" . "applications")
+        :desc "Play/Pause" "p" #'spotify-playpause
+        :desc "Search"     "s" (λ! spotify-search)))
