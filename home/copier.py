@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-import configparser
 
 home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"

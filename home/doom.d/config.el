@@ -3,6 +3,10 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 
+  (defun home (&rest path)
+    (string-join (append (list (getenv "HOME")) path) "/"))
+
+(setq doom-private-dir (home "dotfiles/home/doom.d"))
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
@@ -55,8 +59,6 @@
 
 (use-package! vterm
   :load-path (lambda ()
-               (concat
-                (getenv "HOME")
-                "/.emacs.d/.local/straight/repos/emacs-libvterm")))
+               (home "/.emacs.d/.local/straight/repos/emacs-libvterm")))
 
 (load! "bindings")

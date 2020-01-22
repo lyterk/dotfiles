@@ -2,6 +2,8 @@
 
 export BASE_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
 
+export BOOT_CLOJURE_VERSION=1.10.1
+
 export BROWSER=/usr/bin/firefox
 export EDITOR="/usr/bin/emacsclient -t"
 export HISTFILE=.zhistory
@@ -9,6 +11,7 @@ export HISTFILE=.zhistory
 export PYENV_BIN=$HOME/.pyenv/bin
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
 export LOCAL_BIN=$HOME/.local/bin
+export NPM=$HOME/.local/share/npm-packages/bin/cljfmt
 
 export GUIX=$HOME/.guix-profile/bin
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src

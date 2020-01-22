@@ -2,8 +2,9 @@
 
 (defun logout ()
   "Log out of session."
-  (interactive
-   (start-process "logout" "shell-command-buffer" "loginctl" "lock-session")))
+  (interactive)
+  (let ((session-id (getenv "XDG_SESSION_ID")))
+    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" session-id)))
 
 (defun start-vpn ()
   (interactive)
@@ -28,4 +29,6 @@
 (map! :leader
       (:prefix-map ("k" . "kevin")
         :desc "Password manager" "p" #'ivy-pass
-        :desc "Restart VPN" "v" #'restart-vpn))
+        :desc "Copy file name" "f" #'copy-file-name
+        :desc "Restart VPN" "v" #'restart-vpn
+        :desc "Log out" "o" #'logout))
