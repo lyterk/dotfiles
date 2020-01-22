@@ -51,6 +51,10 @@
 
 ;; Kevin stuff below
 ;; Set transparency
+
+(defun home (&rest path)
+  (string-join (append (list (getenv "HOME")) path) "/"))
+
 (set-frame-parameter (selected-frame) 'alpha '85)
 (add-to-list 'default-frame-alist '(alpha . 85))
 
@@ -88,6 +92,28 @@
 ;;                     ;; (lambda (info)))
 ;;                     ;; It is the same property list that was passed to
 ;;                     ;; the notifier function.
+;;
+;;
+(setq counsel-search-engines-alist
+  '((google "http://suggestqueries.google.com/complete/search" "https://www.google.com/search?q=" counsel--search-request-data-google)
+    (ddg "https://duckduckgo.com/ac/" "https://duckduckgo.com/lite?q=" counsel--search-request-data-ddg)))
+
+(setq +lookup-provider-url-alist
+  '(("DuckDuckGo"        . "https://duckduckgo.com/lite?q=%s")
+    ("DuckDuckGo Lucky"  . "https://duckduckgo.com/lite?q=\\%s")
+    ("Github Code"       . "https://github.com/search?search&q=%s&type=Code")
+    ("Google"            . "https://google.com/search?q=%s")
+    ("Google images"     . "https://google.com/images?q=%s")
+    ("Google maps"       . "https://maps.google.com/maps?q=%s")
+    ("NPM"               . "https://npmjs.com/search?q=%s")
+    ("Hoogle"            . "https://www.haskell.org/hoogle/?hoogle=%s")
+    ("Project Gutenberg" . "http://www.gutenberg.org/ebooks/search/?query=%s")
+    ("Explain Shell"     . "https://explainshell.com/explain?cmd=%s")
+    ("StackOverflow"     . "https://stackoverflow.com/search?q=%s")
+    ("Github"            . "https://github.com/search?ref=simplesearch&q=%s")
+    ("Youtube"           . "https://youtube.com/results?aq=f&oq=&search_query=%s")
+    ("Wolfram alpha"     . "https://wolframalpha.com/input/?i=%s")
+    ("Wikipedia"         . "https://wikipedia.org/search-redirect.php?language=en&go=Go&search=%s")))
 
 (defun slurp (file)
   (split-string (with-temp-buffer (insert-file-contents file)
@@ -95,7 +121,7 @@
                                    (point-min)
                                    (point-max)))))
 
-(let ((spotify-credentials (slurp "/home/ANT.AMAZON.COM/kllyter/.passwords/spotify.txt.gpg")))
+(let ((spotify-credentials (slurp (home ".passwords/spotify.txt.gpg"))))
   (setq spotify-oath2-client-secret (car spotify-credentials))
   (setq spotify-oath2-client-id (car (cdr spotify-credentials))))
 
@@ -103,3 +129,4 @@
 
 (load! "functions")
 (load! "bindings")
+(load! "autoload")
