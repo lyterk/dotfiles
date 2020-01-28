@@ -68,3 +68,7 @@
 (package! spotify)
 ;;
 (package! rust-playground)
+;; Up to date shell variables, I hope
+(package! exec-path-from-shell)
+;; Reasonable async
+(package! async)

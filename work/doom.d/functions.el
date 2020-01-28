@@ -2,8 +2,8 @@
 
 (defun logout ()
   "Log out of session."
-  (interactive
-   (start-process "logout" "shell-command-buffer" "loginctl" "lock-session")))
+  (interactive)
+  (start-process "logout" "shell-command-buffer" "loginctl" "lock-session"))
 
 (defun copy-file-name ()
   (interactive)

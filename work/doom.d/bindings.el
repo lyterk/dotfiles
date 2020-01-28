@@ -1,6 +1,19 @@
+
 ;;; ~/dotfiles/work/doom.d/bindings.el -*- lexical-binding: t; -*-
 
 (defalias 'λ 'lambda)
+
+(defun logout ()
+  "Log out of session."
+  (interactive)
+
+  (let* ((output (shell-command-to-string "loginctl list-sessions"))
+         (data-only (cdr (split-string output "\n")))
+         (answers (-map (lambda (line) (split-string line "\\\s+")) data-only))
+         (stripped-answers (-map (lambda (line) (-filter (lambda (col) (not (string= "" col))) line)) answers))
+         (valid-answers (-filter (lambda (line) (> (length line) 3)) stripped-answers))
+         (only-sessions (-map 'car valid-answers)))
+    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" (s-join "," only-sessions))))
 
 (defun copy-message (x)
   "Executes kill-new but with a message log side effect."
