@@ -61,3 +61,7 @@
 (package! auth-source-pass)
 ;; guix stuff
 (package! guix)
+;; Update env variables etc.
+(package! exec-path-from-shell)
+;; PlantUML graphs
+(package! plantuml-mode)

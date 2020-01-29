@@ -4,7 +4,7 @@
   "Log out of session."
   (interactive)
   (let ((session-id (getenv "XDG_SESSION_ID")))
-    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" session-id)))
+    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" (number-to-string 20))))
 
 (defun start-vpn ()
   (interactive)

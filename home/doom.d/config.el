@@ -61,4 +61,7 @@
   :load-path (lambda ()
                (home "/.emacs.d/.local/straight/repos/emacs-libvterm")))
 
+(setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+(setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+
 (load! "bindings")

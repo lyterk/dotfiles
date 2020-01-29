@@ -16,4 +16,4 @@ export NPM=$HOME/.local/share/npm-packages/bin/cljfmt
 export GUIX=$HOME/.guix-profile/bin
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO=$HOME/.cargo/bin
-export PATH=$GUIX:$PYENV_BIN:$BASE_PATH:$JAVA_HOME:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH
+export PATH=$GUIX:$PYENV_BIN:$BASE_PATH:$JAVA_HOME:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH:$NPM
