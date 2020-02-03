@@ -54,12 +54,19 @@
 ;; You can also try 'gd' (or 'C-c g d') to jump to their definition and see how
 ;; they are implemented.
 
+;; UI configuration
 (set-frame-parameter (selected-frame) 'alpha '90)
 (add-to-list 'default-frame-alist '(alpha . 90))
 
+;; Shell environment
+(setq exec-path-from-shell-arguments nil)
+(exec-path-from-shell-initialize)
+
 (use-package! vterm
   :load-path (lambda ()
-               (home "/.emacs.d/.local/straight/repos/emacs-libvterm")))
+               (home ".emacs.d/.local/straight/repos/emacs-libvterm")))
+
+(setq python-shell-interpreter "ipython")
 
 (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")

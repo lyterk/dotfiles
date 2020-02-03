@@ -1,4 +1,4 @@
-#!/bin/env zsh
+#!/usr/bin/env zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -16,6 +16,7 @@ alias et="emacsclient -t"
 alias ec="nohup emacsclient -c &> /tmp/emacs.out &"
 
 alias sz="source ~/.zshrc"
+alias se="source ~/.zshenv"
 alias na="ls"
 alias la="ls -lah"
 
@@ -36,3 +37,5 @@ alias jc="journalctl -xe"
 
 source ~/.zsh_plugins.sh
 # source <(antibody init)
+# 
+eval "$(pyenv init -)"

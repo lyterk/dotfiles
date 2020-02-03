@@ -3,8 +3,14 @@
 (defun logout ()
   "Log out of session."
   (interactive)
-  (let ((session-id (getenv "XDG_SESSION_ID")))
-    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" (number-to-string 20))))
+
+  (let* ((output (shell-command-to-string "loginctl list-sessions"))
+         (data-only (cdr (split-string output "\n")))
+         (answers (-map (lambda (line) (split-string line "\\\s+")) data-only))
+         (stripped-answers (-map (lambda (line) (-filter (lambda (col) (not (string= "" col))) line)) answers))
+         (valid-answers (-filter (lambda (line) (> (length line) 3)) stripped-answers))
+         (only-sessions (-map 'car valid-answers)))
+    (start-process "logout" "shell-command-buffer" "loginctl" "lock-session" (s-join "," only-sessions))))
 
 (defun start-vpn ()
   (interactive)
