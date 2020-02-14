@@ -1,5 +1,7 @@
 ;;; ~/dotfiles/work/doom.d/functions.el -*- lexical-binding: t; -*-
 
+(require 'calendar)
+
 (defun logout ()
   "Log out of session."
   (interactive)
@@ -24,3 +26,9 @@
         (insert linked-filename)
         (kill-ring-save (point-min) (point-max))
         (message linked-filename)))))
+
+
+(defun kl-get-week-number ()
+  (calendar-extract-month
+    (calendar-iso-from-absolute
+      (calendar-absolute-from-gregorian (calendar-current-date)))))

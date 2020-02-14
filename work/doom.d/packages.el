@@ -72,3 +72,5 @@
 (package! exec-path-from-shell)
 ;; Reasonable async
 (package! async)
+;;
+(package! jupyter)
