@@ -6,12 +6,12 @@ home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
 firefox_ini = str(home / ".mozilla" / "firefox" / "profiles.ini")
-profile = configparser.ConfigParser()
-profile.read(firefox_ini)
+# profile = configparser.ConfigParser()
+# profile.read(firefox_ini)
 # This file will always point to the 0th profile of the user, if Firefox is installed
-firefox_profile = (
-    home / ".mozilla" / "firefox" / profile.get("Profile0", "Path") / "chrome"
-)
+# firefox_profile = (
+#    home / ".mozilla" / "firefox" / profile.get("Profile0", "Path") / "chrome"
+# )
 
 doom_source = home / "dotfiles" / "home" / "doom.d"
 doom_destination = home / ".doom.d"
@@ -28,7 +28,7 @@ files = {
     "flake8": home / ".config/flake8",
     # "projectile": home / ".projectile",
     "rustfmt.toml": home / ".config/rustfmt/rustfmt.toml",
-    "browser/userChrome.css": firefox_profile / "userChrome.css",
+    # "browser/userChrome.css": firefox_profile / "userChrome.css",
     "zshenv": home / ".zshenv",
     "zshrc": home / ".zshrc",
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
