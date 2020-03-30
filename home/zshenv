@@ -8,14 +8,11 @@ export BROWSER=/usr/bin/firefox
 export EDITOR="/usr/bin/emacsclient -t"
 export HISTFILE=.zhistory
 
-export PYENV_BIN=$HOME/.pyenv/bin
-# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk/jre
 export LOCAL_BIN=$HOME/.local/bin
+export DOTFILES_DIR=$HOME/.dotfiles/home
 
-export NPM_VERSION="13.7.0"
-export NVM_HOME=$HOME/.nvm/versions/node/v$NPM_VERSION/bin
-export GUIX=$HOME/.guix-profile/bin
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO=$HOME/.cargo/bin
+export NODE_SCRIPTS=$HOME/.nodenv/versions/$(cat $HOME/.nodenv/version)/bin
 
-export PATH=$GUIX:$PYENV_BIN:$BASE_PATH:$JAVA_HOME:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH:$NVM_HOME
+export PATH=$PYENV_BIN:$BASE_PATH:$JAVA_HOME:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH:$NODENV:$NODE_SCRIPTS

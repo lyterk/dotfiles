@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source ~/.zshenv
 
 alias ase="apt search"
 alias sa="sudo apt"
@@ -20,7 +18,7 @@ alias se="source ~/.zshenv"
 alias na="ls"
 alias la="ls -lah"
 
-alias zup="antibody bundle < ~/dotfiles/home/zsh_plugins.txt > ~/.zsh_plugins.sh"
+alias zup="antibody bundle < $DOTFILES_DIR/zsh_plugins.txt > ~/.zsh_plugins.sh"
 
 alias vre="sudo systemctl restart openvpn-client@US_Seattle.service"
 alias vsto="sudo systemctl stop openvpn-client@US_Seattle.service"
@@ -29,13 +27,10 @@ alias vsta="sudo systemctl start openvpn-client@US_Seattle.service"
 alias sc="sudo systemctl"
 alias scu="systemctl --user"
 alias jc="journalctl -xe"
+alias cop="python3 $DOTFILES_DIR/copier.py"
 
-# source ~/.zshenv
-
-# eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)"
 
 source ~/.zsh_plugins.sh
-# source <(antibody init)
-# 
-eval "$(pyenv init -)"
+
+eval "$($HOME/.pyenv/bin/pyenv init -)"
+eval "$($HOME/.nodenv/bin/nodenv init -)"

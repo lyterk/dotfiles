@@ -3,17 +3,40 @@
 from pathlib import Path
 
 home = Path.home()
-dotfiles_path = home / "dotfiles" / "home"
+dotfiles_path = home / ".dotfiles" / "home"
 
-firefox_ini = str(home / ".mozilla" / "firefox" / "profiles.ini")
-# profile = configparser.ConfigParser()
-# profile.read(firefox_ini)
-# This file will always point to the 0th profile of the user, if Firefox is installed
-# firefox_profile = (
-#    home / ".mozilla" / "firefox" / profile.get("Profile0", "Path") / "chrome"
-# )
 
-doom_source = home / "dotfiles" / "home" / "doom.d"
+def firefox_settings():
+    import configparser
+
+    firefox_ini = str(home / ".mozilla" / "firefox" / "profiles.ini")
+
+    profiles = configparser.ConfigParser()
+    profiles.read(firefox_ini)
+
+    firefox_profile_paths = []
+    for k, v in profiles.items():
+        if "Profile" in k:
+            firefox_profile_paths.append(v.get("Path"))
+
+    for profile_key, profile in profiles.items():
+        if "Profile" in profile_key:
+            firefox_profile = (
+                home / ".mozilla" / "firefox" / profile.get("Path") / "chrome"
+            )
+            firefox_profile.mkdir(parents=True, exist_ok=True)
+
+            try:
+                (firefox_profile / "userChrome.css").symlink_to(
+                    dotfiles_path / "browser" / "userChrome.css"
+                )
+            except FileExistsError:
+                pass
+
+            print(f"Copied Firefox profile {profile.get('Path')}")
+
+
+doom_source = dotfiles_path / "doom.d"
 doom_destination = home / ".doom.d"
 
 files = {
@@ -34,6 +57,8 @@ files = {
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
 }
+
+firefox_settings()
 
 for file in doom_source.iterdir():
     try:

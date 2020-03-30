@@ -59,8 +59,6 @@
 (package! nm)
 ;; Auth-source connected to passcli
 (package! auth-source-pass)
-;; guix stuff
-(package! guix)
 ;; Update env variables etc.
 (package! exec-path-from-shell)
 ;; PlantUML graphs

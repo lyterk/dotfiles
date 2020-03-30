@@ -6,7 +6,7 @@
   (defun home (&rest path)
     (string-join (append (list (getenv "HOME")) path) "/"))
 
-(setq doom-private-dir (home "dotfiles/home/doom.d"))
+(setq doom-private-dir (home ".dotfiles/home/doom.d"))
 
 ;; These are used for a number of things, particularly for GPG configuration,
 ;; some email clients, file templates and snippets.
