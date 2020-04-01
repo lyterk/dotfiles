@@ -10,6 +10,7 @@ Run all as root.
 | pass             |                                   |
 | openvpn          |                                   |
 | calibre          |                                   |
+| htop             |                                   |
 | emacs26          | requires ubuntu 19+               |
 | cmake            | requires ubuntu 19+, for libvterm |
 | libtool-bin      | for libvterm                      |
@@ -137,7 +138,9 @@ git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
 pyenv latest install
 pyenv global $(pyenv versions | tail -n 1)
-pip install black pyls ipython # requests beautifulsoup4
+pip install black pyls ipython poetry virtualenv # requests beautifulsoup4
+mkdir -p $HOME/.zfunc
+poetry completions zsh > ~/.zfunc/_poetry
 #+END_SRC
 * Node
 #+BEGIN_SRC shell

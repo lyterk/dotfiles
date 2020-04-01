@@ -5,6 +5,12 @@ Host bitbucket
      User git
      IdentityFile /home/kev/.ssh/bitbucket/id_rsa
 
+Host github
+     HostName github.com
+     User git
+     IdentityFile /home/kev/.ssh/github/id_rsa
+
+
 Host mithras
      HostName 192.168.0.103
      User kev

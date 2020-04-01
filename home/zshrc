@@ -31,6 +31,7 @@ alias cop="python3 $DOTFILES_DIR/copier.py"
 
 
 source ~/.zsh_plugins.sh
+fpath+=$HOME/.zfunc
 
 eval "$($HOME/.pyenv/bin/pyenv init -)"
 eval "$($HOME/.nodenv/bin/nodenv init -)"
