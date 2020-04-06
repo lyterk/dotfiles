@@ -51,9 +51,10 @@ files = {
     "flake8": home / ".config/flake8",
     # "projectile": home / ".projectile",
     "rustfmt.toml": home / ".config/rustfmt/rustfmt.toml",
-    # "browser/userChrome.css": firefox_profile / "userChrome.css",
     "zshenv": home / ".zshenv",
     "zshrc": home / ".zshrc",
+    "profile": home / ".profile",
+    "zprofile": home / ".zprofile",
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
 }

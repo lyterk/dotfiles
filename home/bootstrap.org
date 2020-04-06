@@ -11,6 +11,8 @@ Run all as root.
 | openvpn          |                                   |
 | calibre          |                                   |
 | htop             |                                   |
+| racket           |                                   |
+| transmission     |                                   |
 | emacs26          | requires ubuntu 19+               |
 | cmake            | requires ubuntu 19+, for libvterm |
 | libtool-bin      | for libvterm                      |
@@ -181,6 +183,11 @@ for (i=0;i<Desktops.length;i++) {
 
         console.log("$output_file");
 }'
+
+file=DCIcWc6.jpg
+pretty_name="brothers_ruel.jpg"
+output_file="$HOME/Pictures/$pretty_name"
+wget https://i.imgur.com/$file -O $output_file
 #+END_SRC
 
 #+RESULTS:
