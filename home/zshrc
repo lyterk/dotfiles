@@ -13,6 +13,8 @@ alias saa="sa autoremove"
 alias et="emacsclient -t"
 alias ec="nohup emacsclient -c &> /tmp/emacs.out &"
 
+alias bw="bitwise"
+
 alias sz="source ~/.zshrc"
 alias se="source ~/.zshenv"
 alias na="ls"

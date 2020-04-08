@@ -74,6 +74,9 @@
 (after! python
   (set-popup-rule! "^\\*Python\\*$" :quit nil :ttl nil))
 
+;; Rust
+(setq racer-rust-src-path (home ".rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
+
 (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
