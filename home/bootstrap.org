@@ -26,7 +26,7 @@ apt upgrade
 | htop             |                                   |
 | racket           |                                   |
 | transmission     |                                   |
-| bitwise          | bitwise cli calculator            |
+| paperkey         | backing up /restoring GPG keys    |
 | emacs26          | requires ubuntu 19+               |
 | cmake            | requires ubuntu 19+, for libvterm |
 | libtool-bin      | for libvterm                      |
@@ -60,7 +60,7 @@ apt upgrade
 
 #+NAME: apt-source-string
 #+RESULTS:
-: curl wget xclip pass openvpn calibre htop racket transmission bitwise emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+: curl wget xclip pass openvpn calibre htop racket transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 
 
 #+BEGIN_SRC sh :var sources=apt-repo-string :dir "/sudo::" :results output verbatim
@@ -88,12 +88,82 @@ yes | apt install $sources
 #+END_SRC
 
 #+RESULTS:
+#+begin_example
+Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+build-essential is already the newest version (12.8ubuntu1).
+cmake is already the newest version (3.13.4-1build1).
+curl is already the newest version (7.65.3-1ubuntu3).
+htop is already the newest version (2.2.0-2).
+libbz2-dev is already the newest version (1.0.6-9.2).
+libffi-dev is already the newest version (3.2.1-9).
+liblzma-dev is already the newest version (5.2.4-1).
+libncurses5-dev is already the newest version (6.1+20190803-1ubuntu1).
+libncursesw5-dev is already the newest version (6.1+20190803-1ubuntu1).
+libreadline-dev is already the newest version (8.0-3).
+libssl-dev is already the newest version (1.1.1c-1ubuntu4).
+libtool-bin is already the newest version (2.4.6-11).
+openvpn is already the newest version (2.4.7-1ubuntu2).
+wget is already the newest version (1.20.3-1ubuntu1).
+xz-utils is already the newest version (5.2.4-1).
+zlib1g-dev is already the newest version (1:1.2.11.dfsg-1ubuntu3).
+calibre is already the newest version (3.46.0+dfsg-1).
+fonts-firacode is already the newest version (1.207+dfsg1-1).
+llvm is already the newest version (1:9.0-49~exp1).
+paperkey is already the newest version (1.6-1).
+paperkey set to manually installed.
+pass is already the newest version (1.7.3-2).
+python-openssl is already the newest version (19.0.0-1).
+racket is already the newest version (7.2+dfsg1-2ubuntu2).
+tk-dev is already the newest version (8.6.9+1).
+transmission is already the newest version (2.94-2ubuntu1).
+xclip is already the newest version (0.13-1).
+libsqlite3-dev is already the newest version (3.29.0-2ubuntu0.2).
+emacs26 is already the newest version (26.3~1.git96dd019-kk1+19.10).
+The following packages were automatically installed and are no longer required:
+  fonts-font-awesome fonts-liberation2 freerdp2-x11 libabw-0.1-1
+  libadplug-2.2.1-0v5 libaudiofile1 libbinio1v5 libboost-date-time1.67.0
+  libboost-filesystem1.67.0 libboost-iostreams1.67.0 libboost-locale1.67.0
+  libboost-system1.67.0 libboost-thread1.67.0 libcdio-cdda2 libcdio-paranoia2
+  libcdr-0.1-1 libclucene-contribs1v5 libclucene-core1v5 libcmis-0.5-5v5
+  libcolamd2 libe-book-0.1-1 libebur128-1 libeot0 libepubgen-0.1-1
+  libetonyek-0.1-1 libexttextcat-2.0-0 libexttextcat-data libfreecell-solver0
+  libfreehand-0.1-1 libfreerdp-client2-2 libfreerdp2-2
+  libgrantlee-textdocument5 libid3tag0 libkf5plotting5 libkf5torrent6
+  libkf5webkit5 libkgantt2 libkgantt2-l10n libkolabxml1v5 libktorrent-l10n
+  liblangtag-common liblangtag1 libmhash2 libmikmod3 libmpdclient2
+  libmspub-0.1-1 libmwaw-0.3-3 libmythes-1.2-0 libodfgen-0.1-1 liborcus-0.14-0
+  libpagemaker-0.0-0 libphonenumber7 libprotobuf17 libqgpgme7
+  libqt5networkauth5 libraptor2-0 librasqal3 librdf0 librevenge-0.0-0
+  libsdl2-2.0-0 libsidplayfp4 libstartup-notification0 libsuitesparseconfig5
+  libvisio-0.1-1 libvncclient1 libwinpr2-2 libwpd-0.10-10 libwpg-0.3-3
+  libwps-0.4-4 libxerces-c3.2 libxmlsec1 libxmlsec1-nss libyajl2 libzzip-0-13
+  linux-headers-5.3.0-42 linux-headers-5.3.0-42-generic
+  linux-image-5.3.0-42-generic linux-modules-5.3.0-42-generic
+  linux-modules-extra-5.3.0-42-generic lp-solve mariadb-client-core-10.3
+  mariadb-common mariadb-server-core-10.3 qtgstreamer-plugins-qt5
+Use 'apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+#+end_example
 
 *** Antibody
 #+BEGIN_SRC shell :dir "/sudo::"
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 #+END_SRC
 #+RESULTS:
+** Compiled
+#+BEGIN_SRC shell
+git clone https://github.com/JeffBezanson/femtolisp.git /tmp/femtolisp
+cd /tmp/femtolisp
+make
+mv /tmp/femtolisp/flisp $HOME/.local/bin/
+#+END_SRC
+
+#+RESULTS:
+| gcc | -O2   | -DNDEBUG | -falign-functions | -Wall        | -Wno-strict-aliasing | -Illt | -DUSE_COMPUTED_GOTO | flisp.o | builtins.o | string.o | equalhash.o | table.o | iostream.o | flmain.o | -o | flisp | llt/libllt.a | -lm | libflisp.a |
+| cd  | tests | &&       | ../flisp          | unittest.lsp |                      |       |                     |         |            |          |             |         |            |          |    |       |              |     |            |
+| all | tests | pass     |                   |              |                      |       |                     |         |            |          |             |         |            |          |    |       |              |     |            |
 
 * Shell
 #+BEGIN_SRC shell
@@ -127,15 +197,37 @@ cargo +nightly install racer
 cargo install ripgrep
 #+END_SRC
 * Python
-#+BEGIN_SRC shell
+#+NAME: general-purpose-python
+| name       | comment                    |
+|------------+----------------------------|
+| black      | formatting                 |
+| pyls       | LSP                        |
+| ipython    | repl                       |
+| poetry     | dependency management      |
+| virtualenv | envs                       |
+| manimlib   | 3blue1brown visualizations |
+
+#+BEGIN_SRC elisp :var table=general-purpose-python
+(s-join " " (-map 'car table))
+#+END_SRC
+
+#+NAME: python-libs
+#+RESULTS:
+: black pyls ipython poetry virtualenv manimlib
+
+#+BEGIN_SRC shell :var libs=python-libs
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
 pyenv latest install
 pyenv global $(pyenv versions | tail -n 1)
-pip install black pyls ipython poetry virtualenv # requests beautifulsoup4
+pip install --user $libs
 mkdir -p $HOME/.zfunc
 poetry completions zsh > ~/.zfunc/_poetry
 #+END_SRC
+
+#+RESULTS:
+: Latest version is '3.8.2'
+
 * Node
 #+BEGIN_SRC shell
 source $HOME/.zshrc
@@ -156,6 +248,9 @@ snap install signal-desktop
 snap install spotify
 snap install bitwise
 #+END_SRC
+
+#+RESULTS:
+
 * KDE
 #+BEGIN_SRC shell
 file=RjGYtZL.jpg
