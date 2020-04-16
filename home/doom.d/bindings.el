@@ -34,7 +34,9 @@
 
 (map! :leader
       (:prefix-map ("k" . "kevin")
-        :desc "Password manager" "p" #'ivy-pass
-        :desc "Copy file name" "f" #'copy-file-name
-        :desc "Restart VPN" "v" #'restart-vpn
-        :desc "Log out" "o" #'logout))
+        :desc "Password manager"                            "p" #'ivy-pass
+        :desc "Restart VPN"                                 "v" #'restart-vpn
+        :desc "Ace-window"                                  "w" #'ace-window
+        :desc "Query-replace"                               "r" #'anzu-query-replace
+        :desc "Query-replace RegExp"                        "R" #'anzu-query-replace-regexp
+        :desc "Google translate"                            "t" #'google-translate-at-point))

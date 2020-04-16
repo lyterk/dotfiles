@@ -18,6 +18,7 @@ apt upgrade
 | name             | comment                           |
 |------------------+-----------------------------------|
 | curl             |                                   |
+| gawk             | gnu awk, cause it's better        |
 | wget             |                                   |
 | xclip            |                                   |
 | pass             |                                   |
@@ -50,9 +51,10 @@ apt upgrade
 (s-join " " (-map 'car table))
 #+END_SRC
 
+#+RESULTS:
+
 #+NAME: apt-repo-string
 #+RESULTS:
-: ppa:ramon-fried/bitwise
 
 #+BEGIN_SRC elisp :var table=apt-sources
 (s-join " " (-map 'car table))
@@ -60,7 +62,7 @@ apt upgrade
 
 #+NAME: apt-source-string
 #+RESULTS:
-: curl wget xclip pass openvpn calibre htop racket transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+: curl gawk wget xclip pass openvpn calibre htop racket transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 
 
 #+BEGIN_SRC sh :var sources=apt-repo-string :dir "/sudo::" :results output verbatim
@@ -95,6 +97,7 @@ yes | apt install $sources
 build-essential is already the newest version (12.8ubuntu1).
 cmake is already the newest version (3.13.4-1build1).
 curl is already the newest version (7.65.3-1ubuntu3).
+gawk is already the newest version (1:4.2.1+dfsg-1.1build1).
 htop is already the newest version (2.2.0-2).
 libbz2-dev is already the newest version (1.0.6-9.2).
 libffi-dev is already the newest version (3.2.1-9).
@@ -112,7 +115,6 @@ calibre is already the newest version (3.46.0+dfsg-1).
 fonts-firacode is already the newest version (1.207+dfsg1-1).
 llvm is already the newest version (1:9.0-49~exp1).
 paperkey is already the newest version (1.6-1).
-paperkey set to manually installed.
 pass is already the newest version (1.7.3-2).
 python-openssl is already the newest version (19.0.0-1).
 racket is already the newest version (7.2+dfsg1-2ubuntu2).
@@ -139,10 +141,8 @@ The following packages were automatically installed and are no longer required:
   libsdl2-2.0-0 libsidplayfp4 libstartup-notification0 libsuitesparseconfig5
   libvisio-0.1-1 libvncclient1 libwinpr2-2 libwpd-0.10-10 libwpg-0.3-3
   libwps-0.4-4 libxerces-c3.2 libxmlsec1 libxmlsec1-nss libyajl2 libzzip-0-13
-  linux-headers-5.3.0-42 linux-headers-5.3.0-42-generic
-  linux-image-5.3.0-42-generic linux-modules-5.3.0-42-generic
-  linux-modules-extra-5.3.0-42-generic lp-solve mariadb-client-core-10.3
-  mariadb-common mariadb-server-core-10.3 qtgstreamer-plugins-qt5
+  lp-solve mariadb-client-core-10.3 mariadb-common mariadb-server-core-10.3
+  qtgstreamer-plugins-qt5
 Use 'apt autoremove' to remove them.
 0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
 #+end_example
@@ -153,17 +153,14 @@ curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
 #+END_SRC
 #+RESULTS:
 ** Compiled
+Trans -- For translating stuff, seems to work pretty stably.
 #+BEGIN_SRC shell
-git clone https://github.com/JeffBezanson/femtolisp.git /tmp/femtolisp
-cd /tmp/femtolisp
-make
-mv /tmp/femtolisp/flisp $HOME/.local/bin/
+wget https://git.io/trans -O /tmp/trans
+chmod u+x /tmp/trans
+mv /tmp/trans $HOME/.local/bin
 #+END_SRC
 
 #+RESULTS:
-| gcc | -O2   | -DNDEBUG | -falign-functions | -Wall        | -Wno-strict-aliasing | -Illt | -DUSE_COMPUTED_GOTO | flisp.o | builtins.o | string.o | equalhash.o | table.o | iostream.o | flmain.o | -o | flisp | llt/libllt.a | -lm | libflisp.a |
-| cd  | tests | &&       | ../flisp          | unittest.lsp |                      |       |                     |         |            |          |             |         |            |          |    |       |              |     |            |
-| all | tests | pass     |                   |              |                      |       |                     |         |            |          |             |         |            |          |    |       |              |     |            |
 
 * Shell
 #+BEGIN_SRC shell
@@ -184,17 +181,6 @@ cmake ..
 make
 cd -
 #+END_SRC
-* Rust
-#+BEGIN_SRC shell
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
-
-rustup toolchain add nightly
-rustup component add rust-src
-rustup component add clippy
-
-cargo +nightly install racer
-cargo install ripgrep
 #+END_SRC
 * Python
 #+NAME: general-purpose-python
@@ -242,6 +228,32 @@ nodenv global $(nodenv versions | tail -n 1)
 
 npm install --global prettier
 #+END_SRC
+
+* Rust
+#+BEGIN_SRC zsh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source ~/.cargo/env
+
+rustup toolchain add nightly
+rustup component add rust-src
+rustup component add clippy
+
+cargo +nightly install racer
+cargo install ripgrep
+
+# Rust analyzer installation (because VS Code wants us to suffer)
+# Requires:
+# * Cargo
+# * NodeJS
+# * NPM
+# * rust-src
+git clone https://github.com/rust-analyzer/rust-analyzer.git /tmp/rust-analyzer
+cd /tmp/rust-analyzer
+cargo xtask install
+#+END_SRC
+
+#+RESULTS:
+
 * Snap
 #+BEGIN_SRC shell :dir "/sudo::"
 snap install signal-desktop

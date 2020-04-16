@@ -63,3 +63,7 @@
 (package! exec-path-from-shell)
 ;; PlantUML graphs
 (package! plantuml-mode)
+;; Translations
+(package! google-translate)
+;; Regular regular expressions
+(package! pcre2el)
