@@ -247,6 +247,7 @@ npm install --global prettier
 snap install signal-desktop
 snap install spotify
 snap install bitwise
+snap install chromium
 #+END_SRC
 
 #+RESULTS:
