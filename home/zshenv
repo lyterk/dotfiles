@@ -12,8 +12,9 @@ export LOCAL_BIN=$HOME/.local/bin
 export DOTFILES_DIR=$HOME/.dotfiles/home
 export SNAP=/snap/bin
 
+export GOPATH=$HOME/.go
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO=$HOME/.cargo/bin
 export NODE_SCRIPTS=$HOME/.nodenv/versions/$(cat $HOME/.nodenv/version)/bin
 
-export PATH=$PYENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH:$NODE_SCRIPTS:$SNAP
+export PATH=$PYENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO:$RUST_SRC_PATH:$NODE_SCRIPTS:$SNAP:$GOPATH/bin
