@@ -15,50 +15,45 @@ apt upgrade
 
 
 #+NAME: apt-sources
-| name             | comment                                           |
-|------------------+---------------------------------------------------|
-| curl             |                                                   |
-| gawk             | gnu awk, cause it's better                        |
-| wget             |                                                   |
-| xclip            |                                                   |
-| pass             |                                                   |
-| openvpn          |                                                   |
-| calibre          |                                                   |
-| htop             |                                                   |
-| racket           |                                                   |
-| dict             | dictionary lookups                                |
-| dictd            |                                                   |
-| dict-gcide       | Collaborative International Dictionary of English |
-| golang           | so hot right now                                  |
-| transmission     |                                                   |
-| paperkey         | backing up /restoring GPG keys                    |
-| emacs26          | requires ubuntu 19+                               |
-| cmake            | requires ubuntu 19+, for libvterm                 |
-| libtool-bin      | for libvterm                                      |
-| fonts-firacode   | for doom emacs                                    |
-| zlib1g-dev       | for installing python w/ pyenv                    |
-| build-essential  | python + pyenv                                    |
-| libssl-dev       | python + pyenv                                    |
-| libbz2-dev       | python + pyenv                                    |
-| libreadline-dev  | python + pyenv                                    |
-| libsqlite3-dev   | python + pyenv                                    |
-| llvm             | python + pyenv                                    |
-| libncurses5-dev  | python + pyenv                                    |
-| libncursesw5-dev | python + pyenv                                    |
-| xz-utils         | python + pyenv                                    |
-| tk-dev           | python + pyenv                                    |
-| libffi-dev       | python + pyenv                                    |
-| liblzma-dev      | python + pyenv                                    |
-| python-openssl   | python + pyenv                                    |
-
-#+BEGIN_SRC elisp :var table=apt-repos
-(s-join " " (-map 'car table))
-#+END_SRC
-
-#+RESULTS:
-
-#+NAME: apt-repo-string
-#+RESULTS:
+| name                   | comment                                           |
+|------------------------+---------------------------------------------------|
+| curl                   |                                                   |
+| gawk                   | gnu awk, cause it's better                        |
+| wget                   |                                                   |
+| xclip                  |                                                   |
+| pass                   |                                                   |
+| openvpn                |                                                   |
+| calibre                |                                                   |
+| htop                   |                                                   |
+| openjdk-8-jre-headless | Java the hut                                      |
+| jq                     | Just critical                                     |
+| racket                 |                                                   |
+| dict                   | dictionary lookups                                |
+| dictd                  |                                                   |
+| dict-gcide             | Collaborative International Dictionary of English |
+| hunspell               |                                                   |
+| hunspell-en-us         |                                                   |
+| golang                 | so hot right now                                  |
+| transmission           |                                                   |
+| paperkey               | backing up /restoring GPG keys                    |
+| emacs26                | requires ubuntu 19+                               |
+| cmake                  | requires ubuntu 19+, for libvterm                 |
+| libtool-bin            | for libvterm                                      |
+| fonts-firacode         | for doom emacs                                    |
+| zlib1g-dev             | for installing python w/ pyenv                    |
+| build-essential        | python + pyenv                                    |
+| libssl-dev             | python + pyenv                                    |
+| libbz2-dev             | python + pyenv                                    |
+| libreadline-dev        | python + pyenv                                    |
+| libsqlite3-dev         | python + pyenv                                    |
+| llvm                   | python + pyenv                                    |
+| libncurses5-dev        | python + pyenv                                    |
+| libncursesw5-dev       | python + pyenv                                    |
+| xz-utils               | python + pyenv                                    |
+| tk-dev                 | python + pyenv                                    |
+| libffi-dev             | python + pyenv                                    |
+| liblzma-dev            | python + pyenv                                    |
+| python-openssl         | python + pyenv                                    |
 
 #+BEGIN_SRC elisp :var table=apt-sources
 (s-join " " (-map 'car table))
@@ -66,28 +61,8 @@ apt upgrade
 
 #+NAME: apt-source-string
 #+RESULTS:
-: curl gawk wget xclip pass openvpn calibre htop racket golang transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
+: curl gawk wget xclip pass openvpn calibre htop jq racket dict dictd dict-gcide hunspell hunspell-en-us golang transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
 
-
-#+BEGIN_SRC sh :var sources=apt-repo-string :dir "/sudo::" :results output verbatim
-yes | add-apt-repository --remove $sources
-apt update
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
- Bitwise PPA
- More info: https://launchpad.net/~ramon-fried/+archive/ubuntu/bitwise
-[33m0% [Working][0m            Hit:1 http://security.ubuntu.com/ubuntu eoan-security InRelease
-[33m0% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)][0m                                                                         Hit:2 http://us.archive.ubuntu.com/ubuntu eoan InRelease
-[33m                                                                         0% [Waiting for headers] [Waiting for headers][0m                                              Hit:3 http://us.archive.ubuntu.com/ubuntu eoan-updates InRelease
-[33m                                              0% [Waiting for headers][0m[33m0% [Waiting for headers] [Waiting for headers][0m                                              Hit:4 http://us.archive.ubuntu.com/ubuntu eoan-backports InRelease
-[33m                                              0% [Waiting for headers][0m                        Hit:5 http://ppa.launchpad.net/kelleyk/emacs/ubuntu eoan InRelease
-[33m                        0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m20% [Working][0m             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 3%Reading package lists... 3%Reading package lists... 7%Reading package lists... 7%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 41%Reading package lists... 41%Reading package lists... 72%Reading package lists... 72%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 90%Reading package lists... 90%Reading package lists... 91%Reading package lists... 91%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 93%Reading package lists... 93%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 95%Reading package lists... 95%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 97%Reading package lists... 97%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
-8 packages can be upgraded. Run 'apt list --upgradable' to see them.
-#+end_example
 
 #+BEGIN_SRC sh :var sources=apt-source-string :dir "/sudo::" :results output verbatim
 yes | apt install $sources
@@ -101,8 +76,13 @@ yes | apt install $sources
 build-essential is already the newest version (12.8ubuntu1).
 cmake is already the newest version (3.13.4-1build1).
 curl is already the newest version (7.65.3-1ubuntu3).
+dict is already the newest version (1.12.1+dfsg-8).
+dict-gcide is already the newest version (0.48.5).
+dictd is already the newest version (1.12.1+dfsg-8).
 gawk is already the newest version (1:4.2.1+dfsg-1.1build1).
+golang is already the newest version (2:1.12~1ubuntu1).
 htop is already the newest version (2.2.0-2).
+hunspell-en-us is already the newest version (1:2018.04.16-1).
 libbz2-dev is already the newest version (1.0.6-9.2).
 libffi-dev is already the newest version (3.2.1-9).
 liblzma-dev is already the newest version (5.2.4-1).
@@ -117,6 +97,7 @@ xz-utils is already the newest version (5.2.4-1).
 zlib1g-dev is already the newest version (1:1.2.11.dfsg-1ubuntu3).
 calibre is already the newest version (3.46.0+dfsg-1).
 fonts-firacode is already the newest version (1.207+dfsg1-1).
+hunspell is already the newest version (1.7.0-2build1).
 llvm is already the newest version (1:9.0-49~exp1).
 paperkey is already the newest version (1.6-1).
 pass is already the newest version (1.7.3-2).
@@ -149,72 +130,62 @@ The following packages were automatically installed and are no longer required:
   qtgstreamer-plugins-qt5
 Use 'apt autoremove' to remove them.
 The following additional packages will be installed:
-  golang-1.12 golang-1.12-doc golang-1.12-go golang-1.12-race-detector-runtime
-  golang-1.12-src golang-doc golang-go golang-race-detector-runtime golang-src
-Suggested packages:
-  bzr | brz mercurial subversion
+  libjq1 libonig5
 The following NEW packages will be installed:
-  golang golang-1.12 golang-1.12-doc golang-1.12-go
-  golang-1.12-race-detector-runtime golang-1.12-src golang-doc golang-go
-  golang-race-detector-runtime golang-src
-0 upgraded, 10 newly installed, 0 to remove and 0 not upgraded.
-Need to get 64.4 MB of archives.
-After this operation, 336 MB of additional disk space will be used.
-Do you want to continue? [Y/n] [33m0% [Working][0m            Get:1 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-1.12-src amd64 1.12.10-1ubuntu1 [12.8 MB]
-[33m0% [1 golang-1.12-src 2,610 B/12.8 MB 0%][0m[33m2% [1 golang-1.12-src 1,665 kB/12.8 MB 13%][0m[33m11% [1 golang-1.12-src 9,141 kB/12.8 MB 72%][0m[33m                                            18% [Working][0m             Get:2 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-1.12-go amd64 1.12.10-1ubuntu1 [48.4 MB]
-[33m18% [2 golang-1.12-go 2,609 B/48.4 MB 0%][0m[33m27% [2 golang-1.12-go 7,670 kB/48.4 MB 16%][0m[33m                                           37% [2 golang-1.12-go 15.5 MB/48.4 MB 32%][0m[33m47% [2 golang-1.12-go 23.8 MB/48.4 MB 49%][0m[33m58% [2 golang-1.12-go 32.5 MB/48.4 MB 67%][0m[33m67% [2 golang-1.12-go 39.9 MB/48.4 MB 82%][0m[33m76% [2 golang-1.12-go 46.8 MB/48.4 MB 97%][0m[33m                                          80% [Working][0m             Get:3 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-1.12-doc all 1.12.10-1ubuntu1 [2,513 kB]
-[33m80% [3 golang-1.12-doc 0 B/2,513 kB 0%][0m[33m                                       85% [Working][0m             Get:4 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-1.12 all 1.12.10-1ubuntu1 [11.2 kB]
-[33m85% [4 golang-1.12 11.2 kB/11.2 kB 100%][0m                                        Get:5 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-src amd64 2:1.12~1ubuntu1 [3,996 B]
-                                        Get:6 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-go amd64 2:1.12~1ubuntu1 [22.0 kB]
-[33m                                        89% [6 golang-go 22.0 kB/22.0 kB 100%][0m                                      Get:7 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-doc all 2:1.12~1ubuntu1 [2,952 B]
-[33m                                      93% [Working][0m             Get:8 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang amd64 2:1.12~1ubuntu1 [2,900 B]
-[33m93% [8 golang 2,900 B/2,900 B 100%][0m[33m                                   95% [Working][0m             Get:9 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-1.12-race-detector-runtime amd64 0.0+svn332029-0ubuntu1 [709 kB]
-[33m95% [9 golang-1.12-race-detector-runtime 30.5 kB/709 kB 4%][0m[33m                                                           98% [Waiting for headers][0m                         Get:10 http://us.archive.ubuntu.com/ubuntu eoan/main amd64 golang-race-detector-runtime amd64 2:1.12~1ubuntu1 [3,788 B]
-[33m                         100% [Working][0m              Fetched 64.4 MB in 5s (13.5 MB/s)
-Selecting previously unselected package golang-1.12-src.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 290547 files and directories currently installed.)
-Preparing to unpack .../0-golang-1.12-src_1.12.10-1ubuntu1_amd64.deb ...
-Unpacking golang-1.12-src (1.12.10-1ubuntu1) ...
-Selecting previously unselected package golang-1.12-go.
-Preparing to unpack .../1-golang-1.12-go_1.12.10-1ubuntu1_amd64.deb ...
-Unpacking golang-1.12-go (1.12.10-1ubuntu1) ...
-Selecting previously unselected package golang-1.12-doc.
-Preparing to unpack .../2-golang-1.12-doc_1.12.10-1ubuntu1_all.deb ...
-Unpacking golang-1.12-doc (1.12.10-1ubuntu1) ...
-Selecting previously unselected package golang-1.12.
-Preparing to unpack .../3-golang-1.12_1.12.10-1ubuntu1_all.deb ...
-Unpacking golang-1.12 (1.12.10-1ubuntu1) ...
-Selecting previously unselected package golang-src.
-Preparing to unpack .../4-golang-src_2%3a1.12~1ubuntu1_amd64.deb ...
-Unpacking golang-src (2:1.12~1ubuntu1) ...
-Selecting previously unselected package golang-go.
-Preparing to unpack .../5-golang-go_2%3a1.12~1ubuntu1_amd64.deb ...
-Unpacking golang-go (2:1.12~1ubuntu1) ...
-Selecting previously unselected package golang-doc.
-Preparing to unpack .../6-golang-doc_2%3a1.12~1ubuntu1_all.deb ...
-Unpacking golang-doc (2:1.12~1ubuntu1) ...
-Selecting previously unselected package golang.
-Preparing to unpack .../7-golang_2%3a1.12~1ubuntu1_amd64.deb ...
-Unpacking golang (2:1.12~1ubuntu1) ...
-Selecting previously unselected package golang-1.12-race-detector-runtime.
-Preparing to unpack .../8-golang-1.12-race-detector-runtime_0.0+svn332029-0ubuntu1_amd64.deb ...
-Unpacking golang-1.12-race-detector-runtime (0.0+svn332029-0ubuntu1) ...
-Selecting previously unselected package golang-race-detector-runtime.
-Preparing to unpack .../9-golang-race-detector-runtime_2%3a1.12~1ubuntu1_amd64.deb ...
-Unpacking golang-race-detector-runtime (2:1.12~1ubuntu1) ...
-Setting up golang-1.12-race-detector-runtime (0.0+svn332029-0ubuntu1) ...
-Setting up golang-1.12-src (1.12.10-1ubuntu1) ...
-Setting up golang-src (2:1.12~1ubuntu1) ...
-Setting up golang-1.12-go (1.12.10-1ubuntu1) ...
-Setting up golang-race-detector-runtime (2:1.12~1ubuntu1) ...
-Setting up golang-go (2:1.12~1ubuntu1) ...
-Setting up golang-1.12-doc (1.12.10-1ubuntu1) ...
-Setting up golang-1.12 (1.12.10-1ubuntu1) ...
-Setting up golang-doc (2:1.12~1ubuntu1) ...
-Setting up golang (2:1.12~1ubuntu1) ...
+  jq libjq1 libonig5
+0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
+Need to get 296 kB of archives.
+After this operation, 1,019 kB of additional disk space will be used.
+Do you want to continue? [Y/n] [33m0% [Working][0m            Get:1 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 libonig5 amd64 6.9.2-1 [139 kB]
+[33m1% [1 libonig5 2,293 B/139 kB 2%][0m[33m                                 44% [Working][0m             Get:2 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 libjq1 amd64 1.5+dfsg-2build1 [112 kB]
+[33m46% [2 libjq1 7,445 B/112 kB 7%][0m[33m                                81% [Working][0m             Get:3 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 jq amd64 1.5+dfsg-2build1 [46.1 kB]
+[33m82% [3 jq 3,816 B/46.1 kB 8%][0m[33m                             100% [Working][0m              Fetched 296 kB in 1s (419 kB/s)
+Selecting previously unselected package libonig5:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 300971 files and directories currently installed.)
+Preparing to unpack .../libonig5_6.9.2-1_amd64.deb ...
+Unpacking libonig5:amd64 (6.9.2-1) ...
+Selecting previously unselected package libjq1:amd64.
+Preparing to unpack .../libjq1_1.5+dfsg-2build1_amd64.deb ...
+Unpacking libjq1:amd64 (1.5+dfsg-2build1) ...
+Selecting previously unselected package jq.
+Preparing to unpack .../jq_1.5+dfsg-2build1_amd64.deb ...
+Unpacking jq (1.5+dfsg-2build1) ...
+Setting up libonig5:amd64 (6.9.2-1) ...
+Setting up libjq1:amd64 (1.5+dfsg-2build1) ...
+Setting up jq (1.5+dfsg-2build1) ...
 Processing triggers for man-db (2.8.7-3) ...
+Processing triggers for libc-bin (2.30-0ubuntu2.1) ...
 #+end_example
 
+#+BEGIN_SRC elisp :var table=apt-repos
+(s-join " " (-map 'car table))
+#+END_SRC
+
+#+RESULTS:
+
+#+NAME: apt-repo-string
+#+RESULTS:
+
+
+#+BEGIN_SRC sh :var sources=apt-repo-string :dir "/sudo::" :results output verbatim
+yes | add-apt-repository --remove $sources
+apt update
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+ Bitwise PPA
+ More info: https://launchpad.net/~ramon-fried/+archive/ubuntu/bitwise
+[33m0% [Working][0m            Hit:1 http://security.ubuntu.com/ubuntu eoan-security InRelease
+[33m0% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)][0m                                                                         Hit:2 http://us.archive.ubuntu.com/ubuntu eoan InRelease
+[33m                                                                         0% [Waiting for headers] [Waiting for headers][0m                                              Hit:3 http://us.archive.ubuntu.com/ubuntu eoan-updates InRelease
+[33m                                              0% [Waiting for headers][0m[33m0% [Waiting for headers] [Waiting for headers][0m                                              Hit:4 http://us.archive.ubuntu.com/ubuntu eoan-backports InRelease
+[33m                                              0% [Waiting for headers][0m                        Hit:5 http://ppa.launchpad.net/kelleyk/emacs/ubuntu eoan InRelease
+[33m                        0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m20% [Working][0m             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 3%Reading package lists... 3%Reading package lists... 7%Reading package lists... 7%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 41%Reading package lists... 41%Reading package lists... 72%Reading package lists... 72%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 90%Reading package lists... 90%Reading package lists... 91%Reading package lists... 91%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 93%Reading package lists... 93%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 95%Reading package lists... 95%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 97%Reading package lists... 97%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... Done
+8 packages can be upgraded. Run 'apt list --upgradable' to see them.
+#+end_example
 *** Antibody
 #+BEGIN_SRC shell :dir "/sudo::"
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
