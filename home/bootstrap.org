@@ -15,45 +15,44 @@ apt upgrade
 
 
 #+NAME: apt-sources
-| name                   | comment                                           |
-|------------------------+---------------------------------------------------|
-| curl                   |                                                   |
-| gawk                   | gnu awk, cause it's better                        |
-| wget                   |                                                   |
-| xclip                  |                                                   |
-| pass                   |                                                   |
-| openvpn                |                                                   |
-| calibre                |                                                   |
-| htop                   |                                                   |
-| openjdk-8-jre-headless | Java the hut                                      |
-| jq                     | Just critical                                     |
-| racket                 |                                                   |
-| dict                   | dictionary lookups                                |
-| dictd                  |                                                   |
-| dict-gcide             | Collaborative International Dictionary of English |
-| hunspell               |                                                   |
-| hunspell-en-us         |                                                   |
-| golang                 | so hot right now                                  |
-| transmission           |                                                   |
-| paperkey               | backing up /restoring GPG keys                    |
-| emacs26                | requires ubuntu 19+                               |
-| cmake                  | requires ubuntu 19+, for libvterm                 |
-| libtool-bin            | for libvterm                                      |
-| fonts-firacode         | for doom emacs                                    |
-| zlib1g-dev             | for installing python w/ pyenv                    |
-| build-essential        | python + pyenv                                    |
-| libssl-dev             | python + pyenv                                    |
-| libbz2-dev             | python + pyenv                                    |
-| libreadline-dev        | python + pyenv                                    |
-| libsqlite3-dev         | python + pyenv                                    |
-| llvm                   | python + pyenv                                    |
-| libncurses5-dev        | python + pyenv                                    |
-| libncursesw5-dev       | python + pyenv                                    |
-| xz-utils               | python + pyenv                                    |
-| tk-dev                 | python + pyenv                                    |
-| libffi-dev             | python + pyenv                                    |
-| liblzma-dev            | python + pyenv                                    |
-| python-openssl         | python + pyenv                                    |
+| name             | comment                                           |
+|------------------+---------------------------------------------------|
+| curl             |                                                   |
+| gawk             | gnu awk, cause it's better                        |
+| wget             |                                                   |
+| xclip            |                                                   |
+| pass             |                                                   |
+| openvpn          |                                                   |
+| calibre          |                                                   |
+| htop             |                                                   |
+| jq               | Just critical                                     |
+| racket           |                                                   |
+| dict             | dictionary lookups                                |
+| dictd            |                                                   |
+| dict-gcide       | Collaborative International Dictionary of English |
+| hunspell         |                                                   |
+| hunspell-en-us   |                                                   |
+| golang           | so hot right now                                  |
+| transmission     |                                                   |
+| paperkey         | backing up /restoring GPG keys                    |
+| emacs26          | requires ubuntu 19+                               |
+| cmake            | requires ubuntu 19+, for libvterm                 |
+| libtool-bin      | for libvterm                                      |
+| fonts-firacode   | for doom emacs                                    |
+| zlib1g-dev       | for installing python w/ pyenv                    |
+| build-essential  | python + pyenv                                    |
+| libssl-dev       | python + pyenv                                    |
+| libbz2-dev       | python + pyenv                                    |
+| libreadline-dev  | python + pyenv                                    |
+| libsqlite3-dev   | python + pyenv                                    |
+| llvm             | python + pyenv                                    |
+| libncurses5-dev  | python + pyenv                                    |
+| libncursesw5-dev | python + pyenv                                    |
+| xz-utils         | python + pyenv                                    |
+| tk-dev           | python + pyenv                                    |
+| libffi-dev       | python + pyenv                                    |
+| liblzma-dev      | python + pyenv                                    |
+| python-openssl   | python + pyenv                                    |
 
 #+BEGIN_SRC elisp :var table=apt-sources
 (s-join " " (-map 'car table))
