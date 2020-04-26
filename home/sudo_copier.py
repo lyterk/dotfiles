@@ -8,6 +8,8 @@ dotfiles_path = home / "dotfiles" / "home"
 
 files = {"scripts/gitwatch.sh": Path("/") / "usr" / "local" / "bin" / "gitwatch"}
 
+hosts_link = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
+
 for name, value in files.items():
     print(value)
     try:

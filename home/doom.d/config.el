@@ -58,6 +58,15 @@
 (set-frame-parameter (selected-frame) 'alpha '90)
 (add-to-list 'default-frame-alist '(alpha . 90))
 
+;; Evil stuff
+(setq evil-escape-key-sequence "cg")
+
+;; Indentation
+(define-key indent-rigidly-map "h" 'indent-rigidly-left)
+(define-key indent-rigidly-map "l" 'indent-rigidly-right)
+(define-key indent-rigidly-map "H" 'indent-rigidly-left-to-tab-stop)
+(define-key indent-rigidly-map "L" 'indent-rigidly-right-to-tab-stop)
+
 ;; Appearances
 (setq global-whitespace-mode nil)
 
