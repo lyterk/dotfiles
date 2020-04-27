@@ -335,16 +335,7 @@ Move this over from Python (or keep it as Python and put it here :) )
 * Config
 * Scripts
 ** Gitwatch
-#+BEGIN_SRC elisp :var dir=(substitute-in-file-name "$HOME/.dotfiles/home") :var tes=(prin1-to-string org-my-dotfiles-dir)
-;; TODO: Figure out how to persist file-level variables (eval-ing as void right now)
-dir
-tes
+#+BEGIN_SRC shell :dir "/sudo::" :var directory=(substitute-in-file-name "$HOME/.dotfiles/home/")
+ln -s $directory/scripts/gitwatch.sh /usr/local/bin/gitwatch
 #+END_SRC
-
 #+RESULTS:
-: "hello there"
-
-# Local Variables:
-# mode: org
-# org-my-dotfiles-dir: (substitute-in-file-name "$HOME/.dotfiles/home")
-# End:
