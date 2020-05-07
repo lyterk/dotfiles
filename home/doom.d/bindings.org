@@ -1,4 +1,6 @@
+#+TITLE: Bindings
 
+#+BEGIN_SRC elisp :tangle yes
 (map! :leader
       (:prefix-map ("k" . "kevin")
         :desc "Password manager"                            "p" #'ivy-pass
@@ -12,3 +14,4 @@
       (:prefix-map ("l" . "lispy")
        ;; TODO Probably just copy these from spacemacs
        ))
+#+END_SRC

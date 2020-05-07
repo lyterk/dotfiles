@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-
+table=[["spacemacs", "~/.spacemacs", ""], ["config", "~/.ssh/config", ""], ["config.fish", "~/.config/fish/config.fish", ""], ["gitconfig", "~/.gitconfig", ""], ["gitignore", "~/.gitignore", ""], ["pip.conf", "~/.pip/pip.conf", ""], ["kdewalletrc", "~/.config/kdewalletrc", ""], ["redshift.conf", "~/.config/redshift.conf", ""], ["flake8", "~/.config/flake8", ""], ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""], ["zshenv", "~/.zshenv", ""], ["zshrc", "~/.zshrc", ""], ["profile", "~/.profile", ""], ["zprofile", "~/.zprofile", ""], ["systemd/emacs.service", "~/.config/systemd/user/emacs.service", ""], ["systemd/gitwatch@.service", "~/.config/systemd/user/gitwatch@.service", ""]]
 from pathlib import Path
 
 home = Path.home()
@@ -39,25 +38,6 @@ def firefox_settings():
 doom_source = dotfiles_path / "doom.d"
 doom_destination = home / ".doom.d"
 
-files = {
-    "spacemacs": home / ".spacemacs",
-    "config": home / ".ssh" / "config",
-    "config.fish": home / ".config/fish/config.fish",
-    "gitconfig": home / ".gitconfig",
-    "gitignore": home / ".gitignore",
-    "pip.conf": home / ".pip/pip.conf",
-    "kdewalletrc": home / ".config/kdewalletrc",
-    "redshift.conf": home / ".config/redshift.conf",
-    "flake8": home / ".config/flake8",
-    # "projectile": home / ".projectile",
-    "rustfmt.toml": home / ".config/rustfmt/rustfmt.toml",
-    "zshenv": home / ".zshenv",
-    "zshrc": home / ".zshrc",
-    "profile": home / ".profile",
-    "zprofile": home / ".zprofile",
-    "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
-    "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
-}
 
 firefox_settings()
 
@@ -70,31 +50,16 @@ for file in doom_source.iterdir():
         (doom_destination / file.name).symlink_to(doom_source / file.name)
         print(doom_destination / file.name)
 
-# snippets_source = home / "dotfiles" / "snippets"
-# snippets_destination = home / ".emacs.d" / "private" / "snippets"
+file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table }
 
-# for dir in snippets_source.iterdir():
-#     Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
-#     for snippet in dir.iterdir():
-#         try:
-#             (snippets_destination / dir.name / snippet.name).symlink_to(
-#                 snippets_source / dir.name / snippet.name
-#             )
-#         except:
-#             (snippets_destination / dir.name / snippet.name).unlink()
-#             (snippets_destination / dir.name / snippet.name).symlink_to(
-#                 snippets_source / dir.name / snippet.name
-#             )
-
-# Remove existing symlinked destinations
-for name, value in files.items():
-    print(value)
+for source, target in file_mappings.items():
+    print(target)
     try:
         try:
-            value.unlink()
+            target.unlink()
         except:
             pass
-        value.parent.mkdir(parents=True, exist_ok=True)
-        value.symlink_to(dotfiles_path / name)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.symlink_to(source)
     except Exception as exc:
         print(exc)

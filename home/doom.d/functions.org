@@ -1,0 +1,20 @@
+#+TITLE: Functions
+
+* Shell commands
+#+BEGIN_SRC elisp :tangle yes
+(defun kev-command (command)
+  (with-temp-buffer
+    (let ((process
+           (call-process
+            "/usr/bin/zsh"
+            nil
+            (current-buffer)
+            nil
+            "-c"
+            command)))
+      (when (/= process 0)
+        (list command process (buffer-string))))))
+#+END_SRC
+
+#+RESULTS:
+: kev-command

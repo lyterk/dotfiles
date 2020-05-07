@@ -1,83 +1,107 @@
+#+PROPERTY: header-args :tangle yes
+
+* Utilities and Functions
+** Convert a table of package names and versions to a shell command argument
+Such as for pip or apt
+
+#+NAME: table-to-versioned-string
+#+BEGIN_SRC elisp :var table=apt-sources package-manager="apt" :results silent
+(defun table-to-versioned-string (table package-manager)
+  ;; Joiner assigns whether we should use $package=$version or $package==$version
+  (let ((joiner
+         (cond ((string= package-manager "apt") "=")
+               ((string= package-manager "pip") "=="))))
+    (s-join " " (-map (lambda (row)
+            (let ((package (car row))
+                  (version (format "%s" (cadr row))))
+              (if (string= "" version)
+                  package
+                (s-concat package joiner version))))
+          table))))
+
+(message (table-to-versioned-string table package-manager))
+#+END_SRC
+
 * Packages
 Run all as root.
 ** Apt
-#+BEGIN_SRC sh :dir "/sudo::" :results output verbatim
+*** Base upgrades
+#+BEGIN_SRC shell :dir "/sudo::"
 apt update
 apt upgrade
 #+END_SRC
 
 #+RESULTS:
 
+*** Add repos
 #+NAME: apt-repos
 | name | comment |
 |------+---------|
 |      |         |
 
 
+#+BEGIN_SRC shell :var sources=apt-repos :dir "/sudo::" :results output verbatim :tangle sudo_bootstrap.el
+add-apt-repository $sources
+apt update
+#+END_SRC
+
+*** Installs
 #+NAME: apt-sources
-| name             | comment                                           |
-|------------------+---------------------------------------------------|
-| curl             |                                                   |
-| gawk             | gnu awk, cause it's better                        |
-| wget             |                                                   |
-| xclip            |                                                   |
-| pass             |                                                   |
-| openvpn          |                                                   |
-| calibre          |                                                   |
-| htop             |                                                   |
-| jq               | Just critical                                     |
-| racket           |                                                   |
-| dict             | dictionary lookups                                |
-| dictd            |                                                   |
-| dict-gcide       | Collaborative International Dictionary of English |
-| hunspell         |                                                   |
-| hunspell-en-us   |                                                   |
-| golang           | so hot right now                                  |
-| transmission     |                                                   |
-| paperkey         | backing up /restoring GPG keys                    |
-| emacs26          | requires ubuntu 19+                               |
-| cmake            | requires ubuntu 19+, for libvterm                 |
-| libtool-bin      | for libvterm                                      |
-| fonts-firacode   | for doom emacs                                    |
-| zlib1g-dev       | for installing python w/ pyenv                    |
-| build-essential  | python + pyenv                                    |
-| libssl-dev       | python + pyenv                                    |
-| libbz2-dev       | python + pyenv                                    |
-| libreadline-dev  | python + pyenv                                    |
-| libsqlite3-dev   | python + pyenv                                    |
-| llvm             | python + pyenv                                    |
-| libncurses5-dev  | python + pyenv                                    |
-| libncursesw5-dev | python + pyenv                                    |
-| xz-utils         | python + pyenv                                    |
-| tk-dev           | python + pyenv                                    |
-| libffi-dev       | python + pyenv                                    |
-| liblzma-dev      | python + pyenv                                    |
-| python-openssl   | python + pyenv                                    |
+| name             | version | comment                           |
+|------------------+---------+-----------------------------------|
+| curl             |         |                                   |
+| gawk             |         | gnu awk, cause it's better        |
+| wget             |         |                                   |
+| xclip            |         |                                   |
+| pass             |         |                                   |
+| openvpn          |         |                                   |
+| calibre          |         |                                   |
+| htop             |         |                                   |
+| jq               |         | Just critical                     |
+| racket           |         |                                   |
+| hunspell         |         |                                   |
+| hunspell-en-us   |         |                                   |
+| golang           |         | so hot right now                  |
+| transmission     |         |                                   |
+| mplayer          |         | nice sound playing                |
+| paperkey         |         | backing up /restoring GPG keys    |
+| emacs26          |         | requires ubuntu 19+               |
+| cmake            |         | requires ubuntu 19+, for libvterm |
+| libtool-bin      |         | for libvterm                      |
+| fonts-firacode   |         | for doom emacs                    |
+| zlib1g-dev       |         | for installing python w/ pyenv    |
+| build-essential  |         | python + pyenv                    |
+| libssl-dev       |         | python + pyenv                    |
+| libbz2-dev       |         | python + pyenv                    |
+| libreadline-dev  |         | python + pyenv                    |
+| libsqlite3-dev   |         | python + pyenv                    |
+| llvm             |         | python + pyenv                    |
+| libncurses5-dev  |         | python + pyenv                    |
+| libncursesw5-dev |         | python + pyenv                    |
+| xz-utils         |         | python + pyenv                    |
+| tk-dev           |         | python + pyenv                    |
+| libffi-dev       |         | python + pyenv                    |
+| liblzma-dev      |         | python + pyenv                    |
+| python-openssl   |         | python + pyenv                    |
 
-#+BEGIN_SRC elisp :var table=apt-sources
-(s-join " " (-map 'car table))
+#+NAME: INSTALLATION
+#+HEADER: :var vstring=table-to-versioned-string(table=apt-sources, package-manager="pip")
+#+HEADER: :dir "/sudo::/"
+#+HEADER: :results raw
+#+BEGIN_SRC shell
+# I could do this more nicely and cleanly with the Python API, but I prefer to
+# be able to do this without dependencies-- this should work on a fresh ubuntu
+# install.
+apt-get install -y $(echo $vstring)
 #+END_SRC
 
-#+NAME: apt-source-string
-#+RESULTS:
-: curl gawk wget xclip pass openvpn calibre htop jq racket dict dictd dict-gcide hunspell hunspell-en-us golang transmission paperkey emacs26 cmake libtool-bin fonts-firacode zlib1g-dev build-essential libssl-dev libbz2-dev libreadline-dev libsqlite3-dev llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl
-
-
-#+BEGIN_SRC sh :var sources=apt-source-string :dir "/sudo::" :results output verbatim
-yes | apt install $sources
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
+#+RESULTS: INSTALLATION
 Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
+Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... 75%Building dependency tree... 76%Building dependency tree... 77%Building dependency tree... 78%Building dependency tree... 79%Building dependency tree... 80%Building dependency tree... 81%Building dependency tree... 82%Building dependency tree... 83%Building dependency tree... 84%Building dependency tree... 85%Building dependency tree... 86%Building dependency tree... 87%Building dependency tree... 88%Building dependency tree... 89%Building dependency tree... 90%Building dependency tree... 91%Building dependency tree... 92%Building dependency tree... 93%Building dependency tree... 94%Building dependency tree... 95%Building dependency tree... 96%Building dependency tree... 97%Building dependency tree... 98%Building dependency tree... 99%Building dependency tree       
+Reading state information... 0%Reading state information... 0%Reading state information... 0%Reading state information... 0%Reading state information... 1%Reading state information... 2%Reading state information... 3%Reading state information... 4%Reading state information... 5%Reading state information... 6%Reading state information... 7%Reading state information... 8%Reading state information... 9%Reading state information... 10%Reading state information... 11%Reading state information... 12%Reading state information... 13%Reading state information... 14%Reading state information... 15%Reading state information... 16%Reading state information... 17%Reading state information... 18%Reading state information... 19%Reading state information... 20%Reading state information... 21%Reading state information... 22%Reading state information... 23%Reading state information... 24%Reading state information... 25%Reading state information... 26%Reading state information... 27%Reading state information... 28%Reading state information... 29%Reading state information... 30%Reading state information... 31%Reading state information... 32%Reading state information... 33%Reading state information... 34%Reading state information... 35%Reading state information... 36%Reading state information... 37%Reading state information... 38%Reading state information... 39%Reading state information... 40%Reading state information... 41%Reading state information... 42%Reading state information... 43%Reading state information... 44%Reading state information... 45%Reading state information... 46%Reading state information... 47%Reading state information... 48%Reading state information... 49%Reading state information... 50%Reading state information... 51%Reading state information... 52%Reading state information... 53%Reading state information... 54%Reading state information... 55%Reading state information... 56%Reading state information... 57%Reading state information... 58%Reading state information... 59%Reading state information... 60%Reading state information... 61%Reading state information... 62%Reading state information... 63%Reading state information... 64%Reading state information... 65%Reading state information... 66%Reading state information... 67%Reading state information... 68%Reading state information... 69%Reading state information... 70%Reading state information... 71%Reading state information... 72%Reading state information... 73%Reading state information... 74%Reading state information... 75%Reading state information... 76%Reading state information... 77%Reading state information... 78%Reading state information... 79%Reading state information... 80%Reading state information... 81%Reading state information... 82%Reading state information... 83%Reading state information... 84%Reading state information... 85%Reading state information... 86%Reading state information... 87%Reading state information... 88%Reading state information... 89%Reading state information... 90%Reading state information... 91%Reading state information... 92%Reading state information... 93%Reading state information... 94%Reading state information... 95%Reading state information... 96%Reading state information... 97%Reading state information... 100%Reading state information... Done
 build-essential is already the newest version (12.8ubuntu1).
 cmake is already the newest version (3.13.4-1build1).
 curl is already the newest version (7.65.3-1ubuntu3).
-dict is already the newest version (1.12.1+dfsg-8).
-dict-gcide is already the newest version (0.48.5).
-dictd is already the newest version (1.12.1+dfsg-8).
 gawk is already the newest version (1:4.2.1+dfsg-1.1build1).
 golang is already the newest version (2:1.12~1ubuntu1).
 htop is already the newest version (2.2.0-2).
@@ -97,7 +121,9 @@ zlib1g-dev is already the newest version (1:1.2.11.dfsg-1ubuntu3).
 calibre is already the newest version (3.46.0+dfsg-1).
 fonts-firacode is already the newest version (1.207+dfsg1-1).
 hunspell is already the newest version (1.7.0-2build1).
+jq is already the newest version (1.5+dfsg-2build1).
 llvm is already the newest version (1:9.0-49~exp1).
+mplayer is already the newest version (2:1.3.0-8build4).
 paperkey is already the newest version (1.6-1).
 pass is already the newest version (1.7.3-2).
 python-openssl is already the newest version (19.0.0-1).
@@ -107,84 +133,9 @@ transmission is already the newest version (2.94-2ubuntu1).
 xclip is already the newest version (0.13-1).
 libsqlite3-dev is already the newest version (3.29.0-2ubuntu0.2).
 emacs26 is already the newest version (26.3~1.git96dd019-kk1+19.10).
-The following packages were automatically installed and are no longer required:
-  fonts-font-awesome fonts-liberation2 freerdp2-x11 libabw-0.1-1
-  libadplug-2.2.1-0v5 libaudiofile1 libbinio1v5 libboost-date-time1.67.0
-  libboost-filesystem1.67.0 libboost-iostreams1.67.0 libboost-locale1.67.0
-  libboost-system1.67.0 libboost-thread1.67.0 libcdio-cdda2 libcdio-paranoia2
-  libcdr-0.1-1 libclucene-contribs1v5 libclucene-core1v5 libcmis-0.5-5v5
-  libcolamd2 libe-book-0.1-1 libebur128-1 libeot0 libepubgen-0.1-1
-  libetonyek-0.1-1 libexttextcat-2.0-0 libexttextcat-data libfreecell-solver0
-  libfreehand-0.1-1 libfreerdp-client2-2 libfreerdp2-2
-  libgrantlee-textdocument5 libid3tag0 libkf5plotting5 libkf5torrent6
-  libkf5webkit5 libkgantt2 libkgantt2-l10n libkolabxml1v5 libktorrent-l10n
-  liblangtag-common liblangtag1 libmhash2 libmikmod3 libmpdclient2
-  libmspub-0.1-1 libmwaw-0.3-3 libmythes-1.2-0 libodfgen-0.1-1 liborcus-0.14-0
-  libpagemaker-0.0-0 libphonenumber7 libprotobuf17 libqgpgme7
-  libqt5networkauth5 libraptor2-0 librasqal3 librdf0 librevenge-0.0-0
-  libsdl2-2.0-0 libsidplayfp4 libstartup-notification0 libsuitesparseconfig5
-  libvisio-0.1-1 libvncclient1 libwinpr2-2 libwpd-0.10-10 libwpg-0.3-3
-  libwps-0.4-4 libxerces-c3.2 libxmlsec1 libxmlsec1-nss libyajl2 libzzip-0-13
-  lp-solve mariadb-client-core-10.3 mariadb-common mariadb-server-core-10.3
-  qtgstreamer-plugins-qt5
-Use 'apt autoremove' to remove them.
-The following additional packages will be installed:
-  libjq1 libonig5
-The following NEW packages will be installed:
-  jq libjq1 libonig5
-0 upgraded, 3 newly installed, 0 to remove and 0 not upgraded.
-Need to get 296 kB of archives.
-After this operation, 1,019 kB of additional disk space will be used.
-Do you want to continue? [Y/n] [33m0% [Working][0m            Get:1 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 libonig5 amd64 6.9.2-1 [139 kB]
-[33m1% [1 libonig5 2,293 B/139 kB 2%][0m[33m                                 44% [Working][0m             Get:2 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 libjq1 amd64 1.5+dfsg-2build1 [112 kB]
-[33m46% [2 libjq1 7,445 B/112 kB 7%][0m[33m                                81% [Working][0m             Get:3 http://us.archive.ubuntu.com/ubuntu eoan/universe amd64 jq amd64 1.5+dfsg-2build1 [46.1 kB]
-[33m82% [3 jq 3,816 B/46.1 kB 8%][0m[33m                             100% [Working][0m              Fetched 296 kB in 1s (419 kB/s)
-Selecting previously unselected package libonig5:amd64.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 300971 files and directories currently installed.)
-Preparing to unpack .../libonig5_6.9.2-1_amd64.deb ...
-Unpacking libonig5:amd64 (6.9.2-1) ...
-Selecting previously unselected package libjq1:amd64.
-Preparing to unpack .../libjq1_1.5+dfsg-2build1_amd64.deb ...
-Unpacking libjq1:amd64 (1.5+dfsg-2build1) ...
-Selecting previously unselected package jq.
-Preparing to unpack .../jq_1.5+dfsg-2build1_amd64.deb ...
-Unpacking jq (1.5+dfsg-2build1) ...
-Setting up libonig5:amd64 (6.9.2-1) ...
-Setting up libjq1:amd64 (1.5+dfsg-2build1) ...
-Setting up jq (1.5+dfsg-2build1) ...
-Processing triggers for man-db (2.8.7-3) ...
-Processing triggers for libc-bin (2.30-0ubuntu2.1) ...
-#+end_example
-
-#+BEGIN_SRC elisp :var table=apt-repos
-(s-join " " (-map 'car table))
-#+END_SRC
-
-#+RESULTS:
-
-#+NAME: apt-repo-string
-#+RESULTS:
+0 upgraded, 0 newly installed, 0 to remove and 7 not upgraded.
 
 
-#+BEGIN_SRC sh :var sources=apt-repo-string :dir "/sudo::" :results output verbatim
-yes | add-apt-repository --remove $sources
-apt update
-#+END_SRC
-
-#+RESULTS:
-#+begin_example
- Bitwise PPA
- More info: https://launchpad.net/~ramon-fried/+archive/ubuntu/bitwise
-[33m0% [Working][0m            Hit:1 http://security.ubuntu.com/ubuntu eoan-security InRelease
-[33m0% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)][0m                                                                         Hit:2 http://us.archive.ubuntu.com/ubuntu eoan InRelease
-[33m                                                                         0% [Waiting for headers] [Waiting for headers][0m                                              Hit:3 http://us.archive.ubuntu.com/ubuntu eoan-updates InRelease
-[33m                                              0% [Waiting for headers][0m[33m0% [Waiting for headers] [Waiting for headers][0m                                              Hit:4 http://us.archive.ubuntu.com/ubuntu eoan-backports InRelease
-[33m                                              0% [Waiting for headers][0m                        Hit:5 http://ppa.launchpad.net/kelleyk/emacs/ubuntu eoan InRelease
-[33m                        0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m0% [Working][0m[33m20% [Working][0m             Reading package lists... 0%Reading package lists... 0%Reading package lists... 0%Reading package lists... 3%Reading package lists... 3%Reading package lists... 7%Reading package lists... 7%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 9%Reading package lists... 41%Reading package lists... 41%Reading package lists... 72%Reading package lists... 72%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 89%Reading package lists... 90%Reading package lists... 90%Reading package lists... 91%Reading package lists... 91%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 92%Reading package lists... 93%Reading package lists... 93%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 94%Reading package lists... 95%Reading package lists... 95%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 96%Reading package lists... 97%Reading package lists... 97%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... 98%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
-8 packages can be upgraded. Run 'apt list --upgradable' to see them.
-#+end_example
 *** Antibody
 #+BEGIN_SRC shell :dir "/sudo::"
 curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
@@ -221,36 +172,70 @@ cd -
 #+END_SRC
 #+END_SRC
 * Python
+
+** Create env
+#+BEGIN_SRC elisp  :var location=(getenv "HOME")
+(let* ((commands (list
+                 (format "git clone https://github.com/pyenv/pyenv.git %s/.pyenv" location)
+                 (format "git clone https://github.com/momo-lab/xxenv-latest.git %s/plugins/xxenv-latest"
+                         (s-concat location "/.pyenv")
+                 "pyenv latest install"
+                 "pyenv global $(pyenv versions | tail -n 1)"
+                 "mkdir -p $HOME/.zfunc")))
+  (-map (lambda (command)
+          (kev-command command))
+        commands))
+#+END_SRC
+#+RESULTS:
+| git clone https://github.com/pyenv/pyenv.git ~/.pyenv | 128 | fatal: destination path '/home/kev/.pyenv' already exists and is not an empty directory. |
+| pyenv latest install                                  |   1 | Latest version is '3.8.2'                                                                |
+
+** Install Libraries
 #+NAME: general-purpose-python
-| name       | comment                    |
-|------------+----------------------------|
-| black      | formatting                 |
-| pyls       | LSP                        |
-| ipython    | repl                       |
-| poetry     | dependency management      |
-| virtualenv | envs                       |
-| manimlib   | 3blue1brown visualizations |
+| name                          | version | comment               |
+|-------------------------------+---------+-----------------------|
+| jupyter                       |   1.0.0 | science notebook      |
+| black                         | 19.10b0 | formatting            |
+| pyflakes                      |   2.2.0 | import optimization   |
+| isort                         |  4.3.21 | sort imports          |
+| mypy                          |   0.770 | typing                |
+| 'python-language-server[all]' |  0.31.9 | LSP                   |
+| pyls-mypy                     |   0.1.8 |                       |
+| pyls-isort                    |   0.1.1 | isort                 |
+| jedi                          |  0.17.0 | emacs python stuff    |
+| ipython                       |  7.14.0 | repl                  |
+| poetry                        |   1.0.5 | dependency management |
+| virtualenv                    | 20.0.15 | envs                  |
 
 #+BEGIN_SRC elisp :var table=general-purpose-python
-(s-join " " (-map 'car table))
+(let* ((libraries (-map
+                   (lambda (row)
+                     (let ((package (car row))
+                           (version (cadr row)))
+                       (s-concat
+                        package
+                        (if (not (string= "" version))
+                            (s-concat "==" version)
+                          version))))
+                   table)))
+       (-map (lambda (lib)
+               (kev-command (format "pip install --user %s" lib)))
+             libraries))
+
 #+END_SRC
 
-#+NAME: python-libs
 #+RESULTS:
-: black pyls ipython poetry virtualenv manimlib
 
-#+BEGIN_SRC shell :var libs=python-libs
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-git clone https://github.com/momo-lab/xxenv-latest.git "$(pyenv root)"/plugins/xxenv-latest
-pyenv latest install
-pyenv global $(pyenv versions | tail -n 1)
-pip install --user $libs
-mkdir -p $HOME/.zfunc
-poetry completions zsh > ~/.zfunc/_poetry
+
+
+
+** Configure Shell
+#+BEGIN_SRC elisp
+(let ((commands (list "poetry completions zsh > ~/.zfunc/_poetry")))
+  (-map (lambda (command)
+          (kev-command command))
+        commands))
 #+END_SRC
-
-#+RESULTS:
-: Latest version is '3.8.2'
 
 * Node
 #+BEGIN_SRC shell
@@ -330,8 +315,98 @@ wget https://i.imgur.com/$file -O $output_file
 #+END_SRC
 
 #+RESULTS:
-* TODO Dotfiles
-Move this over from Python (or keep it as Python and put it here :) )
+* Dotfiles
+#+NAME: dotfiles
+| filename                  | file_location                            | comment |
+|---------------------------+------------------------------------------+---------|
+| spacemacs                 | ~/.spacemacs                             |         |
+| config                    | ~/.ssh/config                            |         |
+| config.fish               | ~/.config/fish/config.fish               |         |
+| gitconfig                 | ~/.gitconfig                             |         |
+| gitignore                 | ~/.gitignore                             |         |
+| pip.conf                  | ~/.pip/pip.conf                          |         |
+| kdewalletrc               | ~/.config/kdewalletrc                    |         |
+| redshift.conf             | ~/.config/redshift.conf                  |         |
+| flake8                    | ~/.config/flake8                         |         |
+| rustfmt.toml              | ~/.config/rustfmt/rustfmt.toml           |         |
+| zshenv                    | ~/.zshenv                                |         |
+| zshrc                     | ~/.zshrc                                 |         |
+| profile                   | ~/.profile                               |         |
+| zprofile                  | ~/.zprofile                              |         |
+| systemd/emacs.service     | ~/.config/systemd/user/emacs.service     |         |
+| systemd/gitwatch@.service | ~/.config/systemd/user/gitwatch@.service |         |
+
+#+BEGIN_SRC python :var table=dotfiles :tangle "copier.py"
+from pathlib import Path
+
+home = Path.home()
+dotfiles_path = home / ".dotfiles" / "home"
+
+
+def firefox_settings():
+    import configparser
+
+    firefox_ini = str(home / ".mozilla" / "firefox" / "profiles.ini")
+
+    profiles = configparser.ConfigParser()
+    profiles.read(firefox_ini)
+
+    firefox_profile_paths = []
+    for k, v in profiles.items():
+        if "Profile" in k:
+            firefox_profile_paths.append(v.get("Path"))
+
+    for profile_key, profile in profiles.items():
+        if "Profile" in profile_key:
+            firefox_profile = (
+                home / ".mozilla" / "firefox" / profile.get("Path") / "chrome"
+            )
+            firefox_profile.mkdir(parents=True, exist_ok=True)
+
+            try:
+                (firefox_profile / "userChrome.css").symlink_to(
+                    dotfiles_path / "browser" / "userChrome.css"
+                )
+            except FileExistsError:
+                pass
+
+            print(f"Copied Firefox profile {profile.get('Path')}")
+
+
+doom_source = dotfiles_path / "doom.d"
+doom_destination = home / ".doom.d"
+
+
+firefox_settings()
+
+for file in doom_source.iterdir():
+    try:
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
+        print(doom_destination / file.name)
+    except:
+        (doom_destination / file.name).unlink()
+        (doom_destination / file.name).symlink_to(doom_source / file.name)
+        print(doom_destination / file.name)
+
+file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table }
+
+for source, target in file_mappings.items():
+    print(target)
+    try:
+        try:
+            target.unlink()
+        except:
+            pass
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.symlink_to(source)
+    except Exception as exc:
+        print(exc)
+
+#+END_SRC
+
+#+RESULTS:
+: None
+
 * Config
 * Scripts
 ** Gitwatch
