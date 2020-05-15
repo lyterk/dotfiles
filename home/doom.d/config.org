@@ -66,6 +66,15 @@ they are implemented.
 (setq global-whitespace-mode nil)
 #+END_SRC
 
+** Alert
+#+BEGIN_SRC elisp :tangle yes
+(setq alert-default-style 'libnotify)
+(setq alert-libnotify-command "/usr/bin/notify-send")
+#+END_SRC
+
+#+RESULTS:
+: /usr/bin/notify-send
+
 * Evil navigation
 #+BEGIN_SRC elisp :tangle yes
 ;; Evil stuff
@@ -87,6 +96,7 @@ they are implemented.
 (setq org-pomodoro-short-break-sound-args "-volume 40")
 #+END_SRC
 
+* Debugger
 * Python
 #+BEGIN_SRC elisp :tangle yes
 (setq python-shell-interpreter "ipython")
@@ -94,10 +104,11 @@ they are implemented.
 (after! python
   (set-popup-rule! "^\\*Python\\*$" :quit nil :ttl nil))
 #+END_SRC
-
 * Rust
 #+BEGIN_SRC elisp :tangle yes
 (setq racer-rust-src-path (home ".rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
+;; Apparently this is better and the future.
+(setq rustic-lsp-server 'rust-analyzer)
 #+END_SRC
 
 * Viz

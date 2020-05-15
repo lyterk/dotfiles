@@ -1,0 +1,74 @@
+{
+    "createdBy": "Redirector v3.5.3",
+    "createdAt": "2020-05-14T23:27:59.582Z",
+    "redirects": [
+        {
+            "description": "Reddit Redirect",
+            "exampleUrl": "https://www.reddit.com/u/test",
+            "exampleResult": "https://old.reddit.com/u/test",
+            "error": null,
+            "includePattern": "^(?:http?s://)(?:www.)reddit.com(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://old.reddit.com$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "",
+            "exampleUrl": "https://ad.doubleclick.net/ddm/trackclk/N135005.2681608PRIVATENETWORK/B20244?https://www.example.com",
+            "exampleResult": "https://www.example.com",
+            "error": null,
+            "includePattern": "^(?:http?s://)ad.doubleclick.net/.*\\?(http?s://.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "",
+            "exampleUrl": "https://www.google.com/amp/www.example.com/amp/document",
+            "exampleResult": "https://www.example.com/amp/document",
+            "error": null,
+            "includePattern": "^(?:http?s://)www.(?:google|bing).com/amp/(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "https://$1",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        },
+        {
+            "description": "",
+            "exampleUrl": "https://en.m.wikipedia.org/",
+            "exampleResult": "https://en.wikipedia.org/",
+            "error": null,
+            "includePattern": "^(http?s://)(.*\\.)m(?:obile)?\\.(.*)",
+            "excludePattern": "",
+            "patternDesc": "",
+            "redirectUrl": "$1$2$3",
+            "patternType": "R",
+            "processMatches": "noProcessing",
+            "disabled": false,
+            "grouped": false,
+            "appliesTo": [
+                "main_frame"
+            ]
+        }
+    ]
+}

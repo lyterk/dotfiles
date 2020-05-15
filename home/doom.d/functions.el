@@ -1,5 +1,3 @@
-;;; ~/.dotfiles/home/doom.d/functions.el -*- lexical-binding: t; -*-
-
 (defun kev-command (command)
   (with-temp-buffer
     (let ((process
@@ -12,3 +10,11 @@
             command)))
       (when (/= process 0)
         (list command process (buffer-string))))))
+
+(defun setxkbmap ()
+  (interactive)
+  (kev-command "setxkbmap -option ctrl:nocaps"))
+
+(defun org-pomodoro-notify (title message)
+  "Send a notification with TITLE and MESSAGE using `alert'."
+  (alert message :title title :category 'org-pom))

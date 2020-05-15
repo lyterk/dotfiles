@@ -58,6 +58,9 @@ apt update
 | calibre          |         |                                   |
 | htop             |         |                                   |
 | jq               |         | Just critical                     |
+| clang            |         | Used for Rust interop             |
+| libnotify-bin    |         | Sending alerts to the desktop     |
+| w3m              |         | Internet browsing stuff           |
 | racket           |         |                                   |
 | hunspell         |         |                                   |
 | hunspell-en-us   |         |                                   |
@@ -319,9 +322,7 @@ wget https://i.imgur.com/$file -O $output_file
 #+NAME: dotfiles
 | filename                  | file_location                            | comment |
 |---------------------------+------------------------------------------+---------|
-| spacemacs                 | ~/.spacemacs                             |         |
 | config                    | ~/.ssh/config                            |         |
-| config.fish               | ~/.config/fish/config.fish               |         |
 | gitconfig                 | ~/.gitconfig                             |         |
 | gitignore                 | ~/.gitignore                             |         |
 | pip.conf                  | ~/.pip/pip.conf                          |         |
@@ -413,4 +414,12 @@ for source, target in file_mappings.items():
 #+BEGIN_SRC shell :dir "/sudo::" :var directory=(substitute-in-file-name "$HOME/.dotfiles/home/")
 ln -s $directory/scripts/gitwatch.sh /usr/local/bin/gitwatch
 #+END_SRC
+#+RESULTS:
+** Remarkable lines file to SVG
+#+BEGIN_SRC elisp :var dotfiles-dir=(s-concat (getenv "HOME") "/.dotfiles/home")
+(require 'w3m)
+(let ((url "https://github.com/reHackable/maxio/raw/master/tools/rM2svg"))
+  (w3m-download url (s-concat dotfiles-dir "/scripts/rm2svg")))
+#+END_SRC
+
 #+RESULTS:

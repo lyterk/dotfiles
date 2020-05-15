@@ -1,6 +1,7 @@
 #+TITLE: Functions
 
 * Shell commands
+** Generic command dispatch
 #+BEGIN_SRC elisp :tangle yes
 (defun kev-command (command)
   (with-temp-buffer
@@ -18,3 +19,19 @@
 
 #+RESULTS:
 : kev-command
+
+** Setxkbmap (man, fuck this)
+#+BEGIN_SRC elisp :tangle yes
+(defun setxkbmap ()
+  (interactive)
+  (kev-command "setxkbmap -option ctrl:nocaps"))
+#+END_SRC
+
+#+RESULTS:
+: setxkbmap
+** Org-Pomodoro stupidfix
+#+BEGIN_SRC elisp :tangle yes
+(defun org-pomodoro-notify (title message)
+  "Send a notification with TITLE and MESSAGE using `alert'."
+  (alert message :title title :category 'org-pom))
+#+END_SRC

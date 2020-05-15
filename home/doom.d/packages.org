@@ -1,6 +1,8 @@
 #+TITLE: Packages
 
-#+BEGIN_SRC elisp :tangle yes
+#+PROPERTY: header-args :tangle yes
+
+#+BEGIN_SRC elisp
 ;; -*- no-byte-compile: t; -*-
 #+END_SRC
 
@@ -57,38 +59,42 @@
 #+END_SRC
 
 * Desktop notifications
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! alert)
 #+END_SRC
 * Querying org files
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! org-ql)
 #+END_SRC
 * Testing email interface
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! nm)
 #+END_SRC
 * Auth-source connected to passcli
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! auth-source-pass)
 #+END_SRC
 * Update env variables etc.
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! exec-path-from-shell)
 #+END_SRC
 * PlantUML graphs
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! plantuml-mode)
 #+END_SRC
 * Translations
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! google-translate)
 #+END_SRC
 * Regular regular expressions
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! pcre2el)
 #+END_SRC
 * Jupyter, but in emacs
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (package! jupyter)
+#+END_SRC
+* Web browsing
+#+BEGIN_SRC elisp
+(package! w3m)
 #+END_SRC

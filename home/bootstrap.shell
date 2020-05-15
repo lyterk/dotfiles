@@ -1,0 +1,71 @@
+apt update
+apt upgrade
+
+# I could do this more nicely and cleanly with the Python API, but I prefer to
+# be able to do this without dependencies-- this should work on a fresh ubuntu
+# install.
+apt-get install -y $(echo $vstring)
+
+curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
+
+wget https://git.io/trans -O /tmp/trans
+chmod u+x /tmp/trans
+mv /tmp/trans $HOME/.local/bin
+
+# NOTE You probably want to generate an SSH key for bitbucket for this machine.
+git clone https://bitbucket.org/txru/passwords.git ~/.password-store
+# NOTE You should fetch your GPG key yourself.
+git clone https://bitbucket.org/txru/dotfiles.git ~/.dotfiles
+python3 ~/.dotfiles/home/copier.py
+
+git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
+yes | ~/.emacs.d/bin/doom install
+
+mkdir -p ~/.emacs.d/.local/straight/repos/emacs-libvterm/build
+cd ~/.emacs.d/.local/straight/repos/emacs-libvterm/build
+cmake ..
+make
+cd -
+
+source $HOME/.zshrc
+curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer | bash
+
+# Holy fuck I hate the Nodesystem
+git clone https://github.com/momo-lab/xxenv-latest.git "$(nodenv root)"/plugins/xxenv-latest
+# Fuck everything about node
+nodenv latest install
+
+nodenv global $(nodenv versions | tail -n 1)
+
+npm install --global prettier
+
+snap install signal-desktop
+snap install spotify
+snap install bitwise
+snap install chromium
+
+file=RjGYtZL.jpg
+pretty_name="susquehanna_park.jpg"
+output_file="$HOME/Pictures/$pretty_name"
+wget https://i.imgur.com/$file -O $output_file
+
+
+dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
+var Desktops = desktops();
+for (i=0;i<Desktops.length;i++) {
+        d = Desktops[i];
+        d.wallpaperPlugin = "org.kde.image";
+        d.currentConfigGroup = Array("Wallpaper",
+                                    "org.kde.image",
+                                    "General");
+        d.writeConfig("Image", "file:/$output_file");
+
+        console.log("$output_file");
+}'
+
+file=DCIcWc6.jpg
+pretty_name="brothers_ruel.jpg"
+output_file="$HOME/Pictures/$pretty_name"
+wget https://i.imgur.com/$file -O $output_file
+
+ln -s $directory/scripts/gitwatch.sh /usr/local/bin/gitwatch

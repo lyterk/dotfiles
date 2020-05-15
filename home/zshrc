@@ -34,9 +34,11 @@ alias scu="systemctl --user"
 alias jc="journalctl -xe"
 alias cop="python3 $DOTFILES_DIR/copier.py"
 
+alias remark="rsync -avzz --rsync-path=/opt/bin/rsync r:/home/root/.local/share/remarkable/xochitl ~/org/remarkable/"
 
+fc -p ~/.zsh_history
+source ~/.zshenv
 source ~/.zsh_plugins.sh
 fpath+=$HOME/.zfunc
 
 eval "$($HOME/.pyenv/bin/pyenv init -)"
-eval "$($HOME/.nodenv/bin/nodenv init -)"

@@ -41,6 +41,9 @@
 ;; Whitespace
 (setq global-whitespace-mode nil)
 
+(setq alert-default-style 'libnotify)
+(setq alert-libnotify-command "/usr/bin/notify-send")
+
 ;; Evil stuff
 (setq evil-escape-key-sequence "cg")
 
@@ -62,6 +65,8 @@
   (set-popup-rule! "^\\*Python\\*$" :quit nil :ttl nil))
 
 (setq racer-rust-src-path (home ".rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
+;; Apparently this is better and the future.
+(setq rustic-lsp-server 'rust-analyzer)
 
 (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
