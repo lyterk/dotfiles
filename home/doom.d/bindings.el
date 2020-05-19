@@ -12,7 +12,8 @@
         :desc "Kill ring"                                   "y" #'counsel-yank-pop
         :desc "Setxkbmap"                                   "x" #'setxkbmap
         :desc "Company yasnippet"                           "h" #'company-yasnippet
-        :desc "Indent rigidly"                              "TAB" #'indent-rigidly)
-      (:prefix-map ("l" . "lispy")
-       ;; TODO Probably just copy these from spacemacs
-       ))
+        :desc "Indent rigidly"                              "TAB" #'indent-rigidly))
+
+;; (:prefix-map ("l" . "lispy")
+;;        ;; TODO Probably just copy these from spacemacs
+;;        )

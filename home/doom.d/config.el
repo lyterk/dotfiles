@@ -71,5 +71,7 @@
 (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 
+
+
 (load! "bindings")
 (load! "functions")

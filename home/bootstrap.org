@@ -66,6 +66,7 @@ apt update
 | hunspell-en-us   |         |                                   |
 | golang           |         | so hot right now                  |
 | transmission     |         |                                   |
+| tidy             |         | html formatting                   |
 | mplayer          |         | nice sound playing                |
 | paperkey         |         | backing up /restoring GPG keys    |
 | emacs26          |         | requires ubuntu 19+               |
@@ -240,12 +241,14 @@ cd -
         commands))
 #+END_SRC
 * Clojure
+** Clojure itself
 #+BEGIN_SRC shell :dir "/sudo::/tmp/" :output raw
 mkdir /tmp/clojure-installation && cd /tmp/clojure-installation
 curl -O https://download.clojure.org/install/linux-install-1.10.1.536.sh
 
 chmod +x linux-install-1.10.1.536.sh
 ./linux-install-1.10.1.536.sh
+
 #+END_SRC
 
 #+RESULTS:
@@ -255,9 +258,29 @@ chmod +x linux-install-1.10.1.536.sh
 | Installing  | man      | pages     | into                   | /usr/local/share/man/man1 |                |
 | Removing    | download |           |                        |                           |                |
 | Use         | clj      | -h        | for                    | help.                     |                |
+** LSP
+#+BEGIN_SRC shell :dir "/tmp"
+wget https://github.com/snoe/clojure-lsp/releases/download/release-20200514T134144/clojure-lsp
+chmod u+x clojure-lsp
+mv clojure-lsp $HOME/.local/bin
+#+END_SRC
+
+#+RESULTS:
+
+** cljfmt (requires node)
+#+BEGIN_SRC shell
+npm install -g node-cljfmt
+version=$(cat $HOME/.nodenv/version)
+ln -s -f $HOME/.nodenv/versions/$version/bin/cljfmt $HOME/.local/bin/cljfmt
+#+END_SRC
+
+#+RESULTS:
+| /home/kev/.nodenv/versions/14.2.0/bin/cljfmt | ->                  | /home/kev/.nodenv/versions/14.2.0/lib/node_modules/node-cljfmt/bin/cljfmt |    |        |
+| +                                            | node-cljfmt@0.5.4-0 |                                                                           |    |        |
+| updated                                      | 1                   | package                                                                   | in | 0.167s |
 
 * Node
-#+BEGIN_SRC shell
+#+BEGIN_SRC shell :results raw
 source $HOME/.zshrc
 curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer | bash
 
@@ -269,7 +292,41 @@ nodenv latest install
 nodenv global $(nodenv versions | tail -n 1)
 
 npm install --global prettier
+npm install --global node-cljfmt
 #+END_SRC
+
+#+RESULTS:
+]0;home: curl -fsSL  | bashnodenv already seems installed in `/home/kev/.nodenv/bin/nodenv'.
+Trying to update with git...
+Already up to date.
+make: Entering directory '/home/kev/.nodenv/src'
+make: '../libexec/nodenv-realpath.dylib' is up to date.
+make: Leaving directory '/home/kev/.nodenv/src'
+
+`nodenv install' command already available in `/home/kev/.nodenv/plugins/node-build/bin/nodenv-install'.
+Trying to update with git...
+Already up to date.
+
+Running doctor script to verify installation...
+Checking for `nodenv' in PATH: /home/kev/.nodenv/bin/nodenv
+Checking for nodenv shims in PATH: OK
+Checking `nodenv install' support: /home/kev/.nodenv/plugins/node-build/bin/nodenv-install (node-build 4.8.0-70-g888ac7ae)
+Counting installed Node versions: 2 versions
+Auditing installed plugins: OK
+
+All done!
+Note that this installer doesn't yet configure your shell startup files:
+1. You'll want to ensure that `~/.nodenv/bin' is added to PATH.
+2. Run `nodenv init' to see instructions how to configure nodenv for your shell.
+3. Launch a new terminal window to verify that the configuration is correct.
+
+]0;home: git clone https://github.com/momo-lab/xxenv-latest.git ]0;home: nodenv latest installLatest version is '14.2.0'
+]0;home: nodenv global $(nodenv versions | tail -n 1)]0;home: npm install --global prettier/home/kev/.nodenv/versions/14.2.0/bin/prettier -> /home/kev/.nodenv/versions/14.2.0/lib/node_modules/prettier/bin-prettier.js
++ prettier@2.0.5
+updated 1 package in 0.222s
+]0;home: npm install --global node-cljfmt/home/kev/.nodenv/versions/14.2.0/bin/cljfmt -> /home/kev/.nodenv/versions/14.2.0/lib/node_modules/node-cljfmt/bin/cljfmt
++ node-cljfmt@0.5.4-0
+updated 1 package in 0.149s
 
 * Rust
 #+BEGIN_SRC zsh
