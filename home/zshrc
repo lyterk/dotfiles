@@ -34,7 +34,7 @@ alias vsta="sudo systemctl start openvpn-client@US_Seattle.service"
 
 alias sc="sudo systemctl"
 alias scu="systemctl --user"
-alias jc="journalctl -xe"
+alias jor="journalctl -xe"
 alias cop="python3 $DOTFILES_DIR/copier.py"
 
 alias remark="rsync -avzz --rsync-path=/opt/bin/rsync r:/home/root/.local/share/remarkable/xochitl ~/org/remarkable/"

@@ -53,6 +53,8 @@
 (define-key indent-rigidly-map "H" 'indent-rigidly-left-to-tab-stop)
 (define-key indent-rigidly-map "L" 'indent-rigidly-right-to-tab-stop)
 
+(setq org-log-done 'time)
+
 ;; Pomodoro
 (setq org-pomodoro-audio-player "mplayer")
 (setq org-pomodoro-finished-sound-args "-volume 40")

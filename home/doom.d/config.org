@@ -87,7 +87,16 @@ they are implemented.
 (define-key indent-rigidly-map "L" 'indent-rigidly-right-to-tab-stop)
 #+END_SRC
 
-* Productivity
+* Org
+** Basic
+#+BEGIN_SRC elisp :tangle yes
+(setq org-log-done 'time)
+#+END_SRC
+
+#+RESULTS:
+: time
+
+** Pomodoro
 #+BEGIN_SRC elisp :tangle yes
 ;; Pomodoro
 (setq org-pomodoro-audio-player "mplayer")
@@ -95,7 +104,6 @@ they are implemented.
 (setq org-pomodoro-long-break-sound-args "-volume 40")
 (setq org-pomodoro-short-break-sound-args "-volume 40")
 #+END_SRC
-
 * Debugger
 * Python
 #+BEGIN_SRC elisp :tangle yes

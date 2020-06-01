@@ -58,43 +58,52 @@
 ;(package! builtin-package :recipe (:branch "develop"))
 #+END_SRC
 
-* Desktop notifications
+* OS Interface
+** Desktop notifications
 #+BEGIN_SRC elisp
 (package! alert)
 #+END_SRC
-* Querying org files
-#+BEGIN_SRC elisp
-(package! org-ql)
-#+END_SRC
-* Testing email interface
-#+BEGIN_SRC elisp
-(package! nm)
-#+END_SRC
-* Auth-source connected to passcli
+** Auth-source connected to passcli
 #+BEGIN_SRC elisp
 (package! auth-source-pass)
 #+END_SRC
-* Update env variables etc.
+** Web browsing
 #+BEGIN_SRC elisp
-(package! exec-path-from-shell)
+(package! w3m)
 #+END_SRC
-* PlantUML graphs
+* Org Mode
+** Querying org files
 #+BEGIN_SRC elisp
-(package! plantuml-mode)
+(package! org-ql)
 #+END_SRC
-* Translations
+** Spaced Repetition
+#+BEGIN_SRC elisp
+(package! org-drill)
+#+END_SRC
+* Service Interface
+** Email
+#+BEGIN_SRC elisp
+(package! nm)
+#+END_SRC
+** Google Translate
 #+BEGIN_SRC elisp
 (package! google-translate)
 #+END_SRC
-* Regular regular expressions
-#+BEGIN_SRC elisp
-(package! pcre2el)
-#+END_SRC
-* Jupyter, but in emacs
+** Jupyter, but in emacs
 #+BEGIN_SRC elisp
 (package! jupyter)
 #+END_SRC
-* Web browsing
+* Simpler APIs
+** Regular regular expressions
 #+BEGIN_SRC elisp
-(package! w3m)
+(package! pcre2el)
+#+END_SRC
+* Visualization
+** PlantUML graphs
+#+BEGIN_SRC elisp
+(package! plantuml-mode)
+#+END_SRC
+** Emoji
+#+BEGIN_SRC elisp
+(package! emojify)
 #+END_SRC

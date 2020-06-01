@@ -50,22 +50,24 @@
 ;; our package manager can't deal with; see raxod502/straight.el#279)
 ;(package! builtin-package :recipe (:branch "develop"))
 
-;; (package! alert)
-
-(package! org-ql)
-
-(package! nm)
+(package! alert)
 
 (package! auth-source-pass)
 
-(package! exec-path-from-shell)
+(package! w3m)
 
-(package! plantuml-mode)
+(package! org-ql)
+
+(package! org-drill)
+
+(package! nm)
 
 (package! google-translate)
 
-(package! pcre2el)
-
 (package! jupyter)
 
-(package! w3m)
+(package! pcre2el)
+
+(package! plantuml-mode)
+
+(package! emojify)
