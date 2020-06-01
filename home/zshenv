@@ -27,6 +27,7 @@ export NODENV_BIN=$HOME/.nodenv/versions/14.2.0/bin
 export PYENV_ENTRYPOINTS=$HOME/.pyenv/shims
 export DOOM_BIN=$HOME/.emacs.d/bin
 
-export PATH=$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$RUST_SRC_PATH:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$NODENV_BIN:
+# NODENV BIN really needs to be at the front, because the system node always fucks everything up.
+export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$RUST_SRC_PATH:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV
 
 fc -p ~/.zsh_history
