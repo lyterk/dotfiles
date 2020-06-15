@@ -56,6 +56,8 @@
 
 (package! w3m)
 
+(package! dired-filter)
+
 (package! org-ql)
 
 (package! org-drill)

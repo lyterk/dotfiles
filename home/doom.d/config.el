@@ -44,6 +44,10 @@
 (setq alert-default-style 'libnotify)
 (setq alert-libnotify-command "/usr/bin/notify-send")
 
+(add-hook! 'dired-mode 'dired-filter-mode)
+
+(setq dired-recursive-deletes 'always)
+
 ;; Evil stuff
 (setq evil-escape-key-sequence "cg")
 

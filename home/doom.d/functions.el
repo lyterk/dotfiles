@@ -18,3 +18,4 @@
 (defun org-pomodoro-notify (title message)
   "Send a notification with TITLE and MESSAGE using `alert'."
   (alert message :title title :category 'org-pom))
+

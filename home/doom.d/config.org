@@ -1,4 +1,5 @@
 #+TITLE: Config
+#+PROPERTY: header-args :tangle yes
 
 Here are some additional functions/macros that could help you configure Doom:
 
@@ -18,7 +19,7 @@ they are implemented.
 
 * Locations and Addresses
 
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; refresh' after modifying this file!
 (defun home (&rest path)
@@ -36,7 +37,7 @@ they are implemented.
 #+END_SRC
 
 * Fonts and appearance
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -67,16 +68,26 @@ they are implemented.
 #+END_SRC
 
 ** Alert
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (setq alert-default-style 'libnotify)
 (setq alert-libnotify-command "/usr/bin/notify-send")
 #+END_SRC
 
 #+RESULTS:
 : /usr/bin/notify-send
+* Dired
+** Put me in filter mode automatically
+#+BEGIN_SRC elisp
+(add-hook! 'dired-mode 'dired-filter-mode)
+#+END_SRC
+** Don't ask to recursively delete
+#+BEGIN_SRC elisp
+
+(setq dired-recursive-deletes 'always)
+#+END_SRC
 
 * Evil navigation
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 ;; Evil stuff
 (setq evil-escape-key-sequence "cg")
 
@@ -89,7 +100,7 @@ they are implemented.
 
 * Org
 ** Basic
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (setq org-log-done 'time)
 #+END_SRC
 
@@ -97,7 +108,7 @@ they are implemented.
 : time
 
 ** Pomodoro
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 ;; Pomodoro
 (setq org-pomodoro-audio-player "mplayer")
 (setq org-pomodoro-finished-sound-args "-volume 40")
@@ -106,31 +117,31 @@ they are implemented.
 #+END_SRC
 * Debugger
 * Python
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (setq python-shell-interpreter "ipython")
 
 (after! python
   (set-popup-rule! "^\\*Python\\*$" :quit nil :ttl nil))
 #+END_SRC
 * Rust
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (setq racer-rust-src-path (home ".rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"))
 ;; Apparently this is better and the future.
 (setq rustic-lsp-server 'rust-analyzer)
 #+END_SRC
 
 * Viz
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
 #+END_SRC
 * Projectile
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 
 #+END_SRC
 
 * Load Files
-#+BEGIN_SRC elisp :tangle yes
+#+BEGIN_SRC elisp
 (load! "bindings")
 (load! "functions")
 #+END_SRC

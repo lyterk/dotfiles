@@ -71,6 +71,11 @@
 #+BEGIN_SRC elisp
 (package! w3m)
 #+END_SRC
+** Dired stuff
+#+BEGIN_SRC elisp
+(package! dired-filter)
+#+END_SRC
+
 * Org Mode
 ** Querying org files
 #+BEGIN_SRC elisp
@@ -80,6 +85,7 @@
 #+BEGIN_SRC elisp
 (package! org-drill)
 #+END_SRC
+
 * Service Interface
 ** Email
 #+BEGIN_SRC elisp

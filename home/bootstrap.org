@@ -46,11 +46,14 @@ apt update
 #+END_SRC
 
 *** Installs
+Trying to sort these in terms of 'emergency' criticality. Very mission critical things at the top. Deps at the bottom.
 #+NAME: apt-sources
 | name             | version | comment                           |
 |------------------+---------+-----------------------------------|
 | curl             |         |                                   |
 | gawk             |         | gnu awk, cause it's better        |
+| sqlite3          |         |                                   |
+| nmap             |         |                                   |
 | wget             |         |                                   |
 | xclip            |         |                                   |
 | pass             |         |                                   |
