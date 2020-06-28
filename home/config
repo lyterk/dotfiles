@@ -35,3 +35,8 @@ Host nuc
      HostName 192.168.10.101
      User kev
      IdentityFile /home/kev/.ssh/nuc/id_rsa
+
+Host nucgit
+     HostName 192.168.10.101
+     User git
+     IdentityFile /home/kev/.ssh/nuc/git_id_rsa
