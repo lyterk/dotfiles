@@ -17,4 +17,3 @@ cargo install ripgrep
 git clone https://github.com/rust-analyzer/rust-analyzer.git /tmp/rust-analyzer
 cd /tmp/rust-analyzer
 cargo xtask install
-cd -

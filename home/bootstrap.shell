@@ -27,6 +27,20 @@ cmake ..
 make
 cd -
 
+mkdir /tmp/clojure-installation && cd /tmp/clojure-installation
+curl -O https://download.clojure.org/install/linux-install-1.10.1.536.sh
+
+chmod +x linux-install-1.10.1.536.sh
+./linux-install-1.10.1.536.sh
+
+wget https://github.com/snoe/clojure-lsp/releases/download/release-20200514T134144/clojure-lsp
+chmod u+x clojure-lsp
+mv clojure-lsp $HOME/.local/bin
+
+npm install -g node-cljfmt
+version=$(cat $HOME/.nodenv/version)
+ln -s -f $HOME/.nodenv/versions/$version/bin/cljfmt $HOME/.local/bin/cljfmt
+
 source $HOME/.zshrc
 curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer | bash
 
@@ -38,6 +52,7 @@ nodenv latest install
 nodenv global $(nodenv versions | tail -n 1)
 
 npm install --global prettier
+npm install --global node-cljfmt
 
 snap install signal-desktop
 snap install spotify

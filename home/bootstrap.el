@@ -1,4 +1,4 @@
-(let ((table (quote (("curl" "" "") ("gawk" "" "gnu awk, cause it's better") ("wget" "" "") ("xclip" "" "") ("pass" "" "") ("openvpn" "" "") ("calibre" "" "") ("htop" "" "") ("jq" "" "Just critical") ("w3m" "" "Internet browsing stuff") ("racket" "" "") ("hunspell" "" "") ("hunspell-en-us" "" "") ("golang" "" "so hot right now") ("transmission" "" "") ("mplayer" "" "nice sound playing") ("paperkey" "" "backing up /restoring GPG keys") ("emacs26" "" "requires ubuntu 19+") ("cmake" "" "requires ubuntu 19+, for libvterm") ("libtool-bin" "" "for libvterm") ("fonts-firacode" "" "for doom emacs") ("zlib1g-dev" "" "for installing python w/ pyenv") ("build-essential" "" "python + pyenv") ("libssl-dev" "" "python + pyenv") ("libbz2-dev" "" "python + pyenv") ("libreadline-dev" "" "python + pyenv") ("libsqlite3-dev" "" "python + pyenv") ("llvm" "" "python + pyenv") ("libncurses5-dev" "" "python + pyenv") ("libncursesw5-dev" "" "python + pyenv") ("xz-utils" "" "python + pyenv") ("tk-dev" "" "python + pyenv") ("libffi-dev" "" "python + pyenv") ("liblzma-dev" "" "python + pyenv") ("python-openssl" "" "python + pyenv"))))
+(let ((table (quote (("curl" "" "") ("gawk" "" "gnu awk, cause it's better") ("sqlite3" "" "") ("nmap" "" "") ("wget" "" "") ("xclip" "" "") ("pass" "" "") ("openvpn" "" "") ("calibre" "" "") ("htop" "" "") ("jq" "" "Just critical") ("clang" "" "Used for Rust interop") ("libnotify-bin" "" "Sending alerts to the desktop") ("w3m" "" "Internet browsing stuff") ("racket" "" "") ("hunspell" "" "") ("hunspell-en-us" "" "") ("golang" "" "so hot right now") ("transmission" "" "") ("tidy" "" "html formatting") ("mplayer" "" "nice sound playing") ("paperkey" "" "backing up /restoring GPG keys") ("emacs26" "" "requires ubuntu 19+") ("cmake" "" "requires ubuntu 19+, for libvterm") ("libtool-bin" "" "for libvterm") ("fonts-firacode" "" "for doom emacs") ("zlib1g-dev" "" "for installing python w/ pyenv") ("build-essential" "" "python + pyenv") ("libssl-dev" "" "python + pyenv") ("libbz2-dev" "" "python + pyenv") ("libreadline-dev" "" "python + pyenv") ("libsqlite3-dev" "" "python + pyenv") ("llvm" "" "python + pyenv") ("libncurses5-dev" "" "python + pyenv") ("libncursesw5-dev" "" "python + pyenv") ("xz-utils" "" "python + pyenv") ("tk-dev" "" "python + pyenv") ("libffi-dev" "" "python + pyenv") ("liblzma-dev" "" "python + pyenv") ("python-openssl" "" "python + pyenv"))))
       (package-manager (quote "apt")))
 (defun table-to-versioned-string (table package-manager)
   ;; Joiner assigns whether we should use $package=$version or $package==$version
@@ -50,9 +50,3 @@
   (-map (lambda (command)
           (kev-command command))
         commands))
-
-(let ((dotfiles-dir (quote "/home/kev/.dotfiles/home")))
-(require 'w3m)
-(let ((url "https://github.com/reHackable/maxio/raw/master/tools/rM2svg"))
-  (w3m-download url (s-concat dotfiles-dir "/scripts/rm2svg")))
-)

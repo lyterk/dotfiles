@@ -492,10 +492,21 @@ ln -s $directory/scripts/gitwatch.sh /usr/local/bin/gitwatch
 #+END_SRC
 #+RESULTS:
 ** Remarkable lines file to SVG
-#+BEGIN_SRC elisp :var dotfiles-dir=(s-concat (getenv "HOME") "/.dotfiles/home")
-(require 'w3m)
-(let ((url "https://github.com/reHackable/maxio/raw/master/tools/rM2svg"))
-  (w3m-download url (s-concat dotfiles-dir "/scripts/rm2svg")))
+#+BEGIN_SRC python :var dotfiles_dir=(s-concat (getenv "HOME") "/.dotfiles/home")
+import os
+import requests
+
+outfile = os.path.expanduser("~/.dotfiles/home/scripts/rm2svg")
+
+url = "https://github.com/reHackable/maxio/raw/master/tools/rM2svg"
+response = requests.get(url).text
+
+try:
+    with open(outfile, "w") as f:
+        f.write(response)
+except Exception as e:
+    print(e)
 #+END_SRC
 
 #+RESULTS:
+: None
