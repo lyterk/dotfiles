@@ -36,7 +36,7 @@ Host nuc
      User kev
      IdentityFile /home/kev/.ssh/nuc/id_rsa
 
-Host nucgit
+Host ng
      HostName 192.168.10.101
      User git
      IdentityFile /home/kev/.ssh/nuc/git_id_rsa
