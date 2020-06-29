@@ -49,6 +49,11 @@ Host af
      ServerAliveInterval 120
      IdentityFile ~/.ssh/airflow.pem
 
+Host ng
+     User git
+     HostName 192.168.10.101
+     IdentityFile ~/.ssh/nuc/git_id_rsa.pem
+
 
 # host va-bastion
 #      HostName 54.88.92.152

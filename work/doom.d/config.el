@@ -98,6 +98,8 @@
 ;;                     ;; the notifier function.
 ;;
 ;;
+
+
 (setq counsel-search-engines-alist
   '((google "http://suggestqueries.google.com/complete/search" "https://www.google.com/search?q=" counsel--search-request-data-google)
     (ddg "https://duckduckgo.com/ac/" "https://duckduckgo.com/lite?q=" counsel--search-request-data-ddg)))
@@ -125,6 +127,13 @@
                                    (point-min)
                                    (point-max)))))
 
+;; Change indents
+(define-key indent-rigidly-map "h" 'indent-rigidly-left)
+(define-key indent-rigidly-map "l" 'indent-rigidly-right)
+(define-key indent-rigidly-map "H" 'indent-rigidly-left-to-tab-stop)
+(define-key indent-rigidly-map "L" 'indent-rigidly-right-to-tab-stop)
+
+
 ;; Spotify
 (let ((spotify-credentials (slurp (home ".passwords/spotify.txt.gpg"))))
   (setq spotify-oath2-client-secret (car spotify-credentials))
@@ -137,7 +146,10 @@
 (setq python-shell-interpreter "ipython3"
       python-shell-interpreter-args "-i --profile=ipy --simple-prompt --pprint")
 
-(require! 'amz-common)
+(after! python
+  (set-popup-rule! "^\\*R\\*$" :quit nil :ttl nil))
+
+;; (require! 'amz-common)
 
 (load! "functions")
 (load! "bindings")
