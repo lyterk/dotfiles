@@ -16,9 +16,22 @@ from orgparse.node import OrgNode
 from pathlib import Path
 from typing import *
 
+
 file_location = os.path.expanduser("~/Documents/Kindle/My Clippings.txt")
 os.environ["PYTHONHASHSEED"] = "157"
 
+# Type definitions
+PotentialRange = Tuple[Union[str, int], Optional[Union[str, int]]]
+DateTime = datetime
+Hash = int
+Heading = str
+BookTitle = str
+AuthorName = str
+AnnotationHash = int
+BookHashes = Dict[BookTitle, Union[BookTitle, Hash, List[AnnotationHash]]]
+AuthorHashes = Dict[AuthorName, Union[BookTitle, Hash, BookHashes]]
+# Create a generic variable that can be 'Parent', or any subclass.
+T = TypeVar("T")
 
 # Enums
 class AnnotationType(Enum):
@@ -28,6 +41,10 @@ class AnnotationType(Enum):
 
 
 class Todo(Enum):
+    Checked = "[X]"
+    Unchecked = "[ ]"
+    CheckStart = "[-]"
+    CheckWait = "[?]"
     Todo = "TODO"
     Strt = "STRT"
     Proj = "PROJ"
@@ -35,19 +52,25 @@ class Todo(Enum):
     Hold = "HOLD"
     Done = "DONE"
     Kill = "KILL"
+    NoTodo = ""
 
-
-# Type definitions
-PotentialRange = Tuple[Union[str, int], Optional[Union[str, int]]]
-DateTime = datetime
-Hash = int
-BookTitle = str
-AuthorName = str
-AnnotationHash = int
-BookHashes = Dict[BookTitle, Union[BookTitle, Hash, List[AnnotationHash]]]
-AuthorHashes = Dict[AuthorName, Union[BookTitle, Hash, BookHashes]]
 
 # Utility functions
+def parse_todo(node: OrgNode) -> Tuple[Todo, Heading]:
+    if node.todo:
+        return (Todo(node.todo), node.heading)
+    else:
+        if node.heading.startswith("["):
+            try:
+                return (Todo(node.heading[0:3]), node.heading[5:])
+            except ValueError:
+                raise Exception(
+                    f"This org node does not have a valid todo action: {node.heading[0:3]}"
+                )
+        else:
+            return (Todo.NoTodo, node.heading)
+
+
 utf8 = lambda o: bytes(str(o), "utf-8")
 
 
@@ -155,14 +178,12 @@ class Annotation:
         # checkbox = f"{'[ ]' if self.atype != AnnotationType.Bookmark else ''}"
         return f"""{'*' * depth} {self.status.value} {self.atype.name}{write_properties(props)}{body}"""
 
-    @staticmethod
-    def from_org(node: OrgNode) -> Annotation:
-        atype: AnnotationType = AnnotationType(node.heading)
-        status: Todo = Todo(node.todo)
-        author: AuthorName = node.heading
+    @classmethod
+    def from_org(cls: Type[T], node: OrgNode) -> T:
+        status, atype = parse_todo(node)
         props = node.properties
-        return Annotation(
-            atype=atype,
+        return cls(
+            atype=AnnotationType(atype),
             title=props.get("TITLE"),
             page_number=page_or_location(props.get("PAGE")),
             location=page_or_location(props.get("LOCATION")),
@@ -205,12 +226,12 @@ class Book:
         s = f"""{'*' * depth} {self.title} [/]{write_properties(props)}"""
         return s + "\n".join([a.to_org(depth + 1) for a in self.annotations])
 
-    @staticmethod
-    def from_org(node: OrgNode) -> Book:
+    @classmethod
+    def from_org(cls: Type[T], node: OrgNode) -> T:
         annotations: List[Annotation] = [
             Annotation.from_org(anode) for anode in node.children
         ]
-        return Book(
+        return cls(
             title=node.heading,
             author=node.get_property("AUTHOR"),
             series=node.get_property("SERIES"),
@@ -244,12 +265,12 @@ class Author:
         s = f"""* [ ] {self.author} {write_properties(props)}"""
         return s + "\n".join([b.to_org(depth + 1) for b in self.books])
 
-    @staticmethod
-    def from_org(node: OrgNode) -> Author:
+    @classmethod
+    def from_org(cls: Type[T], node: OrgNode) -> T:
         child_books: Dict[BookTitle, Book] = {
             bnode.heading: Book.from_org(bnode) for bnode in node.children
         }
-        return Author(
+        return cls(
             author=node.heading,
             books=child_books,
             body=node.body if node.body else None,
@@ -263,6 +284,9 @@ class Author:
             "hash": hash(self),
             "children": children,
         }
+
+
+Authors = Dict[AuthorName, Author]
 
 
 def page_or_location(s: str) -> PotentialRange:
@@ -351,8 +375,6 @@ def handle_metadata(lines: List[str]) -> Annotation:
     return Annotation(
         atype=atype,
         title=title,
-        author=author,
-        series=series,
         page_number=page_number,
         location=location,
         creation_date=creation_date,
@@ -455,9 +477,9 @@ def compare_hashes(old: AuthorHashes, new_: AuthorHashes) -> AuthorHashes:
     return results
 
 
-def load_existing_books_file(path: Path) -> Dict[AuthorName, AuthorHashes]:
+def load_existing_books_file(path: Path) -> Authors:
     root = org_load(path)
-    authors = Dict[AuthorName, AuthorHashes]
+    authors: Authors = {}
 
     for author_node in root:
         author_name: AuthorName = author_node.heading
@@ -465,7 +487,7 @@ def load_existing_books_file(path: Path) -> Dict[AuthorName, AuthorHashes]:
 
         for book_bullet in author_node.children:
             book_title: BookTitle = book_bullet.heading
-            annotations: List[AnnotationHashes] = []
+            annotations: List[Annotation] = []
 
 
 # Notes always come before their highlight

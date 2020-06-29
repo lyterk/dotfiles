@@ -129,8 +129,6 @@ def test_lt():
         Annotation(
             atype=AnnotationType.Highlight,
             title="Shogun",
-            author="James Clavell",
-            series=None,
             page_number=(121, None),
             location=(1842, 1842),
             creation_date=datetime(2020, 5, 10, 13, 8, 22),
@@ -140,8 +138,6 @@ def test_lt():
         Annotation(
             atype=AnnotationType.Bookmark,
             title="The Stone Sky",
-            author="Jemisin, N. K.",
-            series="The Broken Earth",
             page_number=(None, None),
             location=(5141, None),
             creation_date=datetime(2019, 3, 15, 18, 16, 20),
@@ -151,8 +147,6 @@ def test_lt():
         Annotation(
             atype=AnnotationType.Bookmark,
             title="The Stone Sky",
-            author="Jemisin, N. K.",
-            series="The Broken Earth",
             page_number=(None, None),
             location=(2741, None),
             creation_date=datetime(2019, 3, 15, 18, 15, 44),
@@ -162,8 +156,6 @@ def test_lt():
         Annotation(
             atype=AnnotationType.Bookmark,
             title="The Stone Sky",
-            author="Jemisin, N. K.",
-            series="The Broken Earth",
             page_number=(None, None),
             location=(2681, None),
             creation_date=datetime(2018, 12, 11, 17, 43, 54),
@@ -183,8 +175,6 @@ def test_hashes():
         Annotation(
             atype=AnnotationType.Bookmark,
             title="The Stone Sky",
-            author="Jemisin, N. K.",
-            series="The Broken Earth",
             page_number=(None, None),
             location=(2681, None),
             creation_date=datetime(2018, 12, 11, 17, 43, 54),
