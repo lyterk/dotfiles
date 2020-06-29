@@ -3,6 +3,19 @@
 
 (defalias 'λ 'lambda)
 
+
+;; (map '(#("replace" 0 7 (ivy-index 0)) #("lsp" 0 3 (ivy-index 0)) #("yasni" 0 5 (ivy-index 0)) #("rustic " 0 7 (ivy-index 0)) #("rustic new" 0 10 (ivy-index 0)) #("replac" 0 6 (ivy-index 0)) #("pass" 0 4 (ivy-index 0)) #("couns" 0 5 (ivy-index 0)) #("sort li" 0 7 (ivy-index 1)) #("sort lines" 0 10 (ivy-index 0)) #("form" 0 4 (ivy-index 0)) #("json" 0 4 (ivy-index 0)) #("json mode" 0 9 (ivy-index 0)) #("format" 0 6 (ivy-index 0)) #("counsel yank" 0 12 (ivy-index 0)) #("pass " 0 5 (ivy-index 0)) #("replace re" 0 10 (ivy-index 0)) #("lsp mode" 0 8 (ivy-index 0)) #("amz- kerb" 0 9 (ivy-index 0)) #("package install file" 0 20 (ivy-index 0)) #("lsp-instal" 0 10 (ivy-index 0)) #("lsp " 0 4 (ivy-index 0)) #("org ctrl" 0 8 (ivy-index 2)) #("forma" 0 5 (ivy-index 0)) #("meghan import at" 0 16 (ivy-index 0)) #("meghanada import all" 0 20 (ivy-index 0)) #("meghanada updat" 0 15 (ivy-index 0)) #("meg" 0 3 (ivy-index 0)) #("run" 0 3 (ivy-index 0)) #("jupyter" 0 7 (ivy-index 1)) #("winner" 0 6 (ivy-index 0)) #("spoti" 0 5 (ivy-index 7)) #("rust-play" 0 9 (ivy-index 5)) #("rust-mode" 0 9 (ivy-index 0)) #("counsel" 0 7 (ivy-index 0)) #("counsel search" 0 14 (ivy-index 0)) #("counsel-yank" 0 12 (ivy-index 0)) #("spotify" 0 7 (ivy-index 3)) #("emacs lisp" 0 10 (ivy-index 0)) #("notmuch" 0 7 (ivy-index 1)) #("ranger" 0 6 (ivy-index 0)) #("notmuch hello" 0 13 (ivy-index 0)) #("revert buff" 0 11 (ivy-index 0)) #("workspace load" 0 14 (ivy-index 0))))
+
+(defun arrayify (start end quote)
+  "Turn strings on newlines into a QUOTEd, comma-separated one-liner."
+  (interactive "r\nMQuote: ")
+  (let ((insertion
+         (mapconcat
+          (lambda (x) (format "%s%s%s" quote x quote))
+          (split-string (buffer-substring start end)) ", ")))
+    (delete-region start end)
+    (insert insertion)))
+
 (defun logout ()
   "Log out of session."
   (interactive)
@@ -22,6 +35,8 @@
 
 (map! :leader
       (:prefix-map ("k" . "kevin")
+        :desc "Arrayify"                                    "a"  #'arrayify
+        :desc "Shift indentation"                           "TAB"  #'indent-rigidly
         :desc "Log out user"                                "o"  #'logout
         :desc "rot13 buffer"                                "c"  #'toggle-rot13-mode
         :desc "Ace-window"                                  "w"  #'ace-window
