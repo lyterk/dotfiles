@@ -72,5 +72,5 @@
 (package! exec-path-from-shell)
 ;; Reasonable async
 (package! async)
-;;
+;; Escaping the browser
 (package! jupyter)
