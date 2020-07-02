@@ -74,12 +74,7 @@ eval "$(pyenv init -)"
 
 function sync_dots() {
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles &
-    # rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
-    # rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles &
 }
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
-
-source /home/ANT.AMAZON.COM/kllyter/.config/broot/launcher/bash/br
