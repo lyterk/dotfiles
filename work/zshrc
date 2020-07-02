@@ -32,6 +32,9 @@ alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias sz="source ~/.zshrc"
 
+alias vpn-off='/opt/cisco/anyconnect/bin/vpn disconnect'
+alias vpn-on='/opt/cisco/anyconnect/bin/vpn connect sea-h-orca.amazon.com'
+
 alias sc="systemctl"
 alias scu="systemctl --user"
 alias jc="journalctl -xe"
@@ -62,8 +65,8 @@ alias g=googler
 alias python=python3
 alias pip=$HOME/.pyenv/shims/pip3
 
-alias ppush "pass git push origin master"
-alias ppull "pass git pull --rebase origin master"
+alias ppush="pass git push origin master"
+alias ppull="pass git pull --rebase origin master"
 
 export NVM_DIR="/Users/kllyter/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -78,3 +81,5 @@ function sync_dots() {
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+
+unset JAVA_HOME

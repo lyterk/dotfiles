@@ -1,111 +1,23 @@
 Host *dev-dsk-kllyter*.amazon.com
      ProxyCommand none
 
-Host d
-     HostName fba-analytics-1d-d4c9d5c2.us-east-1.amazon.com
-     # GSSAPIAuthentication yes
-     User kllyter
-
-Host e
-     HostName fba-analytics-1e-0a4ffacc.us-east-1.amazon.com
-     # GSSAPIAuthentication yes
-     User kllyter
-
-Host f
-     HostName fba-analytics-1f-c369290f.us-east-1.amazon.com
-     # GSSAPIAuthentication yes
-     User kllyter
-
-Host desk
+Host desk2
      Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
      User kllyter
 
-Host st
-     Hostname spirit-tools-1d-1ec1e145.us-east-1.amazon.com
+Host desk
+     Hostname kllyter-cloud.corp.amazon.com
      User kllyter
 
-Host ela
-     Hostname ec2-34-229-212-202.compute-1.amazonaws.com
-     User ubuntu
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/elasticity.pem
+Host ng
+     User git
+     HostName 192.168.10.101
+     IdentityFile ~/.ssh/nuc/git_id_rsa.pem
 
-Host que
-     Hostname 3.83.151.79 
-     User ubuntu
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/queue_scheduler.pem
-
-host fare
-     HostName 34.212.124.132
-     User ubuntu
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/user-script-box.pem
-
-
-Host af
-     User ubuntu
-     HostName 54.82.142.75
-     ServerAliveInterval 120
-     IdentityFile ~/.ssh/airflow.pem
-
-
-# host va-bastion
-#      HostName 54.88.92.152
-#      User ec2-user
-#      IdentityFile ~/.ssh/fba-analysis-redshift.pem
-
-# Host admin
-#      HostName 10.0.1.230
-#      User ubuntu
-#      ProxyCommand ssh -W %h:%p va-bastion
-#      IdentityFile ~/.ssh/admin-pair.pem
-
-# Host bitbucket
-#      User txru
-#      HostName bitbucket.org
-#      IdentityFile ~/.ssh/bitbucket/id_rsa
-
-# Host et
-#      User ubuntu
-#      HostName 34.230.87.144
-#      IdentityFile ~/.ssh/kllyter-temp.pem
 
 Host fsoqa
      HostName  dev-dsk-kllyter-2c-2e8d6144.us-west-2.amazon.com 
      User kllyter
-
-
-
-# host demobastion
-#      HostName 10.3.5.172
-#      User ubuntu
-#      ProxyCommand ssh -W %h:%p va-bastion
-#      IdentityFile ~/.ssh/user-script-pair.pem
-
-
-# Host tmp
-#      User ubuntu
-#      HostName 34.207.227.120
-#      ServerAliveInterval 120
-#      IdentityFile ~/Downloads/testing-kllyter.pem
-
-
-# Host styerp
-#      User kllyter
-#      HostName styerp.aka.corp.amazon.com
-
-# # Host git.amazon.com
-# #      # GSSAPIAuthentication yes
-# #      # ForwardX11 no
-# #      # GSSAPIAuthentication no
-# #      # GSSAPITrustDNS yes
-
-# # Prod Bastion SSH Config additions. See https://w.amazon.com/index.php/Infosec/Infrastructure_Services/Radium/PROD_Bastions
-# # for details and contact information.
-
-# host *.corp.amazon.com *.corp.amazon.com. *corp*.amazon.com *corp*.amazon.com. *.desktop.amazon.com *.desktop.amazon.com. dev-dsk-*.amazon.com dev-dsk-*.amazon.com. *integ*.amazon.com *integ*.amazon.com. *sealab*.amazon.com *sealab*.amazon.com. *-i-d-*.amazon.com *-i-pd-*.amazon.com
-#         ProxyCommand none
 
 # Configuration for db.amazon.com CNAMEs
 # This is horrible compared to other (mac/redhat) setup but Ubuntu
