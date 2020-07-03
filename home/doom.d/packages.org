@@ -113,3 +113,8 @@
 #+BEGIN_SRC elisp
 (package! emojify)
 #+END_SRC
+* Media Consumption
+#+BEGIN_SRC elisp
+(package! elfeed)
+(package! elfeed-org)
+#+END_SRC
