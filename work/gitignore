@@ -1,5 +1,9 @@
 # -*- mode: gitignore; -*-
 
+# Jetbrains
+*.iml
+*.idea
+
 # Emacs gitignore
 
 *~

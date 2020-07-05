@@ -68,6 +68,7 @@ Trying to sort these in terms of 'emergency' criticality. Very mission critical 
 | hunspell         |         |                                   |
 | hunspell-en-us   |         |                                   |
 | golang           |         | so hot right now                  |
+| fzf              |         | fuzzy searching                   |
 | transmission     |         |                                   |
 | tidy             |         | html formatting                   |
 | mplayer          |         | nice sound playing                |
