@@ -10,6 +10,7 @@ if [[ -r $clippings_file ]]; then
     git add .
     today="$(date)"
     git commit -m $today
+    git push nuc mainline
 else
     echo "Kindle does not seem to be mounted."
 fi

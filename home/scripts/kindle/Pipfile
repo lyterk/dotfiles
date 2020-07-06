@@ -5,6 +5,9 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+jedi = "15.2"
+python-language-server = "0.34.1"
+
 
 [packages]
 orgparse = "0.1.4"
