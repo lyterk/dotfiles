@@ -68,7 +68,11 @@ Trying to sort these in terms of 'emergency' criticality. Very mission critical 
 | hunspell         |         |                                   |
 | hunspell-en-us   |         |                                   |
 | golang           |         | so hot right now                  |
+<<<<<<< HEAD
 | gnutls-bin       |         | For Emacs Circe                   |
+=======
+| fzf              |         | fuzzy searching                   |
+>>>>>>> 12d78f5bf9ae8824336d1cfff21efd20461881f9
 | transmission     |         |                                   |
 | tidy             |         | html formatting                   |
 | mplayer          |         | nice sound playing                |

@@ -44,4 +44,8 @@ source ~/.zshenv
 source ~/.zsh_plugins.sh
 fpath+=$HOME/.zfunc
 
+function vf() {
+    vlc "$(fzf -1 -q $1)"
+}
+
 eval "$($HOME/.pyenv/bin/pyenv init -)"
