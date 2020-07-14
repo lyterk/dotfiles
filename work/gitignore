@@ -267,3 +267,12 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Java shit
+.classpath
+.project
+build/
+out/
+*output.txt
+eclipse-bin/
+build
