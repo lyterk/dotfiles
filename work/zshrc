@@ -20,7 +20,7 @@ HISTFILE=~/.zsh_history
 # Use modern completion system
 
 alias sa="sudo apt"
-alias sai="sag install"
+alias sai="sa install"
 alias saud="sa update"
 alias saar="sa autoremove"
 alias sar="sa remove"

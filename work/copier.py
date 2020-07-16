@@ -30,6 +30,7 @@ files = {
     "zprofile": home / ".zprofile",
     # Systemd stuff
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
+    "systemd/znc.service": home / ".config/systemd/user/znc.service",
     "systemd/bell.service": home / ".config/systemd/user/bell.service",
     "systemd/offlineimap-oneshot.service": home
     / ".config/systemd/user/offlineimap-oneshot.service",
@@ -39,26 +40,6 @@ files = {
     "systemd/notmuch.timer": home / ".config/systemd/user/notmuch.timer",
     "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
 }
-
-# for dir in snippets_source.iterdir():
-#     Path(snippets_destination / dir.name).mkdir(parents=False, exist_ok=True)
-#     for snippet in dir.iterdir():
-#         try:
-#             (snippets_destination / dir.name / snippet.name).symlink_to(
-#                 snippets_source / dir.name / snippet.name
-#             )
-#         except:
-#             (snippets_destination / dir.name / snippet.name).unlink()
-#             (snippets_destination / dir.name / snippet.name).symlink_to(
-#                 snippets_source / dir.name / snippet.name
-#             )
-
-for file in doom_source.iterdir():
-    try:
-        (doom_destination / file.name).symlink_to(doom_source / file.name)
-    except:
-        (doom_destination / file.name).unlink()
-        (doom_destination / file.name).symlink_to(doom_source / file.name)
 
 # Remove existing symlinked destinations
 for filename, destination_path in files.items():
