@@ -37,6 +37,8 @@ alias scu="systemctl --user"
 alias jor="journalctl -xe"
 alias cop="python3 $DOTFILES_DIR/copier.py"
 
+alias fd=fdfind
+
 alias remark="rsync -avzz --rsync-path=/opt/bin/rsync r:/home/root/.local/share/remarkable/xochitl ~/remarkable/"
 
 fc -p ~/.zsh_history
