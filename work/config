@@ -19,5 +19,8 @@ Host fsoqa
      HostName  dev-dsk-kllyter-2c-2e8d6144.us-west-2.amazon.com 
      User kllyter
 
+Host sde-alpha
+     HostName sde-alpha-2c-39af585b.us-west-2.amazon.com
+     User kllyter
 
 Include ubuntu.ssh.config
