@@ -4,6 +4,9 @@ PROMPT='[local] %3~ %# '
 
 BRAZIL_BIN="/apollo/env/SDETools/bin"
 
+HISTSIZE=1000
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
 # export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 # export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
@@ -21,3 +24,5 @@ export SNAPPATH=/snap/bin
 
 BASE_PATH=usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
 export PATH=$PATH:$GOBIN:$LOCALBIN:$CARGOPATH:$TOOLBOX:$PYENV:$LINUXBREW:$NPM:$GOPATH/bin:$SNAPPATH:$ENV_IMPROVEMENT:$RODAR
+
+unset JAVA_HOME

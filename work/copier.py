@@ -27,7 +27,7 @@ files = {
     "userChrome.css": home / ".mozilla/firefox/default.default/chrome/userChrome.css",
     "offlineimaprc": home / ".offlineimaprc",
     "zshrc": home / ".zshrc",
-    "zprofile": home / ".zprofile",
+    "zshenv": home / ".zshenv",
     # Systemd stuff
     "systemd/emacs.service": home / ".config/systemd/user/emacs.service",
     "systemd/znc.service": home / ".config/systemd/user/znc.service",

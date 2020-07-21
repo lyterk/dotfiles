@@ -4,18 +4,12 @@
 
 # Set up the prompt
 
-source $HOME/.zprofile
-# Load the oh-my-zsh's library.
-
 setopt histignorealldups sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
 
 # Use modern completion system
 
@@ -68,11 +62,6 @@ alias pip=$HOME/.pyenv/shims/pip3
 alias ppush="pass git push origin master"
 alias ppull="pass git pull --rebase origin master"
 
-export NVM_DIR="/Users/kllyter/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 eval "$(pyenv init -)"
 
 function sync_dots() {
@@ -81,5 +70,3 @@ function sync_dots() {
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
-
-unset JAVA_HOME
