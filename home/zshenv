@@ -1,11 +1,13 @@
 #!/bin/zsh
 
+export SHELL=/usr/bin/zsh
+
 export HISTFILE=$HOME/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=1000
 setopt SHARE_HISTORY
 
-export BASE_PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
+export BASE_PATH=/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
 
 export BOOT_CLOJURE_VERSION=1.10.1
 
@@ -21,13 +23,15 @@ export GOPATH=$HOME/.go
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export CARGO_BIN=$HOME/.cargo/bin
 export NODENV=$HOME/.nodenv/bin
+export NODENV_SHIM=$HOME/.nodenv/shims
 export PYENV=$HOME/.pyenv/bin
+export PYENV_SHIM=$HOME/.pyenv/shims
 export NODENV_ENTRYPOINTS=$HOME/.nodenv/shims
 export NODENV_BIN=$HOME/.nodenv/versions/14.2.0/bin
 export PYENV_ENTRYPOINTS=$HOME/.pyenv/shims
 export DOOM_BIN=$HOME/.emacs.d/bin
 
 # NODENV BIN really needs to be at the front, because the system node always fucks everything up.
-export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$RUST_SRC_PATH:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV
+export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$RUST_SRC_PATH:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$PYENV_SHIM:$NODENV_SHIM
 
 fc -p ~/.zsh_history
