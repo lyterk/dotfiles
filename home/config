@@ -3,40 +3,40 @@
 Host bitbucket
      HostName bitbucket.org
      User git
-     IdentityFile /home/kev/.ssh/bitbucket/id_rsa
+     IdentityFile /home/lyterk/.ssh/bitbucket/id_rsa
 
 Host github
      HostName github.com
      User git
-     IdentityFile /home/kev/.ssh/github/id_rsa
+     IdentityFile /home/lyterk/.ssh/github/id_rsa
 
 
 Host mithras
      HostName 192.168.0.103
-     User kev
-     IdentityFile /home/kev/.ssh/mithras/id_rsa
+     User lyterk
+     IdentityFile /home/lyterk/.ssh/mithras/id_rsa
      LocalForward 127.0.0.1:8385 127.0.0.1:8384
 
 Host aetius
      HostName 192.168.0.101
-     User kev
+     User lyterk
 
 Host r
      HostName 10.11.99.1
      User root
-     IdentityFile /home/kev/.ssh/remarkable/id_rsa
+     IdentityFile /home/lyterk/.ssh/remarkable/id_rsa
 
 Host ec2
      HostName 3.220.199.128
      User ubuntu
-     IdentityFile /home/kev/.ssh/compute/ec2-access.pem
+     IdentityFile /home/lyterk/.ssh/compute/ec2-access.pem
 
 Host nuc
-     HostName 192.168.10.101
+     HostName 192.168.0.103
      User kev
-     IdentityFile /home/kev/.ssh/nuc/id_rsa
+     IdentityFile /home/lyterk/.ssh/nuc/id_rsa
 
 Host ng
      HostName 192.168.10.102
      User git
-     IdentityFile /home/kev/.ssh/nuc/git_id_rsa
+     IdentityFile /home/lyterk/.ssh/nuc/git_id_rsa

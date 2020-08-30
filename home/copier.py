@@ -34,21 +34,7 @@ def firefox_settings():
 
             print(f"Copied Firefox profile {profile.get('Path')}")
 
-
-doom_source = dotfiles_path / "doom.d"
-doom_destination = home / ".doom.d"
-
-
 firefox_settings()
-
-for file in doom_source.iterdir():
-    try:
-        (doom_destination / file.name).symlink_to(doom_source / file.name)
-        print(doom_destination / file.name)
-    except:
-        (doom_destination / file.name).unlink()
-        (doom_destination / file.name).symlink_to(doom_source / file.name)
-        print(doom_destination / file.name)
 
 file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table }
 

@@ -7,12 +7,12 @@ export HISTSIZE=10000
 export SAVEHIST=1000
 setopt SHARE_HISTORY
 
-export BASE_PATH=/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
+export BASE_PATH=/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
 
 export BOOT_CLOJURE_VERSION=1.10.1
 
 export BROWSER=/usr/bin/firefox
-export EDITOR="/usr/bin/emacsclient -t"
+export EDITOR="/usr/local/bin/emacsclient -t"
 export HISTFILE=.zhistory
 
 export LOCAL_BIN=$HOME/.local/bin
