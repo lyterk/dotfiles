@@ -25,6 +25,7 @@ alias svba="source venv/bin/activate"
 alias sf="~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias sz="source ~/.zshrc"
+alias se="source ~/.zshenv"
 
 alias vpn-off='/opt/cisco/anyconnect/bin/vpn disconnect'
 alias vpn-on='/opt/cisco/anyconnect/bin/vpn connect sea-h-orca.amazon.com'
@@ -70,3 +71,4 @@ function sync_dots() {
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+source ~/.zshenv

@@ -24,12 +24,15 @@ alias sz="source ~/.zshrc"
 alias dfs="python3 $HOME/dotfiles/remote/copier.py"
 alias bb="brazil-build"
 alias bbr="bb release"
+alias bbs="bb server"
 alias bre="brazil-runtime-exec"
 alias bte="brazil-test-exec"
 alias bwsm="brazil ws --sync --md"
 alias bnu="brazil ws create --name"
 alias bp="brazil ws use -p"
 alias bv="brazil ws use -vs"
+
+alias register_with_aaa='/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py'
 
 APOLLO=/apollo/env
 

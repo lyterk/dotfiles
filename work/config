@@ -9,18 +9,9 @@ Host desk
      Hostname kllyter-cloud.corp.amazon.com
      User kllyter
 
-Host ng
-     User git
-     HostName 192.168.10.102
-     IdentityFile ~/.ssh/nuc/git_id_rsa.pem
-
-
-Host fsoqa
-     HostName  dev-dsk-kllyter-2c-2e8d6144.us-west-2.amazon.com 
-     User kllyter
-
-Host sde-alpha
-     HostName sde-alpha-2c-39af585b.us-west-2.amazon.com
-     User kllyter
+Host bb
+	HostName bitbucket.org
+	User txru
+	IdentityFile ~/.ssh/bitbucket/id_rsa
 
 Include ubuntu.ssh.config
