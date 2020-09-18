@@ -4,4 +4,5 @@
 __pycache__/
 *.pyc
 home/doom.d/*.el
+Pipfile.lock
 home/doom.dconfig.org

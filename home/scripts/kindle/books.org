@@ -1,0 +1,3820 @@
+* [ ] Adam Smith 
+:PROPERTIES:
+:ID: 386729274660000381
+:END:
+** An Inquiry into the Nature and Causes of the Wealth of Nations [0/3]
+:PROPERTIES:
+:AUTHOR: Adam Smith
+:ID: 1306641858817110743
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 5
+:LOCATION: 66-68
+:HIGHLIGHT: every nation be regulated by two different circumstances: first, by the skill, dexterity, and judgment with which its labour is generally applied; and, secondly, by the proportion between the number of those who are employed in useful labour, and that of those who are not so employed.
+:ID: 1557601956979031212
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 5
+:LOCATION: 70-71
+:HIGHLIGHT: The abundance or scantiness of this supply, too, seems to depend more upon the former of those two circumstances than upon the latter.
+:ID: 414818705129953475
+:END:
+(
+ ***) [ ] Highlight
+:PROPERTIES:
+:PAGE: 10
+:LOCATION: 147-147
+:HIGHLIGHT: grazier
+:ID: 791946194230637458
+:END:
+
+* [ ] VanderMeer, Jeff 
+:PROPERTIES:
+:ID: 1457850636337887535
+:END:
+** Annihilation: A Novel [/]
+:PROPERTIES:
+:AUTHOR: VanderMeer, Jeff
+:SERIES: The Southern Reach Trilogy Book 1
+:ID: 1511605490384232274
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 18
+:LOCATION: 207-207
+:HIGHLIGHT: which may tell us something about its creation, eventually. It is made of stone and coquina,
+:ID: 2157475362401646705
+:END:
+
+* [ ] Friedrich Nietzsche 
+:PROPERTIES:
+:ID: 1296026556544370536
+:END:
+** Basic Writings of Nietzsche [/]
+:PROPERTIES:
+:AUTHOR: Friedrich Nietzsche
+:ID: 532558967412332239
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 253
+:LOCATION: 3870-3870
+:HIGHLIGHT: abbreviation of the means of expression)—thanks chiefly to the Dalmatian Boscovich:
+:ID: 617429505447430888
+:END:
+
+* [ ] William L. Shirer 
+:PROPERTIES:
+:ID: 1224861198580690560
+:END:
+** Berlin Diary [/]
+:PROPERTIES:
+:AUTHOR: William L. Shirer
+:ID: 167079215318485975
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 22
+:LOCATION: 324-325
+:HIGHLIGHT: Rosenberg was one of Hitler’s “spiritual” and “intellectual” mentors, though like most Balts
+:ID: 244223895922072503
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 22
+:LOCATION: 324-325
+:HIGHLIGHT: Rosenberg was one of Hitler’s “spiritual” and “intellectual” mentors, though like most Balts
+:ID: 244223895922072503
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 54
+:LOCATION: 827-828
+:HIGHLIGHT: Mestrovich
+:ID: 2292803279681759184
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 78
+:LOCATION: 1181-1182
+:HIGHLIGHT: CBS policy that I must not do any reporting, only hire others to do it. Edgar Mowrer, Bob
+:ID: 1225180783354535642
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 120
+:LOCATION: 1829-1829
+:HIGHLIGHT: GODESBERG,
+:ID: 1816875444344206427
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 166
+:LOCATION: 2539-2539
+:HIGHLIGHT: plenipotentiary
+:ID: 1714669001332604601
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 187
+:LOCATION: 2866-2868
+:NOTE: Friendly fire?
+:HIGHLIGHT: General von Fritsch, the man who built up the modern German army and then retired just before the Anschluss because of a fight with Hitler over attacking Austria, which he opposed, has been killed in action before Warsaw. A little strange. He had no command but was with the regiment of which he is honorary colonel.
+:ID: 329475139063372866
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 188
+:LOCATION: 2870-2870
+:NOTE: It begins
+:HIGHLIGHT: and a pound of ersatz coffee made of roasted barley seeds.
+:ID: 1365017109101279427
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 188
+:LOCATION: 2879-2884
+:HIGHLIGHT: Knick published a story saying the top Nazis had deposited gold abroad to guard against a rainy day in case they lost the war. This made Doktor G. furious. He revealed he had broadcast from the German shortwave stations Thursday night (September 21) a call to Knick offering him ten per cent of any sum he could prove the Nazis had salted abroad. A curious offer. He said he gave him until Saturday night (last night) to prove it. Apparently Knick was at sea, bound for New York. The story around here is that Knick radioed back that as with all German ultimatums the time limit had expired before he received it.
+:ID: 1540278562550674519
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 195
+:LOCATION: 2979-2983
+:HIGHLIGHT: A., who never loved the Poles and rather liked the Nazis, says whole villages in eastern Poland far off the beaten track, off the railroads and main roads, villages with no military importance whatsoever, have been destroyed by the German Luftwaffe for no reason he could think of. He says the German planes would often dive on lone peasant women in lonely fields and toss a bomb on them or machine-gun them. He saw the bodies. A. and his lady friend finally made their way to the German lines, rode for several days in open box-cars with German refugees, and eventually got to Germany.
+:ID: 1262752926475959952
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 196
+:LOCATION: 2993-2993
+:HIGHLIGHT: camarilla.”
+:ID: 118267616398127603
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 198
+:LOCATION: 3031-3037
+:HIGHLIGHT: I leave tomorrow for Geneva to recover my senses and fetch some winter clothing, as the weather has turned cold. I did not bring any winter things when I left Geneva exactly two months ago. I did not know. Two months! What an age it seems. How dim in memory the time when there was peace. That world ended, and for me, on the whole, despite its faults, its injustices, its inequalities, it was a good one. I came of age in that one, and the life it gave was free, civilized, deepening, full of minor tragedy and joy and work and leisure, new lands, new faces—and rarely commonplace and never without hope. And now darkness. A new world. Black-out, bombs, slaughter, Nazism. Now the night and the shrieks and barbarism.
+:ID: 830030022117553708
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 217
+:LOCATION: 3323-3324
+:HIGHLIGHT: Caught Bill White by telephone in Stockholm and got him off to Helsinki to cover the Finnish war for us.
+:ID: 485518351630096631
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 225
+:LOCATION: 3435-3437
+:HIGHLIGHT: Lord Haw-Haw, the British traitor who goes here by the name of Froehlich, but whose real name is William Joyce and whose voice millions of English listen to on the radio every night, and his English wife were at the party, but I avoided them.
+:ID: 1496647099077951634
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 286
+:LOCATION: 4385-4386
+:HIGHLIGHT: A Dutch woman reporter for the Nazi Dutch paper has been sitting at the Rundfunk since dawn yesterday broadcasting false news to the Dutch people in their own language. A sort of Lady Haw-Haw.
+:ID: 18934530195833477
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 377
+:LOCATION: 5775-5776
+:HIGHLIGHT: This may explain why the Luftwaffe has not respected the mark of the Red Cross on the Allied side. Göring probably figures that the Allies are doing just what he does.
+:ID: 183562356055604149
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 382
+:LOCATION: 5851-5852
+:HIGHLIGHT: Avenol, Secretary-General of the League, apparently thinks he’ll have a job in Hitler’s United States of Europe. Yesterday he fired all the British secretaries and packed them off on a bus to France, where they’ll probably be arrested by the Germans or the French.
+:ID: 1920053922246781573
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 389
+:LOCATION: 5956-5957
+:HIGHLIGHT: Could not help noticing how high-strung Ciano is. He kept working his jaws. And he was not chewing gum.
+:ID: 175918420525354844
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 389
+:LOCATION: 5958-5958
+:HIGHLIGHT: General Halder, chief of the German General Staff.
+:ID: 1707840128274284827
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 447
+:LOCATION: 6852-6853
+:HIGHLIGHT: lip microphone
+:ID: 1118636597970970289
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 479
+:LOCATION: 7334-7334
+:NOTE: Where is it?
+:HIGHLIGHT: Wilhelmstrasse
+:ID: 2029346288223132432
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 501
+:LOCATION: 7671-7672
+:HIGHLIGHT: He has no friends, and since the murder of Röhm in the 1934 purge there has not been a single one of his followers who addressed him with the familiar Du. Göring, Goebbels, Hess, and all the others address him in only one way: “Mein Führer.”
+:ID: 1599013788725741022
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 510
+:LOCATION: 7807-7807
+:HIGHLIGHT: Katzenjammer…
+:ID: 186203762497047066
+:END:
+
+* [ ] Nassim Nicholas Taleb 
+:PROPERTIES:
+:ID: 1902061574456801778
+:END:
+** The Black Swan [/]
+:PROPERTIES:
+:AUTHOR: Nassim Nicholas Taleb
+:ID: 1273770307779801435
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 313
+:LOCATION: 4786-4786
+:HIGHLIGHT: Quételesmus
+:ID: 1256819957141544381
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 315
+:LOCATION: 4815-4815
+:HIGHLIGHT: chary
+:ID: 878462089239809696
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 334
+:LOCATION: 5109-5109
+:HIGHLIGHT: But the general public (mostly computer geeks) got the point. Mandelbrot’s book The
+:ID: 1107275598409480156
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 334
+:LOCATION: 5109-5109
+:HIGHLIGHT: The Fractal Geometry of Nature
+:ID: 1107275598409480156
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 337
+:LOCATION: 5166-5166
+:NOTE: Reread with paper
+:HIGHLIGHT: THE LOGIC OF FRACTAL RANDOMNESS (WITH A WARNING)
+:ID: 2113098730557148533
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 343
+:LOCATION: 5255-5256
+:HIGHLIGHT: masquerade problem.
+:ID: 373852010069184203
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 345
+:LOCATION: 5279-5279
+:HIGHLIGHT: problem and the inverse problem)—to
+:ID: 162481775597805843
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 347
+:LOCATION: 5315-5315
+:HIGHLIGHT: Makridakis
+:ID: 905402173170785640
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 347
+:LOCATION: 5320-5321
+:HIGHLIGHT: “percolation models,”
+:ID: 377897296244905139
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 347
+:LOCATION: 5320-5323
+:HIGHLIGHT: “percolation models,” which address not the behavior of the individual, but rather the terrain in which he operates. When you pour water on a porous surface, the structure of that surface matters more than does the liquid. When a grain of sand hits a pile of other grains of sand, how the terrain is organized is what determines whether there will be an avalanche.
+:ID: 1894543565616742751
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 355
+:LOCATION: 5438-5439
+:HIGHLIGHT: Harry Markowitz and William Sharpe, who built beautifully Platonic models on a Gaussian base, contributing to what is called Modern Portfolio Theory.
+:ID: 1611175259681552954
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 356
+:LOCATION: 5458-5459
+:HIGHLIGHT: Sharpe ratio,
+:ID: 599551813742761730
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 361
+:LOCATION: 5527-5528
+:HIGHLIGHT: learning portfolio theory. And the option formula went on bearing the name Black-Scholes-Merton,
+:ID: 401141788263114660
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 361
+:LOCATION: 5527-5528
+:HIGHLIGHT: Black-Scholes-Merton,
+:ID: 401141788263114660
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 362
+:LOCATION: 5539-5539
+:HIGHLIGHT: and you have to fudge your assumptions somewhere. We have seen with the Hardy
+:ID: 429692770414508176
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 362
+:LOCATION: 5539-5539
+:HIGHLIGHT: Hardy quote
+:ID: 429692770414508176
+:END:
+
+* [ ] Robinson, Kim Stanley 
+:PROPERTIES:
+:ID: 15696570180576358
+:END:
+** Blue Mars [/]
+:PROPERTIES:
+:AUTHOR: Robinson, Kim Stanley
+:SERIES: Mars Trilogy Book 3
+:ID: 845393240821258940
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 102
+:ID: 2009842206445987686
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 62
+:LOCATION: 1052-1052
+:HIGHLIGHT: and of the Tharsis Bulge itself, until he was on the broken highlands of Daedalia Planitia.
+:ID: 676197265610484403
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 271
+:LOCATION: 4243-4244
+:HIGHLIGHT: Figures the color of the rock, waving hands. Human beings. It was a little group of Red ecoteurs.
+:ID: 149726412172914725
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 379
+:LOCATION: 5896
+:ID: 1103309569854707231
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 386
+:LOCATION: 6020-6021
+:HIGHLIGHT: little horseshoe, or the upper hand. “It needs looking after.” They offered to help him get started.
+:ID: 214483306390882913
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 412
+:LOCATION: 6374
+:ID: 1726663567650161679
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 416
+:LOCATION: 6439-6440
+:HIGHLIGHT: —in an expanding universe, Spencer had said, order was not really order, but merely the difference between the actual entropy exhibited and the maximum entropy possible.
+:ID: 867944497925537122
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 423
+:LOCATION: 6565-6566
+:HIGHLIGHT: holonomy. Study of whole systems.”
+:ID: 2077265340902965533
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 434
+:LOCATION: 6736-6738
+:HIGHLIGHT: polyarchy, a complex system in which power was distributed out to a great number of institutions. In theory this network of distributed power, partly centralized and partly decentralized, created the greatest amount of individual freedom and collective good, by maximizing the amount of control that an individual had over his or her life.
+:ID: 1136968780374959353
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 435
+:LOCATION: 6753-6753
+:HIGHLIGHT: Yugoslavian worker management,
+:ID: 1815942874932361729
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 452
+:LOCATION: 7002-7002
+:HIGHLIGHT: Only connect, the poet says.
+:ID: 1542605378326884789
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 491
+:LOCATION: 7586-7587
+:HIGHLIGHT: true importance; Goya overlapped Sophocles, Van Gogh was inside Cervantes; Chao Meng
+:ID: 1370024560622690481
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 491
+:LOCATION: 7587-7587
+:HIGHLIGHT: Chao Meng-fu
+:ID: 1566436965056020870
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 581
+:LOCATION: 8980
+:ID: 1925797435853302063
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 622
+:LOCATION: 9669-9669
+:HIGHLIGHT: “Satori.
+:ID: 2044008397714925010
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 685
+:LOCATION: 10626
+:ID: 326881558178309158
+:END:
+
+** Red Mars [0/14]
+:PROPERTIES:
+:AUTHOR: Robinson, Kim Stanley
+:SERIES: Mars Trilogy Book 1
+:ID: 1863878574602775737
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 79
+:ID: 1804209598302309477
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 75
+:LOCATION: 1234
+:ID: 239289596111462734
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 99
+:LOCATION: 1592-1592
+:HIGHLIGHT: cracked, one was even flattened into a pile of smashed boxes, half-buried in dust; but these
+:ID: 2176563966250573804
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 122
+:LOCATION: 1932
+:ID: 524717293011464130
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 140
+:LOCATION: 2205
+:ID: 941617806070584429
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 143
+:LOCATION: 2264
+:ID: 1698413497206307331
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 269
+:LOCATION: 4254
+:ID: 2079976214701480735
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 462
+:LOCATION: 7332
+:ID: 594600363886643561
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 465
+:LOCATION: 7392-7393
+:HIGHLIGHT: and Jeffersons and Paines, I guarantee you. Also the Andrew Jacksons and Forrest Mosebys,
+:ID: 1188799272881494865
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 465
+:LOCATION: 7393-7393
+:NOTE: Who
+:HIGHLIGHT: Forrest Mosebys,
+:ID: 998634623484965108
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 465
+:LOCATION: 7398-7399
+:HIGHLIGHT: “Lincoln is dead,” Frank snapped. “And historical analogy is the last refuge of people who can’t grasp the current situation.” He cut the connection.
+:ID: 1483254479179705290
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 466
+:LOCATION: 7399-7400
+:HIGHLIGHT: Reason was useless. Also anger, also sarcasm, not to mention irony. He could only try to match them in fantasy-land. So he stood up in meetings and did his very best, haranguing
+:ID: 1506010609165944789
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 483
+:LOCATION: 7649
+:ID: 2168892828735783103
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 498
+:LOCATION: 7895
+:ID: 2212937877818606883
+:END:
+
+* [ ] Patrick O'Brian 
+:PROPERTIES:
+:ID: 295481849260214972
+:END:
+** Book 1 - Master & Commander [/]
+:PROPERTIES:
+:AUTHOR: Patrick O'Brian
+:ID: 467178784032395182
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 5
+:LOCATION: 66
+:ID: 1613675829706361153
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 35
+:LOCATION: 528-529
+:HIGHLIGHT: Ossory that I came to understand how monstrously1 had wasted my time. A
+:ID: 1477550636664883719
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 49
+:LOCATION: 743-743
+:HIGHLIGHT: complement of the angle DCI. Now Cl:ID = rad.:tan. DCI = I:tan. DCI = I: cotan. b. Therefore
+:ID: 1280093336954824691
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 92
+:LOCATION: 1405-1405
+:HIGHLIGHT: United Irishmen,
+:ID: 1794094717086952150
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 96
+:LOCATION: 1466-1466
+:HIGHLIGHT: 'Castlereagh hanging at the one masthead and. Fitzgibbon at the other,'
+:ID: 1374769641458079959
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 102
+:LOCATION: 1555-1556
+:HIGHLIGHT: polacre a ship.'    'Don't you, though?'
+:ID: 1569624180735077816
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 145
+:LOCATION: 2212-2212
+:NOTE: Stepfather old term
+:HIGHLIGHT: father-in-law,
+:ID: 2050722567076272032
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 176
+:LOCATION: 2693-2693
+:HIGHLIGHT: gravamen
+:ID: 561070978578282804
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 233
+:LOCATION: 3566-3566
+:HIGHLIGHT: sir? Besides, I know damned well you have been sending prize-crews into Mahon:
+:ID: 792624645533260007
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 237
+:LOCATION: 3630-3630
+:HIGHLIGHT: Lascar.
+:ID: 465817858348851156
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 267
+:LOCATION: 4086-4086
+:HIGHLIGHT: tumefaction
+:ID: 314404152740836746
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 269
+:LOCATION: 4113-4113
+:HIGHLIGHT: clysters
+:ID: 274758240934599883
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 270
+:LOCATION: 4128-4128
+:HIGHLIGHT: verjuice;
+:ID: 909678970832852079
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 270
+:LOCATION: 4136-4136
+:HIGHLIGHT: Spithead and the Nore—all
+:ID: 223929976595234505
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 271
+:LOCATION: 4147-4147
+:HIGHLIGHT: Duke of Clarence,'
+:ID: 892222794499805728
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 271
+:LOCATION: 4147-4148
+:HIGHLIGHT: 'I am acquainted with His Highness,' said Jack, who had been shipmates with that singularly unattractive hot-headed cold-hearted bullying Hanoverian.
+:ID: 92400995737735888
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 273
+:LOCATION: 4174-4174
+:HIGHLIGHT: facies,
+:ID: 1339067699303031753
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 274
+:LOCATION: 4191-4191
+:HIGHLIGHT: mountains of Candia,
+:ID: 1015855301630795289
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 274
+:LOCATION: 4194-4194
+:HIGHLIGHT: repine,'
+:ID: 463604661885493812
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 277
+:LOCATION: 4244-4244
+:HIGHLIGHT: inveteracy,
+:ID: 969423009712608837
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 293
+:LOCATION: 4493-4493
+:HIGHLIGHT: Ulla to view the ancient stone monuments—druidical, no doubt—and
+:ID: 474007192632945509
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 300
+:LOCATION: 4595-4595
+:HIGHLIGHT: 'Rencounters
+:ID: 35315612468822344
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 313
+:LOCATION: 4794-4794
+:HIGHLIGHT: eye of the wind.
+:ID: 10475823945809992
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 367
+:LOCATION: 5615-5615
+:HIGHLIGHT: out sweeps.'
+:ID: 641196890284278487
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 373
+:LOCATION: 5717-5717
+:HIGHLIGHT: watch-glass
+:ID: 538265451034881329
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 389
+:LOCATION: 5962-5964
+:NOTE: Valuable people get treated valuably
+:HIGHLIGHT: The officers of the Hannibal and the Sophie were on parole: that is to say, until they were exchanged for French prisoners of equal rank they were bound in honour to do nothing against France or Spain—they were merely prisoners in more agreeable surroundings.
+:ID: 2011630445356327338
+:END:
+
+** Post Captain [/]
+:PROPERTIES:
+:AUTHOR: Patrick O'Brian
+:ID: 1657258521658426474
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 54
+:LOCATION: 814-814
+:HIGHLIGHT: teratoma
+:ID: 1134194352271788557
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 62
+:LOCATION: 950-950
+:HIGHLIGHT: by-election
+:ID: 1647870095952462990
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 109
+:LOCATION: 1658-1659
+:HIGHLIGHT: orange-trees; but no ladies of Spain that I recall. There was a dear old biddy that fed me pap
+:ID: 2254542400084832289
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 113
+:LOCATION: 1729-1729
+:HIGHLIGHT: 'Corvette
+:ID: 201668632731601146
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 121
+:LOCATION: 1851-1851
+:HIGHLIGHT: At the double,
+:ID: 1219809425651236989
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 128
+:LOCATION: 1951-1951
+:HIGHLIGHT: cutter
+:ID: 1744910657260341339
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 131
+:LOCATION: 2000-2000
+:HIGHLIGHT: carronades?'
+:ID: 1268435383943833965
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 147
+:LOCATION: 2241-2241
+:HIGHLIGHT: adamantine
+:ID: 2104342920540786849
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 157
+:LOCATION: 2401-2401
+:HIGHLIGHT: rack-rent
+:ID: 1388711412910967088
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 158
+:LOCATION: 2422-2422
+:HIGHLIGHT: outré
+:ID: 1605772000194935794
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 206
+:LOCATION: 3150-3150
+:HIGHLIGHT: grizzled
+:ID: 2303404898615294177
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 216
+:LOCATION: 3305-3305
+:HIGHLIGHT: 'Shot-rolling?'
+:ID: 1839776781967156374
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 235
+:LOCATION: 3589-3590
+:HIGHLIGHT: harrow,'
+:ID: 1837007172683880902
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 269
+:LOCATION: 4119-4119
+:HIGHLIGHT: laid by the heels;
+:ID: 2124933900531040921
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 273
+:LOCATION: 4173-4173
+:HIGHLIGHT: he had a free hand, fine calm weather, a long day before him, and he meant
+:ID: 1275604625430180434
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 273
+:LOCATION: 4174-4175
+:HIGHLIGHT: For form's sake he invited Parker to join their deliberations, but the first lieutenant was more concerned with his paintwork and gold-leaf than with getting the ship to move faster through the water.
+:ID: 1377158349077429493
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 273
+:LOCATION: 4174-4180
+:HIGHLIGHT: For form's sake he invited Parker to join their deliberations, but the first lieutenant was more concerned with his paintwork and gold-leaf than with getting the ship to move faster through the water. He did not seem to understand what they were driving at, and presently they forgot his presence, though they listened politely to his plea for a larger crow-foot to extend a double awning - 'In the Andromeda, Prince William always used to say that his awning gave the quarterdeck the air of a ballroom.' As he spoke of the dimensions of the heroic euphroe that suspended this awning and the number of cloths that went into the awning itself, Jack looked at him curiously. Here was a man who had fought at the battle of the Saintes and in Howe's great action, and yet still he thought his yard-blacking more important than sailing half a point closer to the wind.
+:ID: 1330880032457082364
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 274
+:LOCATION: 4196-4196
+:NOTE: Look up
+:HIGHLIGHT: needle and palm
+:ID: 1977102434164996709
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 275
+:LOCATION: 4205-4205
+:HIGHLIGHT: hawser
+:ID: 133843074312923090
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 275
+:LOCATION: 4209-4210
+:HIGHLIGHT: fid-hole in its heel, and so back to the topmast head, where it was made fast; bands
+:ID: 1400361607028947876
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 275
+:LOCATION: 4212-4212
+:HIGHLIGHT: Pawl.'
+:ID: 782490018597189733
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 276
+:LOCATION: 4220-4220
+:HIGHLIGHT: mainbrace,
+:ID: 1290114315554320506
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 278
+:LOCATION: 4252-4252
+:NOTE: Fell in the water
+:HIGHLIGHT: Bolton.
+:ID: 1159988511732426851
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 279
+:LOCATION: 4266-4266
+:HIGHLIGHT: gammon,
+:ID: 854285236542000942
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 280
+:LOCATION: 4290-4290
+:NOTE: NID
+:HIGHLIGHT: bentincks
+:ID: 1711126146067664548
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 281
+:LOCATION: 4295-4295
+:NOTE: NID
+:HIGHLIGHT: selvagees
+:ID: 1435028869033661429
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 281
+:LOCATION: 4300-4301
+:NOTE: Scotsman maturin could underatand his gaelic
+:HIGHLIGHT: Macdonald thought it was, though there was a great difference between the Highlands and the rest of the kingdom; what did Dr Maturin mean by 'often'?
+:ID: 1773065704960934758
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 281
+:LOCATION: 4304-4304
+:HIGHLIGHT: tierce,
+:ID: 1207005211299309058
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 281
+:LOCATION: 4304-4304
+:NOTE: NID
+something to do with dueling
+:HIGHLIGHT: sagoon,
+:ID: 74472323781440880
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 282
+:LOCATION: 4323-4323
+:NOTE: Char
+midshian
+:HIGHLIGHT: Parslow
+:ID: 586960336905537999
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 285
+:LOCATION: 4364-4364
+:NOTE: Char master
+:HIGHLIGHT: Pullings.
+:ID: 83554567726770123
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 286
+:LOCATION: 4380-4381
+:NOTE: Char
+late for watch
+:HIGHLIGHT: Rossall and Babbington
+:ID: 2059766785303546017
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 288
+:LOCATION: 4408-4409
+:HIGHLIGHT: make up his mind before she could shoot ahead. She had thirty-four guns to his four
+:ID: 1491488370790773689
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 288
+:LOCATION: 4409-4409
+:NOTE: Polychrest has 24 guns but theyre heavy
+:HIGHLIGHT: four and twenty:
+:ID: 1590866648331549857
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 289
+:LOCATION: 4430-4432
+:NOTE: Char
+very maturin
+:HIGHLIGHT: 'I mean to sink, take, burn or destroy her,' said Jack, a smile flashing across his face. 'I dare say you do. Please to remember the watch they took from me. A Breguet repeater, number 365, with a centre seconds hand. And three pairs of drawers, I should know them anywhere. I must go below.'
+:ID: 2192907563717647894
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 290
+:LOCATION: 4446-4447
+:HIGHLIGHT: Mr Rossall,' he said. 'Blunder around a little. Half up, down and up again.' The Papenburg
+:ID: 428414079812265697
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 290
+:LOCATION: 4446-4447
+:HIGHLIGHT: Mr Rossall,' he said. 'Blunder around a little. Half up, down and up again.' The Papenburg
+:ID: 428414079812265697
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 290
+:LOCATION: 4447-4447
+:NOTE: NID
+:HIGHLIGHT: Papenburg
+:ID: 1866920357207404131
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 292
+:LOCATION: 4471-4473
+:HIGHLIGHT: But her colours were flying still, her wheel was unhurt, and on her quarterdeck Captain Dumanoir waved his hat to Jack, shouting orders to his men. To his horror Jack saw that the Polychrest's cursed leeway was carrying her fast aboard the privateer. The Frenchmen, all but the gun-crews, were massing in the bows, some two hundred of them.
+:ID: 2193153249823607002
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 325
+:LOCATION: 4984-4984
+:HIGHLIGHT: St Vincent impeaching Lord Melville for malversation,
+:ID: 1044321394647204255
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 326
+:LOCATION: 4988-4988
+:HIGHLIGHT: Caracciolo
+:ID: 744478588790542713
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 326
+:LOCATION: 4999-4999
+:NOTE: Huh.
+:HIGHLIGHT: queans.'
+:ID: 1667831819761505879
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 337
+:LOCATION: 5167-5167
+:HIGHLIGHT: fid,
+:ID: 115325609556916597
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 369
+:LOCATION: 5657-5657
+:HIGHLIGHT: ca'hoopit
+:ID: 492844395596029507
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 377
+:LOCATION: 5777-5778
+:HIGHLIGHT: She was a crack frigate, she was indeed; and seeing that a wheel came off Robert's curricle
+:ID: 1917644175172751230
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 381
+:LOCATION: 5840-5841
+:HIGHLIGHT: nankeen trousers, a thing that I should never, never countenance. And this' - plucking
+:ID: 317387178951268308
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 381
+:LOCATION: 5840-5840
+:HIGHLIGHT: nankeen
+:ID: 287516493098716816
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 412
+:LOCATION: 6316-6316
+:HIGHLIGHT: tompions
+:ID: 1286683016830342187
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 429
+:LOCATION: 6576-6576
+:HIGHLIGHT: kedge,
+:ID: 889782764695672099
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 433
+:LOCATION: 6629-6629
+:HIGHLIGHT: putative
+:ID: 493859672910264546
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 433
+:LOCATION: 6639-6639
+:HIGHLIGHT: NB
+:ID: 187432295941748480
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 435
+:LOCATION: 6659-6662
+:HIGHLIGHT: Madrid has been under increasing pressure since July, as you know: now Godoy has yielded, but he refuses to declare until the treasure-ships reach Cadiz from Monte Video. Without this vast amount of specie Spain is very nearly bankrupt. The ships in question are frigates of the Spanish navy: the Medea, of forty guns, and the Fama, Clara, and Mercedes, all of 34. The Fama is said to be an uncommon swift sailer; the others are well spoken of. The squadron is commanded by Rear-Admiral don José Bustamente, a capable and determined officer.
+:ID: 983076977227300566
+:END:
+
+* [ ] Coram, Robert 
+:PROPERTIES:
+:ID: 1513738342936290545
+:END:
+** Boyd [/]
+:PROPERTIES:
+:AUTHOR: Coram, Robert
+:ID: 154819637926019574
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 20
+:LOCATION: 334-334
+:HIGHLIGHT: Shriners
+:ID: 1251198643980996541
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 33
+:LOCATION: 545-546
+:HIGHLIGHT: David Armbruster, the legendary swimming coach who established swimming as a sport at Iowa in 1917 and who was credited with developing the butterfly stroke and the flip turn.
+:ID: 158411649742997011
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 47
+:LOCATION: 787-789
+:HIGHLIGHT: Mary and Boyd drove to Ottumwa. She was glad to leave Nellis: the desert and the scrubby bushes and the cactus and the endless wind were not like the familiar green fields of Iowa. Jets took off and landed from dawn to dusk. The smell of aviation fuel, so beloved by pilots, nauseated her.
+:ID: 296632372461402579
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 56
+:LOCATION: 919-926
+:HIGHLIGHT: Boyd’s brief tour in Korea is put in perspective by what then was called an Officer Efficiency Report—an “OER” or, as it sometimes was shortened, “ER.” In the Air Force of the 1950s, an officer’s promotions—and thus his career—were dependent almost entirely on his ERs. One bad ER could wreck an officer’s career. An ER was two pages, three if there were additional indorsements. (The Air Force uses “indorsement” rather than “endorsement.”) A civilian looking at an ER would say it is straightforward in its language. But this is deceptive, even misleading. Writing an ER is an art form—reading it, for the uninitiated, is like trying to decipher the Dead Sea Scrolls. Language that appears to be the highest praise can in reality be language that ends a career. That is why sometimes even today when an officer is forced out of the military, he waves his ERs to the media, and, not knowing how to read them, the media join the cause and say this extraordinary officer has been treated unjustly.
+:ID: 82582664569747576
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 92
+:LOCATION: 1523-1528
+:NOTE: T
+:HIGHLIGHT: from his mother. It was a stern and foreboding visage that brooked no disagreement. He was daring anyone in the hotel to make any sort of scene. He was anxious for battle. Nothing happened. Everyone was served quickly and courteously and the manager hovered nearby to make sure everything went smoothly. Boyd and his fighter pilots desegregated Las Vegas that Friday in 1957. It was not a one-time event. They went back almost every Friday until Boyd was transferred in the summer of 1960. By then the city of Las Vegas had followed their lead.
+:ID: 164774802315548770
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 93
+:LOCATION: 1526-1527
+:NOTE: Hmmmm
+:HIGHLIGHT: Boyd and his fighter pilots desegregated Las Vegas that Friday in 1957. It was not a one-time event. They went back almost every Friday until Boyd was transferred in the summer of 1960.
+:ID: 651893590516258154
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 93
+:LOCATION: 1526-1528
+:NOTE: Hmmm
+:HIGHLIGHT: Boyd and his fighter pilots desegregated Las Vegas that Friday in 1957. It was not a one-time event. They went back almost every Friday until Boyd was transferred in the summer of 1960. By then the city of Las Vegas had followed their lead.
+:ID: 1901056441938900467
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 145
+:LOCATION: 2363-2366
+:HIGHLIGHT: The biggest computer on base was an IBM 704. To use it, one had to come to the computer shop as a supplicant. The proper way to obtain computer time, the Air Force way, the only way, was first to have a project that met all the criteria for computer usage. Then whoever was in charge of the project delegated someone to take the data to the computer office. There a program was written and the information placed on punch cards, which then were fed to the computer.
+:ID: 1776101309233317890
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 159
+:LOCATION: 2599-2599
+:HIGHLIGHT: comptroller’s
+:ID: 1366971857384637395
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 228
+:LOCATION: 3746-3748
+:HIGHLIGHT: On July 18, 1968, Sprey wrote a letter to General James Ferguson, head of the Systems Command. The letter became famous and was passed around the Pentagon, where a few young officers saw it as a masterful dissection of how the Air Force had gone wrong.
+:ID: 1655635250842616683
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 301
+:LOCATION: 4930-4930
+:HIGHLIGHT: lenticular
+:ID: 465735683126055230
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 305
+:LOCATION: 4987-4987
+:HIGHLIGHT: “buttonhook turn.”
+:ID: 348687052437337184
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 311
+:LOCATION: 5082-5082
+:HIGHLIGHT: “Destruction and Creation.”
+:ID: 888018790889643001
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 316
+:LOCATION: 5121-5122
+:HIGHLIGHT: Gerald Ford fired Secretary of Defense Schlesinger.
+:ID: 1769927425046474194
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 321
+:LOCATION: 5204-5205
+:HIGHLIGHT: The Acolytes reeled when Boyd said his work would link Godel’s Proof, Heisenberg’s Uncertainty Principle, and the second law of thermodynamics.
+:ID: 1108164865906950391
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 322
+:LOCATION: 5209-5209
+:HIGHLIGHT: Jacob Bronowski
+:ID: 1844962407893707843
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 322
+:LOCATION: 5223-5223
+:HIGHLIGHT: “Patterns of Conflict,”
+:ID: 2031482399543352426
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 323
+:LOCATION: 5237-5237
+:HIGHLIGHT: “heavy sledding.”
+:ID: 1813827032546694882
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 324
+:LOCATION: 5253-5253
+:HIGHLIGHT: onanistic
+:ID: 1837760374427163463
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 324
+:LOCATION: 5253-5255
+:HIGHLIGHT: He talked of “paralysis by analysis” and said Washington was a city of ten thousand analysts and no synthesizers. “They know more and more about less and less until eventually they know everything about nothing” is how he put it.
+:ID: 384360417609180546
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 324
+:LOCATION: 5256-5256
+:HIGHLIGHT: exegesis
+:ID: 1242372090507796900
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 324
+:LOCATION: 5257-5265
+:HIGHLIGHT: “Imagine four separate images. Let’s call them domains. Each domain can be easily understood by looking at its parts and at the relation among the parts.” Boyd’s four domains were a skier on a slope, a speedboat, a bicycle, and a toy tank. Under “skier” were the various parts: chair lifts, skis, people, mountain, and chalets. He asked listeners to imagine these were all linked by a web of relations, a matrix of intersecting lines. Under “speedboat” were the categories of sun, boat, outboard motor, water skier, and water. Again, all were linked by the intersecting lines. Under “bicycle” were chain, seat, sidewalk, handle bars, child, and wheels. Under “toy tank” were turret, boy, tank treads, green paint, toy store, and cannon. The separate ingredients make sense when collected under the respective headings. But then Boyd shattered the relationship between the parts and their respective domains. He took the ingredients in the web of relationships and asked listeners to visualize them scattered at random. He called breaking the domains apart a “destructive deduction.” (Today some refer to such a jump as “thinking outside the box.”
+:ID: 1839708216705675898
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 325
+:LOCATION: 5269-5272
+:HIGHLIGHT: “From some of the ingredients in this sea of anarchy, how do we find common qualities and connecting threads to synthesize a new and altogether different domain?” Few people ever found a new way to put them together. Boyd coaxed and wheedled but eventually helped the audience along by emphasizing handle bars, outboard motor, tank treads, and skis.
+:ID: 1859851537944167118
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 325
+:LOCATION: 5272-5273
+:HIGHLIGHT: “new reality”—a snowmobile.
+:ID: 1013223593460315195
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 325
+:LOCATION: 5273-5275
+:HIGHLIGHT: To make sure the new reality is both viable and relevant, Boyd said it must be continually refined by verifying its internal consistency and by making sure it matches up with reality. But the very process of making sure the reality is relevant causes mismatches between the new observation and the description of that observation
+:ID: 1200051640944923011
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 325
+:LOCATION: 5276-5277
+:HIGHLIGHT: “One cannot determine the character or nature of a system within itself. Moreover, attempts to do so lead to confusion and disorder.” This never-ending cycle of mismatches, destruction, and creation is the “natural manifestation of a dialectic engine.”
+:ID: 1270493899067052674
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 326
+:LOCATION: 5281-5283
+:HIGHLIGHT: The danger—and this is a danger neither seen nor understood by many people who profess a knowledge of Boyd’s work—is that if our mental processes become focused on our internal dogmas and isolated from the unfolding, constantly dynamic outside world, we experience mismatches between our mental images and reality.
+:ID: 608517111409265365
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 327
+:LOCATION: 5300-5300
+:HIGHLIGHT: YF-16 over the YF-17
+:ID: 1772098147628805954
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 330
+:LOCATION: 5340-5342
+:HIGHLIGHT: The breadth and depth of subjects covered was nothing short of phenomenal. Boyd dove into the history of warfare as few men ever have. To outsiders his course of study seemed rambling and disconnected. It seemed to lack focus, but only until they heard the briefing.
+:ID: 814091482826108352
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 330
+:LOCATION: 5345-5347
+:HIGHLIGHT: “Patterns” is also an example of how Boyd thought by analogy, a process that Sprey, ever the pragmatist, found extremely unsettling. Reasoning by analogy not only is backward from the way most people think but is dangerous; one misstep, especially in the beginning, and the entire process can go careening off into idiocy.
+:ID: 73676261371825543
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 330
+:LOCATION: 5349-5352
+:HIGHLIGHT: After Frederick was defeated, a group of five men set about to rebuild the Prussian Army and to institutionalize military excellence. They called themselves “Reformers.” Scharnhorst and von Clausewitz are the best known of the group, Scharnhorst because of his military brilliance and von Clausewitz because of his book On War.
+:ID: 2144769770515502536
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5356-5356
+:HIGHLIGHT: Lost Victories by Erich von Manstein.
+:ID: 2194342750695907456
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5356-5356
+:HIGHLIGHT: tactics of Tank Commander Heinz Guderian
+:ID: 2194342750695907456
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5361-5365
+:HIGHLIGHT: Sun Tzu also talked of how a commander should use two thrusts, either of which could attain the objective. But perhaps the most significant element in Sun Tzu is the concept of cheng and ch’i, the orthodox and the unorthodox, the traditional and the unexpected. A simplistic explanation of cheng and ch’i comes from General George Patton, who in World War II said his plan for attacking the Germans was to “hold them by the nose and kick them in the ass.” Holding them by the nose is the cheng. Kicking them in the ass is the ch’i.
+:ID: 225065726231513769
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5365-5366
+:HIGHLIGHT: The Art of War became Boyd’s Rosetta stone, the work he returned to again and again. It is the only theoretical book on war that Boyd did not find fundamentally flawed.
+:ID: 2300448542871247093
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5367-5367
+:HIGHLIGHT: The translations of Samuel Griffith and, later, Thomas Cleary were his favorites.
+:ID: 1737698358200063226
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 331
+:LOCATION: 5368-5371
+:HIGHLIGHT: From Sun Tzu, Boyd moved to the campaigns of Alexander the Great around 300 B.C., Hannibal around 200 B.C., Belisarius around 500 A.D., Genghis Khan around 1200 A.D., Tamerlane around 1400 A.D., then Napoléon and von Clausewitz and on through World War I and World War II.
+:ID: 697130848956817931
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 332
+:LOCATION: 5379-5382
+:HIGHLIGHT: For months he compared what von Clausewitz says early in the book with what he says in the middle and at the end. This is laborious work, because von Clausewitz takes a dialectic approach and sometimes seems to argue in favor of polar opposites. Boyd was doing more than reading; he was engaging von Clausewitz in combat. It was his mind against that of von Clausewitz.
+:ID: 1747738369430276104
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 332
+:LOCATION: 5383-5388
+:HIGHLIGHT: First, von Clausewitz wants to bring the enemy to a big “decisive battle,” while Sun Tzu wants to unravel the enemy before a battle. Put another way, von Clausewitz believes wars are decided by set piece battles more than by strategy, deception, and guerrillalike tactics. This means that even if he wins, there is a bloodbath. Boyd said von Clausewitz’s second major flaw is that he spends a lot of time talking about how a commander must minimize “friction”—that is, the uncertainty or chance that always appear in the “fog of war.” He does not deal with maximizing the enemy’s friction—as does Sun Tzu—but only with minimizing his own. As Boyd said to Spinney, “Sun Tzu tried to drive his adversary bananas while Clausewitz tried to keep himself from being driven bananas.”
+:ID: 1719055490392177771
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 333
+:LOCATION: 5401-5401
+:NOTE: Didnt know jounos started it
+:HIGHLIGHT: Journalists called it the “Blitzkrieg.”
+:ID: 1437243963248159808
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 333
+:LOCATION: 5404-5408
+:HIGHLIGHT: Hitler took Poland, Norway, Denmark, Belgium, Holland, and France with about two hundred thousand casualties. The Allies had about three point five million losses, almost three million of whom were prisoners. Boyd, borrowing from Sun Tzu, said the best commander is the one who wins while avoiding battle. The intent is to shatter cohesion, produce paralysis, and bring about collapse of the adversary by generating confusion, disorder, panic, and chaos. Boyd said war is organic and compared his technique to clipping the nerves, muscles, and tendons of an enemy, thus reducing him to jelly.
+:ID: 1756879198237508792
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 334
+:LOCATION: 5410-5410
+:HIGHLIGHT: Schwerpunkt means the main focus of effort. On a deeper reading it is the underlying goal, the glue that holds together various units.
+:ID: 1950524053571641701
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 334
+:LOCATION: 5411-5412
+:HIGHLIGHT: Fingerspitzengefuhl means a fingertip feel. Again, the fuller meaning applies to a leader’s instinctive and intuitive sense of what is going on or what is needed in a battle or, for that matter, in any conflict.
+:ID: 1905324105937562653
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 335
+:LOCATION: 5433-5436
+:HIGHLIGHT: The best drawing of the OODA Loop was done by Spinney for Boyd’s briefings. It shows a very large orientation part of the cycle. Becoming oriented to a competitive situation means bringing to bear the cultural traditions, genetic heritage, new information, previous experiences, and analysis / synthesis process of the person doing the orienting—a complex integration that each person does differently. These human differences make the Loop unpredictable.
+:ID: 289762770994271725
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 336
+:LOCATION: 5445-5448
+:HIGHLIGHT: Understanding the OODA Loop enables a commander to compress time—that is, the time between observing a situation and taking an action. A commander can use this temporal discrepancy (a form of fast transient) to select the least-expected action rather than what is predicted to be the most-effective action.
+:ID: 1283855576636456077
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 336
+:LOCATION: 5456-5463
+:HIGHLIGHT: Boyd asks: How does a commander harmonize the numerous individual thrusts of a Blitzkrieg attack and maintain the cohesion of his larger effort? The answer is that the Blitzkrieg is far more than the lightning thrusts that most people think of when they hear the term; rather it was all about high operational tempo and the rapid exploitation of opportunity. In a Blitzkrieg situation, the commander is able to maintain a high operational tempo and rapidly exploit opportunity because he makes sure his subordinates know his intent, his Schwerpunkt. They are not micromanaged, that is, they are not told to seize and hold a certain hill; instead they are given “mission orders.” This means that they understand their commander’s overall intent and they know their job is to do whatever is necessary to fulfill that intent. The subordinate and the commander share a common outlook. They trust each other, and this trust is the glue that holds the apparently formless effort together.
+:ID: 2112796301469569526
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 337
+:LOCATION: 5476-5481
+:NOTE: That wouldve changed so much if true
+:HIGHLIGHT: Patton was the American general most feared by the Germans. He out-blitzed those who made the Blitzkrieg famous. His tanks rolled across Europe and into Germany and could have punched through to Berlin in a matter of days. In fact, the German high command thought the war was over. But Eisenhower did not understand this kind of conflict and, at the very moment of victory—egged on by jealous and conventional British officers—he grew afraid for Patton’s flanks and supply lines and ordered Patton to stop. The Germans were amazed at the respite. One school of thought says that Eisenhower’s timidity cost another six months of war and a million additional lives.
+:ID: 2060300992710906589
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 341
+:LOCATION: 5540-5541
+:HIGHLIGHT: “There are only so many ulcers in the world and it is your job to see that other people get them.”
+:ID: 1933378999807105304
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 345
+:LOCATION: 5603-5604
+:HIGHLIGHT: It was only a matter of weeks before he began briefing the first version of what was officially called “Defense Facts of Life.” Few people remember that title; what they remember is the “Spinney Report.”
+:ID: 1938981658748089148
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 351
+:LOCATION: 5705-5706
+:HIGHLIGHT: The Atlantic published “The Muscle-Bound Superpower” in the October 2, 1979,
+:ID: 1200337956795078254
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 353
+:LOCATION: 5737-5738
+:HIGHLIGHT: Then, in May, Fallows weighed in with another piece titled “America’s High-Tech Weaponry.”
+:ID: 1870888132256229396
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 366
+:LOCATION: 5947-5949
+:HIGHLIGHT: March 7, 1983, issue of Time magazine arrived in the Pentagon. Spinney was on the cover, identified as a “Pentagon Maverick.” The cover line was underlined in red and said, “U.S. Defense Spending.” Underneath, in bold type, was the question, “Are Billions Being Wasted?”
+:ID: 1015410772195115496
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 374
+:LOCATION: 6071-6072
+:HIGHLIGHT: warfare school, and to special-warfare school, and he trained often with the Army. He read Bernard
+:ID: 1444470801544003412
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 377
+:LOCATION: 6109-6110
+:HIGHLIGHT: Commandant Robert Cushman was so over-weight that young lieutenants joked that the Marine Corps fitness test was “three laps around Bobby Cushman.”
+:ID: 22037203628848144
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 383
+:LOCATION: 6215-6215
+:NOTE: The wikipedia on this guy is interesting. Wonder if its te same one
+:HIGHLIGHT: Bill Lind.
+:ID: 857989585777417830
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 385
+:LOCATION: 6247-6247
+:HIGHLIGHT: “Spandau”
+:ID: 124278708265363696
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 394
+:LOCATION: 6407-6407
+:HIGHLIGHT: David Hackworth
+:ID: 1253148045663645224
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 396
+:LOCATION: 6447-6447
+:HIGHLIGHT: Martin Van Creveld,
+:ID: 1901206243125540173
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 403
+:LOCATION: 6557-6558
+:HIGHLIGHT: Churchill’s comment in World War II that the truth was too precious a commodity to travel alone—that it had to be protected by a “bodyguard of lies.”
+:ID: 933122693677053008
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 404
+:LOCATION: 6579-6585
+:HIGHLIGHT: The Army did not want Burton around for those tests, however, so Army generals talked to Air Force generals, who sent down word that Burton was being transferred to Alaska. He was given a seven-day notice to accept the transfer or resign. It was just as Boyd predicted: a brutal, head-on assault. And it appeared effective. After all, if there is a bothersome employee, what better way to get rid of him than to transfer him? Burton thought the battle was over. But Boyd laughed. “Goddamn, Jim, this is the dumbest decision the Air Force can make. Whoever made this decision is general officer material.” He told Burton to collect every memo and every letter and every study in his files that dealt with the Bradley controversy, to make copies, and to flood the Building with little brothers and sisters.
+:ID: 1126260141505389298
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 408
+:LOCATION: 6638-6642
+:HIGHLIGHT: In September 1985, Weinberger sent Burton a handwritten note asking that henceforth Burton keep him personally informed of all test results on the Bradley. General Colin Powell was then Weinberger’s military assistant, performing the same duties for Weinberger that Burton had performed for three assistant secretaries of the Air Force. But Powell and Burton were cut from different bolts of cloth. Burton knew that when he sent a note to Weinberger, the Army’s senior generals had copies before the SecDef did. The reverse pump was still working.
+:ID: 73621279359421807
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 409
+:LOCATION: 6655-6656
+:HIGHLIGHT: Congress was so concerned the Army might try to wiggle out of its agreement to let Burton oversee the testing that it passed a law saying all actions covered in Burton’s agreement with the Army must take place.
+:ID: 240340782124379003
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 411
+:LOCATION: 6696-6696
+:HIGHLIGHT: Nancy Kassebaum
+:ID: 385689453345356487
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 423
+:LOCATION: 6886-6890
+:HIGHLIGHT: Still another piece of the puzzle, one that the public would not become aware of until after the Gulf War—when books were written—was the growing awareness during Desert Shield that Cheney opposed General Norman Schwarzkopf’s initial war plan. Schwarzkopf’s plan was a head-to-head assault against the main strength of the Iraqi forces, the classic mind-set of Army commanders imbued with the theory of attrition warfare. Slug it out mano a mano, toe-to-toe, force against force, and the last man standing wins.
+:ID: 1794913052458741604
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 428
+:LOCATION: 6975-6976
+:HIGHLIGHT: Thriving on Chaos,
+:ID: 33239397508547518
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 430
+:LOCATION: 6993-6995
+:HIGHLIGHT: Finally, Richards set up two Web sites (www.Belisarius.com and www.d-n-i.net) to showcase Boyd’s ideas and how they relate to business.
+:ID: 1703899754831715546
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 430
+:LOCATION: 7001-7002
+:HIGHLIGHT: Hammond’s book The Mind of War
+:ID: 837466231929122048
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 441
+:LOCATION: 7173-7174
+:HIGHLIGHT: Spinney also has become a prolific writer of op-ed columns for the Washington Post and Los Angeles Times.
+:ID: 664920756489272565
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 449
+:LOCATION: 7314-7316
+:HIGHLIGHT: To comprehend and cope with our environment we develop mental patterns or concepts of meaning. The purpose of this paper is to sketch out how we destroy and create these patterns to permit us to both shape and be shaped by a changing environment.
+:ID: 1589248273676047487
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7322-7330
+:HIGHLIGHT: In viewing the instinct for survival in this manner we imply that a basic aim or goal, as individuals, is to improve our capacity for independent action. The degree to which we cooperate, or compete, with others is driven by the need to satisfy this basic goal. If we believe that it is not possible to satisfy it alone, without help from others, history shows us that we will agree to constraints upon our independent action—in order to collectively pool skills and talents in the form of nations, corporations, labor unions, mafias, etc.—so that obstacles standing in the way of the basic goal can either be removed or overcome. On the other hand, if the group cannot or does not attempt to overcome obstacles deemed important to many (or possibly any) of its individual members, the group must risk losing these alienated members. Under these circumstances, the alienated members may dissolve their relationship and remain independent, form a group of their own, or join another collective body in order to improve their capacity for independent action.
+:ID: 373765167230885249
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7338-7341
+:HIGHLIGHT: Decisions must be rendered to monitor and determine the precise nature of the actions needed that will be compatible with the goal. To make these timely decisions implies that we must be able to form mental concepts of observed reality, as we perceive it, and be able to change these concepts as reality itself appears to change. The concepts can then be used as decision-models for improving our capacity for independent action.
+:ID: 1530036417045972885
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7342-7344
+:HIGHLIGHT: There are two ways in which we can develop and manipulate mental concepts to represent observed reality: We can start from a comprehensive whole and break it down to its particulars or we can start with the particulars and build towards a comprehensive whole.
+:ID: 1809672147358537096
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7345-7346
+:HIGHLIGHT: A little reflection here reveals that deduction is related to proceeding from the general-to-specific while induction is related to proceeding from the specific-to-general.
+:ID: 1320361450884369843
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7349-7349
+:HIGHLIGHT: specific is related to both deduction and analysis, while specific-to-general is related to induction
+:ID: 4941222519066333
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7349-7349
+:NOTE: Induction inference of a general law from specific instances
+:HIGHLIGHT: induction
+:ID: 1608233188637846994
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7353-7354
+:HIGHLIGHT: Summing up, we can see that: general-to-specific is related to deduction, analysis, and differentiation while specific-to-general is related to induction, synthesis, and integration.
+:ID: 792628185069903028
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7357-7364
+:HIGHLIGHT: Naturally, as we go through life we develop concepts of meaning (with included constituents) to represent observed reality. Can we not liken these concepts and their related constituents to the domains and constituents that we have formed in our imagination? Naturally, we can. Keeping this relationship in mind, suppose we shatter the correspondence of each domain or concept with its constituent elements. In other words, we imagine the existence of the parts but pretend that the domains or concepts they were previously associated with do not exist. Result: We have many constituents, or particulars, swimming around in a sea of anarchy. We have uncertainty and disorder in place of meaning and order. Further, we can see that such an unstructuring or destruction of many domains—to break the correspondence of each with its respective constituents—is related to deduction, analysis, and differentiation. We call this kind of unstructuring a destructive deduction.
+:ID: 1985862437192954310
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7357-7366
+:HIGHLIGHT: Naturally, as we go through life we develop concepts of meaning (with included constituents) to represent observed reality. Can we not liken these concepts and their related constituents to the domains and constituents that we have formed in our imagination? Naturally, we can. Keeping this relationship in mind, suppose we shatter the correspondence of each domain or concept with its constituent elements. In other words, we imagine the existence of the parts but pretend that the domains or concepts they were previously associated with do not exist. Result: We have many constituents, or particulars, swimming around in a sea of anarchy. We have uncertainty and disorder in place of meaning and order. Further, we can see that such an unstructuring or destruction of many domains—to break the correspondence of each with its respective constituents—is related to deduction, analysis, and differentiation. We call this kind of unstructuring a destructive deduction. Faced with such disorder or chaos, how can we reconstruct order and meaning? Going back to the idea chain of specific-to-general, induction, synthesis, and integration the thought occurs that a new domain or concept can be formed if we can find some common qualities, attributes, or operations among some or many of these constituents swimming in this sea of anarchy.
+:ID: 848016019702981617
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7375-7376
+:NOTE: Pssbly deleuzian deterritorialization
+:HIGHLIGHT: Recalling that we use concepts or mental patterns to represent reality, it follows that the unstructuring and restructuring just shown reveals a way of changing our perception of reality.
+:ID: 1631147868792771648
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7378-7388
+:HIGHLIGHT: To check or verify internal consistency we try to see if we can trace our way back to the original constituents that were used in the creative or constructive induction. If we cannot reverse directions, the ideas and interactions do not go together in this way without contradiction. Hence, they are not internally consistent. However, this does not necessarily mean we reject and throw away the entire structure. Instead, we should attempt to identify those ideas (particulars) and interactions that seem to hold together in a coherent pattern of activity as distinguished from those ideas that do not seem to fit in. In performing this task we check for reversibility as well as check to see which ideas and interactions match-up with our observations of reality.27,14,15 Using those ideas and interactions that pass this test together with any new ideas (from new destructive deductions) or other promising ideas that popped out of the original destructive deduction we again attempt to find some common qualities, attributes or operations to re-create the concept—or create a new concept. Also, once again, we perform the check for reversibility and match-up with reality. Over and over again this cycle of Destruction and Creation is repeated until we demonstrate internal consistency and match-up with reality.
+:ID: 1837103059519742424
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7411-7411
+:HIGHLIGHT: Gerhard Gentzen
+:ID: 130996987750640359
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7415-7425
+:HIGHLIGHT: Keeping this process in mind, let us see how Gödel’s results impact the effort to improve the match-up of concept with observed reality. To do this we will consider two kinds of consistency: The consistency of the concept and the consistency of the match-up between observed reality and concept description of reality. In this sense, if we assume—as a result of previous destructive deduction and creative induction efforts—that we have a consistent concept and consistent match-up, we should see no differences between observation and concept description. Yet, as we have seen, on one hand, we use observations to shape or formulate a concept; while on the other hand, we use a concept to shape the nature of future inquiries or observations of reality. Back and forth, over and over again, we use observations to sharpen a concept and a concept to sharpen observations. Under these circumstances, a concept must be incomplete since we depend upon an ever-changing array of observations to shape or formulate it. Likewise, our observations of reality must be incomplete since we depend upon a changing concept to shape or formulate the nature of new inquiries and observations. Therefore, when we probe back and forth with more precision and subtlety, we must admit that we can have differences between observation and concept description; hence, we cannot determine the consistency of the system— in terms of its concept, and match-up with observed reality—within itself.
+:ID: 1093256165108662362
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7445-7448
+:NOTE: Im curious if this is an accurate interpretation
+:HIGHLIGHT: Keeping in mind that the Heisenberg Principle implicitly depends upon the indeterminate presence and influence of an observer,14 we can now see—as revealed by the two examples just cited—that the magnitude of the uncertainty values represent the degree of intrusion by the observer upon the observed.
+:ID: 1233614215574760086
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7463-7464
+:HIGHLIGHT: Taken together, these three notions support the idea that any inward-oriented and continued effort to improve the match-up of concept with observed reality will only increase the degree of mismatch.
+:ID: 427600204549824683
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 450
+:LOCATION: 7468-7473
+:HIGHLIGHT: Remember, as previously shown, we can forge a new concept by applying the destructive deduction and creative induction mental operations. Also, remember, in order to perform these dialectic mental operations we must first shatter the rigid conceptual pattern, or patterns, firmly established in our mind. (This should not be too difficult since the rising confusion and disorder is already helping us to undermine any patterns.) Next, we must find some common qualities, attributes, or operations to link isolated facts, perceptions, ideas, impressions, interactions, observations, etc. together as possible concepts to represent the real world. Finally, we must repeat this unstructuring and restructuring until we develop a concept that begins to match-up with reality.
+:ID: 2253752222887057161
+:END:
+
+* [ ] Newman, Sam 
+:PROPERTIES:
+:ID: 2024850788382993558
+:END:
+** Building Microservices: Designing Fine-Grained Systems [/]
+:PROPERTIES:
+:AUTHOR: Newman, Sam
+:ID: 287465979900733267
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 288-289
+:HIGHLIGHT: Service-oriented architecture (SOA) is a design approach where multiple services collaborate to provide some end set of capabilities.
+:ID: 1963361812812675931
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 330-333
+:HIGHLIGHT: The Open Source Gateway Initiative (OSGI) is worth calling out as one technology-specific approach to modular decomposition. Java itself doesn’t have a true concept of modules, and we’ll have to wait at least until Java 9 to see this added to the language. OSGI, which emerged as a framework to allow plug-ins to be installed in the Eclipse Java IDE, is now used as a way to retrofit a module concept in Java via a library.
+:ID: 719348089842697310
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 416-416
+:HIGHLIGHT: we should think of our role more as town planners than architects for the built environment.
+:ID: 226034621428037079
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 809-810
+:HIGHLIGHT: When you start to think about the bounded contexts that exist in your organization, you should be thinking not in terms of data that is shared, but about the capabilities those contexts provide the rest of the domain.
+:ID: 1769863213023650915
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 811-813
+:HIGHLIGHT: These capabilities may require the interchange of information — shared models — but I have seen too often that thinking about data leads to anemic, CRUD-based (create, read, update, delete) services. So ask first “What does this context do?”, and then “So what data does it need to do that?”
+:ID: 665012160247464761
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1422-1423
+:HIGHLIGHT: This pattern — of implementing a reader able to ignore changes we don’t care about — is what Martin Fowler calls a Tolerant Reader
+:ID: 183308375982633727
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1430-1432
+:HIGHLIGHT: The example of a client trying to be as flexible as possible in consuming a service demonstrates Postel’s Law (otherwise known as the robustness principle), which states: “Be conservative in what you do, be liberal in what you accept from others.”
+:ID: 325976284887242607
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1467-1472
+:HIGHLIGHT: When I last used this approach, we had gotten ourselves into a bit of a mess with the number of consumers we had and the number of breaking changes we had made. This meant that we were actually coexisting three different versions of the endpoint. This is not something I’d recommend! Keeping all the code around and the associated testing required to ensure they all worked was absolutely an additional burden. To make this more manageable, we internally transformed all requests to the V1 endpoint to a V2 request, and then V2 requests to the V3 endpoint. This meant we could clearly delineate what code was going to be retired when the old endpoint(s) died.
+:ID: 237348620110643774
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1547-1547
+:HIGHLIGHT: API gateway
+:ID: 20560998133415126
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1724-1725
+:HIGHLIGHT: seam — that is, a portion of the code that can be treated in isolation and worked on without impacting the rest of the codebase.
+:ID: 594440349735407417
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1726-1727
+:HIGHLIGHT: bounded contexts make excellent seams, because by definition they represent cohesive and yet loosely coupled boundaries in an organization.
+:ID: 603403402164576062
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1792-1794
+:HIGHLIGHT: Having the database mapping code colocated inside the code for a given context can help us understand what parts of the database are used by what bits of code.
+:ID: 1730237402902633511
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1797-1799
+:HIGHLIGHT: A great place to start is to use a tool like the freely available SchemaSpy, which can generate graphical representations of the relationships between tables.
+:ID: 500458207190619296
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1938-1939
+:HIGHLIGHT: Distributed transactions try to span multiple transactions within them, using some overall governing process called a transaction manager to orchestrate the various transactions being done by underlying systems.
+:ID: 1466276995458373844
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 1942-1947
+:NOTE: This is pretty cool
+:HIGHLIGHT: The most common algorithm for handling distributed transactions — especially short-lived transactions, as in the case of handling our customer order — is to use a two-phase commit. With a two-phase commit, first comes the voting phase. This is where each participant (also called a cohort in this context) in the distributed transaction tells the transaction manager whether it thinks its local transaction can go ahead. If the transaction manager gets a yes vote from all participants, then it tells them all to go ahead and perform their commits. A single no vote is enough for the transaction manager to send out a rollback to all parties.
+:ID: 1679710267627330307
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1947-1952
+:HIGHLIGHT: This approach relies on all parties halting until the central coordinating process tells them to proceed. This means we are vulnerable to outages. If the transaction manager goes down, the pending transactions never complete. If a cohort fails to respond during voting, everything blocks. And there is also the case of what happens if a commit fails after voting. There is an assumption implicit in this algorithm that this cannot happen: if a cohort says yes during the voting period, then we have to assume it will commit. Cohorts need a way of making this commit work at some point. This means this algorithm isn’t foolproof — rather, it just tries to catch most failure cases.
+:ID: 819201147685058015
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 1949-1952
+:NOTE: Two phase commit limitation
+:HIGHLIGHT: There is an assumption implicit in this algorithm that this cannot happen: if a cohort says yes during the voting period, then we have to assume it will commit. Cohorts need a way of making this commit work at some point. This means this algorithm isn’t foolproof — rather, it just tries to catch most failure cases.
+:ID: 581847922432351184
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1953-1955
+:HIGHLIGHT: Distributed transactions have been implemented for specific technology stacks, such as Java’s Transaction API, allowing for disparate resources like a database and a message queue to all participate in the same, overarching transaction.
+:ID: 1437987863101089193
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2158-2160
+:HIGHLIGHT: With CI, the core goal is to keep everyone in sync with each other, which we achieve by making sure that newly checked-in code properly integrates with existing code. To do this, a CI server detects that the code has been committed, checks it out, and carries out some verification like making sure the code compiles and that tests pass.
+:ID: 661494517068973570
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 2175-2185
+:NOTE: These seem pretty good to remember .first one looks the hardest
+:HIGHLIGHT: Do you check in to mainline once per day? You need to make sure your code integrates. If you don’t check your code together with everyone else’s changes frequently, you end up making future integration harder. Even if you are using short-lived branches to manage changes, integrate as frequently as you can into a single mainline branch. Do you have a suite of tests to validate your changes? Without tests, we just know that syntactically our integration has worked, but we don’t know if we have broken the behavior of the system. CI without some verification that our code behaves as expected isn’t CI. When the build is broken, is it the #1 priority of the team to fix it? A passing green build means our changes have safely been integrated. A red build means the last change possibly did not integrate. You need to stop all further check-ins that aren’t involved in fixing the builds to get it passing again. If you let more changes pile up, the time it takes to fix the build will increase drastically. I’ve worked with teams where the build has been broken for days, resulting in substantial efforts to eventually get a passing build.
+:ID: 597242182291204290
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2217-2222
+:HIGHLIGHT: The approach I prefer is to have a single CI build per microservice, to allow us to quickly make and validate a change prior to deployment into production, as shown in Figure 6-3. Here each microservice has its own source code repository, mapped to its own CI build. When making a change, I run only the build and tests I need to. I get a single artifact to deploy. Alignment to team ownership is more clear too. If you own the service, you own the repository and the build. Making changes across repositories can be more difficult in this world, but I’d maintain this is easier to resolve (e.g., by using command-line scripts) than the downside of the monolithic source control and build process.
+:ID: 1247924665633965587
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2217-2223
+:HIGHLIGHT: The approach I prefer is to have a single CI build per microservice, to allow us to quickly make and validate a change prior to deployment into production, as shown in Figure 6-3. Here each microservice has its own source code repository, mapped to its own CI build. When making a change, I run only the build and tests I need to. I get a single artifact to deploy. Alignment to team ownership is more clear too. If you own the service, you own the repository and the build. Making changes across repositories can be more difficult in this world, but I’d maintain this is easier to resolve (e.g., by using command-line scripts) than the downside of the monolithic source control and build process.
+:ID: 180959517468758615
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2217-2222
+:HIGHLIGHT: The approach I prefer is to have a single CI build per microservice, to allow us to quickly make and validate a change prior to deployment into production, as shown in Figure 6-3. Here each microservice has its own source code repository, mapped to its own CI build. When making a change, I run only the build and tests I need to. I get a single artifact to deploy. Alignment to team ownership is more clear too. If you own the service, you own the repository and the build. Making changes across repositories can be more difficult in this world, but I’d maintain this is easier to resolve (e.g., by using command-line scripts) than the downside of the monolithic source control and build process.
+:ID: 1247924665633965587
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2230-2234
+:HIGHLIGHT: Very early on in using continuous integration, we realized the value in sometimes having multiple stages inside a build. Tests are a very common case where this comes into play. I may have a lot of fast, small-scoped tests, and a small number of large-scoped, slow tests. If we run all the tests together, we may not be able to get fast feedback when our fast tests fail if we’re waiting for our long-scoped slow tests to finally finish. And if the fast tests fail, there probably isn’t much sense in running the slower tests anyway! A solution to this problem is to have different stages in our build, creating what is known as a build pipeline. One stage for the faster tests, one for the slower tests.
+:ID: 1044662977366148812
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2237-2239
+:HIGHLIGHT: Continuous delivery (CD) builds on this concept, and then some. As outlined in Jez Humble and Dave Farley’s book of the same name, continuous delivery is the approach whereby we get constant feedback on the production readiness of each and every check-in, and furthermore treat each and every check-in as a release candidate.
+:ID: 1925427876329745948
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2286-2293
+:HIGHLIGHT: One way to avoid the problems associated with technology-specific artifacts is to create artifacts that are native to the underlying operating system. For example, for a RedHat– or CentOS-based system, I might build RPMs; for Ubuntu, I might build a deb package; or for Windows, an MSI. The advantage of using OS-specific artifacts is that from a deployment point of view we don’t care what the underlying technology is. We just use the tools native to the OS to install the package. The OS tools can also help us uninstall and get information about the packages too, and may even provide package repositories that our CI tools can push to. Much of the work done by the OS package manager can also offset work that you might otherwise do in a tool like Puppet or Chef. On all Linux platforms I have used, for example, you can define dependencies from your packages to other packages you rely on, and the OS tools will automatically install them for you too. The downside can be the difficulty in creating the packages in the first place.
+:ID: 1268920891405567962
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2294-2294
+:HIGHLIGHT: FPM package manager tool gives a nicer abstraction for creating Linux OS packages,
+:ID: 1805830921329308374
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2321-2330
+:HIGHLIGHT: Over time, watching the same tools get installed over and over again can become a real drag. If you are trying to do this multiple times per day — perhaps as part of development or CI — this becomes a real problem in terms of providing fast feedback. It can also lead to increased downtime when deploying in production if your systems don’t allow for zero-downtime deployment, as you’re waiting to install all the pre-requisites on your machines even before you get to installing your software. Models like blue/green deployment (which we’ll discuss in Chapter 7) can help mitigate this, as they allow us to deploy a new version of our service without taking the old one offline. One approach to reducing this spin-up time is to create a virtual machine image that bakes in some of the common dependencies we use, as shown in Figure 6-5. All virtualization platforms I’ve used allow you to build your own images, and the tools to do so are much more advanced than they were even a few years ago. This shifts things somewhat. Now we could bake the common tools into our own image. When we want to deploy our software, we spin up an instance of this custom image, and all we have to do is install the latest version of our service.
+:ID: 1226790074989288546
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2357-2363
+:HIGHLIGHT: By storing all our configuration in source control, we are trying to ensure that we can automatically reproduce services and hopefully entire environments at will. But once we run our deployment process, what happens if someone comes along, logs into the box, and changes things independently of what is in source control? This problem is often called configuration drift — the code in source control no longer reflects the configuration of the running host. To avoid this, we can ensure that no changes are ever made to a running server. Instead, any change, no matter how small, has to go through a build pipeline in order to create a new machine. You can implement this pattern without using image-based deployments, but it is also a logical extension of using images as artifacts. During our image creation, for example, we could actually disable SSH, ensuring that no one could even log onto the box to make a change!
+:ID: 1626169304543159315
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2384-2386
+:HIGHLIGHT: As you move from your laptop to build server to UAT environment all the way to production, you’ll want to ensure that your environments are more and more production-like to catch any problems associated with these environmental differences sooner. This will be a constant balance.
+:ID: 276562404662189932
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2569-2573
+:HIGHLIGHT: On the left, we see the various layers involved in what is called type 2 virtualization, which is the sort implemented by AWS, VMWare, VSphere, Xen, and KVM. (Type 1 virtualization refers to technology where the VMs run directly on hardware, not on top of another operating system.) On our physical infrastructure we have a host operating system. On this OS we run something called a hypervisor, which has two key jobs. First, it maps resources like CPU and memory from the virtual host to the physical host. Second, it acts as a control layer, allowing us to manipulate the virtual machines themselves.
+:ID: 1552079932477499092
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2595-2596
+:HIGHLIGHT: Rather than having a hypervisor to segment and control separate virtual hosts, Linux containers instead create a separate process space in which other processes live.
+:ID: 1149124201253785511
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2750-2754
+:HIGHLIGHT: At the bottom, we have tests that are technology-facing — that is, tests that aid the developers in creating the system in the first place. Performance tests and small-scoped unit tests fall into this category — all typically automated. This is compared with the top half of the quadrant, where tests help the nontechnical stakeholders understand how your system works. These could be large-scoped, end-to-end tests, as shown in the top-left Acceptance Test square, or manual testing as typified by user testing done against a UAT system, as shown in the Exploratory Testing square.
+:ID: 566754379143794177
+:END:
+
+* [ ] Russell, Mary Doria 
+:PROPERTIES:
+:ID: 15156632276938713
+:END:
+** Children of God [/]
+:PROPERTIES:
+:AUTHOR: Russell, Mary Doria
+:SERIES: The Sparrow series
+:ID: 760683989624644401
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 82
+:LOCATION: 1448-1449
+:HIGHLIGHT: the past looked on the moment, and changed the future. Even the foreigner was marked,
+:ID: 2012815077055729804
+:END:
+
+** The Sparrow [/]
+:PROPERTIES:
+:AUTHOR: Russell, Mary Doria
+:SERIES: The Sparrow series
+:ID: 779272440198043192
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 63
+:LOCATION: 1059-1059
+:HIGHLIGHT: or that one could climb out and escape, if someone cared. He bought a lot of bolita
+:ID: 1027486365202691131
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 63
+:LOCATION: 1059-1059
+:HIGHLIGHT: or that one could climb out and escape, if someone cared. He bought a lot of bolita
+:ID: 1027486365202691131
+:END:
+
+* [ ] Tchaikovsky, Adrian 
+:PROPERTIES:
+:ID: 2111733957504141329
+:END:
+** Children of Ruin [/]
+:PROPERTIES:
+:AUTHOR: Tchaikovsky, Adrian
+:ID: 168059271109970965
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 524
+:LOCATION: 6115-6115
+:HIGHLIGHT: verisimilitude
+:ID: 1177085956426181543
+:END:
+
+* [ ] Jemisin, N. K. 
+:PROPERTIES:
+:ID: 54706758452810428
+:END:
+** The City We Became [/]
+:PROPERTIES:
+:AUTHOR: Jemisin, N. K.
+:SERIES: The Great Cities Trilogy
+:ID: 864991005403087602
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 282
+:LOCATION: 3789-3789
+:HIGHLIGHT: liminal
+:ID: 1752405948857540655
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 289
+:LOCATION: 3893-3893
+:HIGHLIGHT: the only true justice is having the strength to protect oneself against invasion or conquest.
+:ID: 2204644930335817506
+:END:
+
+** The Fifth Season [/]
+:PROPERTIES:
+:AUTHOR: Jemisin, N. K.
+:SERIES: The Broken Earth Book 1
+:ID: 390369701338619847
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 61
+:LOCATION: 752
+:ID: 1784092434749233095
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 221
+:LOCATION: 2646
+:ID: 390461683528405283
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 232
+:LOCATION: 2772
+:ID: 1078151063856063598
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 248
+:LOCATION: 2967
+:ID: 323553043771595324
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 290
+:LOCATION: 3462
+:ID: 1361891120684917453
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 316
+:LOCATION: 3780
+:ID: 1044234404508976473
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 379
+:LOCATION: 4540
+:ID: 440803356382768181
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 379
+:LOCATION: 4540
+:ID: 440803356382768181
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 462
+:LOCATION: 5489
+:ID: 2157666194730331327
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 465
+:LOCATION: 5530
+:ID: 116321566066996179
+:END:
+
+** The Inheritance Trilogy [/]
+:PROPERTIES:
+:AUTHOR: Jemisin, N. K.
+:ID: 1630993341343940537
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 12047-12047
+:HIGHLIGHT: flense.
+:ID: 211040788087480209
+:END:
+
+** The Obelisk Gate [/]
+:PROPERTIES:
+:AUTHOR: Jemisin, N. K.
+:SERIES: The Broken Earth Book 2
+:ID: 495238426034823883
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 931
+:ID: 611361582989807306
+:END:
+
+** The Stone Sky [/]
+:PROPERTIES:
+:AUTHOR: Jemisin, N. K.
+:SERIES: The Broken Earth
+:ID: 234818275595398664
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 2681
+:ID: 1783854680693850075
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 2741
+:ID: 2118347984781160557
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:LOCATION: 5141
+:ID: 1700523542820125314
+:END:
+
+* [ ] Eric Schlosser 
+:PROPERTIES:
+:ID: 1297283333679118848
+:END:
+** Command and Control: Nuclear Weapons, the Damascus Accident, and the Illusion of Safety [/]
+:PROPERTIES:
+:AUTHOR: Eric Schlosser
+:ID: 2117519706415406172
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 375
+:LOCATION: 5744-5744
+:HIGHLIGHT: limited nuclear war. But the Joint Chiefs still balked at making changes to the SIOP—and
+:ID: 2087112134748537071
+:END:
+
+* [ ] Pëtr Kropotkin 
+:PROPERTIES:
+:ID: 2281936230505294223
+:END:
+** The Conquest of Bread [/]
+:PROPERTIES:
+:AUTHOR: Pëtr Kropotkin
+:ID: 1057325412024518742
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 13
+:LOCATION: 189-194
+:HIGHLIGHT: The genius of a Séguin, a Mayer, a Grove, has certainly done more to launch industry in new directions than all the capitalists in the world. But men of genius are themselves the children of industry as well as of science. Not until thousands of steam-engines had been working for years before all eyes, constantly transforming heat into dynamic force, and this force into sound, light, and electricity, could the insight of genius proclaim the mechanical origin and the unity of the physical forces. And if we, children of the nineteenth century, have at last grasped this idea, if we know now how to apply it, it is again because daily experience has prepared the way. The thinkers of the eighteenth century saw and declared it, but the idea remained undeveloped, because the eighteenth century had not grown up like ours, side by side with the steam-engine.
+:ID: 138796361067144688
+:END:
+
+* [ ] Jane Jacobs 
+:PROPERTIES:
+:ID: 722555273135662401
+:END:
+** The Death and Life of Great American Cities [/]
+:PROPERTIES:
+:AUTHOR: Jane Jacobs
+:ID: 67347325627630569
+:END:
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 530-533
+:NOTE: Multithreaded async resolution to n2 problem forced to seriality
+:HIGHLIGHT: In some city areas—older public housing projects and streets with very high population turnover are often conspicuous examples—the keeping of public sidewalk law and order is left almost entirely to the police and special guards. Such places are jungles. No amount of police can enforce civilization where the normal, casual enforcement of it has broken down.
+:ID: 371893088478784316
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 1061-1061
+:NOTE: Where?
+:HIGHLIGHT: Chatham Village
+:ID: 1009137758621794370
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 1916-1917
+:NOTE: What are cities fundamentally for?
+:HIGHLIGHT: Isn’t wide choice and rich opportunity the point of cities?
+:ID: 1251715118508995689
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2790-2810
+:HIGHLIGHT: Meantime, the parking problem three miles from downtown in a section called Oakland is something fierce. “No sooner does one crowd move out of that place than another moves in,” explains an Authority official. “It’s a headache.” It is also easy to understand. Oakland contains the Pittsburgh symphony, the civic light opera, the little-theater group, the most fashionable restaurant, the Pittsburgh Athletic Association, two other major clubs, the main Carnegie library, museum and art galleries, the Historical Society, the Shriners’ Mosque, the Mellon Institute, a favorite hotel for parties, the Y.M.H.A., headquarters of the Board of Education, and all the major hospitals. Because Oakland contains a high disproportion of leisure-time, after-work uses, it is unbalanced too, and Pittsburgh has no good place, either in Oakland or in the working downtown, for generating intensively its principal metropolitan secondary diversity. The standard stores and the lowbrow diversity, such as it is, are downtown. What higher-brow commercial diversity does exist has mostly chosen Oakland as apparently the better bet of the two places; but it is bloodless and marginal because Oakland is far from the effective pool of use that a metropolitan heart should be. Pittsburgh’s instrument for getting into this twofold unbalance was a real estate operator, the late Frank Nicola, who fifty years ago, in the City Beautiful era, began promoting a cultural center on the pristine meadows of a dairy farm. He had a good start because the Carnegie library and art center had already accepted a gift site from the Schenley land holdings. Downtown Pittsburgh in those days was not, in any case, an attractive place for such establishments because it was unrelievedly grim, smoky and sooty. Now, however, downtown Pittsburgh is potentially attractive for leisure use, thanks to the massive cleaning up led by the businessmen’s Allegheny Conference. And theoretically, the downtown’s one-shift unbalance should soon be partly remedied by a civic auditorium and the later addition of a symphony hall and apartments, all immediately adjoining downtown. But the spirit of the dairy farm and of culture decontaminated from the city still reigns. Every device—arterial highways, belts of park, parking lots—severs these projects from the working downtown, insures that their juncture will remain an abstraction on maps instead of a living economic reality of people appearing at different times on the same streets. American downtowns are not declining mysteriously, because they are anachronisms, nor because their users have been drained away by automobiles. They are being witlessly murdered, in good part by deliberate policies of sorting out leisure uses from work uses, under the misapprehension that this is orderly city planning.
+:ID: 2033930870101625680
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 2878-2880
+:NOTE: 'work == industry'
+:HIGHLIGHT: From the time of its white middle- and upper-class beginnings, Harlem never was a workable, economically vigorous residential district of a city, and it probably never will be, no matter who lives there, until it gets, among other physical improvements, a good, healthy mixture of work stirred alongside and among its stretches of dwellings.
+:ID: 2130746383231399541
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 3143-3151
+:HIGHLIGHT: Age of buildings, in relation to usefulness or desirability, is an extremely relative thing. Nothing in a vital city district seems to be too old to be chosen for use by those who have choice—or to have its place taken, finally, by something new. And this usefulness of the old is not simply a matter of architectural distinction or charm. In the Back-of-the-Yards, Chicago, no weather-beaten, undistinguished, run-down, presumably obsolete frame house seems to be too far gone to lure out savings and to instigate borrowing—because this is a neighborhood that people are not leaving as they achieve enough success for choice. In Greenwich Village, almost no old building is scorned by middle-class families hunting a bargain in a lively district, or by rehabilitators seeking a golden egg. In successful districts, old buildings “filter up.” At the other extreme, in Miami Beach, where novelty is the sovereign remedy, hotels ten years old are considered aged and are passed up because others are newer. Newness, and its superficial gloss of well-being, is a very perishable commodity.
+:ID: 535630380290854258
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 3569-3570
+:HIGHLIGHT: most precious economic assets.” Between
+:ID: 1644842531539098875
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 3570-3572
+:NOTE: Check delta
+:HIGHLIGHT: Between 1958 and 1980, Dr. Hauser points out, the U.S. population is going to increase by an amount somewhere between 57 million (assuming a decline to the low 1942-44 birth rate) and 99 million (assuming an increase in birth rate 10 percent above the 1958 level).
+:ID: 2056502057416648069
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 3760-3761
+:HIGHLIGHT: Considering the hazard of monotony…the most serious fault in our zoning laws lies in the fact that they permit an entire area to be devoted to a single use.
+:ID: 109224516202046265
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 3788-3790
+:NOTE: Pittsburgh interior
+:HIGHLIGHT: But it does not follow that junk yards and their like are therefore threats which accompany city diversity. Successful city districts are never dotted with junk yards, but that is not why these districts are successful. It is the other way around. They lack junk yards because they are successful.
+:ID: 651377477849159617
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 3903-3907
+:HIGHLIGHT: Raskin, in his essay on variety, suggested that the greatest flaw in city zoning is that it permits monotony. I think this is correct. Perhaps the next greatest flaw is that it ignores scale of use, where this is an important consideration, or confuses it with kind of use, and this leads, on the one hand, to visual (and sometimes functional) disintegration of streets, or on the other hand to indiscriminate attempts to sort out and segregate kinds of uses no matter what their size or empiric effect.
+:ID: 1709802546917850398
+:END:
+
+* [ ] Oxford World's Classics 
+:PROPERTIES:
+:ID: 1949050373285230169
+:END:
+** Ecce Homo_ How One Becomes What One Is [/]
+:PROPERTIES:
+:AUTHOR: Oxford World's Classics
+:ID: 2197088782196394775
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 13-13
+:HIGHLIGHT: reproduced in Keith Ansell Pearson and Duncan Large (eds.), The
+:ID: 1833571473692583672
+:END:
+
+* [ ] Unknown 
+:PROPERTIES:
+:ID: 1059165807866958696
+:END:
+** Ellen Raskin - T. Z. Faden [/]
+:PROPERTIES:
+:ID: 546012752056963123
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 200
+:ID: 665419973304166290
+:END:
+
+** Never Gymless - 2006 - Ross Enamait [/]
+:PROPERTIES:
+:ID: 788406070247441204
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 195
+:ID: 1039861308108224267
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 199
+:ID: 860441554412989461
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 204
+:ID: 2287431252091702228
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 206
+:ID: 298174602692026146
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 216
+:ID: 339379931202289421
+:END:
+
+** The Path to Power: The Years of Lyndon Johnson I [/]
+:PROPERTIES:
+:ID: 711324348549809226
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 379-383
+:HIGHLIGHT: Upon assuming the office, he announced that he was immediately placing all his business affairs in a “blind trust,” of whose activities, he said, he would not even be kept informed. But these attorneys say that the establishment of the trust was virtually simultaneous with the installation in the White House of private telephone lines to Texas lawyers associated with the administration of the trust—and they say that during the entire five years of his Presidency, Johnson personally directed his business affairs, down to the most minute details.
+:ID: 1305865584655753163
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 1744-1745
+:HIGHLIGHT: that could befall a little child wandering alone. She would run first down to the Pedernales
+:ID: 848399101070186939
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 2277-2278
+:HIGHLIGHT: who didn’t go to work for “the interests” at sizable retainers—were given well-paid sinecures
+:ID: 1858150971891996654
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 4339-4340
+:HIGHLIGHT: much as he enjoyed giving them—had found, in students like Bill Deason, Wilton Woods
+:ID: 2147253125430680965
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 4838-4839
+:HIGHLIGHT: Building—there was only one House Office Building then, the one now known as the Cannon
+:ID: 744000532385954930
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 4841-4842
+:HIGHLIGHT: Included in its half-million residents—twice as many as the average Texas district—was one
+:ID: 1867967879394923012
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 7044-7045
+:HIGHLIGHT: Roosevelt’s orders, Corcoran was working tirelessly beside him—and Senator Hugo Black’s
+:ID: 1320165877114352722
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 7751-7752
+:HIGHLIGHT: there would, among others, be not only a Lyndon Johnson Roth but a Lyndon Baines Crider.
+:ID: 1527490742987325704
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 7751-7752
+:HIGHLIGHT: there would, among others, be not only a Lyndon Johnson Roth but a Lyndon Baines Crider.
+:ID: 1527490742987325704
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 8569-8570
+:HIGHLIGHT: majority.) One candidate was a perennial also-ran not taken seriously, one was a Townsendite
+:ID: 475704035838567404
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 11546-11547
+:HIGHLIGHT: in 1932, succeeded in having outlawed (in the Norris-La Guardia Act) the hated yellow
+:ID: 1548412875697072445
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 13747-13747
+:NOTE: Wa
+:HIGHLIGHT: Lewis County
+:ID: 536266536473747815
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 15245-15247
+:NOTE: Heh
+:HIGHLIGHT: He had personally negotiated with old Archie, with whom he had served in the State Senate, for the Parr-controlled votes in Nueces County in a 1928 Democratic attempt to defeat Congressman Harry Wurzbach which failed when Wurzbach made charges of election fraud stick.
+:ID: 1760789525594754674
+:END:
+
+** quantitative economics with julia - Unknown [/]
+:PROPERTIES:
+:ID: 425538488880352246
+:END:
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 57-57
+:NOTE: You couldve just said that
+:HIGHLIGHT: sum(z -> z^2, z) # same as `sum(x^2 for x in z)
+:ID: 94649348186645537
+:END:
+
+** Spinoza's Ethics_ An Introduction - Steven Nadler [/]
+:PROPERTIES:
+:ID: 1123512625859617183
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: xiv
+:HIGHLIGHT: exegetical
+:ID: 31120307048658275
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 45
+:HIGHLIGHT: perspicuous
+:ID: 1410566185244713232
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 55
+:HIGHLIGHT: epistemological
+:ID: 1662996267682214486
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 55
+:HIGHLIGHT: ontological
+:ID: 1662996267682214486
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 56-56
+:HIGHLIGHT: “By attribute I understand what the intellect perceives of a substance as constituting its essence. ” An attribute is the most general and underlying nature of a thing
+:ID: 648577277930705251
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 56-56
+:HIGHLIGHT: “By attribute I understand what the intellect perceives of a substance as constituting its essence. ” An attribute is the most general and underlying nature of a thing. It is the thing’s principal property – or, better, the nature that underlies all of its properties
+:ID: 648577277930705251
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 56-56
+:HIGHLIGHT: To speak of the attribute of a substance is to refer to the most general kind of thing that it is. In fact, the attribute is so important for making a substance what it is in the most basic sense that if two substances have different attributes, then, as Spinoza states in IP2, they have absolutely nothing in common with each other
+:ID: 648577277930705251
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 57-57
+:HIGHLIGHT: the names ‘Israel’ and ‘Jacob’ refer to the same Biblical individual
+:ID: 1051778763400302088
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 59-59
+:HIGHLIGHT: all-important IA4: “The knowledge of an effect depends on, and involves, the knowledge of its cause.
+:ID: 1353855882728146529
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 60-60
+:HIGHLIGHT: IP5: “In nature there cannot be two or more substances of the same nature or attribute.
+:ID: 608977859489594669
+:END:
+
+* [ ] Vernor Vinge 
+:PROPERTIES:
+:ID: 740275049361774174
+:END:
+** A Fire Upon the Deep [/]
+:PROPERTIES:
+:AUTHOR: Vernor Vinge
+:ID: 1828515187758697344
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 112
+:LOCATION: 1705-1706
+:HIGHLIGHT: Ravna was no physical- layer engineer, but she knew that Relay’s backbone transceivers were actually swarms of antenna elements scattered across several light years, each element ten-thousand kilometers
+:ID: 2292759553474065634
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 119
+:LOCATION: 1821
+:ID: 2305699236419389800
+:END:
+
+** A Fire Upon the Deep [/]
+:PROPERTIES:
+:AUTHOR: Vernor Vinge
+:ID: 1065060001141020654
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 202
+:LOCATION: 3090
+:ID: 1367200022807931742
+:END:
+
+* [ ] Vinge, Vernor 
+:PROPERTIES:
+:ID: 1264264748552144511
+:END:
+** A Fire Upon The Deep [/]
+:PROPERTIES:
+:AUTHOR: Vinge, Vernor
+:SERIES: Zones of Thought series Book 1
+:ID: 1496669336535723783
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 170
+:LOCATION: 2638-2638
+:HIGHLIGHT: they could simply turn them off. The Skroderiders were one of the most common sophonts
+:ID: 1442060231525688966
+:END:
+
+* [ ] David Allen 
+:PROPERTIES:
+:ID: 1754626146354191068
+:END:
+** Getting Things Done: The Art of Stress-Free Productivity [/]
+:PROPERTIES:
+:AUTHOR: David Allen
+:ID: 1735202083156874020
+:END:
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 74
+:LOCATION: 1127-1129
+:NOTE: Greatc quote
+:HIGHLIGHT: Don’t just do something. Stand there. —Rochelle Myer
+:ID: 1434802098276537076
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 81
+:LOCATION: 1240-1240
+:HIGHLIGHT: automatic creative mechanism is teleological.
+:ID: 1429693595659560438
+:END:
+
+* [ ] Mars Trilogy Book 2 
+:PROPERTIES:
+:ID: 869693347976562904
+:END:
+** Green Mars [/]
+:PROPERTIES:
+:AUTHOR: Mars Trilogy Book 2
+:ID: 1173120421185669856
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 168
+:LOCATION: 2791-2792
+:HIGHLIGHT: the calculus of human interaction being so much more subtle and variable than any physics, somewhat like the emerging field of math called cascading recombinant chaos,
+:ID: 304535308854291393
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 333
+:LOCATION: 5537-5541
+:HIGHLIGHT: everywhere. No attempt was being made to hide any of this activity from satellite observation. The Sufis’ circular mesa dwelling in Margaritifer, and their main settlement in the south, Rumi, were similarly unconcealed. Yet they had never been harassed in any way by anybody, or even contacted by the Transitional Authority. This made one of their leaders, a small black man named Dhu el-Nun, think the fears of the underground were exaggerated. Nadia politely disagreed, and when Nirgal pressed her on the point, curious about it, she looked at him steadily. “They hunt the First Hundred.”
+:ID: 453810405505481193
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 333
+:LOCATION: 5537-5541
+:HIGHLIGHT: No attempt was being made to hide any of this activity from satellite observation. The Sufis’ circular mesa dwelling in Margaritifer, and their main settlement in the south, Rumi, were similarly unconcealed. Yet they had never been harassed in any way by anybody, or even contacted by the Transitional Authority. This made one of their leaders, a small black man named Dhu el-Nun, think the fears of the underground were exaggerated. Nadia politely disagreed, and when Nirgal pressed her on the point, curious about it, she looked at him steadily. “They hunt the First Hundred.”
+:ID: 453810405505481193
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 334
+:LOCATION: 5541-5541
+:HIGHLIGHT: “They hunt the First Hundred.”
+:ID: 228032411859607875
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 370
+:LOCATION: 6137-6139
+:HIGHLIGHT: “We have to argue all of it! Even if you want no state, or a minimal state, then you still have to argue it point by point. Especially since most minimalists want to keep exactly the economic and police system that keeps them privileged. That’s libertarians for you—anarchists who want police protection from their slaves.
+:ID: 1763756981346419714
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 463
+:LOCATION: 7670-7670
+:HIGHLIGHT: brecciated rock, formed during the brief but stupendous pressures of the impact. These
+:ID: 1940611001181584749
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 463
+:LOCATION: 7670-7670
+:HIGHLIGHT: brecciated rock, formed during the brief but stupendous pressures of the impact. These
+:ID: 1940611001181584749
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 506
+:LOCATION: 8425
+:ID: 1808463143055252845
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 540
+:LOCATION: 9019
+:ID: 1133750043971372250
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 568
+:LOCATION: 9455
+:ID: 96199148557786053
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 614
+:LOCATION: 10257
+:ID: 108984252699187096
+:END:
+
+* [ ] J. R. R. Tolkien 
+:PROPERTIES:
+:ID: 1853311775519114928
+:END:
+** The Hobbit [/]
+:PROPERTIES:
+:AUTHOR: J. R. R. Tolkien
+:ID: 1944199403598543243
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 228-229
+:HIGHLIGHT: “Of course!” said Bilbo, and sat down in a hurry. He missed the stool and sat in the fender,
+:ID: 208949939730720869
+:END:
+
+** The Lord of the Rings [/]
+:PROPERTIES:
+:AUTHOR: J. R. R. Tolkien
+:ID: 762954708512823977
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 15639-15640
+:HIGHLIGHT: lost. Make haste!’ Flinging on some clothes, Merry looked outside. The world was darkling.
+:ID: 190569054360378261
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:LOCATION: 16415-16415
+:NOTE: Translate
+:HIGHLIGHT: dwimmerlaik,
+:ID: 2020902774068906401
+:END:
+
+* [ ] Italo Calvino 
+:PROPERTIES:
+:ID: 1228594482168990555
+:END:
+** If on a winter's night a traveler [/]
+:PROPERTIES:
+:AUTHOR: Italo Calvino
+:ID: 839944288987288543
+:END:
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 21
+:LOCATION: 316-316
+:NOTE: Transitivity games
+:HIGHLIGHT: The express arrives at top speed. It slows down, stops, erases me from the chief's sight, pulls out again.
+:ID: 1997494201262693199
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 145
+:LOCATION: 2212-2212
+:HIGHLIGHT: in invincible phalanxes and blocking their path whichever way they turn. In a catoptric
+:ID: 563026163788872230
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 195
+:LOCATION: 2983-2992
+:NOTE: Body as costume
+:HIGHLIGHT: Sheila looks at you with an air of challenge. "Unbutton ... ? Just you try...." Now that you have decided to fight, you can't draw back. With a frantic hand you unbutton the white smock of Sheila the programmer and you discover the police uniform of Alfonsina; you rip Alfonsina's gold buttons away and you find Corinna's anorak; you pull the zipper of Corinna and you see the chevrons of Ingrid.... It is she herself who tears off the clothes that remain on her. A pair of breasts appear, firm, melon-shaped, a slightly concave stomach, the full hips of a fausse maigre, a proud pubes, two long and solid thighs. "And this? Is this a uniform?" Sheila exclaims. You have remained upset. "No, this, no..." you murmur. "Yes, it is!" Sheila cries. "The body is a uniform! The body is armed militia! The body is violent action! The body claims power! The body's at war! The body declares itself subject! The body is an end and not a means! The body signifies! Communicates! Shouts! Protests! Subverts!"
+:ID: 745883761049619120
+:END:
+
+* [ ] Prokopec,  Aleksandar 
+:PROPERTIES:
+:ID: 1997267531724633399
+:END:
+** Learning Concurrent Programming in Scala [/]
+:PROPERTIES:
+:AUTHOR: Prokopec,  Aleksandar
+:ID: 807365826283003840
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 120
+:LOCATION: 2540-2542
+:HIGHLIGHT: A promise and a future represent two aspects of a single-assignment variable: the promise allows you to assign a value to the future object, whereas the future allows you to read that value.
+:ID: 578257886807203719
+:END:
+
+* [ ] Le Guin, Ursula K. 
+:PROPERTIES:
+:ID: 1260698149094693268
+:END:
+** The Left Hand of Darkness [/]
+:PROPERTIES:
+:AUTHOR: Le Guin, Ursula K.
+:SERIES: Ace Science Fiction
+:ID: 1719545852906938717
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 69
+:LOCATION: 1003-1006
+:HIGHLIGHT: “Well, we come here to the Fastnesses mostly to learn what questions not to ask.” “But you’re the Answerers!” “You don’t see yet, Genry, why we perfected and practice Foretelling?” “No—” “To exhibit the perfect uselessness of knowing the answer to the wrong question
+:ID: 1273452752666627006
+:END:
+
+** Worlds of Exile and Illusion [/]
+:PROPERTIES:
+:AUTHOR: Le Guin, Ursula K.
+:ID: 836276464792209275
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 54
+:LOCATION: 941-942
+:HIGHLIGHT: “You’ve had some of it,” said the bearded man, watching him feel the lump on his occiput.
+:ID: 251664148466190247
+:END:
+
+* [ ] Alex Edwards 
+:PROPERTIES:
+:ID: 34839939700523616
+:END:
+** Let's Go [/]
+:PROPERTIES:
+:AUTHOR: Alex Edwards
+:ID: 1579817522019168212
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 198-199
+:HIGHLIGHT: GOPATH directory. I’m going to locate my project directory under $HOME/code, but you
+:ID: 1573906643947363979
+:END:
+
+* [ ] Bulgakov, Mikhail 
+:PROPERTIES:
+:ID: 1371228063962222974
+:END:
+** The Master & Margarita [/]
+:PROPERTIES:
+:AUTHOR: Bulgakov, Mikhail
+:ID: 2189285501449390580
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 81
+:LOCATION: 1536
+:ID: 908486987053289492
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 201
+:LOCATION: 3903-3904
+:HIGHLIGHT: The amusing conversation ended in a pleasant surprise for Natasha. Margarita Nikolayevna
+:ID: 634135879052344573
+:END:
+
+* [ ] Gabriel Garcia Marquez 
+:PROPERTIES:
+:ID: 915560226989330683
+:END:
+** One Hundred Years of Solitude [/]
+:PROPERTIES:
+:AUTHOR: Gabriel Garcia Marquez
+:ID: 623175905414245754
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 1
+:LOCATION: 10-11
+:HIGHLIGHT: Macondo
+:ID: 955435819650725784
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 1
+:LOCATION: 10-10
+:HIGHLIGHT: Colonel Aureliano Buendía
+:ID: 971858802617992151
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 1
+:LOCATION: 14-15
+:HIGHLIGHT: Melquíades,
+:ID: 1819437980445378985
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 2
+:LOCATION: 19-19
+:HIGHLIGHT: José Arcadio Buendía,
+:ID: 2041659099354162482
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 2
+:LOCATION: 22-22
+:HIGHLIGHT: Úrsula Iguarán,
+:ID: 1027578534979217814
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 6
+:LOCATION: 81-81
+:HIGHLIGHT: Aureliano,
+:ID: 206682554915719474
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 6
+:LOCATION: 84-84
+:HIGHLIGHT: José Arcadio,
+:ID: 258787314167600996
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 9
+:LOCATION: 138-138
+:HIGHLIGHT: Aureliano Buendía, his grandfather—Sir
+:ID: 1206313745726077120
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 18
+:LOCATION: 261-262
+:NOTE: First one
+:HIGHLIGHT: Don José Arcadio Buendía, with whom Úrsula’s great-great-grandfather established a partnership that was so lucrative that within a few years they made a fortune.
+:ID: 688462738503285802
+:END:
+
+* [ ] Keith Roberts 
+:PROPERTIES:
+:ID: 1731210537498203081
+:END:
+** Pavane [/]
+:PROPERTIES:
+:AUTHOR: Keith Roberts
+:ID: 481910299595880532
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 71
+:LOCATION: 1083-1084
+:HIGHLIGHT: glasses as ever bumping his hip. In the copse, his Fate was waiting. The catamount
+:ID: 201845328005669106
+:END:
+
+* [ ] Shirer, William 
+:PROPERTIES:
+:ID: 1514546451097227662
+:END:
+** The Rise and Fall of the Third Reich [/]
+:PROPERTIES:
+:AUTHOR: Shirer, William
+:ID: 306659382532135010
+:END:
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 2
+:LOCATION: 19-21
+:NOTE: I suppose i should finally read this person
+:HIGHLIGHT: Those who do not remember the past are condemned to relive it.   —Santayana
+:ID: 1657984903665555596
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 149
+:LOCATION: 2272-2272
+:HIGHLIGHT: turgid
+:ID: 689543025410810048
+:END:
+
+* [ ] Isaac Asimov 
+:PROPERTIES:
+:ID: 103528790171263251
+:END:
+** The Robots of Dawn [/]
+:PROPERTIES:
+:AUTHOR: Isaac Asimov
+:ID: 284471846727288017
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 201
+:LOCATION: 3080
+:ID: 2030340670434442517
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 343
+:LOCATION: 5245
+:ID: 2302998486083057584
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 449
+:LOCATION: 6877
+:ID: 344217559131438159
+:END:
+
+* [ ] John Bolton; 
+:PROPERTIES:
+:ID: 2130431211749600096
+:END:
+** The Room Where It Happened [/]
+:PROPERTIES:
+:AUTHOR: John Bolton;
+:ID: 666643918221793987
+:END:
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 2
+:LOCATION: 23-27
+:NOTE: Hahahahahahaha
+:HIGHLIGHT: The axis of adults in many respects caused enduring problems not because they successfully managed Trump, as the High-Minded (an apt description I picked up from the French for those who see themselves as our moral betters) have it, but because they did precisely the opposite. They didn’t do nearly enough to establish order, and what they did do was so transparently self-serving and so publicly dismissive of many of Trump’s very clear goals (whether worthy or unworthy) that they fed Trump’s already-suspicious mind-set, making it harder for those who came later to have legitimate policy exchanges with the President.
+:ID: 1951667441167002829
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 6
+:LOCATION: 86-87
+:NOTE: Hahahaha
+:HIGHLIGHT: While foreign-policy labels are unhelpful except to the intellectually lazy, if pressed, I liked to say my policy was “pro-American.”
+:ID: 810705129827786656
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 7
+:LOCATION: 106-106
+:NOTE: HE means beyond doubt lol
+:HIGHLIGHT: beyond peradventure
+:ID: 372024336053128899
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 9
+:LOCATION: 128-129
+:NOTE: Interventionists all
+:HIGHLIGHT: pro-Israel Americans (Jews and evangelicals alike), Second Amendment supporters, Cuban-Americans, Venezuelan-Americans, Taiwanese-Americans, and conservatives generally.
+:ID: 335142572104808591
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 12
+:LOCATION: 173-180
+:HIGHLIGHT: At Defense, there was also turmoil over the Deputy Secretary job, as Mattis pushed for Obama-era official Michèle Flournoy. Flournoy, a Democrat, might have been Secretary of Defense herself had Clinton won, but why Mattis wanted her in a Republican Administration was hard to fathom.6 Subsequently, Mattis also pressed for Anne Patterson, a career Foreign Service officer, to fill the critical job of Under Secretary of Defense for Policy. I had worked several times with Patterson and knew her to be philosophically compatible for a senior policy position in a liberal Democratic Administration, but hardly in a Republican one. Senator Ted Cruz questioned Mattis about Patterson, but Mattis was unable or unwilling to explain his reasons, and the nomination, under increasing opposition from Republican Senators and others, ultimately collapsed.
+:ID: 1551332374731956146
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 14
+:LOCATION: 206-206
+:NOTE: Modulo McConnell But true
+:HIGHLIGHT: and likely to be hotly litigated in a judiciary filled with eight years of Obama appointees.
+:ID: 883810726846216560
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 14
+:LOCATION: 208-209
+:NOTE: ?
+:HIGHLIGHT: it, although the cable’s arguments were weak, disjointed, and poorly presented.
+:ID: 1748761752313659420
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 15
+:LOCATION: 224-225
+:NOTE: Dont they always
+:HIGHLIGHT: “the building” (as all who worked there referred to it),
+:ID: 212983014263453428
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 20
+:LOCATION: 302-305
+:NOTE: He is always narrating his life like this 100%
+:HIGHLIGHT: But I ended the Administration’s first hundred days secure in my own mind about what I was prepared to do and what I wasn’t. After all, as Cato the Younger says in one of George Washington’s favorite lines from his favorite play, “When vice prevails, and impious men bear sway, the post of honor is a private station.”
+:ID: 191469730726785521
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 21
+:LOCATION: 312-317
+:NOTE: requires some pretty serious cogdiss about KSA
+:HIGHLIGHT: the semblance of a solution, diverting attention from the dangers, and lifting the economic sanctions that had imposed substantial pain on Iran’s economy, while allowing Tehran to proceed essentially unimpeded. Moreover, the deal did not seriously address other threats Iran posed: its ballistic-missile program (a thinly disguised effort to develop delivery vehicles for nuclear weapons); its continuing role as the world’s central banker for international terrorism; and its other malign activity in the region, through the intervention and growing strength of the Quds Force, the Islamic Revolutionary Guard Corps’s external military arm, in Iraq, Syria, Lebanon, Yemen, and elsewhere.
+:ID: 2152524847738271685
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 22
+:LOCATION: 332-335
+:NOTE: What a twisted rambling sentence
+:HIGHLIGHT: Life at the White House developed its own rhythm, with Trump firing FBI Director James Comey later in May (at Kushner’s suggestion, according to Bannon), then meeting with Russian Foreign Minister Sergei Lavrov (whom I had known for over twenty-five years at that point) and allegedly being less than cautious in discussing classified material, calling Comey a “nutjob,” according to the unbiased New York Times.
+:ID: 658646120706209210
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 26
+:LOCATION: 393-396
+:HIGHLIGHT: “I hear what Rex talked to you about won’t work. Don’t take some half-assed position over there. If he offers you something that’s really great, okay, whatever, but otherwise just wait. I’m going to call you,” concluding the call by saying I should “come and see [him] next week” on Iran. Bannon texted me right afterward, “We talk about it/u everyday.”
+:ID: 650594619437317775
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 28
+:LOCATION: 417-419
+:HIGHLIGHT: Kushner in his West Wing office. Although we talked about his Middle East plan and Iran, what really got his attention was the photo I brought of the gaudy entrance to Special Counsel Robert Mueller’s office, located in the building where my SuperPAC was located.
+:ID: 1678981317423481358
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 33
+:LOCATION: 504-505
+:NOTE: What business was this ofboltons? Guaranteed it wasnt much money,they have tons more skin in game of rapprochement
+:HIGHLIGHT: In fact, Kim Yo Jong did have a mission, inviting Moon to the North, which he accepted instantly. It trickled out later that Seoul had paid Pyongyang’s costs of participating in the games, not from any Olympic spirit, but following a sad, well-established pattern.
+:ID: 1135272148047776518
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 35
+:LOCATION: 534-536
+:NOTE: Why?
+:HIGHLIGHT: Trump asked what I thought Mattis had done well, and I cited the major defense budget increase over the Obama years the Administration had recently won. Before I could finish, both Trump and Kelly said simultaneously the budget win was Trump’s accomplishment, not Mattis’s. I thought that was a real revelation about Trump’s attitude toward Mattis.
+:ID: 1334026123072917749
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 36
+:LOCATION: 543-545
+:NOTE: True
+:HIGHLIGHT: I heard Kim Jong Un had invited Trump to meet, and he had accepted. I was beyond speechless, appalled at this foolish mistake. For a US President to grant Kim a summit with no sign whatever of a strategic decision to renounce nuclear weapons—in fact, giving it away for nothing—was a propaganda gift beyond measure.
+:ID: 2115319371667447693
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 36
+:LOCATION: 545-546
+:HIGHLIGHT: was worse by orders of magnitude than Madeleine Albright clinking glasses with Kim Il Sung during the Clinton years.
+:ID: 30940863087205168
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 39
+:LOCATION: 584-585
+:NOTE: Mmmm.
+:HIGHLIGHT: Others may have failed for one reason or another, but I thought I could succeed. Was I right? Read on.
+:ID: 360448234998652694
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 40
+:LOCATION: 608-611
+:NOTE: Lol
+:HIGHLIGHT: so I took care to mention even the outlandish things that lazy, biased, incompetent reporters had published at my expense, including that Maria Butina had tried to recruit me as a Russian agent. (I do not think the press is “an enemy of the people,” but, as Dwight Eisenhower said in 1964, its ranks are filled with “sensation-seeking columnists and commentators” whose writings mark them as little more than intellectualoids.)
+:ID: 1232125586801034420
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 40
+:LOCATION: 613-615
+:NOTE: Bless you daddy
+:HIGHLIGHT: Kissinger, who said, “I have great confidence in you, and I wish you every success. You know the subject. You know the bureaucracy. I know you are able to handle it.” And most important, Kissinger, like every predecessor with whom I spoke, Republican and Democrat alike, offered their support.
+:ID: 166628375129564522
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 49
+:LOCATION: 740-741
+:NOTE: Doubt
+:HIGHLIGHT: I sensed, over the phone, that Mattis was reading from a prepared text.
+:ID: 1568109039350417714
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 50
+:LOCATION: 764-768
+:HIGHLIGHT: UN Ambassador Nikki Haley (who had participated in the Principals Committee via secure telecommunications from New York) was calling to ask what to say in the Security Council that afternoon. This was apparently the normal way she learned what to do in the Council, completely outside the regular NSC process, which I found amazing. As a former UN Ambassador myself, I had wondered at Haley’s untethered performance in New York over the past year-plus; now I saw how it actually worked.
+:ID: 892770476762489697
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 55
+:LOCATION: 842-843
+:HIGHLIGHT: Listening to him (his remarks were always interpreted), he sounded like Mussolini speaking from his Rome balcony, except that Erdogan was talking in that tone and volume over the phone. It was as if he were lecturing us while standing on the Resolute desk.
+:ID: 1595017227865005665
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 56
+:LOCATION: 845-846
+:HIGHLIGHT: Ibrahim Kalin, my Turkish counterpart (and also Erdogan’s press spokesman, an interesting combination),
+:ID: 1722436972417394949
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 61
+:LOCATION: 923-925
+:HIGHLIGHT: Haley, said Trump, had some disagreement with Tillerson, who responded, “Don’t ever talk to me that way again.” Before Haley could say anything, Tillerson said, “You’re nothing but a cunt, and don’t ever forget it.” In most Administrations, that would have gotten Tillerson fired, so I wondered if he ever actually said it.
+:ID: 736596040161790889
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 63
+:LOCATION: 958-960
+:HIGHLIGHT: As he had done a few days before, he raised the possibility of a pardon for Scooter Libby, which I strongly supported. I had known Libby since the Bush 41 Administration and felt his treatment in the Valerie Plame affair demonstrated all the reasons why the “independent counsel” concept was so badly flawed and so unjust.
+:ID: 2224536376726451331
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 65
+:LOCATION: 994-995
+:HIGHLIGHT: Although the first Abe-Trump meeting was on political matters, our briefing room was filled with trade-policy types who, having heard there was a briefing, wandered in.
+:ID: 117406561457051341
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 65
+:LOCATION: 995-997
+:HIGHLIGHT: Trump was late, so I said we would have a brief discussion on trade and then get to North Korea. It was a mistake. Trump, set off by a comment that we had no better ally than Japan, jarringly complained about Japan’s attack on Pearl Harbor. Things went downhill from there.
+:ID: 381215640650225596
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 67
+:LOCATION: 1018-1020
+:HIGHLIGHT: As for his assessment of Putin himself, he never offered an opinion, at least in front of me. I never asked what Trump’s view was, perhaps afraid of what I might hear. His personal take on the Russian leader remained a mystery.
+:ID: 1271922668236237850
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 68
+:LOCATION: 1040-1041
+:HIGHLIGHT: screaming matches between Al Haig and Jeane Kirkpatrick in the early days of the Reagan Administration,
+:ID: 877793066455978384
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 69
+:LOCATION: 1054-1055
+:NOTE: Book title?
+:HIGHLIGHT: Haley immediately fired off a message to Fox’s Dana Perino: “With all due respect, I don’t get confused,” and, boom, the war was on again, at least for a while. Haley got a good book title out of the incident. But, with all due respect, Haley wasn’t confused. She was wrong.
+:ID: 891596083757992635
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 71
+:LOCATION: 1082-1084
+:HIGHLIGHT: Paul eventually declared support for Pompeo, in exchange for Pompeo’s saying (1) that the 2003 Iraq war had been a mistake, and (2) at least according to a Paul tweet, that regime change was a bad idea and that we should withdraw from Afghanistan as soon as possible.
+:ID: 1273429506734967147
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 72
+:LOCATION: 1101-1101
+:NOTE: Believed in yoga lol
+:HIGHLIGHT: After these sessions, had I believed in yoga, I probably could have used some.
+:ID: 489969927228365187
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 72
+:LOCATION: 1102-1102
+:HIGHLIGHT: Trump allowed as how “tariffs are a man’s best friend,”
+:ID: 1110624185253581558
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 73
+:LOCATION: 1114-1115
+:HIGHLIGHT: “ridiculous,” and the like.4 I wondered if this time people would take it seriously. With
+:ID: 732843109039153348
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 73
+:LOCATION: 1115-1133
+:NOTE: B. Knows whats best for the world.
+:HIGHLIGHT: With the press cleared from the Oval, Trump and Macron spoke alone for much longer than expected, the bulk of which consisted, as Trump told me later, of his explaining to Macron that we were exiting the Iran deal.5 Macron tried to persuade Trump not to withdraw but failed. Instead, Macron worked to ensnare Trump in a larger negotiating framework of “four pillars” that was discussed in the expanded meeting in the Cabinet Room after the one-on-one (the four pillars being: handling Iran’s nuclear program now; handling it tomorrow; Iran’s ballistic-missile program; and regional peace and security).6 Macron was a clever politician, trying to spin a clear defeat into something that sounded at least somewhat positive from his perspective. Speaking almost entirely in English during the meeting, he said unambiguously about the agreement: “No one thinks it’s a sufficient deal,”7 arguing we should work for “a new comprehensive agreement” based on the four pillars. During the meeting, Trump asked for my opinion of the Iran deal. I said it wouldn’t stop Iran from getting nuclear weapons and that there was no way to “fix” the deal’s basic flaws. Knowing of Trump’s penchant to deal on anything, I mentioned Eisenhower’s famous observation “If you can’t solve a problem, enlarge it,” and said I thought that was what Macron seemed to be doing. It was something we could explore after withdrawing and reimposing US sanctions, which Mnuchin affirmed we were “completely ready” to do. Said Trump the builder, “You can’t build on a bad foundation. Kerry made a bad deal. I’m not saying what I’m going to do, but if I end the deal, I’m open to making a new deal. I’d rather try to solve everything than leave it like it is.” We should, he said, “get a new deal rather than fixing a bad deal.”8 (Macron told Trump in a subsequent call that he was eager to rush to find a new deal, which didn’t produce any resonance from Trump.) The meeting then turned to trade and other issues, and broke around 12:25 to prepare for the joint press conference. At that event, neither leader said much that was new or different on Iran, although, at one point, Trump observed, “nobody knows what I’m going to do…, although, Mr. President, you have a pretty good idea.”
+:ID: 1301742476455110703
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 75
+:LOCATION: 1145-1149
+:HIGHLIGHT: It was clear to me that Trump thought Germany was Russia’s captive. Trump also used a line I later heard countless times, that “the EU is worse than China except smaller,”10 adding that the EU was set up to take advantage of the US, which Merkel disputed (in English, as the whole meeting was). She also asked for three to four months’ delay in imposing global steel and aluminum tariffs Trump was considering, so the EU could negotiate with the US. Trump answered that he didn’t want to negotiate with the EU.
+:ID: 593093471295713854
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 77
+:LOCATION: 1180-1183
+:HIGHLIGHT: That night as well, Mattis sent me a classified document at home again opposing the withdrawal, but still not requesting a high-level meeting to discuss it. I felt like saying that his position was well preserved and well papered for history, but I refrained. The Pentagon still wasn’t telling us what it would have to do operationally if the US withdrew, having moved from overt opposition into guerilla warfare. It didn’t slow us down.
+:ID: 738169323562206690
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 78
+:LOCATION: 1184-1187
+:NOTE: Ugh its a fucking internatonal deescalation agreement, not a catechism
+:HIGHLIGHT: We reviewed Trump’s recent meetings with Macron and Merkel, and Macron’s “four pillars” idea; Johnson said they had been thinking along the same lines. I said I would be happy to call the idea “Johnson’s four pillars,” and we all laughingly agreed. He, like Macron, stressed that Britain fully understood the existing deal’s weaknesses, which would have surprised many supporters who still worshipped at its altar.
+:ID: 1358609692211743266
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 78
+:LOCATION: 1190-1191
+:NOTE: What the fuck business is this of the NSA?
+:HIGHLIGHT: As we parted, I reminded Johnson that I had said to him the previous summer that I wanted to help out on Brexit, and still did, although we had had little chance to talk about it.
+:ID: 2187229063458134942
+:END:
+
+*** [ ] Note
+:PROPERTIES:
+:PAGE: 78
+:LOCATION: 1196-1199
+:NOTE: Lo
+:HIGHLIGHT: Trump said he would be making a statement on Iran shortly and asked, in an almost childlike way, if Xi wanted to know what he would say. Xi said it sounded like Trump wanted to tell him, a completely on-target insight. Trump, in a “why not?” moment, said that, feeling trust in confiding in Xi, he was terminating the nuclear deal, which was bad, and that we would see what happened. Xi said he would keep the news confidential, adding simply that the US knew China’s position, meaning Xi did not plan to make it a major bilateral issue.
+:ID: 1620550150284259272
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 80
+:LOCATION: 1215-1219
+:HIGHLIGHT: By July 26, it was time to hold a restricted Principals Committee meeting to see how we were doing, which we did at two p.m. in the Sit Room. The most interesting part of the meeting was Mattis’s efforts to downplay the overall importance of Iran in the international threat matrix facing the US. He said Russia, China, and North Korea were bigger threats, although his reasons were vague, and I was pleased to see Pompeo and Mnuchin both push back, given that Iran was one of the top four threats identified in the National Security Strategy Trump had approved before my arrival.
+:ID: 1734193402661891523
+:END:
+
+* [ ] James Clavell 
+:PROPERTIES:
+:ID: 427294953938200497
+:END:
+** Shogun [/]
+:PROPERTIES:
+:AUTHOR: James Clavell
+:ID: 1590045672939822930
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 13
+:LOCATION: 190-191
+:HIGHLIGHT: bosun’s dead.” “Then get the body aloft! Wash it and close his eyes! You, you, and
+:ID: 1741160464704810015
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 81
+:LOCATION: 1232-1233
+:HIGHLIGHT: penury, and their activities perpetually confined to observing the rituals of Shinto, the
+:ID: 2213188725734655651
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 121
+:LOCATION: 1842-1842
+:HIGHLIGHT: gloaming
+:ID: 1279916395832916985
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 254
+:LOCATION: 3888-3888
+:HIGHLIGHT: Tantric Buddhist teacher, Saraha.
+:ID: 1747715332930531268
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 260
+:LOCATION: 3975-3975
+:HIGHLIGHT: we both know him from eternity.
+:ID: 1607303365341106918
+:END:
+
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 293
+:LOCATION: 4485
+:ID: 1810430573244908303
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 752
+:LOCATION: 11520-11520
+:HIGHLIGHT: Fecund
+:ID: 1463088730649598598
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 822
+:LOCATION: 12599-12599
+:HIGHLIGHT: quaffed
+:ID: 635998395946412663
+:END:
+
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 1231
+:LOCATION: 18871-18871
+:HIGHLIGHT: truculent
+:ID: 1765862830959813227
+:END:
+
+* [ ] Harold Abelson;Gerald Jay Sussman;Julie Sussman 
+:PROPERTIES:
+:ID: 1334515778383996963
+:END:
+** Structure and Interpretation of Computer Programs [/]
+:PROPERTIES:
+:AUTHOR: Harold Abelson;Gerald Jay Sussman;Julie Sussman
+:ID: 134315675834055396
+:END:
+*** [ ] Bookmark
+:PROPERTIES:
+:PAGE: 38
+:LOCATION: 582
+:ID: 154079348627106003
+:END:
+
+* [ ] Pullman, Philip 
+:PROPERTIES:
+:ID: 1286208659573323270
+:END:
+** The Subtle Knife [/]
+:PROPERTIES:
+:AUTHOR: Pullman, Philip
+:ID: 132317082123258994
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 261
+:LOCATION: 3991-3992
+:HIGHLIGHT: tocsin in the night. “Can you summon a stiffer breeze, Dr. Grumman?”
+:ID: 455192491239976325
+:END:
+
+* [ ] Friedrich Wilhelm Nietzsche 
+:PROPERTIES:
+:ID: 820283365037872542
+:END:
+** Thus Spake Zarathustra [/]
+:PROPERTIES:
+:AUTHOR: Friedrich Wilhelm Nietzsche
+:ID: 625814695632397609
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:LOCATION: 743-743
+:HIGHLIGHT: Ever hearkeneth the Self, and seeketh; it compareth, mastereth, conquereth,
+:ID: 2140034076113101306
+:END:
+
+* [ ] Junger, Sebastian 
+:PROPERTIES:
+:ID: 1271691690085613700
+:END:
+** Tribe [/]
+:PROPERTIES:
+:AUTHOR: Junger, Sebastian
+:ID: 861933045381211315
+:END:
+*** [ ] Highlight
+:PROPERTIES:
+:PAGE: 79
+:LOCATION: 762-762
+:HIGHLIGHT: higher rates than those who couldn’t. A 2011 study of street children in Burundi
+:ID: 1692523136388139804
+:END:
