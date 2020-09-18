@@ -21,14 +21,19 @@ export LINUXBREW=/home/linuxbrew/.linuxbrew/bin
 export SNAPPATH=/snap/bin
 export NODENV_HOME=$HOME/.nodenv/shims
 export NODENV_PACKAGES=$HOME/.nodenv/versions/$(cat $HOME/.nodenv/version)/bin
+export NINJA_UTILS=$HOME/EnvImprovement/src/NinjaUtilsClojure/bin
 
 # Local projects
 export sdet=/workspace/sde/src/SDEIntegrationTests
 export sde=/workspace/sde/src/SellerDiscountsEvaluatorService
 export rudra=/workspace/rudra/src/Rudra
 export ocean=/workspace/ocean/src/Ocean
+export odyssey=/workspace/odyssey/src/TheOdyssey
+
+# Configuration flags
+export PASSWORD_STORE_ENABLE_EXTENSIONS=true
 
 BASE_PATH=usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
-export PATH=$BASE_PATH:$LOCALBIN:$CARGOPATH:$TOOLBOX:$PYENV:$LINUXBREW:$SNAPPATH:$ENV_IMPROVEMENT:$RODAR:$NODENV_HOME:$NODENV_PACKAGES
+export PATH=$BASE_PATH:$LOCALBIN:$CARGOPATH:$TOOLBOX:$PYENV:$LINUXBREW:$SNAPPATH:$ENV_IMPROVEMENT:$RODAR:$NODENV_HOME:$NODENV_PACKAGES:$NINJA_UTILS
 
 unset JAVA_HOME
