@@ -29,6 +29,7 @@ export sde=/workspace/sde/src/SellerDiscountsEvaluatorService
 export rudra=/workspace/rudra/src/Rudra
 export ocean=/workspace/ocean/src/Ocean
 export odyssey=/workspace/odyssey/src/TheOdyssey
+export rbs=/workspace/rbs/src/RecurringBillingService
 
 # Configuration flags
 export PASSWORD_STORE_ENABLE_EXTENSIONS=true
