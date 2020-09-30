@@ -2,13 +2,11 @@
 
 from pathlib import Path
 
-home = Path.home()
+home = Path("/home/lyterk")
 
 dotfiles_path = home / "dotfiles" / "home"
 
-files = {"scripts/gitwatch.sh": Path("/") / "usr" / "local" / "bin" / "gitwatch"}
-
-hosts_link = "https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts"
+files = {"systemd/logind.conf": Path("/etc/systemd/logind.conf")}
 
 for name, value in files.items():
     print(value)

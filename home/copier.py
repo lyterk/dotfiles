@@ -2,7 +2,7 @@ table=[["config", "~/.ssh/config", ""], ["gitconfig", "~/.gitconfig", ""], ["git
 from pathlib import Path
 
 home = Path.home()
-dotfiles_path = home / ".dotfiles" / "home"
+dotfiles_path = home / "dotfiles" / "home"
 
 
 def firefox_settings():

@@ -1,6 +1,6 @@
 # LocalForward Client:PORT Remote:PORT
 
-Host bitbucket
+Host bb
      HostName bitbucket.org
      User git
      IdentityFile /home/lyterk/.ssh/bitbucket/id_rsa
