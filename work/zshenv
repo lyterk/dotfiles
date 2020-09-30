@@ -26,6 +26,7 @@ export NINJA_UTILS=$HOME/EnvImprovement/src/NinjaUtilsClojure/bin
 # Local projects
 export sdet=/workspace/sde/src/SDEIntegrationTests
 export sde=/workspace/sde/src/SellerDiscountsEvaluatorService
+export sdm=/workspace/sde/src/SellerDiscountsManagerService
 export rudra=/workspace/rudra/src/Rudra
 export ocean=/workspace/ocean/src/Ocean
 export odyssey=/workspace/odyssey/src/TheOdyssey

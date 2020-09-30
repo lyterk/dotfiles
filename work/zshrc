@@ -69,6 +69,11 @@ function sync_dots() {
     rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles &
 }
 
+function singleunit () {
+    argstring="brazil-build single-unit-test -DtestClass=$1";
+    eval $argstring;
+}
+
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 source ~/.zshenv
