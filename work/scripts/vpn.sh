@@ -10,4 +10,4 @@ echo $vpn_echo_string | /opt/cisco/anyconnect/bin/vpn -s connect sea-h-orca.amaz
 # mwinit_echo_string="$pin\n$token\n"
 # echo $mwinit_echo_string | mwinit -o
 
-./expect.sh
+~/dotfiles/work/scripts/expect.sh

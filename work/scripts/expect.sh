@@ -1,6 +1,6 @@
 #!/usr/bin/env expect
 
-# set pin [exec /usr/bin/pass Amzn/Midway_PIN]
+set pin [exec /usr/bin/pass Amzn/Midway_PIN]
 # set password [exec /usr/bin/pass Amazon/User_Passwords/current]
 
 send_user -- "Enter token: "
