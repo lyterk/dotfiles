@@ -13,7 +13,7 @@ doom_destination = home / ".doom.d"
 
 files = {
     # dotfiles
-    "config": home / ".ssh/config",
+    "ssh_config": home / ".ssh/config",
     "config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore_global",
