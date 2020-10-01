@@ -1,4 +1,4 @@
-table=[["ssh_config", "~/.ssh/config", ""], ["gitconfig", "~/.gitconfig", ""], ["gitignore", "~/.gitignore", ""], ["pip.conf", "~/.pip/pip.conf", ""], ["kdewalletrc", "~/.config/kdewalletrc", ""], ["redshift.conf", "~/.config/redshift.conf", ""], ["flake8", "~/.config/flake8", ""], ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""], ["zshenv", "~/.zshenv", ""], ["zshrc", "~/.zshrc", ""], ["profile", "~/.profile", ""], ["zprofile", "~/.zprofile", ""], ["systemd/emacs.service", "~/.config/systemd/user/emacs.service", ""], ["systemd/gitwatch@.service", "~/.config/systemd/user/gitwatch@.service", ""]]
+table=[["ssh_config", "~/.ssh/config", ""], ["gitconfig", "~/.gitconfig", ""], ["gitignore", "~/.gitignore", ""], ["pip.conf", "~/.pip/pip.conf", ""], ["kdewalletrc", "~/.config/kdewalletrc", ""], ["redshift.conf", "~/.config/redshift.conf", ""], ["flake8", "~/.config/flake8", ""], ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""], ["zshenv", "~/.zshenv", ""], ["zshrc", "~/.zshrc", ""], ["profile", "~/.profile", ""], ["fish/config.fish", "~/.config/fish/config.fish", ""], ["zprofile", "~/.zprofile", ""], ["systemd/emacs.service", "~/.config/systemd/user/emacs.service", ""], ["systemd/gitwatch@.service", "~/.config/systemd/user/gitwatch@.service", ""]]
 from pathlib import Path
 
 home = Path.home()
@@ -49,3 +49,12 @@ for source, target in file_mappings.items():
         target.symlink_to(source)
     except Exception as exc:
         print(exc)
+
+for func in (dotfiles_path / "fish/functions").glob("*"):
+    target = home / ".config/fish/functions" / func.name
+    try:
+        target.unlink()
+    except:
+        pass
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.symlink_to(func)

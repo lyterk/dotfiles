@@ -25,23 +25,6 @@ Such as for pip or apt
 * Packages
 Run all as root.
 ** Apt
-*** Base upgrades
-#+BEGIN_SRC shell :dir "/sudo::" :results silent
-apt update
-apt upgrade
-#+END_SRC
-
-*** Add repos
-#+NAME: apt-repos
-| name | comment |
-|------+---------|
-|      |         |
-
-
-#+BEGIN_SRC shell :var sources=apt-repos :dir "/sudo::" :results output verbatim :tangle sudo_bootstrap.el
-add-apt-repository $sources
-apt update
-#+END_SRC
 
 *** Installs
 Trying to sort these in terms of 'emergency' criticality. Very mission critical things at the top. Deps at the bottom.
@@ -104,885 +87,6 @@ Trying to sort these in terms of 'emergency' criticality. Very mission critical 
 apt-get install -y $(echo $vstring)
 #+END_SRC
 
-#+RESULTS: INSTALLATION
-Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... Done
-build-essential is already the newest version (12.8ubuntu1).
-hunspell-en-us is already the newest version (1:2018.04.16-1).
-libbz2-dev is already the newest version (1.0.8-2).
-libbz2-dev set to manually installed.
-libffi-dev is already the newest version (3.3-4).
-libffi-dev set to manually installed.
-liblzma-dev is already the newest version (5.2.4-1).
-liblzma-dev set to manually installed.
-libncurses5-dev is already the newest version (6.2-0ubuntu2).
-wget is already the newest version (1.20.3-1ubuntu1).
-wget set to manually installed.
-xz-utils is already the newest version (5.2.4-1).
-xz-utils set to manually installed.
-zlib1g-dev is already the newest version (1:1.2.11.dfsg-2ubuntu1).
-fonts-firacode is already the newest version (2+dfsg1-1).
-pass is already the newest version (1.7.3-2).
-xclip is already the newest version (0.13-1).
-xclip set to manually installed.
-curl is already the newest version (7.68.0-1ubuntu2.1).
-The following additional packages will be installed:
-  binfmt-support calibre-bin clang-10 cmake-data fonts-mathjax golang-1.13
-  golang-1.13-doc golang-1.13-go golang-1.13-race-detector-runtime
-  golang-1.13-src golang-doc golang-go golang-race-detector-runtime golang-src
-  lib32gcc-s1 lib32stdc++6 libappindicator3-1 libaudio2 libblas3 libc6-i386
-  libclang-common-10-dev libclang-cpp10 libclang1-10 libdirectfb-1.7-7
-  libenca0 libjpeg-turbo-progs libjq1 libjs-mathjax libjs-sphinxdoc
-  libjsoncpp1 libjxr-tools libjxr0 liblinear4 liblua5.3-0 libminiupnpc17
-  libnatpmp1 libobjc-9-dev libomp-10-dev libomp5-10 libonig5 libpfm4
-  libpkcs11-helper1 libpodofo0.9.6 libpython2-stdlib libpython2.7-minimal
-  libpython2.7-stdlib librhash0 libtcl8.6 libtidy5deb1 libtk8.6 libvorbisidec1
-  libxss-dev libz3-4 libz3-dev llvm-10 llvm-10-dev llvm-10-runtime
-  llvm-10-tools llvm-runtime lua-lpeg nmap-common optipng python-cffi-backend
-  python-cryptography python-enum34 python-ipaddress python-six python2
-  python2-minimal python2.7 python2.7-minimal python3-apsw python3-bs4
-  python3-chm python3-css-parser python3-cssselect python3-cssutils
-  python3-dateutil python3-dnspython python3-feedparser python3-html2text
-  python3-html5-parser python3-html5lib python3-ifaddr python3-lxml
-  python3-markdown python3-mechanize python3-msgpack python3-nose
-  python3-packaging python3-pygments python3-pyparsing python3-pyqt5.qtsvg
-  python3-pyqt5.qtwebchannel python3-pyqt5.qtwebengine python3-regex
-  python3-repoze.lru python3-routes python3-soupsieve python3-webencodings
-  python3-webob python3-zeroconf racket-common racket-doc tcl tcl-dev tcl8.6
-  tcl8.6-dev tk tk8.6 tk8.6-dev transmission-common transmission-gtk
-  x11proto-scrnsaver-dev
-Suggested packages:
-  python3-openssl python3-unrardll clang-10-doc cmake-doc ninja-build gawk-doc
-  bzr | brz mercurial subversion indicator-application nas libdirectfb-extra
-  fonts-mathjax-extras fonts-stix libjs-mathjax-doc liblinear-tools
-  liblinear-dev minissdpd natpmpc libomp-10-doc readline-doc sqlite3-doc
-  libssl-doc llvm-10-doc mplayer-doc netselect | fping ncat ndiff zenmap
-  resolvconf openvpn-systemd-resolved easy-rsa python-cryptography-doc
-  python-cryptography-vectors python-enum34-doc python-openssl-doc
-  python-openssl-dbg python2-doc python-tk python2.7-doc python-apsw-doc
-  python3-genshi python3-lxml-dbg python-lxml-doc python-markdown-doc
-  python-nose-doc python-pygments-doc ttf-bitstream-vera python-pyparsing-doc
-  python3-paste python-webob-doc tcl-doc tcl-tclreadline tcl8.6-doc tk-doc
-  tk8.6-doc cmigemo dict dict-wn dictd libsixel-bin mpv w3m-el w3m-img xsel
-Recommended packages:
-  libjpeg62-turbo
-The following NEW packages will be installed:
-  binfmt-support calibre calibre-bin clang clang-10 cmake cmake-data
-  fonts-mathjax fzf gawk golang golang-1.13 golang-1.13-doc golang-1.13-go
-  golang-1.13-race-detector-runtime golang-1.13-src golang-doc golang-go
-  golang-race-detector-runtime golang-src htop hunspell jq lib32gcc-s1
-  lib32stdc++6 libappindicator3-1 libaudio2 libblas3 libc6-i386
-  libclang-common-10-dev libclang-cpp10 libclang1-10 libdirectfb-1.7-7
-  libenca0 libjpeg-turbo-progs libjq1 libjs-mathjax libjs-sphinxdoc
-  libjsoncpp1 libjxr-tools libjxr0 liblinear4 liblua5.3-0 libminiupnpc17
-  libnatpmp1 libncursesw5-dev libnotify-bin libobjc-9-dev libomp-10-dev
-  libomp5-10 libonig5 libpfm4 libpkcs11-helper1 libpodofo0.9.6
-  libpython2-stdlib libpython2.7-minimal libpython2.7-stdlib libreadline-dev
-  librhash0 libsqlite3-dev libssl-dev libtcl8.6 libtidy5deb1 libtk8.6
-  libtool-bin libvorbisidec1 libxss-dev libz3-4 libz3-dev llvm llvm-10
-  llvm-10-dev llvm-10-runtime llvm-10-tools llvm-runtime lua-lpeg mplayer nmap
-  nmap-common openvpn optipng paperkey python-cffi-backend python-cryptography
-  python-enum34 python-ipaddress python-openssl python-six python2
-  python2-minimal python2.7 python2.7-minimal python3-apsw python3-bs4
-  python3-chm python3-css-parser python3-cssselect python3-cssutils
-  python3-dateutil python3-dnspython python3-feedparser python3-html2text
-  python3-html5-parser python3-html5lib python3-ifaddr python3-lxml
-  python3-markdown python3-mechanize python3-msgpack python3-nose
-  python3-packaging python3-pygments python3-pyparsing python3-pyqt5.qtsvg
-  python3-pyqt5.qtwebchannel python3-pyqt5.qtwebengine python3-regex
-  python3-repoze.lru python3-routes python3-soupsieve python3-webencodings
-  python3-webob python3-zeroconf racket racket-common racket-doc sqlite3 tcl
-  tcl-dev tcl8.6 tcl8.6-dev tidy tk tk-dev tk8.6 tk8.6-dev transmission
-  transmission-common transmission-gtk w3m x11proto-scrnsaver-dev
-0 upgraded, 141 newly installed, 0 to remove and 0 not upgraded.
-Need to get 275 MB of archives.
-After this operation, 1,486 MB of additional disk space will be used.
-0% [Working]            Get:1 http://us.archive.ubuntu.com/ubuntu focal/main amd64 gawk amd64 1:5.0.1+dfsg-1 [418 kB]
-0% [1 gawk 2,613 B/418 kB 1%] [Waiting for headers]                                                   Get:2 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 libpython2.7-minimal amd64 2.7.18-1~20.04 [335 kB]
-0% [1 gawk 48.9 kB/418 kB 12%] [2 libpython2.7-minimal 8,432 B/335 kB 3%]                                                                         0% [2 libpython2.7-minimal 40.3 kB/335 kB 12%]                                              Get:3 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python2-minimal amd64 2.7.17-2ubuntu4 [27.5 kB]
-0% [3 python2-minimal 14.2 kB/27.5 kB 52%] [2 libpython2.7-minimal 51.9 kB/335                                                                                0% [2 libpython2.7-minimal 54.8 kB/335 kB 16%]                                              Get:4 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libpython2-stdlib amd64 2.7.17-2ubuntu4 [7,072 B]
-0% [4 libpython2-stdlib 899 B/7,072 B 13%] [2 libpython2.7-minimal 54.8 kB/335                                                                                1% [2 libpython2.7-minimal 54.8 kB/335 kB 16%]                                              Get:5 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python2 amd64 2.7.17-2ubuntu4 [26.5 kB]
-1% [5 python2 8,026 B/26.5 kB 30%] [2 libpython2.7-minimal 54.8 kB/335 kB 16%]                                                                              1% [Waiting for headers] [2 libpython2.7-minimal 54.8 kB/335 kB 16%]                                                                    Get:6 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libpodofo0.9.6 amd64 0.9.6+dfsg-5build1 [521 kB]
-1% [6 libpodofo0.9.6 10.2 kB/521 kB 2%] [2 libpython2.7-minimal 54.8 kB/335 kB                                                                                1% [Waiting for headers] [2 libpython2.7-minimal 83.7 kB/335 kB 25%]                                                                    Get:7 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 calibre-bin amd64 4.99.4+dfsg+really4.12.0-1build1 [769 kB]
-1% [7 calibre-bin 3,164 B/769 kB 0%] [2 libpython2.7-minimal 83.7 kB/335 kB 25%                                                                               1% [Waiting for headers] [2 libpython2.7-minimal 121 kB/335 kB 36%]                                                                   Get:8 http://us.archive.ubuntu.com/ubuntu focal-updates/universe amd64 libjpeg-turbo-progs amd64 2.0.3-0ubuntu1.20.04.1 [66.5 kB]
-1% [8 libjpeg-turbo-progs 8,694 B/66.5 kB 13%] [2 libpython2.7-minimal 121 kB/3                                                                               2% [Waiting for headers] [2 libpython2.7-minimal 124 kB/335 kB 37%]                                                                   Get:9 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 fonts-mathjax all 2.7.4+dfsg-1 [2,208 kB]
-2% [9 fonts-mathjax 51.9 kB/2,208 kB 2%] [2 libpython2.7-minimal 124 kB/335 kB                                                                                2% [Waiting for headers] [2 libpython2.7-minimal 327 kB/335 kB 98%]                                                                   Get:10 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libjs-mathjax all 2.7.4+dfsg-1 [5,654 kB]
-2% [10 libjs-mathjax 17.8 kB/5,654 kB 0%] [2 libpython2.7-minimal 327 kB/335 kB                                                                               3% [10 libjs-mathjax 137 kB/5,654 kB 2%]                                        Get:11 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 python2.7-minimal amd64 2.7.18-1~20.04 [1,305 kB]
-3% [10 libjs-mathjax 3,229 kB/5,654 kB 57%] [11 python2.7-minimal 8,430 B/1,305                                                                               Get:12 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libjxr0 amd64 1.1-6build1 [158 kB]
-                                                                               4% [12 libjxr0 39.8 kB/158 kB 25%] [11 python2.7-minimal 14.2 kB/1,305 kB 1%]                                                                             5% [Waiting for headers] [11 python2.7-minimal 14.2 kB/1,305 kB 1%]                                                                   Get:13 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libjxr-tools amd64 1.1-6build1 [16.0 kB]
-5% [13 libjxr-tools 10.9 kB/16.0 kB 68%] [11 python2.7-minimal 14.2 kB/1,305 kB                                                                               5% [Waiting for headers] [11 python2.7-minimal 14.2 kB/1,305 kB 1%]                                                                   Get:14 http://us.archive.ubuntu.com/ubuntu focal/main amd64 optipng amd64 0.7.7-1 [83.9 kB]
-5% [14 optipng 21.7 kB/83.9 kB 26%] [11 python2.7-minimal 14.2 kB/1,305 kB 1%]                                                                              5% [Waiting for headers] [11 python2.7-minimal 14.2 kB/1,305 kB 1%]                                                                   Get:15 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-apsw amd64 3.28.0-r1-1ubuntu4 [154 kB]
-5% [15 python3-apsw 4,631 B/154 kB 3%] [11 python2.7-minimal 14.2 kB/1,305 kB 1                                                                               5% [Waiting for headers] [11 python2.7-minimal 17.1 kB/1,305 kB 1%]                                                                   Get:16 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-soupsieve all 1.9.5+dfsg-1 [29.1 kB]
-5% [16 python3-soupsieve 24.1 kB/29.1 kB 83%] [11 python2.7-minimal 17.1 kB/1,3                                                                               5% [Waiting for headers] [11 python2.7-minimal 20.0 kB/1,305 kB 2%]                                                                   Get:17 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-bs4 all 4.8.2-1 [83.0 kB]
-5% [17 python3-bs4 32.8 kB/83.0 kB 39%] [11 python2.7-minimal 20.0 kB/1,305 kB                                                                                5% [11 python2.7-minimal 20.0 kB/1,305 kB 2%]                                             Get:18 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-chm amd64 0.8.6-2build1 [16.8 kB]
-5% [18 python3-chm 16.8 kB/16.8 kB 100%] [11 python2.7-minimal 20.0 kB/1,305 kB                                                                               5% [11 python2.7-minimal 20.0 kB/1,305 kB 2%]                                             Get:19 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-css-parser all 1.0.4-2 [122 kB]
-5% [19 python3-css-parser 41.0 kB/122 kB 34%] [11 python2.7-minimal 20.0 kB/1,3                                                                               6% [11 python2.7-minimal 20.0 kB/1,305 kB 2%]                                             Get:20 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-cssselect all 1.1.0-2 [16.4 kB]
-6% [20 python3-cssselect 16.4 kB/16.4 kB 100%] [11 python2.7-minimal 20.0 kB/1,                                                                               6% [11 python2.7-minimal 20.0 kB/1,305 kB 2%]                                             Get:21 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-cssutils all 1.0.2-3 [275 kB]
-6% [21 python3-cssutils 39.0 kB/275 kB 14%] [11 python2.7-minimal 37.4 kB/1,305                                                                               6% [Waiting for headers] [11 python2.7-minimal 40.3 kB/1,305 kB 3%]                                                                   Get:22 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-dateutil all 2.7.3-3ubuntu1 [63.3 kB]
-6% [22 python3-dateutil 25.8 kB/63.3 kB 41%] [11 python2.7-minimal 43.2 kB/1,30                                                                               6% [Waiting for headers] [11 python2.7-minimal 43.2 kB/1,305 kB 3%]                                                                   Get:23 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-feedparser all 5.2.1-2 [45.1 kB]
-6% [23 python3-feedparser 2,615 B/45.1 kB 6%] [11 python2.7-minimal 43.2 kB/1,3                                                                               6% [Waiting for headers] [11 python2.7-minimal 43.2 kB/1,305 kB 3%]                                                                   Get:24 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-html2text all 2020.1.16-1 [21.1 kB]
-6% [24 python3-html2text 21.1 kB/21.1 kB 100%] [11 python2.7-minimal 43.2 kB/1,                                                                               7% [11 python2.7-minimal 43.2 kB/1,305 kB 3%]                                             Get:25 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-lxml amd64 4.5.0-1 [1,381 kB]
-7% [25 python3-lxml 0 B/1,381 kB 0%] [11 python2.7-minimal 43.2 kB/1,305 kB 3%]                                                                               7% [11 python2.7-minimal 51.9 kB/1,305 kB 4%]                                             Get:26 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-html5-parser amd64 0.4.9-3build1 [125 kB]
-7% [26 python3-html5-parser 12.2 kB/125 kB 10%] [11 python2.7-minimal 51.9 kB/1                                                                               7% [Waiting for headers] [11 python2.7-minimal 54.8 kB/1,305 kB 4%]                                                                   Get:27 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-webencodings all 0.5.1-1ubuntu1 [11.0 kB]
-7% [27 python3-webencodings 11.0 kB/11.0 kB 100%] [11 python2.7-minimal 54.8 kB                                                                               7% [11 python2.7-minimal 54.8 kB/1,305 kB 4%]                                             Get:28 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-html5lib all 1.0.1-2 [84.3 kB]
-7% [28 python3-html5lib 11.7 kB/84.3 kB 14%] [11 python2.7-minimal 54.8 kB/1,30                                                                               8% [Waiting for headers] [11 python2.7-minimal 57.7 kB/1,305 kB 4%]                                                                   Get:29 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-pyparsing all 2.4.6-1 [61.3 kB]
-8% [29 python3-pyparsing 3,882 B/61.3 kB 6%] [11 python2.7-minimal 57.7 kB/1,30                                                                               8% [Waiting for headers] [11 python2.7-minimal 57.7 kB/1,305 kB 4%]                                                                   Get:30 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-packaging all 20.3-1 [26.8 kB]
-8% [30 python3-packaging 8,909 B/26.8 kB 33%] [11 python2.7-minimal 57.7 kB/1,3                                                                               8% [11 python2.7-minimal 57.7 kB/1,305 kB 4%]                                             Get:31 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-markdown all 3.1.1-3 [59.3 kB]
-8% [31 python3-markdown 28.7 kB/59.3 kB 48%] [11 python2.7-minimal 69.2 kB/1,30                                                                               8% [11 python2.7-minimal 72.1 kB/1,305 kB 6%]                                             Get:32 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libjs-sphinxdoc all 1.8.5-7ubuntu3 [97.1 kB]
-8% [32 libjs-sphinxdoc 44.8 kB/97.1 kB 46%] [11 python2.7-minimal 72.1 kB/1,305                                                                               8% [11 python2.7-minimal 72.1 kB/1,305 kB 6%]                                             Get:33 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-mechanize all 1:0.4.5-2 [201 kB]
-8% [33 python3-mechanize 12.9 kB/201 kB 6%] [11 python2.7-minimal 72.1 kB/1,305                                                                               8% [11 python2.7-minimal 75.0 kB/1,305 kB 6%]                                             Get:34 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-msgpack amd64 0.6.2-1 [73.5 kB]
-8% [34 python3-msgpack 973 B/73.5 kB 1%] [11 python2.7-minimal 75.0 kB/1,305 kB                                                                               9% [Waiting for headers] [11 python2.7-minimal 77.9 kB/1,305 kB 6%]                                                                   Get:35 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-pygments all 2.3.1+dfsg-1ubuntu2 [579 kB]
-9% [35 python3-pygments 28.7 kB/579 kB 5%] [11 python2.7-minimal 101 kB/1,305 k                                                                               9% [Waiting for headers] [11 python2.7-minimal 110 kB/1,305 kB 8%]                                                                  Get:36 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-pyqt5.qtsvg amd64 5.14.1+dfsg-3build1 [26.9 kB]
-9% [36 python3-pyqt5.qtsvg 26.9 kB/26.9 kB 100%] [11 python2.7-minimal 110 kB/1                                                                               9% [11 python2.7-minimal 110 kB/1,305 kB 8%]                                            Get:37 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-pyqt5.qtwebchannel amd64 5.14.1+dfsg-3build1 [14.1 kB]
-9% [37 python3-pyqt5.qtwebchannel 14.1 kB/14.1 kB 100%] [11 python2.7-minimal 1                                                                               9% [Waiting for headers] [11 python2.7-minimal 110 kB/1,305 kB 8%]                                                                  Get:38 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-pyqt5.qtwebengine amd64 5.14.0-2build1 [122 kB]
-9% [38 python3-pyqt5.qtwebengine 34.4 kB/122 kB 28%] [11 python2.7-minimal 110                                                                                9% [Waiting for headers] [11 python2.7-minimal 110 kB/1,305 kB 8%]                                                                  Get:39 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-regex amd64 0.1.20190819-2build1 [263 kB]
-9% [39 python3-regex 13.9 kB/263 kB 5%] [11 python2.7-minimal 110 kB/1,305 kB 8                                                                               10% [Waiting for headers] [11 python2.7-minimal 121 kB/1,305 kB 9%]                                                                   Get:40 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-repoze.lru all 0.7-2 [12.1 kB]
-10% [40 python3-repoze.lru 12.1 kB/12.1 kB 100%] [11 python2.7-minimal 121 kB/1                                                                               10% [11 python2.7-minimal 121 kB/1,305 kB 9%]                                             Get:41 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-routes all 2.4.1-2 [88.1 kB]
-10% [41 python3-routes 30.5 kB/88.1 kB 35%] [11 python2.7-minimal 147 kB/1,305                                                                                10% [Waiting for headers] [11 python2.7-minimal 150 kB/1,305 kB 12%]                                                                    Get:42 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-ifaddr all 0.1.6-1 [7,492 B]
-10% [42 python3-ifaddr 7,492 B/7,492 B 100%] [11 python2.7-minimal 150 kB/1,305                                                                               10% [11 python2.7-minimal 150 kB/1,305 kB 12%]                                              Get:43 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-nose all 1.3.7-5 [116 kB]
-10% [43 python3-nose 4,096 B/116 kB 4%] [11 python2.7-minimal 150 kB/1,305 kB 1                                                                               10% [11 python2.7-minimal 153 kB/1,305 kB 12%]                                              Get:44 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python3-zeroconf all 0.24.4-0ubuntu1 [40.6 kB]
-10% [44 python3-zeroconf 14.9 kB/40.6 kB 37%] [11 python2.7-minimal 153 kB/1,30                                                                               10% [11 python2.7-minimal 153 kB/1,305 kB 12%]                                              Get:45 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 calibre all 4.99.4+dfsg+really4.12.0-1build1 [23.9 MB]
-10% [45 calibre 39.5 kB/23.9 MB 0%] [11 python2.7-minimal 205 kB/1,305 kB 16%]                                                                              13% [45 calibre 8,875 kB/23.9 MB 37%]                                     Get:46 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 libpython2.7-stdlib amd64 2.7.18-1~20.04 [1,883 kB]
-15% [45 calibre 14.9 MB/23.9 MB 62%] [46 libpython2.7-stdlib 1,190 B/1,883 kB 0                                                                               18% [46 libpython2.7-stdlib 113 kB/1,883 kB 6%]                                               Get:47 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 binfmt-support amd64 2.2.0-2 [58.2 kB]
-18% [47 binfmt-support 0 B/58.2 kB 0%] [46 libpython2.7-stdlib 113 kB/1,883 kB                                                                                18% [46 libpython2.7-stdlib 113 kB/1,883 kB 6%]                                               Get:48 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libclang-cpp10 amd64 1:10.0.0-4ubuntu1 [9,944 kB]
-18% [48 libclang-cpp10 0 B/9,944 kB 0%] [46 libpython2.7-stdlib 113 kB/1,883 kB21% [48 libclang-cpp10 9,170 kB/9,944 kB 92%] [46 libpython2.7-stdlib 1,377 kB/                                                                               22% [46 libpython2.7-stdlib 1,750 kB/1,883 kB 93%]                                                  Get:49 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libc6-i386 amd64 2.31-0ubuntu9 [2,723 kB]
-22% [49 libc6-i386 0 B/2,723 kB 0%] [46 libpython2.7-stdlib 1,750 kB/1,883 kB 9                                                                               22% [49 libc6-i386 447 kB/2,723 kB 16%]23% [Connecting to ppa.launchpad.net (91.189.95.83)]                                                    Get:50 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libclang-common-10-dev amd64 1:10.0.0-4ubuntu1 [5,012 kB]
-23% [50 libclang-common-10-dev 31.4 kB/5,012 kB 1%] [Connecting to ppa.launchpa                                                                               Get:51 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 python2.7 amd64 2.7.18-1~20.04 [248 kB]
-24% [50 libclang-common-10-dev 3,051 kB/5,012 kB 61%] [51 python2.7 8,432 B/248                                                                               24% [51 python2.7 14.2 kB/248 kB 6%]                                    Get:52 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libclang1-10 amd64 1:10.0.0-4ubuntu1 [7,571 kB]
-24% [52 libclang1-10 65.5 kB/7,571 kB 1%] [51 python2.7 14.2 kB/248 kB 6%]                                                                          27% [51 python2.7 202 kB/248 kB 82%]                                    Get:53 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 clang-10 amd64 1:10.0.0-4ubuntu1 [66.9 kB]
-27% [53 clang-10 0 B/66.9 kB 0%] [51 python2.7 202 kB/248 kB 82%]                                                                 27% [Waiting for headers] [51 python2.7 205 kB/248 kB 83%]                                                          Get:54 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 clang amd64 1:10.0-50~exp1 [3,276 B]
-27% [54 clang 3,276 B/3,276 B 100%] [51 python2.7 205 kB/248 kB 83%]                                                                    27% [Waiting for headers] [51 python2.7 205 kB/248 kB 83%]                                                          Get:55 http://us.archive.ubuntu.com/ubuntu focal/main amd64 cmake-data all 3.16.3-1ubuntu1 [1,612 kB]
-27% [55 cmake-data 8,722 B/1,612 kB 1%] [51 python2.7 205 kB/248 kB 83%]                                                                        27% [55 cmake-data 695 kB/1,612 kB 43%]28% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)]                                                                          Get:56 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libjsoncpp1 amd64 1.7.4-3.1ubuntu2 [75.6 kB]
-28% [56 libjsoncpp1 65.5 kB/75.6 kB 87%] [Connecting to ppa.launchpad.net (91.1                                                                               28% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)]                                                                          Get:57 http://us.archive.ubuntu.com/ubuntu focal/main amd64 librhash0 amd64 1.3.9-1 [113 kB]
-28% [57 librhash0 57.6 kB/113 kB 51%] [Connecting to ppa.launchpad.net (91.189.                                                                               28% [Waiting for headers] [Connecting to ppa.launchpad.net (91.189.95.83)]                                                                          Get:58 http://us.archive.ubuntu.com/ubuntu focal/main amd64 cmake amd64 3.16.3-1ubuntu1 [3,669 kB]
-28% [58 cmake 45.1 kB/3,669 kB 1%] [Connecting to ppa.launchpad.net (91.189.95.                                                                               Get:59 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 libobjc-9-dev amd64 9.3.0-17ubuntu1~20.04 [226 kB]
-                                                                               29% [58 cmake 3,507 kB/3,669 kB 96%] [59 libobjc-9-dev 1,192 B/226 kB 1%]                                                                         29% [59 libobjc-9-dev 14.2 kB/226 kB 6%]                                        Get:60 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 fzf amd64 0.20.0-1 [954 kB]
-29% [60 fzf 11.4 kB/954 kB 1%] [59 libobjc-9-dev 14.2 kB/226 kB 6%]                                                                   30% [Waiting for headers] [59 libobjc-9-dev 14.2 kB/226 kB 6%]                                                              Get:61 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-1.13-src amd64 1.13.8-1ubuntu1 [12.6 MB]
-30% [61 golang-1.13-src 12.4 kB/12.6 MB 0%] [59 libobjc-9-dev 14.2 kB/226 kB 6%33% [61 golang-1.13-src 10.3 MB/12.6 MB 82%] [59 libobjc-9-dev 191 kB/226 kB 85                                                                               33% [61 golang-1.13-src 10.9 MB/12.6 MB 86%]34% [Connecting to ppa.launchpad.net (91.189.95.83)]                                                    Get:62 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-1.13-go amd64 1.13.8-1ubuntu1 [47.6 MB]
-34% [62 golang-1.13-go 0 B/47.6 MB 0%] [Connecting to ppa.launchpad.net (91.189                                                                               Get:63 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 lib32gcc-s1 amd64 10.2.0-5ubuntu1~20.04 [49.6 kB]
-35% [62 golang-1.13-go 4,861 kB/47.6 MB 10%] [63 lib32gcc-s1 14.2 kB/49.6 kB 29                                                                               37% [62 golang-1.13-go 10.8 MB/47.6 MB 23%]                                           Get:64 http://ppa.launchpad.net/ubuntu-toolchain-r/ppa/ubuntu focal/main amd64 lib32stdc++6 amd64 10.2.0-5ubuntu1~20.04 [525 kB]
-39% [62 golang-1.13-go 16.6 MB/47.6 MB 35%] [64 lib32stdc++6 8,432 B/525 kB 2%]41% [62 golang-1.13-go 25.8 MB/47.6 MB 54%] [64 lib32stdc++6 166 kB/525 kB 32%]43% [62 golang-1.13-go 28.9 MB/47.6 MB 61%]                        16.5 MB/s 9s46% [62 golang-1.13-go 39.4 MB/47.6 MB 83%]                        16.5 MB/s 9s48% [Working]                                                      16.5 MB/s 8s                                                                               Get:65 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-1.13-doc all 1.13.8-1ubuntu1 [2,525 kB]
-48% [65 golang-1.13-doc 0 B/2,525 kB 0%]                           16.5 MB/s 8s49% [Working]                                                      16.5 MB/s 8s                                                                               Get:66 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-1.13 all 1.13.8-1ubuntu1 [11.2 kB]
-49% [66 golang-1.13 11.2 kB/11.2 kB 100%]                          16.5 MB/s 8s49% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:67 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-src amd64 2:1.13~1ubuntu2 [4,044 B]
-49% [67 golang-src 4,044 B/4,044 B 100%]                           16.5 MB/s 8s49% [Working]                                                      16.5 MB/s 8s                                                                               Get:68 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-go amd64 2:1.13~1ubuntu2 [22.0 kB]
-49% [68 golang-go 0 B/22.0 kB 0%]                                  16.5 MB/s 8s49% [Working]                                                      16.5 MB/s 8s                                                                               Get:69 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-doc all 2:1.13~1ubuntu2 [2,948 B]
-49% [69 golang-doc 2,948 B/2,948 B 100%]                           16.5 MB/s 8s50% [Working]                                                      16.5 MB/s 8s                                                                               Get:70 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang amd64 2:1.13~1ubuntu2 [2,900 B]
-50% [70 golang 2,900 B/2,900 B 100%]                               16.5 MB/s 8s50% [Working]                                                      16.5 MB/s 8s                                                                               Get:71 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-1.13-race-detector-runtime amd64 0.0+svn332029-0ubuntu2 [713 kB]
-50% [71 golang-1.13-race-detector-runtime 49.2 kB/713 kB 7%]       16.5 MB/s 8s50% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:72 http://us.archive.ubuntu.com/ubuntu focal/main amd64 htop amd64 2.2.0-2build1 [80.5 kB]
-50% [72 htop 28.3 kB/80.5 kB 35%]                                  16.5 MB/s 8s50% [Working]                                                      16.5 MB/s 8s                                                                               Get:73 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 hunspell amd64 1.7.0-2build2 [63.7 kB]
-50% [73 hunspell 44.5 kB/63.7 kB 70%]                              16.5 MB/s 8s50% [Working]                                                      16.5 MB/s 8s                                                                               Get:74 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libonig5 amd64 6.9.4-1 [142 kB]
-50% [74 libonig5 0 B/142 kB 0%]                                    16.5 MB/s 8s51% [Working]                                                      16.5 MB/s 8s                                                                               Get:75 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libjq1 amd64 1.6-1 [121 kB]
-51% [75 libjq1 27.2 kB/121 kB 23%]                                 16.5 MB/s 8s51% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:76 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 jq amd64 1.6-1 [50.2 kB]
-51% [76 jq 45.1 kB/50.2 kB 90%]                                    16.5 MB/s 8s51% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:77 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libappindicator3-1 amd64 12.10.1+20.04.20200408.1-0ubuntu1 [22.9 kB]
-51% [77 libappindicator3-1 22.9 kB/22.9 kB 100%]                   16.5 MB/s 8s51% [Working]                                                      16.5 MB/s 8s                                                                               Get:78 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libaudio2 amd64 1.9.4-6build1 [50.8 kB]
-51% [78 libaudio2 6,362 B/50.8 kB 13%]                             16.5 MB/s 8s51% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:79 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libblas3 amd64 3.9.0-1build1 [142 kB]
-51% [79 libblas3 21.9 kB/142 kB 15%]                               16.5 MB/s 8s51% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:80 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libdirectfb-1.7-7 amd64 1.7.7-9build1 [959 kB]
-51% [80 libdirectfb-1.7-7 29.2 kB/959 kB 3%]                       16.5 MB/s 8s52% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:81 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libenca0 amd64 1.19-1 [54.0 kB]
-52% [81 libenca0 54.0 kB/54.0 kB 100%]                             16.5 MB/s 8s52% [Working]                                                      16.5 MB/s 8s                                                                               Get:82 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 liblinear4 amd64 2.3.0+dfsg-3build1 [41.7 kB]
-52% [82 liblinear4 10.2 kB/41.7 kB 24%]                            16.5 MB/s 8s52% [Working]                                                      16.5 MB/s 8s                                                                               Get:83 http://us.archive.ubuntu.com/ubuntu focal/main amd64 liblua5.3-0 amd64 5.3.3-1.1ubuntu2 [116 kB]
-52% [83 liblua5.3-0 33.8 kB/116 kB 29%]                            16.5 MB/s 8s52% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:84 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libminiupnpc17 amd64 2.1.20190824-0ubuntu2 [25.8 kB]
-52% [84 libminiupnpc17 25.8 kB/25.8 kB 100%]                       16.5 MB/s 8s53% [Working]                                                      16.5 MB/s 8s                                                                               Get:85 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libnatpmp1 amd64 20150609-7build1 [7,724 B]
-53% [85 libnatpmp1 7,724 B/7,724 B 100%]                           16.5 MB/s 8s53% [Working]                                                      16.5 MB/s 8s                                                                               Get:86 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libncursesw5-dev amd64 6.2-0ubuntu2 [980 B]
-53% [86 libncursesw5-dev 980 B/980 B 100%]                         16.5 MB/s 8s53% [Working]                                                      16.5 MB/s 8s                                                                               Get:87 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libnotify-bin amd64 0.7.9-1ubuntu2 [7,188 B]
-53% [87 libnotify-bin 7,188 B/7,188 B 100%]                        16.5 MB/s 8s53% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:88 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libomp5-10 amd64 1:10.0.0-4ubuntu1 [300 kB]
-53% [88 libomp5-10 12.7 kB/300 kB 4%]                              16.5 MB/s 8s53% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:89 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libomp-10-dev amd64 1:10.0.0-4ubuntu1 [47.7 kB]
-53% [89 libomp-10-dev 3,376 B/47.7 kB 7%]                          16.5 MB/s 8s53% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:90 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libpkcs11-helper1 amd64 1.26-1 [44.3 kB]
-53% [90 libpkcs11-helper1 43.2 kB/44.3 kB 97%]                     16.5 MB/s 8s53% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:91 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libreadline-dev amd64 8.0-4 [141 kB]
-53% [91 libreadline-dev 27.6 kB/141 kB 20%]                        16.5 MB/s 8s54% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:92 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 libsqlite3-dev amd64 3.31.1-4ubuntu0.2 [696 kB]
-54% [92 libsqlite3-dev 1,917 B/696 kB 0%]                          16.5 MB/s 8s54% [Working]                                                      16.5 MB/s 8s                                                                               Get:93 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libssl-dev amd64 1.1.1f-1ubuntu2 [1,582 kB]
-54% [93 libssl-dev 24.6 kB/1,582 kB 2%]                            16.5 MB/s 8s55% [Working]                                                      16.5 MB/s 8s                                                                               Get:94 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libtcl8.6 amd64 8.6.10+dfsg-1 [902 kB]
-55% [94 libtcl8.6 10.9 kB/902 kB 1%]                               16.5 MB/s 8s55% [Working]                                                      16.5 MB/s 8s                                                                               Get:95 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libtidy5deb1 amd64 2:5.6.0-11 [203 kB]
-55% [95 libtidy5deb1 20.5 kB/203 kB 10%]                           16.5 MB/s 8s55% [Waiting for headers]                                          16.5 MB/s 8s                                                                               Get:96 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libtk8.6 amd64 8.6.10-1 [714 kB]
-55% [96 libtk8.6 12.8 kB/714 kB 2%]                                16.5 MB/s 8s56% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:97 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libtool-bin amd64 2.4.6-14 [80.1 kB]
-56% [97 libtool-bin 1,233 B/80.1 kB 2%]                            16.5 MB/s 7s56% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:98 http://us.archive.ubuntu.com/ubuntu focal/main amd64 x11proto-scrnsaver-dev all 2019.2-1ubuntu1 [2,624 B]
-56% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:99 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libxss-dev amd64 1:1.2.3-1 [11.9 kB]
-56% [99 libxss-dev 11.9 kB/11.9 kB 100%]                           16.5 MB/s 7s56% [Working]                                                      16.5 MB/s 7s                                                                               Get:100 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm-10-runtime amd64 1:10.0.0-4ubuntu1 [180 kB]
-56% [100 llvm-10-runtime 24.6 kB/180 kB 14%]                       16.5 MB/s 7s56% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:101 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm-runtime amd64 1:10.0-50~exp1 [2,916 B]
-56% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:102 http://us.archive.ubuntu.com/ubuntu focal/main amd64 libpfm4 amd64 4.10.1+git20-g7700f49-2 [266 kB]
-56% [102 libpfm4 8,688 B/266 kB 3%]                                16.5 MB/s 7s57% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:103 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm-10 amd64 1:10.0.0-4ubuntu1 [5,214 kB]
-57% [103 llvm-10 4,491 B/5,214 kB 0%]                              16.5 MB/s 7s58% [Working]                                                      16.5 MB/s 7s                                                                               Get:104 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm amd64 1:10.0-50~exp1 [3,880 B]
-58% [104 llvm 3,880 B/3,880 B 100%]                                16.5 MB/s 7s58% [Working]                                                      16.5 MB/s 7s                                                                               Get:105 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm-10-tools amd64 1:10.0.0-4ubuntu1 [317 kB]
-58% [105 llvm-10-tools 28.8 kB/317 kB 9%]                          16.5 MB/s 7s59% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:106 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libz3-4 amd64 4.8.7-4build1 [6,792 kB]
-59% [106 libz3-4 39.5 kB/6,792 kB 1%]                              16.5 MB/s 7s61% [Working]                                                      16.5 MB/s 7s                                                                               Get:107 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libz3-dev amd64 4.8.7-4build1 [67.5 kB]
-61% [107 libz3-dev 0 B/67.5 kB 0%]                                 16.5 MB/s 7s61% [Waiting for headers]                                          16.5 MB/s 7s                                                                               Get:108 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 llvm-10-dev amd64 1:10.0.0-4ubuntu1 [26.0 MB]
-61% [108 llvm-10-dev 61.1 kB/26.0 MB 0%]                           16.5 MB/s 7s64% [108 llvm-10-dev 10.5 MB/26.0 MB 40%]                          16.5 MB/s 6s67% [108 llvm-10-dev 20.7 MB/26.0 MB 79%]                          16.5 MB/s 5s69% [Working]                                                      16.5 MB/s 5s                                                                               Get:109 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 lua-lpeg amd64 1.0.2-1 [31.4 kB]
-69% [109 lua-lpeg 14.2 kB/31.4 kB 45%]                             16.5 MB/s 5s69% [Working]                                                      16.5 MB/s 5s                                                                               Get:110 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 libvorbisidec1 amd64 1.2.1+git20180316-3 [72.7 kB]
-69% [110 libvorbisidec1 2,614 B/72.7 kB 4%]                        16.5 MB/s 5s69% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:111 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 mplayer amd64 2:1.3.0-8build5 [2,249 kB]
-69% [111 mplayer 2,025 B/2,249 kB 0%]                              16.5 MB/s 5s70% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:112 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 nmap-common all 7.80+dfsg1-2build1 [3,676 kB]
-70% [112 nmap-common 63.9 kB/3,676 kB 2%]                          16.5 MB/s 5s71% [Working]                                                      16.5 MB/s 5s                                                                               Get:113 http://us.archive.ubuntu.com/ubuntu focal/main amd64 openvpn amd64 2.4.7-1ubuntu2 [478 kB]
-71% [113 openvpn 17.3 kB/478 kB 4%]                                16.5 MB/s 5s71% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:114 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 paperkey amd64 1.6-1 [26.7 kB]
-71% [114 paperkey 26.7 kB/26.7 kB 100%]                            16.5 MB/s 5s71% [Working]                                                      16.5 MB/s 5s                                                                               Get:115 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-cffi-backend amd64 1.14.0-1build1 [69.6 kB]
-71% [115 python-cffi-backend 18.0 kB/69.6 kB 26%]                  16.5 MB/s 5s71% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:116 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-enum34 all 1.1.6-2ubuntu1 [34.9 kB]
-71% [116 python-enum34 13.6 kB/34.9 kB 39%]                        16.5 MB/s 5s72% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:117 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-ipaddress all 1.0.17-1build1 [18.4 kB]
-72% [117 python-ipaddress 18.4 kB/18.4 kB 100%]                    16.5 MB/s 5s72% [Working]                                                      16.5 MB/s 5s                                                                               Get:118 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-six all 1.14.0-2 [12.0 kB]
-72% [118 python-six 12.0 kB/12.0 kB 100%]                          16.5 MB/s 5s72% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:119 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-cryptography amd64 2.8-3 [256 kB]
-72% [119 python-cryptography 13.1 kB/256 kB 5%]                    16.5 MB/s 5s72% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:120 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 python-openssl all 19.0.0-1build1 [43.1 kB]
-72% [120 python-openssl 19.4 kB/43.1 kB 45%]                       16.5 MB/s 5s72% [Working]                                                      16.5 MB/s 5s                                                                               Get:121 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-dnspython all 1.16.0-1build1 [89.1 kB]
-72% [121 python3-dnspython 4,096 B/89.1 kB 5%]                     16.5 MB/s 5s72% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:122 http://us.archive.ubuntu.com/ubuntu focal/main amd64 python3-webob all 1:1.8.5-2 [84.4 kB]
-72% [122 python3-webob 17.6 kB/84.4 kB 21%]                        16.5 MB/s 5s73% [Waiting for headers]                                          16.5 MB/s 5s                                                                               Get:123 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 racket-common all 7.2+dfsg1-2ubuntu3 [44.4 MB]
-73% [123 racket-common 27.2 kB/44.4 MB 0%]                         16.5 MB/s 5s75% [123 racket-common 9,009 kB/44.4 MB 20%]                       16.5 MB/s 4s78% [123 racket-common 19.0 MB/44.4 MB 43%]                        16.9 MB/s 3s81% [123 racket-common 27.2 MB/44.4 MB 61%]                        16.9 MB/s 3s83% [123 racket-common 36.5 MB/44.4 MB 82%]                        16.9 MB/s 2s86% [Working]                                                      16.9 MB/s 2s                                                                               Get:124 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 racket amd64 7.2+dfsg1-2ubuntu3 [1,937 kB]
-86% [124 racket 0 B/1,937 kB 0%]                                   16.9 MB/s 2s86% [Waiting for headers]                                          16.9 MB/s 2s                                                                               Get:125 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 racket-doc all 7.2+dfsg1-2ubuntu3 [32.9 MB]
-86% [125 racket-doc 25.4 kB/32.9 MB 0%]                            16.9 MB/s 2s89% [125 racket-doc 8,455 kB/32.9 MB 26%]                          16.9 MB/s 1s92% [125 racket-doc 19.2 MB/32.9 MB 58%]                           16.9 MB/s 1s94% [125 racket-doc 27.0 MB/32.9 MB 82%]                           16.9 MB/s 0s96% [Working]                                                      16.9 MB/s 0s                                                                               Get:126 http://us.archive.ubuntu.com/ubuntu focal-updates/main amd64 sqlite3 amd64 3.31.1-4ubuntu0.2 [860 kB]
-96% [126 sqlite3 0 B/860 kB 0%]                                    16.9 MB/s 0s96% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:127 http://us.archive.ubuntu.com/ubuntu focal/main amd64 tcl8.6 amd64 8.6.10+dfsg-1 [14.8 kB]
-96% [127 tcl8.6 3,577 B/14.8 kB 24%]                               16.9 MB/s 0s97% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:128 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 tcl amd64 8.6.9+1 [5,112 B]
-97% [Working]                                                      16.9 MB/s 0s                                                                               Get:129 http://us.archive.ubuntu.com/ubuntu focal/main amd64 tcl8.6-dev amd64 8.6.10+dfsg-1 [905 kB]
-97% [129 tcl8.6-dev 20.8 kB/905 kB 2%]                             16.9 MB/s 0s97% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:130 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 tcl-dev amd64 8.6.9+1 [5,760 B]
-97% [130 tcl-dev 5,760 B/5,760 B 100%]                             16.9 MB/s 0s97% [Working]                                                      16.9 MB/s 0s                                                                               Get:131 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 tidy amd64 2:5.6.0-11 [28.5 kB]
-97% [131 tidy 24.6 kB/28.5 kB 86%]                                 16.9 MB/s 0s97% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:132 http://us.archive.ubuntu.com/ubuntu focal/main amd64 tk8.6 amd64 8.6.10-1 [12.5 kB]
-97% [132 tk8.6 12.5 kB/12.5 kB 100%]                               16.9 MB/s 0s98% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:133 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 tk amd64 8.6.9+1 [3,240 B]
-98% [133 tk 3,240 B/3,240 B 100%]                                  16.9 MB/s 0s98% [Working]                                                      16.9 MB/s 0s                                                                               Get:134 http://us.archive.ubuntu.com/ubuntu focal/main amd64 tk8.6-dev amd64 8.6.10-1 [711 kB]
-98% [134 tk8.6-dev 4,106 B/711 kB 1%]                              16.9 MB/s 0s98% [Working]                                                      16.9 MB/s 0s                                                                               Get:135 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 tk-dev amd64 8.6.9+1 [3,076 B]
-98% [135 tk-dev 3,076 B/3,076 B 100%]                              16.9 MB/s 0s98% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:136 http://us.archive.ubuntu.com/ubuntu focal/main amd64 transmission-common all 2.94-2ubuntu3 [237 kB]
-98% [136 transmission-common 34.5 kB/237 kB 15%]                   16.9 MB/s 0s98% [Working]                                                      16.9 MB/s 0s                                                                               Get:137 http://us.archive.ubuntu.com/ubuntu focal/main amd64 transmission-gtk amd64 2.94-2ubuntu3 [325 kB]
-98% [137 transmission-gtk 15.7 kB/325 kB 5%]                       16.9 MB/s 0s99% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:138 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 transmission all 2.94-2ubuntu3 [1,292 B]
-99% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:139 http://us.archive.ubuntu.com/ubuntu focal/main amd64 w3m amd64 0.5.3-37 [935 kB]
-99% [139 w3m 16.4 kB/935 kB 2%]                                    16.9 MB/s 0s99% [Waiting for headers]                                          16.9 MB/s 0s                                                                               Get:140 http://us.archive.ubuntu.com/ubuntu focal/main amd64 golang-race-detector-runtime amd64 2:1.13~1ubuntu2 [3,836 B]
-99% [Working]                                                      16.9 MB/s 0s                                                                               Get:141 http://us.archive.ubuntu.com/ubuntu focal/universe amd64 nmap amd64 7.80+dfsg1-2build1 [1,662 kB]
-99% [141 nmap 59.8 kB/1,662 kB 4%]                                 16.9 MB/s 0s100% [Working]                                                     16.9 MB/s 0s                                                                               Fetched 275 MB in 16s (16.9 MB/s)
-Preconfiguring packages ...
-Selecting previously unselected package gawk.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 180255 files and directories currently installed.)
-Preparing to unpack .../0-gawk_1%3a5.0.1+dfsg-1_amd64.deb ...
-Unpacking gawk (1:5.0.1+dfsg-1) ...
-Selecting previously unselected package libpython2.7-minimal:amd64.
-Preparing to unpack .../1-libpython2.7-minimal_2.7.18-1~20.04_amd64.deb ...
-Unpacking libpython2.7-minimal:amd64 (2.7.18-1~20.04) ...
-Selecting previously unselected package python2.7-minimal.
-Preparing to unpack .../2-python2.7-minimal_2.7.18-1~20.04_amd64.deb ...
-Unpacking python2.7-minimal (2.7.18-1~20.04) ...
-Selecting previously unselected package python2-minimal.
-Preparing to unpack .../3-python2-minimal_2.7.17-2ubuntu4_amd64.deb ...
-Unpacking python2-minimal (2.7.17-2ubuntu4) ...
-Selecting previously unselected package libpython2.7-stdlib:amd64.
-Preparing to unpack .../4-libpython2.7-stdlib_2.7.18-1~20.04_amd64.deb ...
-Unpacking libpython2.7-stdlib:amd64 (2.7.18-1~20.04) ...
-Selecting previously unselected package python2.7.
-Preparing to unpack .../5-python2.7_2.7.18-1~20.04_amd64.deb ...
-Unpacking python2.7 (2.7.18-1~20.04) ...
-Selecting previously unselected package libpython2-stdlib:amd64.
-Preparing to unpack .../6-libpython2-stdlib_2.7.17-2ubuntu4_amd64.deb ...
-Unpacking libpython2-stdlib:amd64 (2.7.17-2ubuntu4) ...
-Setting up libpython2.7-minimal:amd64 (2.7.18-1~20.04) ...
-Setting up python2.7-minimal (2.7.18-1~20.04) ...
-Linking and byte-compiling packages for runtime python2.7...
-Setting up python2-minimal (2.7.17-2ubuntu4) ...
-Selecting previously unselected package python2.
-(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 181156 files and directories currently installed.)
-Preparing to unpack .../000-python2_2.7.17-2ubuntu4_amd64.deb ...
-Unpacking python2 (2.7.17-2ubuntu4) ...
-Selecting previously unselected package libpodofo0.9.6.
-Preparing to unpack .../001-libpodofo0.9.6_0.9.6+dfsg-5build1_amd64.deb ...
-Unpacking libpodofo0.9.6 (0.9.6+dfsg-5build1) ...
-Selecting previously unselected package calibre-bin.
-Preparing to unpack .../002-calibre-bin_4.99.4+dfsg+really4.12.0-1build1_amd64.deb ...
-Unpacking calibre-bin (4.99.4+dfsg+really4.12.0-1build1) ...
-Selecting previously unselected package libjpeg-turbo-progs.
-Preparing to unpack .../003-libjpeg-turbo-progs_2.0.3-0ubuntu1.20.04.1_amd64.deb ...
-Unpacking libjpeg-turbo-progs (2.0.3-0ubuntu1.20.04.1) ...
-Selecting previously unselected package fonts-mathjax.
-Preparing to unpack .../004-fonts-mathjax_2.7.4+dfsg-1_all.deb ...
-Unpacking fonts-mathjax (2.7.4+dfsg-1) ...
-Selecting previously unselected package libjs-mathjax.
-Preparing to unpack .../005-libjs-mathjax_2.7.4+dfsg-1_all.deb ...
-Unpacking libjs-mathjax (2.7.4+dfsg-1) ...
-Selecting previously unselected package libjxr0:amd64.
-Preparing to unpack .../006-libjxr0_1.1-6build1_amd64.deb ...
-Unpacking libjxr0:amd64 (1.1-6build1) ...
-Selecting previously unselected package libjxr-tools.
-Preparing to unpack .../007-libjxr-tools_1.1-6build1_amd64.deb ...
-Unpacking libjxr-tools (1.1-6build1) ...
-Selecting previously unselected package optipng.
-Preparing to unpack .../008-optipng_0.7.7-1_amd64.deb ...
-Unpacking optipng (0.7.7-1) ...
-Selecting previously unselected package python3-apsw.
-Preparing to unpack .../009-python3-apsw_3.28.0-r1-1ubuntu4_amd64.deb ...
-Unpacking python3-apsw (3.28.0-r1-1ubuntu4) ...
-Selecting previously unselected package python3-soupsieve.
-Preparing to unpack .../010-python3-soupsieve_1.9.5+dfsg-1_all.deb ...
-Unpacking python3-soupsieve (1.9.5+dfsg-1) ...
-Selecting previously unselected package python3-bs4.
-Preparing to unpack .../011-python3-bs4_4.8.2-1_all.deb ...
-Unpacking python3-bs4 (4.8.2-1) ...
-Selecting previously unselected package python3-chm.
-Preparing to unpack .../012-python3-chm_0.8.6-2build1_amd64.deb ...
-Unpacking python3-chm (0.8.6-2build1) ...
-Selecting previously unselected package python3-css-parser.
-Preparing to unpack .../013-python3-css-parser_1.0.4-2_all.deb ...
-Unpacking python3-css-parser (1.0.4-2) ...
-Selecting previously unselected package python3-cssselect.
-Preparing to unpack .../014-python3-cssselect_1.1.0-2_all.deb ...
-Unpacking python3-cssselect (1.1.0-2) ...
-Selecting previously unselected package python3-cssutils.
-Preparing to unpack .../015-python3-cssutils_1.0.2-3_all.deb ...
-Unpacking python3-cssutils (1.0.2-3) ...
-Selecting previously unselected package python3-dateutil.
-Preparing to unpack .../016-python3-dateutil_2.7.3-3ubuntu1_all.deb ...
-Unpacking python3-dateutil (2.7.3-3ubuntu1) ...
-Selecting previously unselected package python3-feedparser.
-Preparing to unpack .../017-python3-feedparser_5.2.1-2_all.deb ...
-Unpacking python3-feedparser (5.2.1-2) ...
-Selecting previously unselected package python3-html2text.
-Preparing to unpack .../018-python3-html2text_2020.1.16-1_all.deb ...
-Unpacking python3-html2text (2020.1.16-1) ...
-Selecting previously unselected package python3-lxml:amd64.
-Preparing to unpack .../019-python3-lxml_4.5.0-1_amd64.deb ...
-Unpacking python3-lxml:amd64 (4.5.0-1) ...
-Selecting previously unselected package python3-html5-parser.
-Preparing to unpack .../020-python3-html5-parser_0.4.9-3build1_amd64.deb ...
-Unpacking python3-html5-parser (0.4.9-3build1) ...
-Selecting previously unselected package python3-webencodings.
-Preparing to unpack .../021-python3-webencodings_0.5.1-1ubuntu1_all.deb ...
-Unpacking python3-webencodings (0.5.1-1ubuntu1) ...
-Selecting previously unselected package python3-html5lib.
-Preparing to unpack .../022-python3-html5lib_1.0.1-2_all.deb ...
-Unpacking python3-html5lib (1.0.1-2) ...
-Selecting previously unselected package python3-pyparsing.
-Preparing to unpack .../023-python3-pyparsing_2.4.6-1_all.deb ...
-Unpacking python3-pyparsing (2.4.6-1) ...
-Selecting previously unselected package python3-packaging.
-Preparing to unpack .../024-python3-packaging_20.3-1_all.deb ...
-Unpacking python3-packaging (20.3-1) ...
-Selecting previously unselected package python3-markdown.
-Preparing to unpack .../025-python3-markdown_3.1.1-3_all.deb ...
-Unpacking python3-markdown (3.1.1-3) ...
-Selecting previously unselected package libjs-sphinxdoc.
-Preparing to unpack .../026-libjs-sphinxdoc_1.8.5-7ubuntu3_all.deb ...
-Unpacking libjs-sphinxdoc (1.8.5-7ubuntu3) ...
-Selecting previously unselected package python3-mechanize.
-Preparing to unpack .../027-python3-mechanize_1%3a0.4.5-2_all.deb ...
-Unpacking python3-mechanize (1:0.4.5-2) ...
-Selecting previously unselected package python3-msgpack.
-Preparing to unpack .../028-python3-msgpack_0.6.2-1_amd64.deb ...
-Unpacking python3-msgpack (0.6.2-1) ...
-Selecting previously unselected package python3-pygments.
-Preparing to unpack .../029-python3-pygments_2.3.1+dfsg-1ubuntu2_all.deb ...
-Unpacking python3-pygments (2.3.1+dfsg-1ubuntu2) ...
-Selecting previously unselected package python3-pyqt5.qtsvg.
-Preparing to unpack .../030-python3-pyqt5.qtsvg_5.14.1+dfsg-3build1_amd64.deb ...
-Unpacking python3-pyqt5.qtsvg (5.14.1+dfsg-3build1) ...
-Selecting previously unselected package python3-pyqt5.qtwebchannel.
-Preparing to unpack .../031-python3-pyqt5.qtwebchannel_5.14.1+dfsg-3build1_amd64.deb ...
-Unpacking python3-pyqt5.qtwebchannel (5.14.1+dfsg-3build1) ...
-Selecting previously unselected package python3-pyqt5.qtwebengine.
-Preparing to unpack .../032-python3-pyqt5.qtwebengine_5.14.0-2build1_amd64.deb ...
-Unpacking python3-pyqt5.qtwebengine (5.14.0-2build1) ...
-Selecting previously unselected package python3-regex.
-Preparing to unpack .../033-python3-regex_0.1.20190819-2build1_amd64.deb ...
-Unpacking python3-regex (0.1.20190819-2build1) ...
-Selecting previously unselected package python3-repoze.lru.
-Preparing to unpack .../034-python3-repoze.lru_0.7-2_all.deb ...
-Unpacking python3-repoze.lru (0.7-2) ...
-Selecting previously unselected package python3-routes.
-Preparing to unpack .../035-python3-routes_2.4.1-2_all.deb ...
-Unpacking python3-routes (2.4.1-2) ...
-Selecting previously unselected package python3-ifaddr.
-Preparing to unpack .../036-python3-ifaddr_0.1.6-1_all.deb ...
-Unpacking python3-ifaddr (0.1.6-1) ...
-Selecting previously unselected package python3-nose.
-Preparing to unpack .../037-python3-nose_1.3.7-5_all.deb ...
-Unpacking python3-nose (1.3.7-5) ...
-Selecting previously unselected package python3-zeroconf.
-Preparing to unpack .../038-python3-zeroconf_0.24.4-0ubuntu1_all.deb ...
-Unpacking python3-zeroconf (0.24.4-0ubuntu1) ...
-Selecting previously unselected package calibre.
-Preparing to unpack .../039-calibre_4.99.4+dfsg+really4.12.0-1build1_all.deb ...
-Unpacking calibre (4.99.4+dfsg+really4.12.0-1build1) ...
-Selecting previously unselected package binfmt-support.
-Preparing to unpack .../040-binfmt-support_2.2.0-2_amd64.deb ...
-Unpacking binfmt-support (2.2.0-2) ...
-Selecting previously unselected package libclang-cpp10.
-Preparing to unpack .../041-libclang-cpp10_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking libclang-cpp10 (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package libobjc-9-dev:amd64.
-Preparing to unpack .../042-libobjc-9-dev_9.3.0-17ubuntu1~20.04_amd64.deb ...
-Unpacking libobjc-9-dev:amd64 (9.3.0-17ubuntu1~20.04) ...
-Selecting previously unselected package libc6-i386.
-Preparing to unpack .../043-libc6-i386_2.31-0ubuntu9_amd64.deb ...
-Unpacking libc6-i386 (2.31-0ubuntu9) ...
-Selecting previously unselected package lib32gcc-s1.
-Preparing to unpack .../044-lib32gcc-s1_10.2.0-5ubuntu1~20.04_amd64.deb ...
-Unpacking lib32gcc-s1 (10.2.0-5ubuntu1~20.04) ...
-Selecting previously unselected package lib32stdc++6.
-Preparing to unpack .../045-lib32stdc++6_10.2.0-5ubuntu1~20.04_amd64.deb ...
-Unpacking lib32stdc++6 (10.2.0-5ubuntu1~20.04) ...
-Selecting previously unselected package libclang-common-10-dev.
-Preparing to unpack .../046-libclang-common-10-dev_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking libclang-common-10-dev (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package libclang1-10.
-Preparing to unpack .../047-libclang1-10_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking libclang1-10 (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package clang-10.
-Preparing to unpack .../048-clang-10_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking clang-10 (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package clang.
-Preparing to unpack .../049-clang_1%3a10.0-50~exp1_amd64.deb ...
-Unpacking clang (1:10.0-50~exp1) ...
-Selecting previously unselected package cmake-data.
-Preparing to unpack .../050-cmake-data_3.16.3-1ubuntu1_all.deb ...
-Unpacking cmake-data (3.16.3-1ubuntu1) ...
-Selecting previously unselected package libjsoncpp1:amd64.
-Preparing to unpack .../051-libjsoncpp1_1.7.4-3.1ubuntu2_amd64.deb ...
-Unpacking libjsoncpp1:amd64 (1.7.4-3.1ubuntu2) ...
-Selecting previously unselected package librhash0:amd64.
-Preparing to unpack .../052-librhash0_1.3.9-1_amd64.deb ...
-Unpacking librhash0:amd64 (1.3.9-1) ...
-Selecting previously unselected package cmake.
-Preparing to unpack .../053-cmake_3.16.3-1ubuntu1_amd64.deb ...
-Unpacking cmake (3.16.3-1ubuntu1) ...
-Selecting previously unselected package fzf.
-Preparing to unpack .../054-fzf_0.20.0-1_amd64.deb ...
-Unpacking fzf (0.20.0-1) ...
-Selecting previously unselected package golang-1.13-src.
-Preparing to unpack .../055-golang-1.13-src_1.13.8-1ubuntu1_amd64.deb ...
-Unpacking golang-1.13-src (1.13.8-1ubuntu1) ...
-Selecting previously unselected package golang-1.13-go.
-Preparing to unpack .../056-golang-1.13-go_1.13.8-1ubuntu1_amd64.deb ...
-Unpacking golang-1.13-go (1.13.8-1ubuntu1) ...
-Selecting previously unselected package golang-1.13-doc.
-Preparing to unpack .../057-golang-1.13-doc_1.13.8-1ubuntu1_all.deb ...
-Unpacking golang-1.13-doc (1.13.8-1ubuntu1) ...
-Selecting previously unselected package golang-1.13.
-Preparing to unpack .../058-golang-1.13_1.13.8-1ubuntu1_all.deb ...
-Unpacking golang-1.13 (1.13.8-1ubuntu1) ...
-Selecting previously unselected package golang-src.
-Preparing to unpack .../059-golang-src_2%3a1.13~1ubuntu2_amd64.deb ...
-Unpacking golang-src (2:1.13~1ubuntu2) ...
-Selecting previously unselected package golang-go.
-Preparing to unpack .../060-golang-go_2%3a1.13~1ubuntu2_amd64.deb ...
-Unpacking golang-go (2:1.13~1ubuntu2) ...
-Selecting previously unselected package golang-doc.
-Preparing to unpack .../061-golang-doc_2%3a1.13~1ubuntu2_all.deb ...
-Unpacking golang-doc (2:1.13~1ubuntu2) ...
-Selecting previously unselected package golang.
-Preparing to unpack .../062-golang_2%3a1.13~1ubuntu2_amd64.deb ...
-Unpacking golang (2:1.13~1ubuntu2) ...
-Selecting previously unselected package golang-1.13-race-detector-runtime.
-Preparing to unpack .../063-golang-1.13-race-detector-runtime_0.0+svn332029-0ubuntu2_amd64.deb ...
-Unpacking golang-1.13-race-detector-runtime (0.0+svn332029-0ubuntu2) ...
-Selecting previously unselected package htop.
-Preparing to unpack .../064-htop_2.2.0-2build1_amd64.deb ...
-Unpacking htop (2.2.0-2build1) ...
-Selecting previously unselected package hunspell.
-Preparing to unpack .../065-hunspell_1.7.0-2build2_amd64.deb ...
-Unpacking hunspell (1.7.0-2build2) ...
-Selecting previously unselected package libonig5:amd64.
-Preparing to unpack .../066-libonig5_6.9.4-1_amd64.deb ...
-Unpacking libonig5:amd64 (6.9.4-1) ...
-Selecting previously unselected package libjq1:amd64.
-Preparing to unpack .../067-libjq1_1.6-1_amd64.deb ...
-Unpacking libjq1:amd64 (1.6-1) ...
-Selecting previously unselected package jq.
-Preparing to unpack .../068-jq_1.6-1_amd64.deb ...
-Unpacking jq (1.6-1) ...
-Selecting previously unselected package libappindicator3-1.
-Preparing to unpack .../069-libappindicator3-1_12.10.1+20.04.20200408.1-0ubuntu1_amd64.deb ...
-Unpacking libappindicator3-1 (12.10.1+20.04.20200408.1-0ubuntu1) ...
-Selecting previously unselected package libaudio2:amd64.
-Preparing to unpack .../070-libaudio2_1.9.4-6build1_amd64.deb ...
-Unpacking libaudio2:amd64 (1.9.4-6build1) ...
-Selecting previously unselected package libblas3:amd64.
-Preparing to unpack .../071-libblas3_3.9.0-1build1_amd64.deb ...
-Unpacking libblas3:amd64 (3.9.0-1build1) ...
-Selecting previously unselected package libdirectfb-1.7-7:amd64.
-Preparing to unpack .../072-libdirectfb-1.7-7_1.7.7-9build1_amd64.deb ...
-Unpacking libdirectfb-1.7-7:amd64 (1.7.7-9build1) ...
-Selecting previously unselected package libenca0:amd64.
-Preparing to unpack .../073-libenca0_1.19-1_amd64.deb ...
-Unpacking libenca0:amd64 (1.19-1) ...
-Selecting previously unselected package liblinear4:amd64.
-Preparing to unpack .../074-liblinear4_2.3.0+dfsg-3build1_amd64.deb ...
-Unpacking liblinear4:amd64 (2.3.0+dfsg-3build1) ...
-Selecting previously unselected package liblua5.3-0:amd64.
-Preparing to unpack .../075-liblua5.3-0_5.3.3-1.1ubuntu2_amd64.deb ...
-Unpacking liblua5.3-0:amd64 (5.3.3-1.1ubuntu2) ...
-Selecting previously unselected package libminiupnpc17:amd64.
-Preparing to unpack .../076-libminiupnpc17_2.1.20190824-0ubuntu2_amd64.deb ...
-Unpacking libminiupnpc17:amd64 (2.1.20190824-0ubuntu2) ...
-Selecting previously unselected package libnatpmp1:amd64.
-Preparing to unpack .../077-libnatpmp1_20150609-7build1_amd64.deb ...
-Unpacking libnatpmp1:amd64 (20150609-7build1) ...
-Selecting previously unselected package libncursesw5-dev:amd64.
-Preparing to unpack .../078-libncursesw5-dev_6.2-0ubuntu2_amd64.deb ...
-Unpacking libncursesw5-dev:amd64 (6.2-0ubuntu2) ...
-Selecting previously unselected package libnotify-bin.
-Preparing to unpack .../079-libnotify-bin_0.7.9-1ubuntu2_amd64.deb ...
-Unpacking libnotify-bin (0.7.9-1ubuntu2) ...
-Selecting previously unselected package libomp5-10:amd64.
-Preparing to unpack .../080-libomp5-10_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking libomp5-10:amd64 (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package libomp-10-dev.
-Preparing to unpack .../081-libomp-10-dev_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking libomp-10-dev (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package libpkcs11-helper1:amd64.
-Preparing to unpack .../082-libpkcs11-helper1_1.26-1_amd64.deb ...
-Unpacking libpkcs11-helper1:amd64 (1.26-1) ...
-Selecting previously unselected package libreadline-dev:amd64.
-Preparing to unpack .../083-libreadline-dev_8.0-4_amd64.deb ...
-Unpacking libreadline-dev:amd64 (8.0-4) ...
-Selecting previously unselected package libsqlite3-dev:amd64.
-Preparing to unpack .../084-libsqlite3-dev_3.31.1-4ubuntu0.2_amd64.deb ...
-Unpacking libsqlite3-dev:amd64 (3.31.1-4ubuntu0.2) ...
-Selecting previously unselected package libssl-dev:amd64.
-Preparing to unpack .../085-libssl-dev_1.1.1f-1ubuntu2_amd64.deb ...
-Unpacking libssl-dev:amd64 (1.1.1f-1ubuntu2) ...
-Selecting previously unselected package libtcl8.6:amd64.
-Preparing to unpack .../086-libtcl8.6_8.6.10+dfsg-1_amd64.deb ...
-Unpacking libtcl8.6:amd64 (8.6.10+dfsg-1) ...
-Selecting previously unselected package libtidy5deb1:amd64.
-Preparing to unpack .../087-libtidy5deb1_2%3a5.6.0-11_amd64.deb ...
-Unpacking libtidy5deb1:amd64 (2:5.6.0-11) ...
-Selecting previously unselected package libtk8.6:amd64.
-Preparing to unpack .../088-libtk8.6_8.6.10-1_amd64.deb ...
-Unpacking libtk8.6:amd64 (8.6.10-1) ...
-Selecting previously unselected package libtool-bin.
-Preparing to unpack .../089-libtool-bin_2.4.6-14_amd64.deb ...
-Unpacking libtool-bin (2.4.6-14) ...
-Selecting previously unselected package x11proto-scrnsaver-dev.
-Preparing to unpack .../090-x11proto-scrnsaver-dev_2019.2-1ubuntu1_all.deb ...
-Unpacking x11proto-scrnsaver-dev (2019.2-1ubuntu1) ...
-Selecting previously unselected package libxss-dev:amd64.
-Preparing to unpack .../091-libxss-dev_1%3a1.2.3-1_amd64.deb ...
-Unpacking libxss-dev:amd64 (1:1.2.3-1) ...
-Selecting previously unselected package llvm-10-runtime.
-Preparing to unpack .../092-llvm-10-runtime_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking llvm-10-runtime (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package llvm-runtime.
-Preparing to unpack .../093-llvm-runtime_1%3a10.0-50~exp1_amd64.deb ...
-Unpacking llvm-runtime (1:10.0-50~exp1) ...
-Selecting previously unselected package libpfm4:amd64.
-Preparing to unpack .../094-libpfm4_4.10.1+git20-g7700f49-2_amd64.deb ...
-Unpacking libpfm4:amd64 (4.10.1+git20-g7700f49-2) ...
-Selecting previously unselected package llvm-10.
-Preparing to unpack .../095-llvm-10_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking llvm-10 (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package llvm.
-Preparing to unpack .../096-llvm_1%3a10.0-50~exp1_amd64.deb ...
-Unpacking llvm (1:10.0-50~exp1) ...
-Selecting previously unselected package llvm-10-tools.
-Preparing to unpack .../097-llvm-10-tools_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking llvm-10-tools (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package libz3-4:amd64.
-Preparing to unpack .../098-libz3-4_4.8.7-4build1_amd64.deb ...
-Unpacking libz3-4:amd64 (4.8.7-4build1) ...
-Selecting previously unselected package libz3-dev:amd64.
-Preparing to unpack .../099-libz3-dev_4.8.7-4build1_amd64.deb ...
-Unpacking libz3-dev:amd64 (4.8.7-4build1) ...
-Selecting previously unselected package llvm-10-dev.
-Preparing to unpack .../100-llvm-10-dev_1%3a10.0.0-4ubuntu1_amd64.deb ...
-Unpacking llvm-10-dev (1:10.0.0-4ubuntu1) ...
-Selecting previously unselected package lua-lpeg:amd64.
-Preparing to unpack .../101-lua-lpeg_1.0.2-1_amd64.deb ...
-Unpacking lua-lpeg:amd64 (1.0.2-1) ...
-Selecting previously unselected package libvorbisidec1.
-Preparing to unpack .../102-libvorbisidec1_1.2.1+git20180316-3_amd64.deb ...
-Unpacking libvorbisidec1 (1.2.1+git20180316-3) ...
-Selecting previously unselected package mplayer.
-Preparing to unpack .../103-mplayer_2%3a1.3.0-8build5_amd64.deb ...
-Unpacking mplayer (2:1.3.0-8build5) ...
-Selecting previously unselected package nmap-common.
-Preparing to unpack .../104-nmap-common_7.80+dfsg1-2build1_all.deb ...
-Unpacking nmap-common (7.80+dfsg1-2build1) ...
-Selecting previously unselected package openvpn.
-Preparing to unpack .../105-openvpn_2.4.7-1ubuntu2_amd64.deb ...
-Unpacking openvpn (2.4.7-1ubuntu2) ...
-Selecting previously unselected package paperkey.
-Preparing to unpack .../106-paperkey_1.6-1_amd64.deb ...
-Unpacking paperkey (1.6-1) ...
-Selecting previously unselected package python-cffi-backend.
-Preparing to unpack .../107-python-cffi-backend_1.14.0-1build1_amd64.deb ...
-Unpacking python-cffi-backend (1.14.0-1build1) ...
-Selecting previously unselected package python-enum34.
-Preparing to unpack .../108-python-enum34_1.1.6-2ubuntu1_all.deb ...
-Unpacking python-enum34 (1.1.6-2ubuntu1) ...
-Selecting previously unselected package python-ipaddress.
-Preparing to unpack .../109-python-ipaddress_1.0.17-1build1_all.deb ...
-Unpacking python-ipaddress (1.0.17-1build1) ...
-Selecting previously unselected package python-six.
-Preparing to unpack .../110-python-six_1.14.0-2_all.deb ...
-Unpacking python-six (1.14.0-2) ...
-Selecting previously unselected package python-cryptography.
-Preparing to unpack .../111-python-cryptography_2.8-3_amd64.deb ...
-Unpacking python-cryptography (2.8-3) ...
-Selecting previously unselected package python-openssl.
-Preparing to unpack .../112-python-openssl_19.0.0-1build1_all.deb ...
-Unpacking python-openssl (19.0.0-1build1) ...
-Selecting previously unselected package python3-dnspython.
-Preparing to unpack .../113-python3-dnspython_1.16.0-1build1_all.deb ...
-Unpacking python3-dnspython (1.16.0-1build1) ...
-Selecting previously unselected package python3-webob.
-Preparing to unpack .../114-python3-webob_1%3a1.8.5-2_all.deb ...
-Unpacking python3-webob (1:1.8.5-2) ...
-Selecting previously unselected package racket-common.
-Preparing to unpack .../115-racket-common_7.2+dfsg1-2ubuntu3_all.deb ...
-Unpacking racket-common (7.2+dfsg1-2ubuntu3) ...
-Selecting previously unselected package racket.
-Preparing to unpack .../116-racket_7.2+dfsg1-2ubuntu3_amd64.deb ...
-Unpacking racket (7.2+dfsg1-2ubuntu3) ...
-Selecting previously unselected package racket-doc.
-Preparing to unpack .../117-racket-doc_7.2+dfsg1-2ubuntu3_all.deb ...
-Unpacking racket-doc (7.2+dfsg1-2ubuntu3) ...
-Selecting previously unselected package sqlite3.
-Preparing to unpack .../118-sqlite3_3.31.1-4ubuntu0.2_amd64.deb ...
-Unpacking sqlite3 (3.31.1-4ubuntu0.2) ...
-Selecting previously unselected package tcl8.6.
-Preparing to unpack .../119-tcl8.6_8.6.10+dfsg-1_amd64.deb ...
-Unpacking tcl8.6 (8.6.10+dfsg-1) ...
-Selecting previously unselected package tcl.
-Preparing to unpack .../120-tcl_8.6.9+1_amd64.deb ...
-Unpacking tcl (8.6.9+1) ...
-Selecting previously unselected package tcl8.6-dev:amd64.
-Preparing to unpack .../121-tcl8.6-dev_8.6.10+dfsg-1_amd64.deb ...
-Unpacking tcl8.6-dev:amd64 (8.6.10+dfsg-1) ...
-Selecting previously unselected package tcl-dev:amd64.
-Preparing to unpack .../122-tcl-dev_8.6.9+1_amd64.deb ...
-Unpacking tcl-dev:amd64 (8.6.9+1) ...
-Selecting previously unselected package tidy.
-Preparing to unpack .../123-tidy_2%3a5.6.0-11_amd64.deb ...
-Unpacking tidy (2:5.6.0-11) ...
-Selecting previously unselected package tk8.6.
-Preparing to unpack .../124-tk8.6_8.6.10-1_amd64.deb ...
-Unpacking tk8.6 (8.6.10-1) ...
-Selecting previously unselected package tk.
-Preparing to unpack .../125-tk_8.6.9+1_amd64.deb ...
-Unpacking tk (8.6.9+1) ...
-Selecting previously unselected package tk8.6-dev:amd64.
-Preparing to unpack .../126-tk8.6-dev_8.6.10-1_amd64.deb ...
-Unpacking tk8.6-dev:amd64 (8.6.10-1) ...
-Selecting previously unselected package tk-dev:amd64.
-Preparing to unpack .../127-tk-dev_8.6.9+1_amd64.deb ...
-Unpacking tk-dev:amd64 (8.6.9+1) ...
-Selecting previously unselected package transmission-common.
-Preparing to unpack .../128-transmission-common_2.94-2ubuntu3_all.deb ...
-Unpacking transmission-common (2.94-2ubuntu3) ...
-Selecting previously unselected package transmission-gtk.
-Preparing to unpack .../129-transmission-gtk_2.94-2ubuntu3_amd64.deb ...
-Unpacking transmission-gtk (2.94-2ubuntu3) ...
-Selecting previously unselected package transmission.
-Preparing to unpack .../130-transmission_2.94-2ubuntu3_all.deb ...
-Unpacking transmission (2.94-2ubuntu3) ...
-Selecting previously unselected package w3m.
-Preparing to unpack .../131-w3m_0.5.3-37_amd64.deb ...
-Unpacking w3m (0.5.3-37) ...
-Selecting previously unselected package golang-race-detector-runtime.
-Preparing to unpack .../132-golang-race-detector-runtime_2%3a1.13~1ubuntu2_amd64.deb ...
-Unpacking golang-race-detector-runtime (2:1.13~1ubuntu2) ...
-Selecting previously unselected package nmap.
-Preparing to unpack .../133-nmap_7.80+dfsg1-2build1_amd64.deb ...
-Unpacking nmap (7.80+dfsg1-2build1) ...
-Setting up paperkey (1.6-1) ...
-Setting up python3-feedparser (5.2.1-2) ...
-Setting up python3-css-parser (1.0.4-2) ...
-Setting up python3-apsw (3.28.0-r1-1ubuntu4) ...
-Setting up libtool-bin (2.4.6-14) ...
-Setting up golang-1.13-src (1.13.8-1ubuntu1) ...
-Setting up lua-lpeg:amd64 (1.0.2-1) ...
-Setting up fonts-mathjax (2.7.4+dfsg-1) ...
-Setting up golang-1.13-race-detector-runtime (0.0+svn332029-0ubuntu2) ...
-Setting up python3-repoze.lru (0.7-2) ...
-Setting up libjs-mathjax (2.7.4+dfsg-1) ...
-Setting up libncursesw5-dev:amd64 (6.2-0ubuntu2) ...
-Setting up hunspell (1.7.0-2build2) ...
-Setting up gawk (1:5.0.1+dfsg-1) ...
-Setting up libvorbisidec1 (1.2.1+git20180316-3) ...
-Setting up libenca0:amd64 (1.19-1) ...
-Setting up htop (2.2.0-2build1) ...
-Setting up python3-html2text (2020.1.16-1) ...
-update-alternatives: using /usr/bin/html2markdown.py3 to provide /usr/bin/html2markdown (html2markdown) in auto mode
-Setting up python3-cssutils (1.0.2-3) ...
-update-alternatives: using /usr/bin/cssparse_py3 to provide /usr/bin/cssparse (cssparse) in auto mode
-update-alternatives: using /usr/bin/csscombine_py3 to provide /usr/bin/csscombine (csscombine) in auto mode
-update-alternatives: using /usr/bin/csscapture_py3 to provide /usr/bin/csscapture (csscapture) in auto mode
-Setting up libjxr0:amd64 (1.1-6build1) ...
-Setting up libnatpmp1:amd64 (20150609-7build1) ...
-Setting up libjpeg-turbo-progs (2.0.3-0ubuntu1.20.04.1) ...
-Setting up libreadline-dev:amd64 (8.0-4) ...
-Setting up python3-chm (0.8.6-2build1) ...
-Setting up libclang-cpp10 (1:10.0.0-4ubuntu1) ...
-Setting up libminiupnpc17:amd64 (2.1.20190824-0ubuntu2) ...
-Setting up python3-nose (1.3.7-5) ...
-Setting up python3-webencodings (0.5.1-1ubuntu1) ...
-Setting up libpkcs11-helper1:amd64 (1.26-1) ...
-Setting up libappindicator3-1 (12.10.1+20.04.20200408.1-0ubuntu1) ...
-Setting up python3-ifaddr (0.1.6-1) ...
-Setting up libpython2.7-stdlib:amd64 (2.7.18-1~20.04) ...
-Setting up python3-pygments (2.3.1+dfsg-1ubuntu2) ...
-Setting up libz3-4:amd64 (4.8.7-4build1) ...
-Setting up libblas3:amd64 (3.9.0-1build1) ...
-update-alternatives: using /usr/lib/x86_64-linux-gnu/blas/libblas.so.3 to provide /usr/lib/x86_64-linux-gnu/libblas.so.3 (libblas.so.3-x86_64-linux-gnu) in auto mode
-Setting up libpfm4:amd64 (4.10.1+git20-g7700f49-2) ...
-Setting up w3m (0.5.3-37) ...
-Setting up python3-pyparsing (2.4.6-1) ...
-Setting up libsqlite3-dev:amd64 (3.31.1-4ubuntu0.2) ...
-Setting up libclang1-10 (1:10.0.0-4ubuntu1) ...
-Setting up optipng (0.7.7-1) ...
-Setting up libssl-dev:amd64 (1.1.1f-1ubuntu2) ...
-Setting up libtcl8.6:amd64 (8.6.10+dfsg-1) ...
-Setting up binfmt-support (2.2.0-2) ...
-Created symlink /etc/systemd/system/multi-user.target.wants/binfmt-support.service → /lib/systemd/system/binfmt-support.service.
-Setting up libaudio2:amd64 (1.9.4-6build1) ...
-Setting up golang-1.13-go (1.13.8-1ubuntu1) ...
-Setting up python3-regex (0.1.20190819-2build1) ...
-Setting up libobjc-9-dev:amd64 (9.3.0-17ubuntu1~20.04) ...
-Setting up python3-html5lib (1.0.1-2) ...
-Setting up libjs-sphinxdoc (1.8.5-7ubuntu3) ...
-Setting up libnotify-bin (0.7.9-1ubuntu2) ...
-Setting up fzf (0.20.0-1) ...
-Setting up racket-doc (7.2+dfsg1-2ubuntu3) ...
-Setting up nmap-common (7.80+dfsg1-2build1) ...
-Setting up python3-pyqt5.qtwebchannel (5.14.1+dfsg-3build1) ...
-Setting up libomp5-10:amd64 (1:10.0.0-4ubuntu1) ...
-Setting up python3-lxml:amd64 (4.5.0-1) ...
-Setting up python3-dnspython (1.16.0-1build1) ...
-Setting up librhash0:amd64 (1.3.9-1) ...
-Setting up liblua5.3-0:amd64 (5.3.3-1.1ubuntu2) ...
-Setting up libc6-i386 (2.31-0ubuntu9) ...
-Setting up python3-dateutil (2.7.3-3ubuntu1) ...
-Setting up python3-msgpack (0.6.2-1) ...
-Setting up cmake-data (3.16.3-1ubuntu1) ...
-Setting up python3-pyqt5.qtwebengine (5.14.0-2build1) ...
-Setting up libtidy5deb1:amd64 (2:5.6.0-11) ...
-Setting up python3-cssselect (1.1.0-2) ...
-Setting up libdirectfb-1.7-7:amd64 (1.7.7-9build1) ...
-Setting up transmission-common (2.94-2ubuntu3) ...
-Setting up libpodofo0.9.6 (0.9.6+dfsg-5build1) ...
-Setting up golang-src (2:1.13~1ubuntu2) ...
-Setting up x11proto-scrnsaver-dev (2019.2-1ubuntu1) ...
-Setting up racket-common (7.2+dfsg1-2ubuntu3) ...
-Setting up python3-soupsieve (1.9.5+dfsg-1) ...
-Setting up libonig5:amd64 (6.9.4-1) ...
-Setting up sqlite3 (3.31.1-4ubuntu0.2) ...
-Setting up libjsoncpp1:amd64 (1.7.4-3.1ubuntu2) ...
-Setting up python3-webob (1:1.8.5-2) ...
-Setting up python3-pyqt5.qtsvg (5.14.1+dfsg-3build1) ...
-Setting up python3-mechanize (1:0.4.5-2) ...
-Setting up libz3-dev:amd64 (4.8.7-4build1) ...
-Setting up golang-race-detector-runtime (2:1.13~1ubuntu2) ...
-Setting up tcl8.6 (8.6.10+dfsg-1) ...
-Setting up llvm-10-tools (1:10.0.0-4ubuntu1) ...
-Setting up openvpn (2.4.7-1ubuntu2) ...
-debconf: unable to initialize frontend: Dialog
-debconf: (Dialog frontend will not work on a dumb terminal, an emacs shell buffer, or without a controlling terminal.)
-debconf: falling back to frontend: Readline
- * Restarting virtual private network daemon.
-   ...done.
-Created symlink /etc/systemd/system/multi-user.target.wants/openvpn.service → /lib/systemd/system/openvpn.service.
-Setting up libomp-10-dev (1:10.0.0-4ubuntu1) ...
-Setting up libjxr-tools (1.1-6build1) ...
-Setting up python2.7 (2.7.18-1~20.04) ...
-Setting up python3-zeroconf (0.24.4-0ubuntu1) ...
-Setting up libpython2-stdlib:amd64 (2.7.17-2ubuntu4) ...
-Setting up golang-go (2:1.13~1ubuntu2) ...
-Setting up libjq1:amd64 (1.6-1) ...
-Setting up tcl8.6-dev:amd64 (8.6.10+dfsg-1) ...
-Setting up libtk8.6:amd64 (8.6.10-1) ...
-Setting up libxss-dev:amd64 (1:1.2.3-1) ...
-Setting up tidy (2:5.6.0-11) ...
-Setting up python2 (2.7.17-2ubuntu4) ...
-Setting up llvm-10-runtime (1:10.0.0-4ubuntu1) ...
-Setting up python3-bs4 (4.8.2-1) ...
-Setting up liblinear4:amd64 (2.3.0+dfsg-3build1) ...
-Setting up python-six (1.14.0-2) ...
-Setting up python3-routes (2.4.1-2) ...
-Setting up transmission-gtk (2.94-2ubuntu3) ...
-Setting up python3-packaging (20.3-1) ...
-Setting up lib32gcc-s1 (10.2.0-5ubuntu1~20.04) ...
-Setting up lib32stdc++6 (10.2.0-5ubuntu1~20.04) ...
-Setting up golang-1.13-doc (1.13.8-1ubuntu1) ...
-Setting up llvm-runtime (1:10.0-50~exp1) ...
-Setting up mplayer (2:1.3.0-8build5) ...
-Setting up python3-markdown (3.1.1-3) ...
-Setting up racket (7.2+dfsg1-2ubuntu3) ...
-Setting up python3-html5-parser (0.4.9-3build1) ...
-Setting up calibre-bin (4.99.4+dfsg+really4.12.0-1build1) ...
-Setting up jq (1.6-1) ...
-Setting up tcl (8.6.9+1) ...
-Setting up golang-1.13 (1.13.8-1ubuntu1) ...
-Setting up cmake (3.16.3-1ubuntu1) ...
-Setting up golang-doc (2:1.13~1ubuntu2) ...
-Setting up transmission (2.94-2ubuntu3) ...
-Setting up python-ipaddress (1.0.17-1build1) ...
-Setting up python-cffi-backend (1.14.0-1build1) ...
-Setting up tk8.6 (8.6.10-1) ...
-Setting up python-enum34 (1.1.6-2ubuntu1) ...
-Setting up golang (2:1.13~1ubuntu2) ...
-Setting up libclang-common-10-dev (1:10.0.0-4ubuntu1) ...
-Setting up llvm-10 (1:10.0.0-4ubuntu1) ...
-Setting up python-cryptography (2.8-3) ...
-Setting up nmap (7.80+dfsg1-2build1) ...
-Setting up llvm-10-dev (1:10.0.0-4ubuntu1) ...
-Setting up llvm (1:10.0-50~exp1) ...
-Setting up calibre (4.99.4+dfsg+really4.12.0-1build1) ...
-Setting up tcl-dev:amd64 (8.6.9+1) ...
-Setting up tk8.6-dev:amd64 (8.6.10-1) ...
-Setting up clang-10 (1:10.0.0-4ubuntu1) ...
-Setting up tk (8.6.9+1) ...
-Setting up python-openssl (19.0.0-1build1) ...
-Setting up tk-dev:amd64 (8.6.9+1) ...
-Setting up clang (1:10.0-50~exp1) ...
-Processing triggers for install-info (6.7.0.dfsg.2-5) ...
-Processing triggers for fontconfig (2.13.1-2ubuntu3) ...
-Processing triggers for desktop-file-utils (0.24-1ubuntu3) ...
-Processing triggers for mime-support (3.64ubuntu1) ...
-Processing triggers for hicolor-icon-theme (0.17-2) ...
-Processing triggers for libc-bin (2.31-0ubuntu9) ...
-Processing triggers for systemd (245.4-4ubuntu3.2) ...
-Processing triggers for man-db (2.9.1-1) ...
-Processing triggers for shared-mime-info (1.15-1) ...
-Reading package lists... 0%Reading package lists... 100%Reading package lists... Done
-Building dependency tree... 0%Building dependency tree... 0%Building dependency tree... 50%Building dependency tree... 50%Building dependency tree... 75%Building dependency tree... 76%Building dependency tree... 77%Building dependency tree... 78%Building dependency tree... 79%Building dependency tree... 80%Building dependency tree... 81%Building dependency tree... 82%Building dependency tree... 83%Building dependency tree... 84%Building dependency tree... 85%Building dependency tree... 86%Building dependency tree... 87%Building dependency tree... 88%Building dependency tree... 89%Building dependency tree... 90%Building dependency tree... 91%Building dependency tree... 92%Building dependency tree... 93%Building dependency tree... 94%Building dependency tree... 95%Building dependency tree... 96%Building dependency tree... 97%Building dependency tree... 98%Building dependency tree... 99%Building dependency tree       
-Reading state information... 0%Reading state information... 0%Reading state information... 0%Reading state information... 0%Reading state information... 1%Reading state information... 2%Reading state information... 3%Reading state information... 4%Reading state information... 5%Reading state information... 6%Reading state information... 7%Reading state information... 8%Reading state information... 9%Reading state information... 10%Reading state information... 11%Reading state information... 12%Reading state information... 13%Reading state information... 14%Reading state information... 15%Reading state information... 16%Reading state information... 17%Reading state information... 18%Reading state information... 19%Reading state information... 20%Reading state information... 21%Reading state information... 22%Reading state information... 23%Reading state information... 24%Reading state information... 25%Reading state information... 26%Reading state information... 27%Reading state information... 28%Reading state information... 29%Reading state information... 30%Reading state information... 31%Reading state information... 32%Reading state information... 33%Reading state information... 34%Reading state information... 35%Reading state information... 36%Reading state information... 37%Reading state information... 38%Reading state information... 39%Reading state information... 40%Reading state information... 41%Reading state information... 42%Reading state information... 43%Reading state information... 44%Reading state information... 45%Reading state information... 46%Reading state information... 47%Reading state information... 48%Reading state information... 49%Reading state information... 50%Reading state information... 51%Reading state information... 52%Reading state information... 53%Reading state information... 54%Reading state information... 55%Reading state information... 56%Reading state information... 57%Reading state information... 58%Reading state information... 59%Reading state information... 60%Reading state information... 61%Reading state information... 62%Reading state information... 63%Reading state information... 64%Reading state information... 65%Reading state information... 66%Reading state information... 67%Reading state information... 68%Reading state information... 69%Reading state information... 70%Reading state information... 71%Reading state information... 72%Reading state information... 73%Reading state information... 74%Reading state information... 75%Reading state information... 76%Reading state information... 77%Reading state information... 78%Reading state information... 79%Reading state information... 80%Reading state information... 81%Reading state information... 82%Reading state information... 83%Reading state information... 84%Reading state information... 85%Reading state information... 86%Reading state information... 87%Reading state information... 88%Reading state information... 89%Reading state information... 90%Reading state information... 91%Reading state information... 92%Reading state information... 93%Reading state information... 94%Reading state information... 95%Reading state information... 96%Reading state information... 97%Reading state information... 100%Reading state information... Done
-build-essential is already the newest version (12.8ubuntu1).
-cmake is already the newest version (3.13.4-1build1).
-curl is already the newest version (7.65.3-1ubuntu3).
-gawk is already the newest version (1:4.2.1+dfsg-1.1build1).
-golang is already the newest version (2:1.12~1ubuntu1).
-htop is already the newest version (2.2.0-2).
-hunspell-en-us is already the newest version (1:2018.04.16-1).
-libbz2-dev is already the newest version (1.0.6-9.2).
-libffi-dev is already the newest version (3.2.1-9).
-liblzma-dev is already the newest version (5.2.4-1).
-libncurses5-dev is already the newest version (6.1+20190803-1ubuntu1).
-libncursesw5-dev is already the newest version (6.1+20190803-1ubuntu1).
-libreadline-dev is already the newest version (8.0-3).
-libssl-dev is already the newest version (1.1.1c-1ubuntu4).
-libtool-bin is already the newest version (2.4.6-11).
-openvpn is already the newest version (2.4.7-1ubuntu2).
-wget is already the newest version (1.20.3-1ubuntu1).
-xz-utils is already the newest version (5.2.4-1).
-zlib1g-dev is already the newest version (1:1.2.11.dfsg-1ubuntu3).
-calibre is already the newest version (3.46.0+dfsg-1).
-fonts-firacode is already the newest version (1.207+dfsg1-1).
-hunspell is already the newest version (1.7.0-2build1).
-jq is already the newest version (1.5+dfsg-2build1).
-llvm is already the newest version (1:9.0-49~exp1).
-mplayer is already the newest version (2:1.3.0-8build4).
-paperkey is already the newest version (1.6-1).
-pass is already the newest version (1.7.3-2).
-python-openssl is already the newest version (19.0.0-1).
-racket is already the newest version (7.2+dfsg1-2ubuntu2).
-tk-dev is already the newest version (8.6.9+1).
-transmission is already the newest version (2.94-2ubuntu1).
-xclip is already the newest version (0.13-1).
-libsqlite3-dev is already the newest version (3.29.0-2ubuntu0.2).
-emacs26 is already the newest version (26.3~1.git96dd019-kk1+19.10).
-0 upgraded, 0 newly installed, 0 to remove and 7 not upgraded.
-
-
-*** Antibody
-#+BEGIN_SRC shell :dir "/sudo::"
-curl -sfL git.io/antibody | sh -s - -b /usr/local/bin
-#+END_SRC
-#+RESULTS:
-** Compiled
-Trans -- For translating stuff, seems to work pretty stably.
-#+BEGIN_SRC shell
-wget https://git.io/trans -O /tmp/trans
-chmod u+x /tmp/trans
-mv /tmp/trans $HOME/.local/bin
-#+END_SRC
-
-#+RESULTS:
 
 * Shell
 #+BEGIN_SRC shell
@@ -1062,170 +166,6 @@ cd -
 
 
 
-** Configure Shell
-#+BEGIN_SRC elisp
-(let ((commands (list "poetry completions zsh > ~/.zfunc/_poetry")))
-  (-map (lambda (command)
-          (kev-command command))
-        commands))
-#+END_SRC
-* Clojure
-** Clojure itself
-#+BEGIN_SRC shell :dir "/sudo::/tmp/" :output raw
-mkdir /tmp/clojure-installation && cd /tmp/clojure-installation
-curl -O https://download.clojure.org/install/linux-install-1.10.1.536.sh
-
-chmod +x linux-install-1.10.1.536.sh
-./linux-install-1.10.1.536.sh
-#+END_SRC
-
-#+RESULTS:
-| Downloading | and      | expanding | tar                    |                           |                |
-| Installing  | libs     | into      | /usr/local/lib/clojure |                           |                |
-| Installing  | clojure  | and       | clj                    | into                      | /usr/local/bin |
-| Installing  | man      | pages     | into                   | /usr/local/share/man/man1 |                |
-| Removing    | download |           |                        |                           |                |
-| Use         | clj      | -h        | for                    | help.                     |                |
-** Boot
-#+BEGIN_SRC shell :dir "/sudo::/tmp/" :output raw
-bash -c "cd /usr/local/bin && curl -fsSLo boot https://github.com/boot-clj/boot-bin/releases/download/latest/boot.sh && chmod 755 boot"
-#+END_SRC
-
-#+RESULTS:
-
-** LSP
-#+BEGIN_SRC shell :dir "/tmp"
-wget https://github.com/snoe/clojure-lsp/releases/download/release-20200514T134144/clojure-lsp
-chmod u+x clojure-lsp
-mv clojure-lsp $HOME/.local/bin
-#+END_SRC
-
-#+RESULTS:
-
-** cljfmt (requires node)
-#+BEGIN_SRC shell
-npm install -g node-cljfmt
-version=$(cat $HOME/.nodenv/version)
-ln -s -f $HOME/.nodenv/versions/$version/bin/cljfmt $HOME/.local/bin/cljfmt
-#+END_SRC
-
-#+RESULTS:
-| /home/kev/.nodenv/versions/14.2.0/bin/cljfmt | ->                  | /home/kev/.nodenv/versions/14.2.0/lib/node_modules/node-cljfmt/bin/cljfmt |    |        |
-| +                                            | node-cljfmt@0.5.4-0 |                                                                           |    |        |
-| updated                                      | 1                   | package                                                                   | in | 0.167s |
-
-* Node
-#+BEGIN_SRC shell :results raw
-source $HOME/.zshrc
-curl -fsSL https://raw.githubusercontent.com/nodenv/nodenv-installer/master/bin/nodenv-installer | bash
-
-# Holy fuck I hate the Nodesystem
-git clone https://github.com/momo-lab/xxenv-latest.git "$(nodenv root)"/plugins/xxenv-latest
-# Fuck everything about node
-nodenv latest install
-
-nodenv global $(nodenv versions | tail -n 1)
-
-npm install --global prettier
-npm install --global node-cljfmt
-#+END_SRC
-
-#+RESULTS:
-]0;home: curl -fsSL  | bashnodenv already seems installed in `/home/kev/.nodenv/bin/nodenv'.
-Trying to update with git...
-Already up to date.
-make: Entering directory '/home/kev/.nodenv/src'
-make: '../libexec/nodenv-realpath.dylib' is up to date.
-make: Leaving directory '/home/kev/.nodenv/src'
-
-`nodenv install' command already available in `/home/kev/.nodenv/plugins/node-build/bin/nodenv-install'.
-Trying to update with git...
-Already up to date.
-
-Running doctor script to verify installation...
-Checking for `nodenv' in PATH: /home/kev/.nodenv/bin/nodenv
-Checking for nodenv shims in PATH: OK
-Checking `nodenv install' support: /home/kev/.nodenv/plugins/node-build/bin/nodenv-install (node-build 4.8.0-70-g888ac7ae)
-Counting installed Node versions: 2 versions
-Auditing installed plugins: OK
-
-All done!
-Note that this installer doesn't yet configure your shell startup files:
-1. You'll want to ensure that `~/.nodenv/bin' is added to PATH.
-2. Run `nodenv init' to see instructions how to configure nodenv for your shell.
-3. Launch a new terminal window to verify that the configuration is correct.
-
-]0;home: git clone https://github.com/momo-lab/xxenv-latest.git ]0;home: nodenv latest installLatest version is '14.2.0'
-]0;home: nodenv global $(nodenv versions | tail -n 1)]0;home: npm install --global prettier/home/kev/.nodenv/versions/14.2.0/bin/prettier -> /home/kev/.nodenv/versions/14.2.0/lib/node_modules/prettier/bin-prettier.js
-+ prettier@2.0.5
-updated 1 package in 0.222s
-]0;home: npm install --global node-cljfmt/home/kev/.nodenv/versions/14.2.0/bin/cljfmt -> /home/kev/.nodenv/versions/14.2.0/lib/node_modules/node-cljfmt/bin/cljfmt
-+ node-cljfmt@0.5.4-0
-updated 1 package in 0.149s
-
-* Rust
-#+BEGIN_SRC zsh
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source ~/.cargo/env
-
-rustup toolchain add nightly
-rustup component add rust-src
-rustup component add clippy
-
-cargo +nightly install racer
-cargo install ripgrep
-
-# Rust analyzer installation (because VS Code wants us to suffer)
-# Requires:
-# * Cargo
-# * NodeJS
-# * NPM
-# * rust-src
-git clone https://github.com/rust-analyzer/rust-analyzer.git /tmp/rust-analyzer
-cd /tmp/rust-analyzer
-cargo xtask install
-#+END_SRC
-
-#+RESULTS:
-
-* Snap
-#+BEGIN_SRC shell :dir "/sudo::"
-snap install signal-desktop
-snap install spotify
-snap install bitwise
-snap install chromium
-#+END_SRC
-
-#+RESULTS:
-
-* KDE
-#+BEGIN_SRC shell
-file=RjGYtZL.jpg
-pretty_name="susquehanna_park.jpg"
-output_file="$HOME/Pictures/$pretty_name"
-wget https://i.imgur.com/$file -O $output_file
-
-
-dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
-var Desktops = desktops();
-for (i=0;i<Desktops.length;i++) {
-        d = Desktops[i];
-        d.wallpaperPlugin = "org.kde.image";
-        d.currentConfigGroup = Array("Wallpaper",
-                                    "org.kde.image",
-                                    "General");
-        d.writeConfig("Image", "file:/$output_file");
-
-        console.log("$output_file");
-}'
-
-file=DCIcWc6.jpg
-pretty_name="brothers_ruel.jpg"
-output_file="$HOME/Pictures/$pretty_name"
-wget https://i.imgur.com/$file -O $output_file
-#+END_SRC
-
-#+RESULTS:
 * Dotfiles
 #+NAME: dotfiles
 | filename                  | file_location                            | comment |
@@ -1241,6 +181,7 @@ wget https://i.imgur.com/$file -O $output_file
 | zshenv                    | ~/.zshenv                                |         |
 | zshrc                     | ~/.zshrc                                 |         |
 | profile                   | ~/.profile                               |         |
+| fish/config.fish          | ~/.config/fish/config.fish               |         |
 | zprofile                  | ~/.zprofile                              |         |
 | systemd/emacs.service     | ~/.config/systemd/user/emacs.service     |         |
 | systemd/gitwatch@.service | ~/.config/systemd/user/gitwatch@.service |         |
@@ -1249,7 +190,7 @@ wget https://i.imgur.com/$file -O $output_file
 from pathlib import Path
 
 home = Path.home()
-dotfiles_path = home / ".dotfiles" / "home"
+dotfiles_path = home / "dotfiles" / "home"
 
 
 def firefox_settings():
@@ -1281,7 +222,6 @@ def firefox_settings():
 
             print(f"Copied Firefox profile {profile.get('Path')}")
 
-
 firefox_settings()
 
 file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table }
@@ -1298,6 +238,15 @@ for source, target in file_mappings.items():
     except Exception as exc:
         print(exc)
 
+for func in (dotfiles_path / "fish/functions").glob("*"):
+    target = home / ".config/fish/functions" / func.name
+    try:
+        target.unlink()
+    except:
+        pass
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.symlink_to(func)
+
 #+END_SRC
 
 #+RESULTS:
@@ -1305,11 +254,6 @@ for source, target in file_mappings.items():
 
 * Config
 * Scripts
-** Gitwatch
-#+BEGIN_SRC shell :dir "/sudo::" :var directory=(substitute-in-file-name "$HOME/.dotfiles/home/")
-ln -s $directory/scripts/gitwatch.sh /usr/local/bin/gitwatch
-#+END_SRC
-#+RESULTS:
 ** Remarkable lines file to SVG
 #+BEGIN_SRC python :var dotfiles_dir=(s-concat (getenv "HOME") "/.dotfiles/home")
 import os
