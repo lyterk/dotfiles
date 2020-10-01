@@ -6,3 +6,4 @@ __pycache__/
 home/doom.d/*.el
 Pipfile.lock
 home/doom.dconfig.org
+bootstrap.*
