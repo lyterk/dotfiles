@@ -3,3 +3,5 @@
 	name = Kevin Lyter
 [init]
 	templateDir = ~/.dotfiles/home/git_templates/
+[pull]
+	rebase = true

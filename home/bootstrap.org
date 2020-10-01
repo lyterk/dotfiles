@@ -1228,22 +1228,22 @@ wget https://i.imgur.com/$file -O $output_file
 #+RESULTS:
 * Dotfiles
 #+NAME: dotfiles
-| filename                  | file_location                               | comment |
-|---------------------------+---------------------------------------------+---------|
-| config                    | ~/.ssh/config                               |         |
-| gitconfig                 | ~/.gitconfig                                |         |
-| gitignore                 | ~/.gitignore                                |         |
-| pip.conf                  | ~/.pip/pip.conf                             |         |
-| kdewalletrc               | ~/.config/kdewalletrc                       |         |
-| redshift.conf             | ~/.config/redshift.conf                     |         |
-| flake8                    | ~/.config/flake8                            |         |
-| rustfmt.toml              | ~/.config/rustfmt/rustfmt.toml              |         |
-| zshenv                    | ~/.zshenv                                   |         |
-| zshrc                     | ~/.zshrc                                    |         |
-| profile                   | ~/.profile                                  |         |
-| zprofile                  | ~/.zprofile                                 |         |
-| systemd/emacs.service     | ~/.config/systemd/user/emacs.service        |         |
-| systemd/gitwatch@.service | ~/.config/systemd/user/gitwatch@.service    |         |
+| filename                  | file_location                            | comment |
+|---------------------------+------------------------------------------+---------|
+| ssh_config                | ~/.ssh/config                            |         |
+| gitconfig                 | ~/.gitconfig                             |         |
+| gitignore                 | ~/.gitignore                             |         |
+| pip.conf                  | ~/.pip/pip.conf                          |         |
+| kdewalletrc               | ~/.config/kdewalletrc                    |         |
+| redshift.conf             | ~/.config/redshift.conf                  |         |
+| flake8                    | ~/.config/flake8                         |         |
+| rustfmt.toml              | ~/.config/rustfmt/rustfmt.toml           |         |
+| zshenv                    | ~/.zshenv                                |         |
+| zshrc                     | ~/.zshrc                                 |         |
+| profile                   | ~/.profile                               |         |
+| zprofile                  | ~/.zprofile                              |         |
+| systemd/emacs.service     | ~/.config/systemd/user/emacs.service     |         |
+| systemd/gitwatch@.service | ~/.config/systemd/user/gitwatch@.service |         |
 
 #+BEGIN_SRC python :var table=dotfiles :tangle "copier.py"
 from pathlib import Path
