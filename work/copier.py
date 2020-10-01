@@ -39,7 +39,7 @@ files = {
     "systemd/notmuch.service": home / ".config/systemd/user/notmuch.service",
     "systemd/notmuch.timer": home / ".config/systemd/user/notmuch.timer",
     "systemd/gitwatch@.service": home / ".config/systemd/user/gitwatch@.service",
-    "scripts/vpn.sh" : home / ".local/bin/vpn"
+    "scripts/vpn.sh" : home / ".local/bin/vpn",
     "fish/functions/sudo.fish": home / ".config/fish/functions/sudo.fish"
 }
 
