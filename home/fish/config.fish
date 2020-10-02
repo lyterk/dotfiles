@@ -4,6 +4,8 @@ alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
+alias pac_no_reinstall "sudo pacman -S --needed"
+
 alias i=ipython
 alias python=python3
 alias pipi="pip3 install --user"
