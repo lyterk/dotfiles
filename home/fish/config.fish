@@ -4,6 +4,8 @@ alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
+alias xc "xclip -selection clipboard"
+
 alias i=ipython
 alias python=python3
 alias pipi="pip3 install --user"

@@ -32,11 +32,13 @@ Host ec2
      IdentityFile /home/lyterk/.ssh/compute/ec2-access.pem
 
 Host nuc
-     HostName 192.168.0.103
-     User kev
+     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
+     Port 4222
+     User lyterk
      IdentityFile /home/lyterk/.ssh/nuc/id_rsa
 
-Host ng
-     HostName 192.168.10.102
+Host gitserv
+     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
+     Port 4222
      User git
-     IdentityFile /home/lyterk/.ssh/nuc/git_id_rsa
+     IdentityFile /home/lyterk/.ssh/git/id_rsa
