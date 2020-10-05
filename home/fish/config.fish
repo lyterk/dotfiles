@@ -4,15 +4,9 @@ alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
-<<<<<<< HEAD
 alias pac_no_reinstall "sudo pacman -S --needed"
-=======
-<<<<<<< HEAD
->>>>>>> 8e59eae... Sudo stuff
 alias xc "xclip -selection clipboard"
-=======
 alias pac_no_reinstall "sudo pacman -S --needed"
->>>>>>> cbccd1b... Sudo stuff
 
 alias i=ipython
 alias python=python3
