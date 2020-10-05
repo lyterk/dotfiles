@@ -103,3 +103,11 @@ function sync_dots
     # rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles &
     rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles &
 end
+
+set -x sdet /workspace/sde_integ/src/SDEIntegrationTests
+set -x sde /workspace/sde/src/SellerDiscountsEvaluatorService
+set -x sdm /workspace/sde/src/SellerDiscountsManagerService
+set -x rudra /workspace/rudra/src/Rudra
+set -x ocean /workspace/ocean/src/Ocean
+set -x odyssey /workspace/odyssey/src/TheOdyssey
+set -x rbs /workspace/rbs/src/RecurringBillingService

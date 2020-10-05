@@ -14,7 +14,7 @@ doom_destination = home / ".doom.d"
 files = {
     # dotfiles
     "ssh_config": home / ".ssh/config",
-    "config.fish": home / ".config/fish/config.fish",
+    "fish/config.fish": home / ".config/fish/config.fish",
     "gitconfig": home / ".gitconfig",
     "gitignore": home / ".gitignore_global",
     "aspell.en.pws": home / ".aspell.en.pws",

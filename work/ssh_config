@@ -14,4 +14,7 @@ Host bb
 	User txru
 	IdentityFile ~/.ssh/bitbucket/id_rsa
 
+Host sde-alpha
+     HostName sde-alpha-2c-39af585b.us-west-2.amazon.com
+
 Include ubuntu.ssh.config
