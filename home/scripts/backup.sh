@@ -21,6 +21,7 @@ duplicity --encrypt-key $encrypt_key \
     --exclude $HOME/.vim/ \
     --exclude $staging_dir \
     --exclude $HOME/Videos/ \
+    --exclude $staging_dir/ \
     $HOME file://$staging_dir
 
 rsync -avpz $staging_dir backup:/mnt/toshiba/backups/$(hostname)
