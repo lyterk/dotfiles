@@ -5,6 +5,7 @@ alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
 alias pac_no_reinstall "sudo pacman -S --needed"
+alias xc "xclip -selection clipboard"
 
 alias i=ipython
 alias python=python3
