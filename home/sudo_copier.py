@@ -6,16 +6,14 @@ home = Path("/home/lyterk")
 
 dotfiles_path = home / "dotfiles" / "home"
 
-files = {"systemd/logind.conf": Path("/etc/systemd/logind.conf")}
+files = {
+        "systemd/logind.conf": Path("/etc/systemd/logind.conf"),
+        "sudo/sshd_config": Path("/etc/ssh/sshd_config")
+}
 
-for name, value in files.items():
-    print(value)
+for origin, destination in files.items():
+    print(destination)
     try:
-        try:
-            value.unlink()
-        except:
-            pass
-        value.parent.mkdir(parents=True, exist_ok=True)
-        value.symlink_to(dotfiles_path / name)
+        (dotfiles_path / origin).replace(destination)
     except Exception as exc:
         print(exc)
