@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-staging_dir=$HOME/.backup-staging
+staging_dir=$HOME/.backup-staging/
 mkdir -p $staging_dir
 
 encrypt_key=7BC4D154D6F8B0F15F5456851ABEC6FC8FFE77DC
@@ -23,4 +23,4 @@ duplicity --encrypt-key $encrypt_key \
     --exclude $HOME/Videos/ \
     $HOME file://$staging_dir
 
-rsync -avpz $staging_dir nuc:/mnt/toshiba/backups-$(hostname)/
+rsync -avpz $staging_dir backup:/mnt/toshiba/backups/$(hostname)
