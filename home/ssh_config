@@ -3,48 +3,31 @@
 Host bb
      HostName bitbucket.org
      User git
-     IdentityFile /home/lyterk/.ssh/bitbucket/id_rsa
+     IdentityFile ~/.ssh/bitbucket/id_rsa
 
 Host github
      HostName github.com
      User git
-     IdentityFile /home/lyterk/.ssh/github/id_rsa
-
-
-Host mithras
-     HostName 192.168.0.103
-     User lyterk
-     IdentityFile /home/lyterk/.ssh/mithras/id_rsa
-     LocalForward 127.0.0.1:8385 127.0.0.1:8384
+     IdentityFile ~/.ssh/github/id_rsa
 
 Host aetius
      HostName 192.168.0.101
      User lyterk
 
-Host r
-     HostName 10.11.99.1
-     User root
-     IdentityFile /home/lyterk/.ssh/remarkable/id_rsa
-
-Host ec2
-     HostName 3.220.199.128
-     User ubuntu
-     IdentityFile /home/lyterk/.ssh/compute/ec2-access.pem
-
 Host nuc
      HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
      Port 4222
      User lyterk
-     IdentityFile /home/lyterk/.ssh/nuc/id_rsa
+     IdentityFile ~/.ssh/nuc/id_rsa
 
 Host gitserv
      HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
      Port 4222
      User git
-     IdentityFile /home/lyterk/.ssh/git/id_rsa
+     IdentityFile ~/.ssh/git/id_rsa
 
 Host backup
      HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
      Port 4222
      User backup
-     IdentityFile /home/lyterk/.ssh/backup/id_rsa
+     IdentityFile ~/.ssh/backup/id_rsa

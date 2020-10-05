@@ -17,4 +17,16 @@ Host bb
 Host sde-alpha
      HostName sde-alpha-2c-39af585b.us-west-2.amazon.com
 
+Host nuc
+     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
+     Port 4222
+     User lyterk
+     IdentityFile ~/.ssh/nuc/id_rsa
+
+Host gitserv
+     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
+     Port 4222
+     User git
+     IdentityFile ~/.ssh/git/id_rsa
+
 Include ubuntu.ssh.config
