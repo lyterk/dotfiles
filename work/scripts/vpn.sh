@@ -1,5 +1,18 @@
 #!/usr/bin/env zsh
 
+begin_dir=$(pwd)
+
+# NOTE Run these while not connected to VPN
+cd ~/.password-store
+git pull origin mainline
+git push origin mainline
+
+cd ~/dotfiles
+git pull origin mainline
+git push origin mainline
+
+cd $begin_dir
+
 export pin=$(pass Amzn/Midway_PIN)
 read "token?Enter token: "
 
