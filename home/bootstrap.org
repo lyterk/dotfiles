@@ -22,72 +22,6 @@ Such as for pip or apt
 (message (table-to-versioned-string table package-manager))
 #+END_SRC
 
-* Packages
-Run all as root.
-** Apt
-
-*** Installs
-Trying to sort these in terms of 'emergency' criticality. Very mission critical things at the top. Deps at the bottom.
-#+NAME: apt-sources
-| name             | version | comment                           |
-|------------------+---------+-----------------------------------|
-| curl             |         |                                   |
-| gawk             |         | gnu awk, cause it's better        |
-| sqlite3          |         |                                   |
-| nmap             |         |                                   |
-| wget             |         |                                   |
-| xclip            |         |                                   |
-| pass             |         |                                   |
-| openvpn          |         |                                   |
-| calibre          |         |                                   |
-| htop             |         |                                   |
-| jq               |         | Just critical                     |
-| clang            |         | Used for Rust interop             |
-| libnotify-bin    |         | Sending alerts to the desktop     |
-| w3m              |         | Internet browsing stuff           |
-| racket           |         |                                   |
-| hunspell         |         |                                   |
-| hunspell-en-us   |         |                                   |
-| golang           |         | so hot right now                  |
-<<<<<<< HEAD
-| gnutls-bin       |         | For Emacs Circe                   |
-=======
-| fzf              |         | fuzzy searching                   |
->>>>>>> 12d78f5bf9ae8824336d1cfff21efd20461881f9
-| transmission     |         |                                   |
-| tidy             |         | html formatting                   |
-| mplayer          |         | nice sound playing                |
-| paperkey         |         | backing up /restoring GPG keys    |
-| cmake            |         | requires ubuntu 19+, for libvterm |
-| libtool-bin      |         | for libvterm                      |
-| fonts-firacode   |         | for doom emacs                    |
-| zlib1g-dev       |         | for installing python w/ pyenv    |
-| build-essential  |         | python + pyenv                    |
-| libssl-dev       |         | python + pyenv                    |
-| libbz2-dev       |         | python + pyenv                    |
-| libreadline-dev  |         | python + pyenv                    |
-| libsqlite3-dev   |         | python + pyenv                    |
-| llvm             |         | python + pyenv                    |
-| libncurses5-dev  |         | python + pyenv                    |
-| libncursesw5-dev |         | python + pyenv                    |
-| xz-utils         |         | python + pyenv                    |
-| tk-dev           |         | python + pyenv                    |
-| libffi-dev       |         | python + pyenv                    |
-| liblzma-dev      |         | python + pyenv                    |
-| python-openssl   |         | python + pyenv                    |
-
-#+NAME: INSTALLATION
-#+HEADER: :var vstring=table-to-versioned-string(table=apt-sources, package-manager="pip")
-#+HEADER: :dir "/sudo::/"
-#+HEADER: :results raw
-#+BEGIN_SRC shell
-# I could do this more nicely and cleanly with the Python API, but I prefer to
-# be able to do this without dependencies-- this should work on a fresh ubuntu
-# install.
-apt-get install -y $(echo $vstring)
-#+END_SRC
-
-
 * Shell
 #+BEGIN_SRC shell
 # NOTE You probably want to generate an SSH key for bitbucket for this machine.
@@ -96,36 +30,7 @@ git clone https://bitbucket.org/txru/passwords.git ~/.password-store
 git clone https://bitbucket.org/txru/dotfiles.git ~/.dotfiles
 python3 ~/.dotfiles/home/copier.py
 #+END_SRC
-* Emacs
-#+BEGIN_SRC shell
-git clone https://github.com/hlissner/doom-emacs ~/.emacs.d
-yes | ~/.emacs.d/bin/doom install
-
-mkdir -p ~/.emacs.d/.local/straight/repos/emacs-libvterm/build
-cd ~/.emacs.d/.local/straight/repos/emacs-libvterm/build
-cmake ..
-make
-cd -
-#+END_SRC
-#+END_SRC
 * Python
-
-** Create env
-#+BEGIN_SRC elisp  :var location=(getenv "HOME")
-(let* ((commands (list
-                 (format "git clone https://github.com/pyenv/pyenv.git %s/.pyenv" location)
-                 (format "git clone https://github.com/momo-lab/xxenv-latest.git %s/plugins/xxenv-latest"
-                         (s-concat location "/.pyenv")
-                 "pyenv latest install"
-                 "pyenv global $(pyenv versions | tail -n 1)"
-                 "mkdir -p $HOME/.zfunc")))
-  (-map (lambda (command)
-          (kev-command command))
-        commands))
-#+END_SRC
-#+RESULTS:
-| git clone https://github.com/pyenv/pyenv.git ~/.pyenv | 128 | fatal: destination path '/home/kev/.pyenv' already exists and is not an empty directory. |
-| pyenv latest install                                  |   1 | Latest version is '3.8.2'                                                                |
 
 ** Install Libraries
 #+NAME: general-purpose-python
@@ -183,8 +88,6 @@ cd -
 | profile                   | ~/.profile                               |         |
 | fish/config.fish          | ~/.config/fish/config.fish               |         |
 | zprofile                  | ~/.zprofile                              |         |
-| systemd/emacs.service     | ~/.config/systemd/user/emacs.service     |         |
-| systemd/gitwatch@.service | ~/.config/systemd/user/gitwatch@.service |         |
 
 #+BEGIN_SRC python :var table=dotfiles :tangle "copier.py"
 from pathlib import Path
