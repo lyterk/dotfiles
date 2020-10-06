@@ -48,20 +48,17 @@ set -x EDITOR "/usr/bin/emacsclient -t"
 
 set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
-set -x NPM $HOME/.nvm/versions/node/v8.16.0/bin
 set -x LOCALBIN $HOME/.local/bin
-set -x NODEPATH $HOME/.nvm/versions/node/v12.2.0/bin
 set -x CARGOPATH $HOME/.cargo/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x PYENV $HOME/.pyenv/bin
 set -x LINUXBREW /home/linuxbrew/.linuxbrew/bin
 set -x GOPATH $HOME/go
-set -x SNAPPATH /snap/bin
 
 set -gx SHELL /usr/bin/fish
 set -gx EDITOR "emacsclient -t"
 
-set -gx PATH $PATH $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX $PYENV $LINUXBREW $NPM $GOPATH/bin $SNAPPATH
+set -gx PATH $PATH $LOCALBIN $CARGOPATH $TOOLBOX $PYENV $LINUXBREW
 
 status --is-interactive; and source (pyenv init -|psub)
 
