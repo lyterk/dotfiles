@@ -4,11 +4,11 @@ begin_dir=$(pwd)
 
 # NOTE Run these while not connected to VPN
 cd ~/.password-store
-git pull origin mainline
+git pull --rebase origin mainline
 git push origin mainline
 
 cd ~/dotfiles
-git pull origin mainline
+git pull --rebase origin mainline
 git push origin mainline
 
 cd $begin_dir
