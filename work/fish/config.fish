@@ -28,6 +28,9 @@ alias python python3
 alias pip $HOME/.pyenv/shims/pip3
 alias csi "rlwrap csi"
 
+alias vpn-off='/opt/cisco/anyconnect/bin/vpn disconnect'
+alias vpn-on='/opt/cisco/anyconnect/bin/vpn connect sea-h-orca.amazon.com'
+
 alias bnu "brazil ws create --name"
 alias bp "brazil ws use -p"
 alias bv "brazil ws use -vs"
