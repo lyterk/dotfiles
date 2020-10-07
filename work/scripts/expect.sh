@@ -10,7 +10,7 @@ spawn /usr/bin/mwinit -o
 expect $mwinit_pin_request
 send "$pin\n"
 expect $mwinit_token_request
-send "$token\n"
+send "$env(token)\n"
 
 expect "$"
 send_user

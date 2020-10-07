@@ -2,14 +2,21 @@
 
 begin_dir=$(pwd)
 
-# NOTE Run these while not connected to VPN
-cd ~/.password-store
-git pull --rebase origin mainline
-git push origin mainline
+# read -rs "ssh_password?Enter SSH password: "
+# echo $ssh_password > $HOME/.temp_pass
 
-cd ~/dotfiles
-git pull --rebase origin mainline
-git push origin mainline
+# # NOTE Run these while not connected to VPN
+# cd ~/.password-store
+# echo $ssh_password | git pull --rebase origin mainline
+# echo "Pull done"
+# echo $ssh_password | git push origin mainline
+# echo "Push done"
+
+# cd ~/dotfiles
+# echo $ssh_password | git pull --rebase origin mainline
+# echo "Pull done"
+# echo $ssh_password | git push origin mainline
+# echo "Push done"
 
 cd $begin_dir
 
