@@ -1,5 +1,8 @@
 #!/usr/bin/env expect
 
+set token [lindex $argv 0]
+
+puts "$token"
 set pin [exec /usr/bin/pass Amzn/Midway_PIN]
 # set password [exec /usr/bin/pass Amazon/User_Passwords/current]
 
@@ -10,7 +13,7 @@ spawn /usr/bin/mwinit -o
 expect $mwinit_pin_request
 send "$pin\n"
 expect $mwinit_token_request
-send "$env(token)\n"
+send "$token\n"
 
 expect "$"
-send_user
+send_user ""
