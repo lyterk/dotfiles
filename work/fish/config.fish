@@ -78,12 +78,12 @@ function amall
 end
 
 
-
 function sync_dots
-    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles &
+    rsync -avpz --cvs-exclude ~/dotfiles/ desk:~/dotfiles
+    ssh desk "python3 ~/dotfiles/remote/copier.py"
 end
 
-set -x sdet /workspace/sde_integ/src/SDEIntegrationTests
+set -x sdet /workspace/sde/src/SDEIntegrationTests
 set -x sde /workspace/sde/src/SellerDiscountsEvaluatorService
 set -x sdm /workspace/sde/src/SellerDiscountsManagerService
 set -x rudra /workspace/rudra/src/Rudra

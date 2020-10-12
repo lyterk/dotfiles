@@ -7,7 +7,7 @@ alias svba "source venv/bin/activate"
 alias sf "~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
 
 alias bb "brazil-build"
-allias bbr "bb release"
+alias bbr "bb release"
 alias bre "brazil-runtime-exec"
 alias bte "brazil-test-exec"
 alias brep "bre python bin/manage.py"
@@ -69,7 +69,7 @@ set -x GOPATH $HOME/go
 set -x SNAPPATH /snap/bin
 
 set -gx SHELL /usr/bin/fish
-set -gx EDITOR "emacsclient -t"
+set -gx EDITOR vim
 
 set -gx BASE_PATH /usr/NX/bin /usr/local/bin /bin /usr/bin /home/kllyter/bin /usr/local/sbin /usr/sbin /sbin
 set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
@@ -84,11 +84,4 @@ function amall
     sam build --use-container --build-dir .aws-sam/
     sam package --s3-bucket sam-dev-kllyter --template-file .aws-sam/template.yaml --output-template packaged.yaml
     sam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
-end
-
-function sync_dots
-    rsync -a --cvs-exclude ~/dotfiles/ desk:~/dotfiles
-    # rsync -a --cvs-exclude ~/dotfiles/ d:~/dotfiles
-    # rsync -a --cvs-exclude ~/dotfiles/ e:~/dotfiles
-    rsync -a --cvs-exclude ~/dotfiles/ f:~/dotfiles
 end
