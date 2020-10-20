@@ -85,3 +85,7 @@ function amall
     sam package --s3-bucket sam-dev-kllyter --template-file .aws-sam/template.yaml --output-template packaged.yaml
     sam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
 end
+
+function smart_zgrep
+    find (pwd) -type f -exec echo {} \; -exec zgrep $1 {} \; > /tmp/find_results.txt
+end
