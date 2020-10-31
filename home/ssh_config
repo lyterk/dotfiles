@@ -1,5 +1,9 @@
 # LocalForward Client:PORT Remote:PORT
 
+Host *
+  AddKeysToAgent yes
+  UseKeychain yes
+
 Host bb
      HostName bitbucket.org
      User git
