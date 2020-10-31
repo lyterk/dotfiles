@@ -4,6 +4,8 @@ alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
+alias scu "systemctl --user"
+
 alias pac_no_reinstall "sudo pacman -S --needed"
 alias xc "xclip -selection clipboard"
 alias pac_no_reinstall "sudo pacman -S --needed"
