@@ -21,3 +21,5 @@ alias poke 'play $SOUND_FOLDER/wrong_answer.mp3 2> /dev/null'
 
 set -x BROWSER /usr/bin/firefox
 set -gx EDITOR "vim"
+
+eval keychain --agents ssh --eval $HOME/.ssh/git/id_rsa

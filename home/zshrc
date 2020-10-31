@@ -43,11 +43,8 @@ alias remark="rsync -avzz --rsync-path=/opt/bin/rsync r:/home/root/.local/share/
 
 fc -p ~/.zsh_history
 source ~/.zshenv
-source ~/.zsh_plugins.sh
 fpath+=$HOME/.zfunc
 
 function vf() {
     vlc "$(fzf -1 -q $1)"
 }
-
-eval "$($HOME/.pyenv/bin/pyenv init -)"

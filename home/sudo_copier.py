@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
+import shutil
 
-home = Path("/home/lyterk")
+home = "/home/lyterk"
 
-dotfiles_path = home / "dotfiles" / "home"
+dotfiles_path = home + "/dotfiles/home"
 
 files = {
         "systemd/logind.conf": Path("/etc/systemd/logind.conf"),
