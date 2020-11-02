@@ -37,9 +37,6 @@ alias bnu "brazil ws create --name"
 alias bp "brazil ws use -p"
 alias bv "brazil ws use -vs"
 
-alias ssam "sudo /home/linuxbrew/.linuxbrew/bin/sam"
-
-alias pahvo 'psql -h pahvo.cakudculty6n.us-east-1.rds.amazonaws.com -p 5432 -d pahvo -U airflow_test_user'
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'
 alias poke 'play $SOUND_FOLDER/wrong_answer.mp3 2> /dev/null'
@@ -68,23 +65,10 @@ set -x LINUXBREW /home/linuxbrew/.linuxbrew/bin
 set -x GOPATH $HOME/go
 set -x SNAPPATH /snap/bin
 
-set -gx SHELL /usr/bin/fish
 set -gx EDITOR vim
 
 set -gx BASE_PATH /usr/NX/bin /usr/local/bin /bin /usr/bin /home/kllyter/bin /usr/local/sbin /usr/sbin /sbin
 set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
-
-function samall
-    ssam build --use-container --build-dir .sudo-aws-sam/
-    ssam package --s3-bucket sam-dev-kllyter --template-file .sudo-aws-sam/template.yaml --output-template packaged.yaml
-    ssam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
-end
-
-function amall
-    sam build --use-container --build-dir .aws-sam/
-    sam package --s3-bucket sam-dev-kllyter --template-file .aws-sam/template.yaml --output-template packaged.yaml
-    sam deploy --template-file packaged.yaml --region us-west-2 --capabilities CAPABILITY_IAM --stack-name $argv
-end
 
 function smart_zgrep
     find (pwd) -type f -exec echo {} \; -exec zgrep $1 {} \; > /tmp/find_results.txt
