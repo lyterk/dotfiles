@@ -20,12 +20,18 @@ Host aetius
      User lyterk
 
 Host nuc
-     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
-     Port 4222
+     HostName tyoras.com
+     Port 22
      User lyterk
      IdentityFile ~/.ssh/nuc/id_rsa
 
 Host gitserv
+     HostName tyoras.com
+     Port 22
+     User git
+     IdentityFile ~/.ssh/git/id_rsa
+
+Host gitserv_no_password
      HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
      Port 4222
      User git
