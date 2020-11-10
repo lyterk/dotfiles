@@ -1,6 +1,6 @@
 [Unit]
 Description=Watch file or directory and git commit all changes. run with:
-# systemctl --user --now enable gitwatch@$(systemd-escape "'-r gitserv:/git/org.git' /home/lyterk/org").service
+# systemctl --user --now enable gitwatch@$(systemd-escape "'-r gitserv_no_password:/git/org.git' /home/lyterk/org").service
 
 [Service]
 Environment="SCRIPT_ARGS=%I"
