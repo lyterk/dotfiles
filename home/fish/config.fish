@@ -25,3 +25,4 @@ set -x BROWSER /usr/bin/firefox
 set -gx EDITOR "vim"
 
 eval keychain --agents ssh --eval $HOME/.ssh/git/id_rsa
+eval keychain --agents ssh --eval $HOME/.ssh/nuc/id_rsa
