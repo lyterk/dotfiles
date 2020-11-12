@@ -53,22 +53,19 @@ set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/li
 
 
 set -x ENV_IMPROVEMENT /apollo/env/envImprovement/bin
-set -x JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/bin
-set -x JDK_HOME /usr/lib/jvm/java-11-openjdk-amd64
-set -x NPM $HOME/.nvm/versions/node/v8.16.0/bin
 set -x LOCALBIN $HOME/.local/bin
-set -x NODEPATH $HOME/.nvm/versions/node/v12.2.0/bin
 set -x CARGOPATH $HOME/.cargo/bin
 set -x TOOLBOX $HOME/.toolbox/bin
 set -x PYENV $HOME/.pyenv/bin
 set -x LINUXBREW /home/linuxbrew/.linuxbrew/bin
 set -x GOPATH $HOME/go
 set -x SNAPPATH /snap/bin
+set -x G2S2 /apollo/env/G2S2CommandTools/bin
 
 set -gx EDITOR vim
 
 set -gx BASE_PATH /usr/NX/bin /usr/local/bin /bin /usr/bin /home/kllyter/bin /usr/local/sbin /usr/sbin /sbin
-set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX
+set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX $G2S2
 
 function smart_zgrep
     find (pwd) -type f -exec echo {} \; -exec zgrep $1 {} \; > /tmp/find_results.txt
