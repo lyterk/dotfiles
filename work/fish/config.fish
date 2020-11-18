@@ -7,6 +7,7 @@ alias acs "apt-cache search"
 alias acm "apt-cache madison"
 alias svba "source venv/bin/activate"
 alias sf "~/dotfiles/work/copier.py; and source ~/.config/fish/config.fish"
+alias scu "systemctl --user"
 
 alias bb "brazil-build"
 alias bbr "bb release"
