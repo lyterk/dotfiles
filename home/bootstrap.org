@@ -5,7 +5,7 @@
 Such as for pip or apt
 
 #+NAME: table-to-versioned-string
-#+BEGIN_SRC elisp :var table=apt-sources package-manager="apt" :results silent
+#+BEGIN_SRC elisp :var table='() package-manager="apt" :results silent
 (defun table-to-versioned-string (table package-manager)
   ;; Joiner assigns whether we should use $package=$version or $package==$version
   (let ((joiner
@@ -73,21 +73,22 @@ python3 ~/.dotfiles/home/copier.py
 
 * Dotfiles
 #+NAME: dotfiles
-| filename                  | file_location                            | comment |
-|---------------------------+------------------------------------------+---------|
-| ssh_config                | ~/.ssh/config                            |         |
-| gitconfig                 | ~/.gitconfig                             |         |
-| gitignore                 | ~/.gitignore                             |         |
-| pip.conf                  | ~/.pip/pip.conf                          |         |
-| kdewalletrc               | ~/.config/kdewalletrc                    |         |
-| redshift.conf             | ~/.config/redshift.conf                  |         |
-| flake8                    | ~/.config/flake8                         |         |
-| rustfmt.toml              | ~/.config/rustfmt/rustfmt.toml           |         |
-| zshenv                    | ~/.zshenv                                |         |
-| zshrc                     | ~/.zshrc                                 |         |
-| profile                   | ~/.profile                               |         |
-| fish/config.fish          | ~/.config/fish/config.fish               |         |
-| zprofile                  | ~/.zprofile                              |         |
+| filename         | file_location                  | comment |
+|------------------+--------------------------------+---------|
+| ssh_config       | ~/.ssh/config                  |         |
+| gitconfig        | ~/.gitconfig                   |         |
+| gitignore        | ~/.gitignore                   |         |
+| i3_config        | ~/.config/i3/config            |         |
+| pip.conf         | ~/.pip/pip.conf                |         |
+| kdewalletrc      | ~/.config/kdewalletrc          |         |
+| redshift.conf    | ~/.config/redshift.conf        |         |
+| flake8           | ~/.config/flake8               |         |
+| rustfmt.toml     | ~/.config/rustfmt/rustfmt.toml |         |
+| zshenv           | ~/.zshenv                      |         |
+| zshrc            | ~/.zshrc                       |         |
+| profile          | ~/.profile                     |         |
+| fish/config.fish | ~/.config/fish/config.fish     |         |
+| zprofile         | ~/.zprofile                    |         |
 
 #+BEGIN_SRC python :var table=dotfiles :tangle "copier.py"
 from pathlib import Path
