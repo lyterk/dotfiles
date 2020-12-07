@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
+from typing import Dict
 
 home = Path("~").expanduser()
 dotfiles_path = home / "dotfiles" / "work"
+all_scripts_path = home / "dotfiles" / "scripts"
 
 snippets_source = home / "dotfiles" / "snippets"
 snippets_destination = home / ".emacs.d" / "private" / "snippets"
@@ -44,16 +46,25 @@ files = {
 }
 
 # Remove existing symlinked destinations
-for filename, destination_path in files.items():
-    print(destination_path)
-    try:
-        destination_path.unlink()
-    except:
-        # I don't care if it already exists or not.
-        pass
-    try:
-        destination_path.parent.mkdir(parents=True, exist_ok=True)
-        destination_path.symlink_to(dotfiles_path / filename)
-    except Exception as exc:
-        print(exc)
-        pass
+def copy(root_path: Path, files: Dict[str, Path]):
+    for filename, destination_path in files.items():
+        print(destination_path)
+        try:
+            destination_path.unlink()
+        except:
+            # I don't care if it already exists or not.
+            pass
+        try:
+            destination_path.parent.mkdir(parents=True, exist_ok=True)
+            destination_path.symlink_to(root_path / filename)
+        except Exception as exc:
+            print(exc)
+            pass
+
+copy(dotfiles_path, files)
+
+scripts = {
+    "passmenu.sh": home / ".local/bin/passmenu"
+}
+
+copy(all_scripts_path, scripts)

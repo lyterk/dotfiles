@@ -61,11 +61,12 @@ set -x LINUXBREW /home/linuxbrew/.linuxbrew/bin
 set -x GOPATH $HOME/go
 set -x SNAPPATH /snap/bin
 set -x G2S2 /apollo/env/G2S2CommandTools/bin
+set -x FLARE /apollo/env/FlareCLI/bin
 
 set -gx EDITOR vim
 
 set -gx BASE_PATH /usr/NX/bin /usr/local/bin /bin /usr/bin /home/kllyter/bin /usr/local/sbin /usr/sbin /sbin
-set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX $G2S2
+set -gx PATH $BASE_PATH $ENV_IMPROVEMENT $GOBIN $LOCALBIN $CARGOPATH $TOOLBOX $G2S2 $FLARE
 
 function smart_zgrep
     find (pwd) -type f -exec echo {} \; -exec zgrep $1 {} \; > /tmp/find_results.txt
