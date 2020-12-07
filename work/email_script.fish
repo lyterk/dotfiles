@@ -4,8 +4,9 @@ set nm /usr/bin/notmuch
 set me "kllyter"
 set boss "mansataa" "tompcase" "saindane"
 set director "joannste"
+set team_name "coffee-team"
 set team "weny" "nicwrin" "zhaoyic" "amyni" "varuojha" "adheep" "yjiaa"
-set domain "@amazon.com"
+set domain "$domain"
 set retrieval "Retrieval using the IMAP4 protocol failed for the following message"
 set deinbox -inbox -unread
 
@@ -17,11 +18,11 @@ end
 
 # More likely to be to me
 
-nm_tag +to_me "to:$me$domain AND date:today"
+nm_tag +to_me "to:$me$domain AND date:"(date --date='7 days ago' +%d-%m)".."
 
 nm_tag +boss_to_me +boss "to:$me$domain AND from:$boss$domain"
 
-nm_tag +boss_broadcast +boss "to:skinet$domain AND from:$boss$domain"
+nm_tag +boss_broadcast +boss "to:$team_name$domain AND from:$boss$domain"
 
 nm_tag +joannste_team "to:joanste-team$domain"
 nm_tag +director "from:$director$domain"
@@ -36,13 +37,21 @@ nm_tag +automated_cruft +trash +deleted -inbox -unread "Cron AND from:root@"
 
 nm_tag +automated_cruft +trash +deleted -inbox -unread "$retrieval"
 
+nm_tag +mcm "cm-admin@amazon.com"
+
+nm_tag +CR "CR-Critic@amazon.com"
+
 nm_tag +dwp +trash -inbox -unread "from:dwp"
+
+nm_tag +deleted -inbox -unread from:amazonian-news.us@amazon.com
 
 nm_tag +tickets "from:remedy$domain OR (Ticket AND Correspondence)"
 
 nm_tag +permissions "from:permissions-notifier"
 
-nm_tag +sim from:"issues@prod.sim.a2z.com"
+nm_tag +good_reads "from:sde-good-reads$domain OR from:sde-good-reads+update$domain"
+
+nm_tag +sim from:"@prod.sim.a2z.com"
 
 # Interest lists and chatter
 
