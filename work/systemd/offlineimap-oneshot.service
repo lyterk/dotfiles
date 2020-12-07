@@ -1,10 +1,10 @@
 [Unit]
-Description=Offlineimap Service for account %i (oneshot)
+Description=Offlineimap Service for account amazon (oneshot)
 Documentation=man:offlineimap(1)
 
 [Service]
 Type=oneshot
-ExecStart=/home/ANT.AMAZON.COM/kllyter/.local/bin/offlineimap -o -a %i -u basic
+ExecStart=/home/ANT.AMAZON.COM/kllyter/.local/bin/offlineimap -o -a amazon -u basic
 # Give 120 seconds for offlineimap to gracefully stop before hard killing it.
 TimeoutStopSec=120
 
