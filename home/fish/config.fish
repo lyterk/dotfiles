@@ -14,8 +14,8 @@ alias i=ipython
 alias python=python3
 alias pipi="pip3 install --user"
 
-alias ppush "pass git push origin master"
-alias ppull "pass git pull --rebase origin master"
+alias ppush "pass git push origin mainline"
+alias ppull "pass git pull --rebase origin mainline"
 
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'
