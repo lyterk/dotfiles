@@ -1,4 +1,5 @@
 # LocalForward Client:PORT Remote:PORT
+AddKeysToAgent yes
 
 Host *
      IgnoreUnknown AddKeysToAgent,UseKeychain
