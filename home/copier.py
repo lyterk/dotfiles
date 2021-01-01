@@ -1,4 +1,20 @@
-table=[["ssh_config", "~/.ssh/config", ""], ["gitconfig", "~/.gitconfig", ""], ["gitignore", "~/.gitignore", ""], ["i3_config", "~/.config/i3/config", ""], ["pip.conf", "~/.pip/pip.conf", ""], ["kdewalletrc", "~/.config/kdewalletrc", ""], ["redshift.conf", "~/.config/redshift.conf", ""], ["flake8", "~/.config/flake8", ""], ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""], ["zshenv", "~/.zshenv", ""], ["zshrc", "~/.zshrc", ""], ["profile", "~/.profile", ""], ["fish/config.fish", "~/.config/fish/config.fish", ""], ["zprofile", "~/.zprofile", ""]]
+table = [
+    ["ssh_config", "~/.ssh/config", ""],
+    ["gitconfig", "~/.gitconfig", ""],
+    ["gitignore", "~/.gitignore", ""],
+    ["i3_config", "~/.config/i3/config", ""],
+    ["pip.conf", "~/.pip/pip.conf", ""],
+    ["kdewalletrc", "~/.config/kdewalletrc", ""],
+    ["redshift.conf", "~/.config/redshift.conf", ""],
+    ["flake8", "~/.config/flake8", ""],
+    ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""],
+    ["zshenv", "~/.zshenv", ""],
+    ["zshrc", "~/.zshrc", ""],
+    ["profile", "~/.profile", ""],
+    ["fish/config.fish", "~/.config/fish/config.fish", ""],
+    ["mimeapps.list", "~/.local/share/applications/mimeapps.list"],
+    ["zprofile", "~/.zprofile", ""],
+]
 from pathlib import Path
 
 home = Path.home()
@@ -34,9 +50,10 @@ def firefox_settings():
 
             print(f"Copied Firefox profile {profile.get('Path')}")
 
+
 firefox_settings()
 
-file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table }
+file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table}
 
 for source, target in file_mappings.items():
     print(target)
