@@ -60,7 +60,6 @@ bindsym $mod+F2 exec firefox-esr
 bindsym $mod+F3 exec pcmanfm
 # bindsym $mod+F3 exec emacs
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
-bindsym $mod+p exec --no-startup-id ~/dotfiles/scripts/passmenu
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
@@ -69,6 +68,10 @@ bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
 bindsym $mod+Shift+h exec i3help
 bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
+# lyterk scripts
+bindsym $mod+p exec --no-startup-id ~/dotfiles/scripts/passmenu
+bindsym $mod+Shift+w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh
 
 # focus_follows_mouse no
 
