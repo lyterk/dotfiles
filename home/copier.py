@@ -14,7 +14,9 @@ table = [
     ["fish/config.fish", "~/.config/fish/config.fish", ""],
     ["mimeapps.list", "~/.local/share/applications/mimeapps.list"],
     ["zprofile", "~/.zprofile", ""],
+    ["rofi_config", "~/.config/rofi/config.rasi"],
 ]
+
 from pathlib import Path
 
 home = Path.home()
