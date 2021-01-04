@@ -33,4 +33,4 @@ echo $password | kinit -f
 # mwinit_echo_string="$pin\n$token\n"
 # echo $mwinit_echo_string | mwinit -o
 
-~/dotfiles/work/scripts/expect.sh $token
+# ~/dotfiles/work/scripts/expect.sh $token

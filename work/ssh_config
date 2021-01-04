@@ -1,6 +1,3 @@
-Host *dev-dsk-kllyter*.amazon.com
-     ProxyCommand none
-
 Host desk2
      Hostname dev-dsk-kllyter-1a-acaac16d.us-east-1.amazon.com
      User kllyter
@@ -32,11 +29,16 @@ Host nuc
      Port 22
      User lyterk
      IdentityFile ~/.ssh/nuc/id_rsa
+     IdentitiesOnly yes
 
 Host gitserv
      HostName tyoras.com
      Port 22
      User git
      IdentityFile ~/.ssh/git/id_rsa
+     IdentitiesOnly yes
 
-Include ubuntu.ssh.config
+Host NewServicesUS
+     HostName map-new-timber-fs-na-c4-bebb5d16.us-east-1.amazon.com
+
+Include ~/.ssh/ubuntu.ssh.config

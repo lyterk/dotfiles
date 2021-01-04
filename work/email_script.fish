@@ -1,12 +1,12 @@
 #!/usr/bin/fish
 
 set nm /usr/bin/notmuch
-set me "kllyter"
+set domain "@amazon.com"
+set me "kllyter$domain"
 set boss "mansataa" "tompcase" "saindane"
 set director "joannste"
 set team_name "coffee-team"
 set team "weny" "nicwrin" "zhaoyic" "amyni" "varuojha" "adheep" "yjiaa"
-set domain "$domain"
 set retrieval "Retrieval using the IMAP4 protocol failed for the following message"
 set deinbox -inbox -unread
 
@@ -36,6 +36,8 @@ end
 nm_tag +automated_cruft +trash +deleted -inbox -unread "Cron AND from:root@"
 
 nm_tag +automated_cruft +trash +deleted -inbox -unread "$retrieval"
+
+nm_tag +fee_diffs "from:patrol$domain AND Shadow Diff counts above the threshold"
 
 nm_tag +mcm "cm-admin@amazon.com"
 
