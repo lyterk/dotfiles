@@ -15,6 +15,7 @@ table = [
     ["mimeapps.list", "~/.local/share/applications/mimeapps.list"],
     ["zprofile", "~/.zprofile", ""],
     ["rofi_config", "~/.config/rofi/config.rasi"],
+    ["xfce_terminalrc", "~/.config/xfce4/terminal/terminalrc"],
 ]
 
 from pathlib import Path
