@@ -71,7 +71,6 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # lyterk scripts
 bindsym $mod+p exec --no-startup-id ~/dotfiles/scripts/passmenu
-bindsym $mod+Shift+w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh
 
 # focus_follows_mouse no
 
@@ -101,8 +100,8 @@ bindsym $mod+Shift+Right move right
 
 # workspace back and forth (with/without active container)
 workspace_auto_back_and_forth yes
-bindsym $mod+b workspace back_and_forth
-bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
+# bindsym $mod+b workspace back_and_forth
+# bindsym $mod+Shift+b move container to workspace back_and_forth; workspace back_and_forth
 
 # split orientation
 bindsym $mod+h split h;exec notify-send 'tile horizontally'
@@ -271,6 +270,22 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
+# Switch screen input
+bindsym $mod+m mode "$me"
+set $me (l)aptop, (m)onitor, (e)macs, (s)etxkbmap, (w)ifi
+mode "$me" {
+     bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh
+     bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh
+
+     bindsym e exec --no-startup-id emacs
+     bindsym s exec --no-startup-id setxkbmap -layout dvorak -option ctrl:nocaps
+     bindsym w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh
+
+     # exit resize mode: Enter or Escape
+     bindsym Return mode "default"
+     bindsym Escape mode "default"
+}
+
 # Lock screen
 bindsym $mod+9 exec --no-startup-id blurlock
 
@@ -351,7 +366,7 @@ bar {
 }
 
 # hide/unhide i3status bar
-bindsym $mod+m bar mode toggle
+bindsym $mod+b bar mode toggle
 
 # Theme colors
 # class                   border  backgr. text    indic.   child_border
