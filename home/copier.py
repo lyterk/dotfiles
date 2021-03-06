@@ -16,6 +16,7 @@ table = [
     ["zprofile", "~/.zprofile", ""],
     ["rofi_config", "~/.config/rofi/config.rasi"],
     ["xfce_terminalrc", "~/.config/xfce4/terminal/terminalrc"],
+    ["systemd/gitwatch@.service", "~/.local/share/systemd/user/gitwatch@.service"],
 ]
 
 from pathlib import Path
