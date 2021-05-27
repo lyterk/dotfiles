@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 
-import shutil
+from pathlib import Path as P
 
-home = "/home/lyterk"
+home = P("/home/lyterk")
 
-dotfiles_path = home + "/dotfiles/home"
+dotfiles_path = home / "dotfiles/home"
 
 files = {
-        "systemd/logind.conf": Path("/etc/systemd/logind.conf"),
-        "sudo/sshd_config": Path("/etc/ssh/sshd_config")
+    P("/usr/bin/xdg-open"): P("/usr/local/bin/xoxo"),
+    dotfiles_path / "sudo/logind.conf": P("/etc/systemd/logind.conf"),
+    dotfiles_path / "sudo/sshd_config": P("/etc/ssh/sshd_config")
 }
 
 for origin, destination in files.items():
