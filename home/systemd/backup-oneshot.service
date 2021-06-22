@@ -1,0 +1,10 @@
+[Unit]
+Description=Backup my dejadup shit
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/rsync --archive --compress %h/.backups/ backup:/backup/
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

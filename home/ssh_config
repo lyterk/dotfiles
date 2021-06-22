@@ -26,6 +26,12 @@ Host nuc
      User lyterk
      IdentityFile ~/.ssh/nuc/id_rsa
 
+Host backup
+     HostName lyterk.com
+     Port 22
+     User backup
+     IdentityFile ~/.ssh/backup/id_rsa
+
 Host gitserv
      HostName lyterk.com
      Port 22

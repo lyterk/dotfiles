@@ -1,0 +1,11 @@
+[Unit]
+Description=DejaDup backup timer
+
+[Timer]
+OnCalendar=weekly
+Peristent=true
+OnUnitInactiveSec=5m
+Unit=backup-oneshot.service
+
+[Install]
+WantedBy=timers.target

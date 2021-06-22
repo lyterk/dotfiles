@@ -1,4 +1,9 @@
-table = [
+from pathlib import Path
+
+home = Path.home()
+dotfiles_path = home / "dotfiles" / "home"
+
+dotfile_entries = [
     ["ssh_config", "~/.ssh/config", ""],
     ["gitconfig", "~/.gitconfig", ""],
     ["gitignore", "~/.gitignore", ""],
@@ -17,12 +22,13 @@ table = [
     ["rofi_config", "~/.config/rofi/config.rasi"],
     ["xfce_terminalrc", "~/.config/xfce4/terminal/terminalrc"],
     ["systemd/gitwatch@.service", "~/.local/share/systemd/user/gitwatch@.service"],
+    ["systemd/backup-oneshot.service", "~/.local/share/systemd/user/backup-oneshot.service"],
+    ["systemd/backup.timer", "~/.local/share/systemd/user/backup.timer"],
 ]
 
-from pathlib import Path
-
-home = Path.home()
-dotfiles_path = home / "dotfiles" / "home"
+full_paths = [
+    ["~/code/smarthome/sounds/target/release/sounds", "~/.local/bin/sounds"]
+]
 
 
 def firefox_settings():
@@ -57,7 +63,7 @@ def firefox_settings():
 
 firefox_settings()
 
-file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in table}
+file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in dotfile_entries}
 
 for source, target in file_mappings.items():
     print(target)
