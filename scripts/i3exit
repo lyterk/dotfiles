@@ -2,23 +2,21 @@
 # /usr/bin/i3exit
 
 # with openrc use loginctl
-[ "$(cat /proc/1/comm)" = "systemd" ] && logind=systemctl || logind=loginctl
+[ "$(cat /proc/1/comm)" = "systemd" ] && logind=/usr/bin/systemctl || logind=loginctl
+locker="/usr/bin/light-locker-command --lock"
 
 case "$1" in
     lock)
-        blurlock
+        $locker
         ;;
     logout)
         i3-msg exit
         ;;
-    switch_user)
-        dm-tool switch-to-greeter
-        ;;
     suspend-then-hibernate)
-        blurlock && $logind suspend-then-hibernate
+        $locker && $logind suspend-then-hibernate
         ;;
     hibernate)
-        blurlock && $logind hibernate
+        $locker && $logind hibernate
         ;;
     reboot)
         $logind reboot
