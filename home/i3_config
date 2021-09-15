@@ -273,13 +273,14 @@ mode "resize" {
 
 # Switch screen input
 bindsym $mod+m mode "$me"
-set $me (l)aptop screen, (m)onitor screen, (clalibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i
+set $me (l)aptop screen, (m)onitor screen, (clalibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal
 mode "$me" {
      bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh; mode "default"
      bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh; mode "default"
 
      bindsym c exec --no-startup-id /usr/bin/calibre; mode "default"
-     bindsym e exec --no-startup-id /usr/bin/emacs; mode "default"
+     bindsym e exec --no-startup-id /usr/bin/emacsclient -c; mode "default"
+     bindsym s exec --no-startup-id /usr/bin/signal-desktop; mode "default"
      bindsym d exec --no-startup-id /usr/bin/setxkbmap -layout dvorak -option ctrl:nocaps; mode "default"
      bindsym q exec --no-startup-id /usr/bin/setxkbmap -layout us -option ctrl:nocaps; mode "default"
      bindsym w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh; mode "default"
