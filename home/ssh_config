@@ -49,3 +49,9 @@ Host backup
      Port 22
      User backup
      IdentityFile ~/.ssh/backup/id_rsa
+
+
+Host bitbucket
+     HostName bitbucket.com
+     User txru
+     IdentityFile ~/.ssh/bitbucket/id_rsa

@@ -58,7 +58,6 @@ bindsym $mod+Ctrl+m exec pavucontrol
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
 bindsym $mod+F2 exec firefox-esr
 bindsym $mod+F3 exec pcmanfm
-# bindsym $mod+F3 exec emacs
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+t exec --no-startup-id pkill picom
 bindsym $mod+Ctrl+t exec --no-startup-id picom -b
