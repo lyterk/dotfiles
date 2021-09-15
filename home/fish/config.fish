@@ -6,7 +6,6 @@ alias pacr "sudo pacman -Rsn"
 
 alias scu "systemctl --user"
 
-alias pac_no_reinstall "sudo pacman -S --needed"
 alias xc "xclip -selection clipboard"
 alias pac_no_reinstall "sudo pacman -S --needed"
 
@@ -29,5 +28,4 @@ eval keychain --agents ssh --eval $HOME/.ssh/nuc/id_rsa
 
 set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library
 
-source $HOME/.ghcup/env
 fish_ssh_agent
