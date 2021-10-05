@@ -55,3 +55,8 @@ Host bitbucket
      HostName bitbucket.com
      User txru
      IdentityFile ~/.ssh/bitbucket/id_rsa
+
+Host remarkable
+     HostName 10.11.99.1
+     User root
+     IdentityFile ~/.ssh/remarkable/id_rsa
