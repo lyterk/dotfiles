@@ -6,6 +6,6 @@ if [ "$EUID" -ne 0 ]
 fi
 
 name=$1
-git init --bare $name.git
+git init --bare /git/$name.git
 chown -R git:git /git/$name.git
 echo
