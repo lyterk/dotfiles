@@ -19,6 +19,8 @@ export LOCAL_BIN=$HOME/.local/bin
 export DOTFILES_DIR=$HOME/.dotfiles/home
 export SNAP=/snap/bin
 
+export GHC_BIN=$HOME/.ghcup/bin
+export CABAL_BIN=$HOME/.cabal/bin
 export GOPATH=$HOME/.go
 export RUST_SRC_PATH=$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library
 export CARGO_BIN=$HOME/.cargo/bin
@@ -32,6 +34,6 @@ export PYENV_ENTRYPOINTS=$HOME/.pyenv/shims
 export DOOM_BIN=$HOME/.emacs.d/bin
 
 # NODENV BIN really needs to be at the front, because the system node always fucks everything up.
-export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$PYENV_SHIM:$NODENV_SHIM
+export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$PYENV_SHIM:$NODENV_SHIM:$GHC_BIN:$CABAL_BIN
 
 fc -p ~/.zsh_history

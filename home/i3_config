@@ -272,18 +272,21 @@ mode "resize" {
 
 # Switch screen input
 bindsym $mod+m mode "$me"
-set $me (l)aptop screen, (m)onitor screen, (clalibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal
+set $me (l)aptop screen, (m)onitor screen, (clalibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr
 mode "$me" {
      bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh; mode "default"
      bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh; mode "default"
 
      bindsym c exec --no-startup-id /usr/bin/calibre; mode "default"
+     bindsym g exec --no-startup-id /usr/bin/chromium; mode "default"
      bindsym e exec --no-startup-id /usr/bin/emacsclient -c; mode "default"
      bindsym s exec --no-startup-id /usr/bin/signal-desktop; mode "default"
      bindsym d exec --no-startup-id /usr/bin/setxkbmap -layout dvorak -option ctrl:nocaps; mode "default"
      bindsym q exec --no-startup-id /usr/bin/setxkbmap -layout us -option ctrl:nocaps; mode "default"
      bindsym w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh; mode "default"
      bindsym j exec --no-startup-id /usr/bin/rofimoji; mode "default"
+     bindsym v exec --no-startup-id /usr/bin/vlc; mode "default"
+     bindsym a exec --no-startup-id /usr/bin/arandr; mode "default"
 
      # exit resize mode: Enter or Escape
      bindsym Return mode "default"
