@@ -21,19 +21,19 @@ Host aetius
      User lyterk
 
 Host nuc
-     HostName lyterk.com
+     HostName txru.me
      Port 22
      User lyterk
      IdentityFile ~/.ssh/nuc/id_rsa
 
 Host backup
-     HostName lyterk.com
+     HostName txru.me
      Port 22
      User backup
      IdentityFile ~/.ssh/backup/id_rsa
 
 Host gitserv
-     HostName lyterk.com
+     HostName txru.me
      Port 22
      User git
      IdentityFile ~/.ssh/git/id_rsa
@@ -45,7 +45,7 @@ Host gitserv_no_password
      IdentityFile ~/.ssh/git/id_rsa
 
 Host backup
-     HostName lyterk.com
+     HostName txru.me
      Port 22
      User backup
      IdentityFile ~/.ssh/backup/id_rsa
