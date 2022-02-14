@@ -19,6 +19,7 @@ alias ppull "pass git pull --rebase origin mainline"
 set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'
 alias poke 'play $SOUND_FOLDER/wrong_answer.mp3 2> /dev/null'
+alias vim=nvim
 
 set -x BROWSER /usr/bin/firefox
 set -gx EDITOR "vim"

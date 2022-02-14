@@ -1,1 +1,10 @@
 setxkbmap -option ctrl:nocaps
+
+CABAL=$HOME/.cabal/bin
+GHC=$HOME/.ghcup/bin
+CARGO=$HOME/.cargo/bin
+GRAAL=/usr/lib/jvm/java-11-graalvm/bin
+
+export GOPATH=$HOME/.local/share/go
+
+export PATH=$CABAL:$GHC:$CARGO:$HOME/.local/bin:$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$GRAAL

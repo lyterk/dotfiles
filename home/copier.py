@@ -4,31 +4,36 @@ home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
 dotfile_entries = [
-    ["ssh_config", "~/.ssh/config", ""],
-    ["gitconfig", "~/.gitconfig", ""],
-    ["gitignore", "~/.gitignore", ""],
-    ["i3_config", "~/.config/i3/config", ""],
-    ["pip.conf", "~/.pip/pip.conf", ""],
-    ["kdewalletrc", "~/.config/kdewalletrc", ""],
-    ["redshift.conf", "~/.config/redshift.conf", ""],
-    ["flake8", "~/.config/flake8", ""],
-    ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml", ""],
-    ["zshenv", "~/.zshenv", ""],
-    ["zshrc", "~/.zshrc", ""],
-    ["profile", "~/.profile", ""],
-    ["fish/config.fish", "~/.config/fish/config.fish", ""],
+    ["ssh_config", "~/.ssh/config"],
+    ["gitconfig", "~/.gitconfig"],
+    ["gitignore", "~/.gitignore"],
+    ["i3_config", "~/.config/i3/config"],
+    ["pip.conf", "~/.pip/pip.conf"],
+    ["kdewalletrc", "~/.config/kdewalletrc"],
+    ["redshift.conf", "~/.config/redshift.conf"],
+    ["flake8", "~/.config/flake8"],
+    ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml"],
+    ["zshenv", "~/.zshenv"],
+    ["zshrc", "~/.zshrc"],
+    ["profile", "~/.profile"],
+    ["fish/config.fish", "~/.config/fish/config.fish"],
     ["mimeapps.list", "~/.local/share/applications/mimeapps.list"],
     ["zprofile", "~/.zprofile", ""],
     ["rofi_config", "~/.config/rofi/config.rasi"],
     ["xfce_terminalrc", "~/.config/xfce4/terminal/terminalrc"],
+    ["mbsyncrc.conf", "~/.mbsyncrc"],
+    ["tridactylrc", "~/.config/tridactyl/tridactylrc"],
+    ["notmuch.conf", "~/.notmuch_config"],
     ["systemd/gitwatch@.service", "~/.local/share/systemd/user/gitwatch@.service"],
-    ["systemd/backup-oneshot.service", "~/.local/share/systemd/user/backup-oneshot.service"],
+    [
+        "systemd/backup-oneshot.service",
+        "~/.local/share/systemd/user/backup-oneshot.service",
+    ],
     ["systemd/backup.timer", "~/.local/share/systemd/user/backup.timer"],
+    ["systemd/emacs.service", "~/.local/share/systemd/user/emacs.service"],
 ]
 
-full_paths = [
-    ["~/code/smarthome/sounds/target/release/sounds", "~/.local/bin/sounds"]
-]
+full_paths = [["~/code/smarthome/sounds/target/release/sounds", "~/.local/bin/sounds"]]
 
 
 def firefox_settings():
@@ -63,7 +68,9 @@ def firefox_settings():
 
 firefox_settings()
 
-file_mappings = {(dotfiles_path / row[0]): Path(row[1]).expanduser() for row in dotfile_entries}
+file_mappings = {
+    (dotfiles_path / row[0]): Path(row[1]).expanduser() for row in dotfile_entries
+}
 
 for source, target in file_mappings.items():
     print(target)

@@ -5,3 +5,5 @@
 	templateDir = ~/dotfiles/home/git_templates/
 [pull]
 	rebase = true
+[github]
+	user = lyterk
