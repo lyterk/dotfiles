@@ -309,10 +309,10 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker /usr/bin/light-locker-command --lock
+# exec --no-startup-id xautolock -time 10 -locker /usr/bin/light-locker-command --lock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id /usr/bin/light-locker
+exec_always --no-startup-id /usr/bin/light-locker --no-lock-on-lid
 
 exec --no-startup-id i3-msg 'workspace 1:browser; exec --no-startup-id /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace 2:terminal; exec --no-startup-id /usr/bin/xfce4-terminal'
