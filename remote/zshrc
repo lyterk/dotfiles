@@ -22,27 +22,7 @@ source $HOME/.zprofile
 alias sz="source ~/.zshrc"
 
 alias dfs="python3 $HOME/dotfiles/remote/copier.py"
-alias bb="brazil-build"
-alias bbr="bb release"
-alias bbs="bb server"
-alias bre="brazil-runtime-exec"
-alias bte="brazil-test-exec"
-alias bwsm="brazil ws --sync --md"
-alias bnu="brazil ws create --name"
-alias bp="brazil ws use -p"
-alias bv="brazil ws use -vs"
-
-alias register_with_aaa='/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py'
-
-APOLLO=/apollo/env
 
 NPM=$HOME/.config/nvm/12.14.0/bin
-APOLLO_CLI=$APOLLO/ApolloCommandLine
-AWS_HOME=$APOLLO/AmazonAwsCli
-ENV_IMPROVEMENT=$APOLLO/envImprovement
-SDETOOLS=$APOLLO/SDETools
-
-TOOLBOX=$HOME/.toolbox
-
 BASE_PATH=/usr/NX/bin:/usr/local/bin:/bin:/usr/bin:/home/kllyter/bin:/usr/local/sbin:/usr/sbin:/sbin
-export PATH=$BASE_PATH:$AWS_HOME/bin:$APOLLO_CLI/bin:$TOOLBOX/bin:$APOLLO_CLI/bin:$ENV_IMPROVEMENT/bin:$SDETOOLS/bin
+export PATH=$BASE_PATH:$AWS_HOME/bin:
