@@ -319,7 +319,7 @@ exec_always --no-startup-id /usr/bin/light-locker --no-lock-on-lid
 exec --no-startup-id i3-msg 'workspace 1:browser; exec --no-startup-id /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace 2:terminal; exec --no-startup-id /usr/bin/xfce4-terminal'
 # Try this for now, the daemon startup might get in the way.
-exec --no-startup-id i3-msg 'workspace 3:emacs; exec --no-startup-id /usr/bin/emacsclient -c'
+# exec --no-startup-id i3-msg 'workspace 3:emacs; exec --no-startup-id /usr/bin/emacsclient -c'
 exec --no-startup-id i3-msg 'workspace 4:signal; exec --no-startup-id /usr/bin/signal-desktop'
 
 # Color palette used for the terminal ( ~/.Xresources file )
@@ -356,7 +356,8 @@ set_from_resource $term_color15    color15
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
 	i3bar_command i3bar
-	status_command i3status
+	# status_command i3status
+    status_command /usr/bin/i3status-rs ~/.config/i3status-rust/config.toml
 	position bottom
 
 ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'

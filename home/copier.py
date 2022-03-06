@@ -29,6 +29,7 @@ dotfile_entries = [
         "systemd/backup-oneshot.service",
         "~/.local/share/systemd/user/backup-oneshot.service",
     ],
+    ["i3status-rust.toml", "~/.config/i3status-rust/config.toml"],
     ["systemd/backup.timer", "~/.local/share/systemd/user/backup.timer"],
     ["systemd/emacs.service", "~/.local/share/systemd/user/emacs.service"],
 ]
