@@ -1,0 +1,12 @@
+[Unit]
+Description=Check email for $EMAIL_CONTEXT
+RefuseManualStart=no
+RefuseManualStop=yes
+
+[Service]
+Type=oneshot
+Environment="EMAIL_CONTEXT=%I"
+ExecStart=/usr/bin/env "${HOME}/dotfiles/scripts/checkmail.sh" $EMAIL_CONTEXT
+
+[Install]
+WantedBy=default.target

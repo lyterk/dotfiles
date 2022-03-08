@@ -31,6 +31,9 @@ dotfile_entries = [
     ],
     ["i3status-rust.toml", "~/.config/i3status-rust/config.toml"],
     ["systemd/backup.timer", "~/.local/share/systemd/user/backup.timer"],
+    ["systemd/gmail.timer", "~/.local/share/systemd/user/gmail.timer"],
+    ["systemd/fastmail.timer", "~/.local/share/systemd/user/fastmail.timer"],
+    ["systemd/checkmail@.service", "~/.local/share/systemd/user/checkmail@.service"],
     ["systemd/emacs.service", "~/.local/share/systemd/user/emacs.service"],
 ]
 
