@@ -272,7 +272,7 @@ mode "resize" {
 
 # Switch screen input
 bindsym $mod+m mode "$me"
-set $me (l)aptop screen, (m)onitor screen, (clalibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr
+set $me (l)aptop screen, (m)onitor screen, (c)alibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr, (X)apture
 mode "$me" {
      bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh; mode "default"
      bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh; mode "default"
@@ -287,6 +287,7 @@ mode "$me" {
      bindsym j exec --no-startup-id /usr/bin/rofimoji; mode "default"
      bindsym v exec --no-startup-id /usr/bin/vlc; mode "default"
      bindsym a exec --no-startup-id /usr/bin/arandr; mode "default"
+     bindsym x exec --no-startup-id "/usr/bin/emacsclient -e '(+org-capture/open-frame)'"; mode "default"
 
      # exit resize mode: Enter or Escape
      bindsym Return mode "default"

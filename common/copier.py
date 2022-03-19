@@ -3,43 +3,6 @@ from pathlib import Path
 home = Path.home()
 dotfiles_path = home / "dotfiles" / "home"
 
-dotfile_entries = [
-    ["ssh_config", "~/.ssh/config"],
-    ["gitconfig", "~/.gitconfig"],
-    ["gitignore", "~/.gitignore"],
-    ["i3_config", "~/.config/i3/config"],
-    ["pip.conf", "~/.pip/pip.conf"],
-    ["kdewalletrc", "~/.config/kdewalletrc"],
-    ["redshift.conf", "~/.config/redshift.conf"],
-    ["flake8", "~/.config/flake8"],
-    ["rustfmt.toml", "~/.config/rustfmt/rustfmt.toml"],
-    ["zshenv", "~/.zshenv"],
-    ["zshrc", "~/.zshrc"],
-    ["profile", "~/.profile"],
-    ["fish/config.fish", "~/.config/fish/config.fish"],
-    ["mimeapps.list", "~/.local/share/applications/mimeapps.list"],
-    ["zprofile", "~/.zprofile", ""],
-    ["rofi_config", "~/.config/rofi/config.rasi"],
-    ["xfce_terminalrc", "~/.config/xfce4/terminal/terminalrc"],
-    ["mbsyncrc.conf", "~/.mbsyncrc"],
-    ["tridactylrc", "~/.config/tridactyl/tridactylrc"],
-    ["notmuch.conf", "~/.notmuch_config"],
-    ["systemd/gitwatch@.service", "~/.local/share/systemd/user/gitwatch@.service"],
-    [
-        "systemd/backup-oneshot.service",
-        "~/.local/share/systemd/user/backup-oneshot.service",
-    ],
-    ["i3status-rust.toml", "~/.config/i3status-rust/config.toml"],
-    ["systemd/backup.timer", "~/.local/share/systemd/user/backup.timer"],
-    ["systemd/gmail.timer", "~/.local/share/systemd/user/gmail.timer"],
-    ["systemd/fastmail.timer", "~/.local/share/systemd/user/fastmail.timer"],
-    ["systemd/checkmail@.service", "~/.local/share/systemd/user/checkmail@.service"],
-    ["systemd/emacs.service", "~/.local/share/systemd/user/emacs.service"],
-]
-
-full_paths = [["~/code/smarthome/sounds/target/release/sounds", "~/.local/bin/sounds"]]
-
-
 def firefox_settings():
     import configparser
 

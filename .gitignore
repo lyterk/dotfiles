@@ -7,3 +7,4 @@ home/doom.d/*.el
 Pipfile.lock
 home/doom.dconfig.org
 bootstrap.*
+link.py
