@@ -38,12 +38,6 @@ Host gitserv
      User git
      IdentityFile ~/.ssh/git/id_rsa
 
-Host gitserv_no_password
-     HostName fd35:c192:ce9b:fbd0:e799:93a3:686b:d38e
-     Port 4222
-     User git
-     IdentityFile ~/.ssh/git/id_rsa
-
 Host backup
      HostName txru.me
      Port 22
