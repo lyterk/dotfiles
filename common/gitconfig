@@ -3,6 +3,7 @@
 	name = Kevin Lyter
 [init]
 	templateDir = ~/dotfiles/home/git_templates/
+	defaultBranch = mainline
 [pull]
 	rebase = true
 [github]
