@@ -2,9 +2,9 @@
 	email = lyterk@sent.com
 	name = Kevin Lyter
 [init]
-	templateDir = ~/dotfiles/home/git_templates/
+	templateDir = ~/dotfiles/common/git_templates/
 	defaultBranch = mainline
 [pull]
 	rebase = true
-[github]
-	user = lyterk
+[credential]
+	helper = cache

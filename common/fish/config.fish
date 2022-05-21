@@ -4,6 +4,7 @@ alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
 alias pacr "sudo pacman -Rsn"
 
+alias sbcl "rlwrap sbcl"
 alias scu "systemctl --user"
 
 alias xc "xclip -selection clipboard"

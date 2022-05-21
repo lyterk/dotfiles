@@ -13,3 +13,5 @@
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+;; ; My stuff
+(pushnew #P"/home/lyterk/quicklisp/local-projects/" asdf:*central-registry* :test #'equal)

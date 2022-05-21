@@ -111,4 +111,36 @@ for func in (dotfiles_path / "common/fish/functions").glob("*"):
 #+end_src
 
 #+RESULTS:
-: None
+#+begin_example
+firefox: /home/lyterk/dotfiles/browser/userChrome.css -> /home/lyterk/.mozilla/firefox/s7jg6esa.default-esr/chrome/userChrome.css
+firefox: /home/lyterk/dotfiles/browser/userChrome.css -> /home/lyterk/.mozilla/firefox/ek6o4fvz.default-release/chrome/userChrome.css
+systemd: /home/lyterk/dotfiles/systemd/gitwatch@.service -> /home/lyterk/.config/systemd/user/gitwatch@.service
+systemd: /home/lyterk/dotfiles/systemd/backup-oneshot.service -> /home/lyterk/.config/systemd/user/backup-oneshot.service
+systemd: /home/lyterk/dotfiles/systemd/backup.timer -> /home/lyterk/.config/systemd/user/backup.timer
+systemd: /home/lyterk/dotfiles/systemd/gmail.timer -> /home/lyterk/.config/systemd/user/gmail.timer
+systemd: /home/lyterk/dotfiles/systemd/fastmail.timer -> /home/lyterk/.config/systemd/user/fastmail.timer
+systemd: /home/lyterk/dotfiles/systemd/checkmail@.service -> /home/lyterk/.config/systemd/user/checkmail@.service
+systemd: /home/lyterk/dotfiles/systemd/emacs.service -> /home/lyterk/.config/systemd/user/emacs.service
+common: /home/lyterk/dotfiles/common/ssh_config -> /home/lyterk/.ssh/config
+common: /home/lyterk/dotfiles/common/gitconfig -> /home/lyterk/.gitconfig
+common: /home/lyterk/dotfiles/common/gitignore -> /home/lyterk/.gitignore
+common: /home/lyterk/dotfiles/common/i3_config -> /home/lyterk/.config/i3/config
+common: /home/lyterk/dotfiles/common/pip.conf -> /home/lyterk/.pip/pip.conf
+common: /home/lyterk/dotfiles/common/kdewalletrc -> /home/lyterk/.config/kdewalletrc
+common: /home/lyterk/dotfiles/common/redshift.conf -> /home/lyterk/.config/redshift.conf
+common: /home/lyterk/dotfiles/common/flake8 -> /home/lyterk/.config/flake8
+common: /home/lyterk/dotfiles/common/rustfmt.toml -> /home/lyterk/.config/rustfmt/rustfmt.toml
+common: /home/lyterk/dotfiles/common/zshenv -> /home/lyterk/.zshenv
+common: /home/lyterk/dotfiles/common/zshrc -> /home/lyterk/.zshrc
+common: /home/lyterk/dotfiles/common/sbclrc -> /home/lyterk/.sbclrc
+common: /home/lyterk/dotfiles/common/profile -> /home/lyterk/.profile
+common: /home/lyterk/dotfiles/common/fish/config.fish -> /home/lyterk/.config/fish/config.fish
+common: /home/lyterk/dotfiles/common/mimeapps.list -> /home/lyterk/.local/share/applications/mimeapps.list
+common: /home/lyterk/dotfiles/common/zprofile -> /home/lyterk/.zprofile
+common: /home/lyterk/dotfiles/common/rofi_config -> /home/lyterk/.config/rofi/config.rasi
+common: /home/lyterk/dotfiles/common/xfce_terminalrc -> /home/lyterk/.config/xfce4/terminal/terminalrc
+common: /home/lyterk/dotfiles/common/mbsyncrc.conf -> /home/lyterk/.mbsyncrc
+common: /home/lyterk/dotfiles/common/tridactylrc -> /home/lyterk/.config/tridactyl/tridactylrc
+common: /home/lyterk/dotfiles/common/notmuch.conf -> /home/lyterk/.notmuch_config
+common: /home/lyterk/dotfiles/common/i3status-rust.toml -> /home/lyterk/.config/i3status-rust/config.toml
+#+end_example
