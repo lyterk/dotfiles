@@ -65,14 +65,20 @@ Host lyterk.com
 
 # Raspberry Pi Hosts
 
-Host pihole
-     HostName 172.24.54.83
+# Host pihole
+#      HostName 172.24.54.83
+#      User pi
+#      Port 4222
+#      IdentityFile ~/.ssh/pi/id_rsa
+
+Host music
+     HostName 172.24.237.69
      User pi
      Port 4222
      IdentityFile ~/.ssh/pi/id_rsa
 
-Host music
-     HostName 172.24.237.69
+Host pihole
+     HostName 192.168.192.136
      User pi
      Port 4222
      IdentityFile ~/.ssh/pi/id_rsa
