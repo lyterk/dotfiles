@@ -1,5 +1,5 @@
 setName1=News
-sites1=ft.com lawfareblog.com npr.org nytimes.com thestranger.com washingtonpost.com
+sites1=ft.com lawfareblog.com marketwatch.com npr.org nytimes.com thestranger.com washingtonpost.com
 times1=0000-2400
 limitMins1=
 limitPeriod1=
