@@ -15,3 +15,4 @@
 
 ;; ; My stuff
 (pushnew #P"/home/lyterk/quicklisp/local-projects/" asdf:*central-registry* :test #'equal)
+(pushnew #P"/home/lyterk/code/" asdf:*central-registry* :test #'equal)
