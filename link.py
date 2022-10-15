@@ -15,7 +15,7 @@ dotfiles = {
     "zshrc": "~/.zshrc",
     "sbclrc": "~/.sbclrc",
     "profile": "~/.profile",
-    "fish": "~/.config/fish/config.fish",
+    "fish/config.fish": "~/.config/fish/config.fish",
     "mimeapps": "~/.local/share/applications/mimeapps.list",
     "zprofile": "~/.zprofile",
     "rofi_config": "~/.config/rofi/config.rasi",
@@ -28,13 +28,13 @@ dotfiles = {
 
 
 systemd = {
-    "gitwatch@": "~/.config/systemd/user/gitwatch@.service",
-    "backup": "~/.config/systemd/user/backup-oneshot.service",
-    "backup": "~/.config/systemd/user/backup.timer",
-    "gmail": "~/.config/systemd/user/gmail.timer",
-    "fastmail": "~/.config/systemd/user/fastmail.timer",
-    "checkmail@": "~/.config/systemd/user/checkmail@.service",
-    "emacs": "~/.config/systemd/user/emacs.service",
+    "gitwatch@.service": "~/.config/systemd/user/gitwatch@.service",
+    "backup-oneshot.service": "~/.config/systemd/user/backup-oneshot.service",
+    "backup.timer": "~/.config/systemd/user/backup.timer",
+    "gmail.timer": "~/.config/systemd/user/gmail.timer",
+    "fastmail.timer": "~/.config/systemd/user/fastmail.timer",
+    "checkmail@.service": "~/.config/systemd/user/checkmail@.service",
+    "emacs.service": "~/.config/systemd/user/emacs.service",
 }
 
 home = Path.home()
@@ -103,4 +103,5 @@ for func in (dotfiles_path / "common/fish/functions").glob("*"):
     except:
         pass
     target.parent.mkdir(parents=True, exist_ok=True)
+    print(f"fish: {func} -> {target}")
     target.symlink_to(func)

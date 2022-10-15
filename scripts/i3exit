@@ -3,7 +3,7 @@
 
 # with openrc use loginctl
 [ "$(cat /proc/1/comm)" = "systemd" ] && logind=/usr/bin/systemctl || logind=loginctl
-locker="/usr/bin/light-locker-command --lock"
+locker="/usr/bin/dm-tool lock"
 
 case "$1" in
     lock)

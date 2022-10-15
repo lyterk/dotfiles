@@ -56,7 +56,7 @@ bindsym $mod+Ctrl+m exec pavucontrol
 
 # Start Applications
 bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec firefox-esr
+bindsym $mod+F2 exec /usr/bin/firefox
 bindsym $mod+F3 exec pcmanfm
 bindsym $mod+Shift+F3 exec pcmanfm_pkexec
 bindsym $mod+t exec --no-startup-id pkill picom
@@ -279,7 +279,7 @@ mode "$me" {
 
      bindsym c exec --no-startup-id /usr/bin/calibre; mode "default"
      bindsym g exec --no-startup-id /usr/bin/chromium; mode "default"
-     bindsym e exec --no-startup-id /usr/local/bin/emacsclient -c; mode "default"
+     bindsym e exec --no-startup-id /usr/bin/emacsclient -c; mode "default"
      bindsym s exec --no-startup-id /usr/bin/signal-desktop; mode "default"
      bindsym d exec --no-startup-id /usr/bin/setxkbmap -layout dvorak -option ctrl:nocaps; mode "default"
      bindsym q exec --no-startup-id /usr/bin/setxkbmap -layout us -option ctrl:nocaps; mode "default"
@@ -295,12 +295,12 @@ mode "$me" {
 }
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id /usr/bin/light-locker-command --lock
+bindsym $mod+9 exec --no-startup-id $i3exit lock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-exec --no-startup-id feh --bg-scale ~/Pictures/backgrounds/pa_lake.jpg
+exec --no-startup-id /usr/bin/feh --bg-scale ~/Downloads/Worlds_End_State_Park_Far_View.jpg
 exec --no-startup-id "compton -b"
 exec --no-startup-id nm-applet
 
@@ -312,10 +312,10 @@ exec --no-startup-id clipit
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id start_conky_maia
 # exec --no-startup-id start_conky_green
-# exec --no-startup-id xautolock -time 10 -locker /usr/bin/light-locker-command --lock
+exec --no-startup-id xautolock -time 10 -locker $i3exit lock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id /usr/bin/light-locker --no-lock-on-lid
+# exec_always --no-startup-id $i3exit lock
 
 exec --no-startup-id i3-msg 'workspace 1:browser; exec --no-startup-id /usr/bin/firefox'
 exec --no-startup-id i3-msg 'workspace 2:terminal; exec --no-startup-id /usr/bin/xfce4-terminal'

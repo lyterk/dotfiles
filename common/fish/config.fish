@@ -1,4 +1,4 @@
-alias sf "python ~/dotfiles/common/copier.py; and source ~/.config/fish/config.fish"
+alias sf "python ~/dotfiles/link.py; and source ~/.config/fish/config.fish"
 alias search "pacsearch"
 alias pacs "sudo pacman -S"
 alias pacup "sudo pacman -Syu"
