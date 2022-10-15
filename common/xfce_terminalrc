@@ -18,7 +18,6 @@ MiscHighlightUrls=TRUE
 ScrollingLines=999999
 BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 BackgroundDarkness=0.750000
-ScrollingOnOutput=FALSE
 FontName=Monospace 11
 MiscBellUrgent=FALSE
 MiscMouseWheelZoom=TRUE
@@ -33,4 +32,7 @@ MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=FALSE
 ShortcutsNoMnemonics=TRUE
 ColorPalette=rgb(0,0,0);rgb(170,0,0);rgb(0,170,0);rgb(170,85,0);rgb(124,235,242);rgb(170,0,170);rgb(0,170,170);rgb(170,170,170);rgb(85,85,85);rgb(255,85,85);rgb(85,255,85);rgb(255,255,85);rgb(85,85,255);rgb(255,85,255);rgb(85,255,255);rgb(255,255,255)
+RunCustomCommand=TRUE
+MiscRightClickAction=TERMINAL_RIGHT_CLICK_ACTION_CONTEXT_MENU
+CustomCommand=/usr/bin/fish
 
