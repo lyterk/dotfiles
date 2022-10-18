@@ -10,10 +10,6 @@ alias scu "systemctl --user"
 alias xc "xclip -selection clipboard"
 alias pac_no_reinstall "sudo pacman -S --needed"
 
-alias i=ipython
-alias python=python3
-alias pipi="pip3 install --user"
-
 alias ppush "pass git push origin mainline"
 alias ppull "pass git pull --rebase origin mainline"
 
@@ -27,9 +23,9 @@ alias remark "rsync -avzz --rsync-path=/usr/bin/rsync remarkable:/home/root/.loc
 set -x BROWSER /usr/bin/firefox
 set -gx EDITOR "vim"
 
-# eval keychain --agents ssh --eval $HOME/.ssh/git/id_rsa
-# eval keychain --agents ssh --eval $HOME/.ssh/nuc/id_rsa
+eval keychain --agents ssh --eval $HOME/.ssh/git/id_rsa
+eval keychain --agents ssh --eval $HOME/.ssh/nuc/id_rsa
 
 set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library
 
-# fish_ssh_agent
+ssh_agent

@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict
 
 dotfiles = {
     "ssh_config": "~/.ssh/config",
@@ -7,23 +7,24 @@ dotfiles = {
     "gitignore": "~/.gitignore",
     "i3_config": "~/.config/i3/config",
     "pip": "~/.pip/pip.conf",
-    "kdewalletrc": "~/.config/kdewalletrc",
-    "redshift": "~/.config/redshift.conf",
+    "redshift.conf": "~/.config/redshift.conf",
     "flake8": "~/.config/flake8",
-    "rustfmt": "~/.config/rustfmt/rustfmt.toml",
+    "rustfmt.toml": "~/.config/rustfmt/rustfmt.toml",
+    "gpg-agent.conf": "~/.gnupg/gpg-agent.conf",
     "zshenv": "~/.zshenv",
     "zshrc": "~/.zshrc",
     "sbclrc": "~/.sbclrc",
     "profile": "~/.profile",
     "fish/config.fish": "~/.config/fish/config.fish",
-    "mimeapps": "~/.local/share/applications/mimeapps.list",
+    "fish/ssh_agent.fish": "~/.config/fish/functions/ssh_agent.fish",
+    "mimeapps.list": "~/.config/mimeapps.list",
     "zprofile": "~/.zprofile",
     "rofi_config": "~/.config/rofi/config.rasi",
     "xfce_terminalrc": "~/.config/xfce4/terminal/terminalrc",
     "mbsyncrc.conf": "~/.mbsyncrc",
     "tridactylrc": "~/.config/tridactyl/tridactylrc",
     "notmuch.conf": "~/.notmuch_config",
-    "i3status": "~/.config/i3status-rust/config.toml",
+    "i3status-rust.toml": "~/.config/i3status-rust/config.toml",
 }
 
 

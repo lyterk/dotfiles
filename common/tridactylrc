@@ -51,3 +51,5 @@ autocmd DocStart nytimes.com/games/wordle/index.html mode ignore
 " Sometimes the status bar in the bottom left corner overlaps the Tridactyl
 " command line, so set an option to move the status bar to the right.
 guiset_quiet hoverlink right
+blacklistadd https://old.reddit.com
+blacklistadd https://www.youtube.com
