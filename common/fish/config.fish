@@ -25,6 +25,7 @@ set -gx EDITOR "vim"
 
 eval keychain --agents ssh --eval $HOME/.ssh/git/id_rsa
 eval keychain --agents ssh --eval $HOME/.ssh/nuc/id_rsa
+source ~/.keychain/$HOSTNAME-fish
 
 set -x RUST_SRC_PATH $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library
 

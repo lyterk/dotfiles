@@ -53,3 +53,4 @@ autocmd DocStart nytimes.com/games/wordle/index.html mode ignore
 guiset_quiet hoverlink right
 blacklistadd https://old.reddit.com
 blacklistadd https://www.youtube.com
+blacklistadd https://www.netflix.com

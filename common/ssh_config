@@ -6,19 +6,10 @@ Host *
      AddKeysToAgent yes
      UseKeychain yes
 
-Host bb
-     HostName bitbucket.org
-     User git
-     IdentityFile ~/.ssh/bitbucket/id_rsa
-
 Host github.com
      HostName github.com
      User git
      IdentityFile ~/.ssh/github/id_rsa
-
-Host aetius
-     HostName 192.168.0.101
-     User lyterk
 
 Host nuc
      HostName txru.me
@@ -41,7 +32,7 @@ Host gitserv
      HostName txru.me
      Port 22
      User git
-     IdentityFile ~/.ssh/git/id_rsa
+     IdentityFile ~/.ssh/nuc/id_rsa
 
 Host backup
      HostName txru.me
@@ -49,24 +40,12 @@ Host backup
      User backup
      IdentityFile ~/.ssh/backup/id_rsa
 
-
-Host bitbucket
-     HostName bitbucket.com
-     User txru
-     IdentityFile ~/.ssh/bitbucket/id_rsa
-
 Host remarkable
      HostName 10.11.99.1
      User root
      IdentityFile ~/.ssh/remarkable/id_rsa
      PubkeyAcceptedKeyTypes +ssh-rsa
      HostKeyAlgorithms +ssh-rsa
-
-# AWS
-Host lyterk.com
-     HostName 34.220.176.127
-     User root
-     IdentityFile ~/.ssh/aws/lyterk.com.pem
 
 # Raspberry Pi Hosts
 
