@@ -272,7 +272,7 @@ mode "resize" {
 
 # Switch screen input
 bindsym $mod+m mode "$me"
-set $me (l)aptop screen, (m)onitor screen, (c)alibre, (e)macs, (d)vorak, (q)werty, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr, (X)apture
+set $me (l)aptop screen, (m)onitor screen, (c)alibre, (e)macs, (d)vorak, (q)werty, (p)olish, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr, (X)apture
 mode "$me" {
      bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh; mode "default"
      bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh; mode "default"
@@ -283,16 +283,20 @@ mode "$me" {
      bindsym s exec --no-startup-id /usr/bin/signal-desktop; mode "default"
      bindsym d exec --no-startup-id /usr/bin/setxkbmap -layout dvorak -option ctrl:nocaps; mode "default"
      bindsym q exec --no-startup-id /usr/bin/setxkbmap -layout us -option ctrl:nocaps; mode "default"
+     bindsym p exec --no-startup-id /usr/bin/setxkbmap -layout pl -variant dvorak -option ctrl:nocaps; mode "default"
      bindsym w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh; mode "default"
      bindsym j exec --no-startup-id /usr/bin/rofimoji; mode "default"
      bindsym v exec --no-startup-id /usr/bin/vlc; mode "default"
      bindsym a exec --no-startup-id /usr/bin/arandr; mode "default"
-     bindsym x exec --no-startup-id "/usr/bin/emacsclient -e '(+org-capture/open-frame)'"; mode "default"
 
      # exit resize mode: Enter or Escape
      bindsym Return mode "default"
      bindsym Escape mode "default"
 }
+
+bindsym $mod+x exec "/usr/bin/emacsclient -e '(+org-capture/open-frame)'"
+# https://unix.stackexchange.com/questions/450700/opening-a-programme-in-a-floating-window-in-i3
+for_window [instance="floating"] floating enabled
 
 # Lock screen
 bindsym $mod+9 exec --no-startup-id $i3exit lock
@@ -300,7 +304,7 @@ bindsym $mod+9 exec --no-startup-id $i3exit lock
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec --no-startup-id nitrogen --restore; sleep 1; picom -b
-exec --no-startup-id /usr/bin/feh --bg-scale ~/Downloads/Worlds_End_State_Park_Far_View.jpg
+exec --no-startup-id /usr/bin/feh --bg-scale ~/Pictures/backgrounds/Worlds_End_State_Park_Far_View.jpg
 exec --no-startup-id "compton -b"
 exec --no-startup-id nm-applet
 
