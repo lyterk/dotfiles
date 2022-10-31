@@ -272,7 +272,7 @@ mode "resize" {
 
 # Switch screen input
 bindsym $mod+m mode "$me"
-set $me (l)aptop screen, (m)onitor screen, (c)alibre, (e)macs, (d)vorak, (q)werty, (p)olish, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr, (X)apture
+set $me (l)aptop screen, (m)onitor screen, (c)alibre, (e)macs, (d)vorak, (q)werty, (h)roatian, (p)olish, (w)ifi, emo(j)i, (s)ignal, (v)lc, (g)hromium, (a)randr, (X)apture
 mode "$me" {
      bindsym l exec --no-startup-id ~/.screenlayout/laptop.sh; mode "default"
      bindsym m exec --no-startup-id ~/.screenlayout/monitor.sh; mode "default"
@@ -284,6 +284,7 @@ mode "$me" {
      bindsym d exec --no-startup-id /usr/bin/setxkbmap -layout dvorak -option ctrl:nocaps; mode "default"
      bindsym q exec --no-startup-id /usr/bin/setxkbmap -layout us -option ctrl:nocaps; mode "default"
      bindsym p exec --no-startup-id /usr/bin/setxkbmap -layout pl -variant dvorak -option ctrl:nocaps; mode "default"
+     bindsym h exec --no-startup-id /usr/bin/setxkbmap -layout hr -variant dvorak -option ctrl:nocaps; mode "default"
      bindsym w exec --no-startup-id ~/dotfiles/scripts/rofi-wifi-menu.sh; mode "default"
      bindsym j exec --no-startup-id /usr/bin/rofimoji; mode "default"
      bindsym v exec --no-startup-id /usr/bin/vlc; mode "default"
