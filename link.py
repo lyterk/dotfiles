@@ -36,6 +36,7 @@ systemd = {
     "fastmail.timer": "~/.config/systemd/user/fastmail.timer",
     "checkmail@.service": "~/.config/systemd/user/checkmail@.service",
     "emacs.service": "~/.config/systemd/user/emacs.service",
+    "redshift.service": "~/.config/systemd/user/redshift.service",
 }
 
 home = Path.home()
