@@ -13,8 +13,8 @@ case "$1" in
         i3-msg exit
         ;;
     suspend-then-hibernate)
-        # $locker && $logind suspend-then-hibernate
-        $locker && $logind suspend
+        $locker && $logind suspend-then-hibernate
+        # $locker && $logind suspend
         ;;
     hibernate)
         $locker && $logind hibernate
