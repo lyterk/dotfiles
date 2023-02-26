@@ -17,9 +17,11 @@ set -x SOUND_FOLDER "$HOME/Music"
 alias pat 'play $SOUND_FOLDER/right_answer.mp3 2> /dev/null'
 alias poke 'play $SOUND_FOLDER/wrong_answer.mp3 2> /dev/null'
 alias vim=nvim
+alias ls=exa
 
 alias remark "rsync -avzz --rsync-path=/usr/bin/rsync remarkable:/home/root/.local/share/remarkable/xochitl ~/Documents/remarkable/"
 
+set -x LC_ALL C
 set -x BROWSER /usr/bin/firefox
 set -gx EDITOR "vim"
 
