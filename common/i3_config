@@ -216,6 +216,27 @@ for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="Xfburn"] floating enable
 
+# Plasma compatibility improvements
+# using plasma's logout screen instead of i3's
+# bindsym $mod+Shift+e exec --no-startup-id qdbus-qt5 org.kde.ksmserver /KSMServer org.kde.KSMServerInterface.logout -1 -1 -1
+
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+
+for_window [class="yakuake"] floating enable
+for_window [class="systemsettings"] floating enable
+for_window [class="plasmashell"] floating enable;
+for_window [class="Plasma"] floating enable; border none
+for_window [title="plasma-desktop"] floating enable; border none
+for_window [title="win7"] floating enable; border none
+for_window [class="krunner"] floating enable; border none
+for_window [class="Kmix"] floating enable; border none
+for_window [class="Klipper"] floating enable; border none
+for_window [class="Plasmoidviewer"] floating enable; border none
+for_window [class="(?i)*nextcloud*"] floating disable
+for_window [class="plasmashell" window_type="notification"] border none, move position 70 ppt 81 ppt
+no_focus [class="plasmashell" window_type="notification"]
+
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
 
@@ -304,11 +325,10 @@ bindsym $mod+9 exec --no-startup-id $i3exit lock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-# exec --no-startup-id nitrogen --restore; sleep 1; picom -b
 exec --no-startup-id /usr/bin/feh --bg-scale ~/Pictures/backgrounds/Worlds_End_State_Park_Far_View.jpg
 exec --no-startup-id "compton -b"
 exec --no-startup-id nm-applet
-
+exec_always --no-startup-id picom -bc
 # exec --no-startup-id xfce4-power-manager # Fucks up loginctl 😠
 
 exec --no-startup-id pamac-tray
