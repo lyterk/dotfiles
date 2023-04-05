@@ -14,7 +14,7 @@ case "$1" in
         ;;
     suspend-then-hibernate)
         $locker && $logind suspend-then-hibernate
-        # $locker && $logind suspend
+        # $locker && $logind suspend-then-hibernate
         ;;
     hibernate)
         $locker && $logind hibernate

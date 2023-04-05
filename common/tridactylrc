@@ -1,47 +1,29 @@
-
-" vim: filetype=vim
-
-" This wipes all existing settings. This means that if a setting in this file
-" is removed, then it will return to default. In other words, this file serves
-" as an enforced single point of truth for Tridactyl's configuration.
-sanitize tridactyllocal tridactylsync
-
-" Just use a blank page for new tab. It would be nicer to use the standard
-" Firefox homepage, but Tridactyl doesn't support this yet.
 set newtab about:blank
 
-" Use vim in tmux for editor.
-set editorcmd terminal -e tmux -u new vim -S /home/andrew/.vim/tridactyl.vim
-
-" Ctrl-F should use the browser's native 'find' functionality.
 bind <C-f> fillcmdline find
 
-" But also support Tridactyl search too.
-# bind / fillcmdline find
 unbind /
 bind ? fillcmdline find -?
 bind n findnext 1
 bind N findnext -1
-" Remove search highlighting.
+" Remove search highlighting."
 bind ,<Space> nohlsearch
-" Use sensitive case. Smart case would be nice here, but it doesn't work.
+"Use sensitive case. Smart case would be nice here, but it doesn't work."
 set findcase sensitive
 
-" Smooth scrolling, yes please. This is still a bit janky in Tridactyl.
+"Smooth scrolling, yes please. This is still a bit janky in Tridactyl."
 set smoothscroll true
 
-" The default jump of 10 is a bit much.
+"The default jump of 10 is a bit much."
 bind j scrollline 5
 bind k scrollline -5
 
-" K and J should move between tabs. x should close them.
+"K and J should move between tabs. x should close them."
 bind J tabprev
 bind K tabnext
 bind x tabclose
 
-" Don't run Tridactyl on some web sites because it doesn't work well, or
-" because the web site has its own keybindings.
-autocmd DocStart mail.google.com mode ignore
+"Don't run Tridactyl on some web sites because it doesn't work well, or"
 
 # I really want access to video speed controller with keyboard shortcuts, disable for that.
 autocmd DocStart youtube.com mode ignore
@@ -52,5 +34,15 @@ autocmd DocStart nytimes.com/games/wordle/index.html mode ignore
 " command line, so set an option to move the status bar to the right.
 guiset_quiet hoverlink right
 blacklistadd https://old.reddit.com
+blacklistadd https://mail.google.com
 blacklistadd https://www.youtube.com
 blacklistadd https://www.netflix.com
+blacklistadd https://www.amazon.com/gp/video
+
+"Aliases"
+command tgc tgroupcreate
+command tgs tgroupswitch
+command tgc tgroupcreate
+command tga tgroupabort
+command tgm tgroupmove
+command tgcl tgroupclose

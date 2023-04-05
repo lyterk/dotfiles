@@ -25,6 +25,7 @@ dotfiles = {
     "tridactylrc": "~/.config/tridactyl/tridactylrc",
     "notmuch.conf": "~/.notmuch_config",
     "i3status-rust.toml": "~/.config/i3status-rust/config.toml",
+    "i3-scrot.conf": "~/.config/i3-scrot.conf",
 }
 
 

@@ -17,6 +17,12 @@ Host nuc
      User lyterk
      IdentityFile ~/.ssh/nuc/id_rsa
 
+Host sudonuc
+     HostName txru.me
+     Port 22
+     User root
+     IdentityFile ~/.ssh/sudo_nuc/id_rsa
+
 Host localnuc
      HostName 192.168.0.24
      User lyterk
