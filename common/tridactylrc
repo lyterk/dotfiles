@@ -23,19 +23,18 @@ bind J tabprev
 bind K tabnext
 bind x tabclose
 
+"Searching bookmarks isn't a default"
+bind B fillcmdline bmarks
+
 "Don't run Tridactyl on some web sites because it doesn't work well, or"
 
 # I really want access to video speed controller with keyboard shortcuts, disable for that.
-autocmd DocStart youtube.com mode ignore
-autocmd DocStart netflix.com mode ignore
 autocmd DocStart nytimes.com/games/wordle/index.html mode ignore
 
 " Sometimes the status bar in the bottom left corner overlaps the Tridactyl
 " command line, so set an option to move the status bar to the right.
 guiset_quiet hoverlink right
-blacklistadd https://old.reddit.com
 blacklistadd https://mail.google.com
-blacklistadd https://www.youtube.com
 blacklistadd https://www.netflix.com
 blacklistadd https://www.amazon.com/gp/video
 

@@ -1,6 +1,9 @@
 [user]
-	email = lyterk@sent.com
 	name = Kevin Lyter
+	email = career@lyterk.com
+	signingkey = DC428C25
+[commit]
+	gpgsign = true
 [init]
 	templateDir = ~/dotfiles/common/git_templates/
 	defaultBranch = mainline
