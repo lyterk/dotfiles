@@ -68,6 +68,7 @@ wheels/
 MANIFEST
 venv/
 .zsh_history
+.zhistory
 
 
 # Logs

@@ -37,3 +37,4 @@ export DOOM_BIN=$HOME/.emacs.d/bin
 export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$PYENV_SHIM:$NODENV_SHIM:$GHC_BIN:$CABAL_BIN
 
 fc -p ~/.zsh_history
+. "$HOME/.cargo/env"

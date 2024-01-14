@@ -1,0 +1,10 @@
+[Unit]
+Description=Scratch
+
+[Mount]
+What=/dev/disk/by-uuid/58c21d18-83bf-416a-850d-627ce7c78b2e
+Where=/mnt/scratch
+Type=ext4
+
+[Install]
+WantedBy=multi-user.target

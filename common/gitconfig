@@ -1,7 +1,7 @@
 [user]
 	name = Kevin Lyter
-	email = career@lyterk.com
-	signingkey = DC428C25
+	email = code@lyterk.com
+	signingkey = 0F39E83B
 [commit]
 	gpgsign = true
 [init]
@@ -16,3 +16,5 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[core]
+	excludesFile = ~/dotfiles/common/gitignore

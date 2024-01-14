@@ -11,11 +11,16 @@ Host github
      User git
      IdentityFile ~/.ssh/github/id_rsa
 
+Host gitlab
+     HostName gitlab.com
+     User git
+     IdentityFile ~/.ssh/gitlab/id_rsa
+
 Host nuc
-     HostName txru.me
+     HostName 100.86.73.48
      Port 22
      User lyterk
-     IdentityFile ~/.ssh/nuc/id_rsa
+     IdentityFile ~/.ssh/nuc/id_ed25519
 
 Host sudonuc
      HostName txru.me
@@ -23,10 +28,18 @@ Host sudonuc
      User root
      IdentityFile ~/.ssh/sudo_nuc/id_rsa
 
-Host localnuc
-     HostName 192.168.0.24
+Host plexproxy
+     HostName txru.me
      User lyterk
-     IdentityFile ~/.ssh/nuc/id_rsa
+     Port 22
+     IdentityFile ~/.ssh/sudo_nuc/id_rsa
+     RemoteForward 127.0.0.1:8080 lyterk.com:32400
+
+Host localnuc
+     HostName 192.168.0.42
+     Port 22
+     User lyterk
+     IdentityFile ~/.ssh/nuc/id_ed25519
 
 Host backup
      HostName txru.me

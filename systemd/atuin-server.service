@@ -1,0 +1,11 @@
+[Unit]
+Description=Atuin: Terminal history syncing
+
+[Service]
+ExecStart=/usr/bin/atuin server start
+Restart=on-failure
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=default.target

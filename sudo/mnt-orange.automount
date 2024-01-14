@@ -1,0 +1,8 @@
+[Unit]
+Description=Automount Orange Lacie Drive
+
+[Automount]
+Where=/mnt/orange
+
+[Install]
+WantedBy=multi-user.target
