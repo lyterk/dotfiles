@@ -17,16 +17,10 @@ Host gitlab
      IdentityFile ~/.ssh/gitlab/id_rsa
 
 Host nuc
-     HostName txru.me
-     Port 22
+     HostName 100.86.73.48
+     Port 65222
      User lyterk
      IdentityFile ~/.ssh/nuc/id_ed25519
-
-Host sudonuc
-     HostName txru.me
-     Port 22
-     User root
-     IdentityFile ~/.ssh/sudo_nuc/id_rsa
 
 Host plexproxy
      HostName txru.me
@@ -48,8 +42,8 @@ Host backup
      IdentityFile ~/.ssh/backup/id_rsa
 
 Host gitserv
-     HostName txru.me
-     Port 22
+     HostName 100.86.73.48
+     Port 65222
      User git
      IdentityFile ~/.ssh/nuc/id_ed25519
 
