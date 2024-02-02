@@ -1,5 +1,21 @@
 from pathlib import Path
 from typing import Dict
+from subprocess import run
+
+
+def ok(message: str):
+    style, fg, bg = 1, 37, 42
+    fmt = ";".join([str(i) for i in [style, fg, bg]])
+    s = f"\x1b[{fmt}m {message} \x1b[0m"
+    print(s)
+
+
+def error(message: str):
+    style, fg, bg = 1, 37, 41
+    fmt = ";".join([str(i) for i in [style, fg, bg]])
+    s = f"\x1b[{fmt}m {message} \x1b[0m"
+    print(s)
+
 
 dotfiles = {
     "ssh_config": "~/.ssh/config",
@@ -26,6 +42,8 @@ dotfiles = {
     "notmuch.conf": "~/.notmuch_config",
     "i3status-rust.toml": "~/.config/i3status-rust/config.toml",
     "i3-scrot.conf": "~/.config/i3-scrot.conf",
+    "emacs-profiles.el": "~/.emacs-profiles.el",
+    "dunstrc": "~/.config/dunst/dunstrc",
 }
 
 
@@ -71,10 +89,7 @@ def firefox_settings():
             except FileExistsError:
                 pass
 
-            print(f"firefox: {source} -> {destination}")
-
-
-firefox_settings()
+            ok(f"firefox: {source} -> {destination}")
 
 
 def link_files(directory: str, mappings: Dict[str, str]):
@@ -84,7 +99,7 @@ def link_files(directory: str, mappings: Dict[str, str]):
     }
 
     for source, destination in file_mappings.items():
-        print(f"{directory}: {source} -> {destination}")
+        ok(f"{directory}: {source} -> {destination}")
         try:
             try:
                 destination.unlink()
@@ -92,19 +107,40 @@ def link_files(directory: str, mappings: Dict[str, str]):
                 pass
             destination.parent.mkdir(parents=True, exist_ok=True)
             destination.symlink_to(source)
-        except Exception as exc:
-            print(exc)
+        except Exception as e:
+            error(str(e))
 
 
-link_files("common", dotfiles)
-link_files("systemd", systemd)
+def fish_functions():
+    for func in (dotfiles_path / "common/fish/functions").glob("*"):
+        target = home / ".config/fish/functions" / func.name
+        try:
+            target.unlink()
+        except Exception as e:
+            error(str(e))
+        target.parent.mkdir(parents=True, exist_ok=True)
+        ok(f"fish: {func} -> {target}")
+        target.symlink_to(func)
 
-for func in (dotfiles_path / "common/fish/functions").glob("*"):
-    target = home / ".config/fish/functions" / func.name
-    try:
-        target.unlink()
-    except:
-        pass
-    target.parent.mkdir(parents=True, exist_ok=True)
-    print(f"fish: {func} -> {target}")
-    target.symlink_to(func)
+
+def gconf_set(settings_file: str):
+    target = dotfiles_path / settings_file
+    with open(target, "r") as f:
+        lines = f.readlines()
+    for line in lines:
+        args = line.replace("__", " ").split()
+        command = " ".join(["gsettings", "set", *args])
+        print(command)
+        output = run(command, capture_output=True, shell=True)
+        if output.stderr:
+            error(str(output.stderr))
+        else:
+            ok(str(args))
+
+
+if __name__ == "__main__":
+    link_files("common", dotfiles)
+    link_files("systemd", systemd)
+    fish_functions()
+    firefox_settings()
+    gconf_set("common/gconf/deja-dup.txt")
