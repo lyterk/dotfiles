@@ -3,11 +3,11 @@
 /* hides the native tabs */
 
 #TabsToolbar {
-  visibility: collapse!important;
+  visibility: collapse !important;
 }
 
-statuspanel[type="overLink"],
-#statuspanel[type="overLink"] {
-  right: 0;
-  display: inline;
-}
+/* statuspanel[type="overLink"], */
+/* #statuspanel[type="overLink"] { */
+/*   right: 0; */
+/*   display: inline; */
+/* } */
