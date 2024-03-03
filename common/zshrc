@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-source ~/.zshenv
-
 alias ase="apt search"
 alias sa="sudo apt"
 alias sai="sa install"

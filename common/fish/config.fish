@@ -43,6 +43,4 @@ if test -f ~/.keychain/(hostname)-fish
     source ~/.keychain/(hostname)-fish
 end
 
-# opam configuration
-source /home/lyterk/.opam/opam-init/init.fish >/dev/null 2>/dev/null; or true
 direnv hook fish | source
