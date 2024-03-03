@@ -16,7 +16,7 @@ password_files=( "${password_files[@]%.gpg}" )
 password=$(printf '%s\n' "${password_files[@]}" | rofi -dmenu -p -i "$@")
 
 modifier="show"
-if [[ "$password" == *"OTP_"* ]]; then
+if [[ "$password" == *"OTP"* ]]; then
 	modifier="otp"
 fi
 
