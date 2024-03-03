@@ -36,7 +36,7 @@ dotfiles = {
     "mimeapps.list": "~/.config/mimeapps.list",
     "zprofile": "~/.zprofile",
     "rofi_config": "~/.config/rofi/config.rasi",
-    "xfce_terminalrc": "~/.config/xfce4/terminal/terminalrc",
+    "terminal/xfce_terminalrc": "~/.config/xfce4/terminal/terminalrc",
     "mbsyncrc.conf": "~/.mbsyncrc",
     "tridactylrc": "~/.config/tridactyl/tridactylrc",
     "notmuch.conf": "~/.notmuch_config",
@@ -44,6 +44,10 @@ dotfiles = {
     "i3-scrot.conf": "~/.config/i3-scrot.conf",
     "emacs-profiles.el": "~/.emacs-profiles.el",
     "dunstrc": "~/.config/dunst/dunstrc",
+    "terminal/alacritty.toml": "~/.config/alacritty/alacritty_base.toml",
+    "terminal/circadian.toml": "~/.config/alacritty/circadian.toml",
+    "terminal/ayu_dark.toml": "~/.config/alacritty/themes/ayu_dark.toml",
+    "terminal/solarized_light.toml": "~/.config/alacritty/themes/solarized_light.toml",
 }
 
 
@@ -56,6 +60,12 @@ systemd = {
     "checkmail@.service": "~/.config/systemd/user/checkmail@.service",
     "emacs.service": "~/.config/systemd/user/emacs.service",
     "redshift.service": "~/.config/systemd/user/redshift.service",
+    "alacritty-circadian.service": "~/.config/systemd/user/alacritty-circadian.service",
+}
+
+displays = {
+    "laptop.sh": "~/.screenlayout/laptop.sh",
+    "monitor.sh": "~/.screenlayout/monitor.sh",
 }
 
 home = Path.home()
@@ -130,17 +140,17 @@ def gconf_set(settings_file: str):
     for line in lines:
         args = line.replace("__", " ").split()
         command = " ".join(["gsettings", "set", *args])
-        print(command)
         output = run(command, capture_output=True, shell=True)
         if output.stderr:
             error(str(output.stderr))
         else:
-            ok(str(args))
+            ok(str(command))
 
 
 if __name__ == "__main__":
     link_files("common", dotfiles)
     link_files("systemd", systemd)
+    link_files("displays", displays)
     fish_functions()
     firefox_settings()
     gconf_set("common/gconf/deja-dup.txt")
