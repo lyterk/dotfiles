@@ -4,10 +4,9 @@ org.gnome.DejaDup custom-tool-setup ''
 org.gnome.DejaDup custom-tool-teardown ''
 org.gnome.DejaDup custom-tool-wrapper ''
 org.gnome.DejaDup delete-after 0
-org.gnome.DejaDup exclude-list ['$TRASH',__'$DOWNLOAD',__'$HOME/Pictures',__'$HOME/Videos',__'$HOME/.Xauthority',__'$HOME/.Xclients',__'$HOME/.Xresources',__'$HOME/.aspell.en.prepl',__'$HOME/.bashrc',__'$HOME/.bash_history',__'$HOME/.bash_logout',__'$HOME/.bash_profile',__'$HOME/.bean-shell-history',__'$HOME/.cache',__'$HOME/.clojure_history',__'$HOME/.dir_colors',__'$HOME/.dmenurc',__'$HOME/.dmrc',__'$HOME/.emacs-profiles.el',__'$HOME/.fehbg',__'$HOME/.flutter',__'$HOME/.gitconfig',__'$HOME/.gitignore',__'$HOME/.gtkrc-2.0',__'$HOME/.irb_history',__'$HOME/.lesshst',__'$HOME/.local',__'$HOME/.makepkg.conf',__'$HOME/.mbsyncrc',__'$HOME/.nanorc',__'$HOME/.nix-channels',__'$HOME/.nix-profile',__'$HOME/.notmuch_config',__'$HOME/.npmrc',__'$HOME/.ocamlinit',__'$HOME/.profile',__'$HOME/.psql_history',__'$HOME/.pulse-cookie',__'$HOME/.pythonhist',__'$HOME/.python_history',__'$HOME/.sbclrc',__'$HOME/.scala_history',__'$HOME/.scala_history_jline3',__'$HOME/.sqlite_history',__'$HOME/.steampath',__'$HOME/.steampid',__'$HOME/.utop-history',__'$HOME/.viminfo',__'$HOME/.vimrc',__'$HOME/.wget-hsts',__'$HOME/.xinitrc',__'$HOME/.xscreensaver',__'$HOME/.xsession-errors',__'$HOME/.yarnrc',__'$HOME/.zhistory',__'$HOME/.zprofile',__'$HOME/.zshenv',__'$HOME/.zshrc',__'$HOME/.zsh_history']
+org.gnome.DejaDup exclude-list "['.adobe-reader-11', '.backups', '.bloop', '.cabal', '.cache', '.cargo', '.clojure', '.conda', '.config', '.cpanm', '.dart-tool', '.degit', '.doom.sandbox', '.doom.working', '.dosbox', '.eclipse', '.electron-gyp', '.emacs.d', '.emacs.sandbox', '.emacs.working', '.factorio', '.fly', '.g8', '.games', '.gimp-2.8', '.gitlibs', '.gnome', '.gnupg', '.go', '.gog', '.gphoto', '.i3', '.icons', '.idlerc', '.ionic', '.ipython', '.ivy2', '.java', '.julia', '.jupyter', '.keychain', '.lein', '.local', '.m2', '.moc', '.mozilla', '.mplayer', '.nix-defexpr', '.npm', '.opam', '.password-store', '.pip', '.pki', '.praat-dir', '.pub-cache', '.rustup', '.sbt', '.screenlayout', '.ssh', '.steam', '.thunderbird', '.urxvt', '.var', '.vscode-oss', '.w3m', '.wine', '.yarn', '.android-studio', 'Android', '.android', '.vscode', '.vscode-oss']"
 org.gnome.DejaDup full-backup-period 90
-org.gnome.DejaDup include-list ['$HOME']
-org.gnome.DejaDup last-backup ''
+org.gnome.DejaDup include-list "['$HOME']"
 org.gnome.DejaDup nag-check ''
 org.gnome.DejaDup periodic false
 org.gnome.DejaDup periodic-period 7
