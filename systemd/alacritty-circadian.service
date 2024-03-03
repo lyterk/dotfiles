@@ -1,0 +1,8 @@
+[Unit]
+Description=Alacritty automatic theme switch
+
+[Service]
+ExecStart=/home/lyterk/code/oss/alacritty-circadian/venv/bin/python /home/lyterk/code/oss/alacritty-circadian/venv/bin/alacritty-circadian --alacritty-source ~/.config/alacritty/alacritty_base.toml
+
+[Install]
+WantedBy=default.target

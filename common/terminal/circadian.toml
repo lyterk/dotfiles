@@ -1,0 +1,13 @@
+theme-folder = "~/.config/alacritty/themes"
+
+[coordinates]
+latitude = 47.5
+longitude = -122.3
+
+[[themes]]
+time = "sunrise"
+name = "solarized_light"
+
+[[themes]]
+time = "sunset"
+name = "ayu_dark"
