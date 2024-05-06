@@ -32,7 +32,7 @@ if status is-login
 end
 
 if status is-interactive
-    atuin init fish | source
+    # atuin init fish | source
 end
 
 if test -f ~/.keychain/(hostname)-gpg-fish
@@ -43,4 +43,4 @@ if test -f ~/.keychain/(hostname)-fish
     source ~/.keychain/(hostname)-fish
 end
 
-direnv hook fish | source
+# direnv hook fish | source

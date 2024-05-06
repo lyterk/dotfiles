@@ -8,8 +8,8 @@ Documentation=info:emacs man:emacs(1) https://gnu.org/software/emacs/
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/emacs --fg-daemon --with-profile default
-ExecStop=/usr/bin/emacsclient --eval "(kill-emacs)"
+ExecStart=/home/lyterk/.nix-profile/bin/emacs --fg-daemon
+ExecStop=/home/lyterk/.nix-profile/bin/emacsclient --eval "(kill-emacs)"
 Environment=SSH_AUTH_SOCK=%t/keyring/ssh
 Restart=on-failure
 

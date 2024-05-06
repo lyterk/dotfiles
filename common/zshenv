@@ -7,9 +7,7 @@ export HISTSIZE=10000
 export SAVEHIST=1000
 setopt SHARE_HISTORY
 
-export BASE_PATH=/usr/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/games
-
-export BOOT_CLOJURE_VERSION=1.10.1
+export BASE_PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 export BROWSER=/usr/bin/firefox
 export EDITOR="/usr/local/bin/emacsclient -t"
@@ -19,22 +17,10 @@ export LOCAL_BIN=$HOME/.local/bin
 export DOTFILES_DIR=$HOME/.dotfiles/home
 export SNAP=/snap/bin
 
-export GHC_BIN=$HOME/.ghcup/bin
-export CABAL_BIN=$HOME/.cabal/bin
-export GOPATH=$HOME/.go
-export RUST_SRC_PATH=$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library
-export CARGO_BIN=$HOME/.cargo/bin
-export NODENV=$HOME/.nodenv/bin
-export NODENV_SHIM=$HOME/.nodenv/shims
-export PYENV=$HOME/.pyenv/bin
-export PYENV_SHIM=$HOME/.pyenv/shims
-export NODENV_ENTRYPOINTS=$HOME/.nodenv/shims
-export NODENV_BIN=$HOME/.nodenv/versions/14.2.0/bin
-export PYENV_ENTRYPOINTS=$HOME/.pyenv/shims
 export DOOM_BIN=$HOME/.emacs.d/bin
 
 # NODENV BIN really needs to be at the front, because the system node always fucks everything up.
-export PATH=$NODENV_BIN:$BASE_PATH:$LOCAL_BIN:$CARGO_BIN:$SNAP:$GOPATH/bin:$DOOM_BIN:$PYENV:$NODENV:$PYENV_SHIM:$NODENV_SHIM:$GHC_BIN:$CABAL_BIN
+export PATH=$HOME/.nix-profile/bin:$BASE_PATH
 
 fc -p ~/.zsh_history
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
