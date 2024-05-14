@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex-leibniz-higher
+# uuid: latex-leibniz-higher
+# key: leibh
+# condition: t
+# --
+\frac{\partial^$1 $2}{\partial $3^$4}$0

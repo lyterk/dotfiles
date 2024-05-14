@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: leibniz-partial
+# uuid: leibniz-partial
+# key: leibp
+# condition: t
+# --
+\frac{\partial$1 $2}{\partial$3 $4}$0

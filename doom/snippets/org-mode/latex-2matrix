@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: latex-2matrix
+# uuid: latex-2matrix
+# key: 2matrix
+# condition: t
+# --
+\begin{bmatrix}
+$1 & $2 \\\
+$3 & $4
+\end{bmatrix}

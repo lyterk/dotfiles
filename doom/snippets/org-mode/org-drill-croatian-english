@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: org-drill-croatian-english
+# key: hren
+# --
+** Item :drill:hr->en:${1:$$(yas-auto-next
+                              (yas-choose-value
+                               '("noun" "verb" "adjective" "adverb" "preposition" "conjunction" "slang")))}:
+$2
+*** Answer
+${2:$$(when
+         (and
+          yas-modified-p
+          yas-moving-away-p)
+        (google-translate-translate "hr" "en" (yas-field-value 2) 'paragraph-insert))}

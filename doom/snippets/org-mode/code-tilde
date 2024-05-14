@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: code-tilde
+# uuid: org-mode-tilde-code
+# key: til
+# condition: t
+# --
+~$1~$0

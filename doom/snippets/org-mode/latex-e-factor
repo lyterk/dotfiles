@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex-e-factor
+# uuid: latex-e-factor
+# key: lexp
+# condition: t
+# --
+e^{$1}$0

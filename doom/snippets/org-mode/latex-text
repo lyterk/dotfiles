@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: latex-text
+# uuid: latex-text
+# key: ltext
+# condition: t
+# --
+\text{$1 }$0

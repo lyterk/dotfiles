@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: latex-brace-wrap
+# uuid: latex-brace-wrap
+# key: lbrac
+# --
+\[
+$1
+\]$0

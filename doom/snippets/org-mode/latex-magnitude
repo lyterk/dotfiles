@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: magnitude
+# key: mag
+# --
+\left| \vec{$1} \right| $0

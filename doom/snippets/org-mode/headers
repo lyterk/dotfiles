@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: headers
+# key: hdrs
+# --
+#+TITLE: $1
+#+AUTHOR: Kevin Lyter
+$0

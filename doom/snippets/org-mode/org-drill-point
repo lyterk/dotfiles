@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: org-drill-point
+# key: lang
+# --
+** Item :drill:${1:$$(yas-auto-next
+                              (yas-choose-value
+                               '("noun" "verb" "adjective" "adverb" "preposition" "conjunction" "slang")))}:
+$2
+*** Answer
+${3:$$(when
+    (and
+     yas-modified-p
+     yas-moving-away-p)
+  (progn
+    (google-translate-at-point)
+    (let* ((oldbuf (current-buffer))
+           (raw-result (save-excursion
+                         (set-buffer "*Google Translate*")
+                         (buffer-substring-no-properties (point-min) (point-max)))))
+      (string-join (nthcdr 4 (split-string raw-result "\n")) "\n"))))}
