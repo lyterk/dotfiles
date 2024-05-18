@@ -1,22 +1,10 @@
 { config, pkgs, ... }:
 
-let
-  androidSdkModule = import ((builtins.fetchGit {
-    url = "https://github.com/tadfisher/android-nixpkgs.git";
-    rev = "2d8181caef279f19c4a33dc694723f89ffc195d4"; # on main
-    # ref = "main";  # Or "stable", "beta", "preview", "canary"
-  }) + "/hm-module.nix");
-in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lyterk";
   home.homeDirectory = "/home/lyterk";
-
-  # nix = {
-  #   settings.experimental-features = ["nix-command" "flakes"];
-  # }
-
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -27,55 +15,15 @@ in
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
+  imports = [
+    # flakeInputs.nix-doom-emacs.hmModule
+  ];
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # Browsers
-    pkgs.firefox
-    pkgs.eww
-    # Chat
-    pkgs.signal-desktop
-    # Backups
     # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
-    # Editors
-    pkgs.emacs
-    pkgs.neovim
-    # Code
-    pkgs.git
-    # Shell utilities
-    pkgs.eza
-    pkgs.ripgrep
-    pkgs.wl-clipboard
-    pkgs.fish
-    pkgs.zsh # it's just so compliant 🥵
-    pkgs.fd
-    pkgs.atuin
-    pkgs.alacritty
-    pkgs.htop
-    pkgs.keychain
-    pkgs.tree
-    # Sway utilities
-    pkgs.swaylock
-    pkgs.swayidle
-    pkgs.wob
-    pkgs.wev # wayland event viewer
-    # Sound utilities
-    pkgs.pamixer
-    pkgs.pulseaudio
-    # Notifications
-    pkgs.mako
-    # Rofi
-    pkgs.rofi
-    pkgs.pinentry-rofi
-    pkgs.rofi-pass-wayland
-    pkgs.rofimoji
-    # Secrets
-    (pkgs.pass.withExtensions (ext: [ext.pass-otp]))
-    # UI dev
-    pkgs.nodejs_21
-    # Media
-    # pkgs.calibre
-    pkgs.vlc
+    pkgs.waybar
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -93,18 +41,23 @@ in
     ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
     ".config/mimeapps.list".source = common/mimeapps.list;
     ".config/rofi/config.rasi".source = common/rofi_config;
+    ".config/sway/config".source = common/sway/sway_config;
+    # TODO Figure out the emoji https://github.com/Alexays/Waybar/wiki/Examples
+    # ".config/kanshi/config".source = common/sway/kanshi_config;
+    ".config/waybar/config".source = common/sway/waybar_config;
+    ".config/waybar/style.css".source = common/sway/waybar_style.css;
     ".config/alacritty/alacritty_base.toml".text = ''
       shell = "/usr/bin/fish"
 
       [window]
       opacity = 0.9
     '';
+    # ".gnupg/gpg-agent.conf".source = common/gpg-agent.conf;
     # # Switch between profiles for alacritty
     # ".config/alacritty/circadian.toml".source = common/terminal/circadian.toml;
     # ".config/alacritty/ayu_dark.toml".source = common/terminal/ayu_dark.toml;
     # ".config/alacritty/solarized_light.toml".source = common/terminal/solarized_light.toml;
     # # Systemd
-    # ".config/systemd/user/emacs.service".source = systemd/emacs.service;
   };
 
   # Home Manager can also manage your environment variables through
@@ -120,6 +73,7 @@ in
   #
   home.sessionVariables = {
     EDITOR = "emacsclient -t";
+    SHELL = "fish";
   };
 
   # Let Home Manager install and manage itself.
@@ -141,4 +95,26 @@ in
   #   platforms-android-34
   #   sources-android-34
   # ];
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
+  };
+
+  # programs.doom-emacs = {
+  #   enable = true;
+  #   doomPrivateDir = ./doom;
+  # };
+
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 3600;
+    maxCacheTtl = 86400;
+    # pinentry-rofi not an optional flavor. 
+    pinentryFlavor = "gtk2";
+    # extraConfig = ''
+    #  pinentry-program /run/current-system/sw/bin/pinentry-gtk2
+    # '';
+    # pinentryPackage available as of 24.0
+    # pinentryPackage = pkgs.pinentry-rofi;
+  };
 }
