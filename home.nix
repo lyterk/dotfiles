@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, flakeInputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -16,14 +16,13 @@
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
   imports = [
-    # flakeInputs.nix-doom-emacs.hmModule
+    # flakeInputs.git-doom-emacs
   ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
     # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
-    pkgs.waybar
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -79,22 +78,6 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  # # -------------- Android SDK -------------- #
-  # # Android SDK provision, see let binding
-  # imports = [ androidSdkModule ];
-
-  # android-sdk.enable = true;
-
-  # # Optional; default path is "~/.local/share/android".
-  # # android-sdk.path = "${config.home.homeDirectory}/.android/sdk";
-
-  # android-sdk.packages = sdkPkgs: with sdkPkgs; [
-  #   build-tools-34-0-0
-  #   cmdline-tools-latest
-  #   emulator
-  #   platforms-android-34
-  #   sources-android-34
-  # ];
   programs.waybar = {
     enable = true;
     systemd.enable = true;

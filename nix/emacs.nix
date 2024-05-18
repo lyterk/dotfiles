@@ -1,31 +1,27 @@
 {
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-  };
+  description "Flake for cloning and building Doom Emacs, with my personal configuration";
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    nix-doom-emacs,
-    ...
-  }: {
+  outputs = { self, nixpkgs }: {
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-      system  = "x86_64-linux";
-      modules = [
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.users.exampleUser = { ... }: {
-            imports = [ nix-doom-emacs.hmModule ];
-            programs.doom-emacs = {
-              enable = true;
-              doomPrivateDir = .config/doom; 
-            };
-          };
-        }
-      ];
+      let
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+        doomSrc = pkgs.fetchFromGithub {
+	  owner = "doomemacs";
+	  repo = "doomemacs";
+	  rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
+	};
+	doomConfigSrc = builtins.fetchGit {
+	  url = "git@txru.me:/git/doomd.git";
+	};
+	doomExecutable = "${doomSrc}/bin/doom";
+      in {
+	stdenv.mkDerivation {
+	  name = "doomInstall";
+	  src = doomSrc;
+	  buildInputs = [ pkgs.emacs29 ];
+	  buildPhase = "${doomExecutable} install
+      }
     };
   };
 }

@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "git-doom-emacs": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1713464448,
+        "narHash": "sha256-Fhir4WlcfEh70V8+oNS1LVAGBftiqtD2qaHzOC8BJUI=",
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee",
+        "type": "github"
+      },
+      "original": {
+        "owner": "doomemacs",
+        "repo": "doomemacs",
+        "rev": "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -39,6 +56,7 @@
     },
     "root": {
       "inputs": {
+        "git-doom-emacs": "git-doom-emacs",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs"
       }
