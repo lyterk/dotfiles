@@ -1,6 +1,15 @@
-{ config, pkgs, flakeInputs, ... }:
+{ stdenv, config, pkgs, flakeInputs, ... }:
 
-{
+let
+  x = 1;
+  doomSrc = pkgs.fetchFromGitHub {
+    owner = "doomemacs";
+    repo = "doomemacs";
+    rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
+  };
+  doomConfigSrc = config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
+  doomExecutable = "${doomSrc}/bin/doom";
+in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lyterk";
@@ -16,13 +25,52 @@
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
   imports = [
+    ./nix/batteryNotifier.nix
+    # ./nix/emacs.nix
     # flakeInputs.git-doom-emacs
   ];
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
+    # terminal emulators
+    alacritty
+    atuin
+    # fonts
+    font-awesome
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    noto-fonts-monochrome-emoji
+    # file display
+    xfce.thunar
+    # data stores
+    sqlite
+    # secrets
+    gnupg
+    keychain
+    # notifications
+    mako
+    # runtimes
+    nodejs_21
+    python3
+    # sound
+    pulseaudio # used for getting and setting the volume
+    pamixer
+    # interfaces
+    wl-clipboard
+    rofi
+    pinentry-rofi
+    pinentry-qt
+    wev
+    wob
+    # monitors
+    kanshi
+    # network
+    mullvad-vpn
+    # certs
+    # nss-cacert
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -46,7 +94,7 @@
     ".config/waybar/config".source = common/sway/waybar_config;
     ".config/waybar/style.css".source = common/sway/waybar_style.css;
     ".config/alacritty/alacritty_base.toml".text = ''
-      shell = "/usr/bin/fish"
+      shell = "/usr/bin/env fish"
 
       [window]
       opacity = 0.9
@@ -83,17 +131,54 @@
     systemd.enable = true;
   };
 
+  programs.ssh.matchBlocks = {
+    nuc = {
+      hostname = "txru.me";
+      port = 65222;
+      user = "lyterk";
+      identityfile = "~/.ssh/id_ed25519";
+    };
+    git = {
+      hostname = "txru.me";
+      port = 65222;
+      user = "git";
+      identityfile = "~/.ssh/id_ed25519";
+    };
+    github = {
+      hostname = "github.com";
+      user = "git";
+      identityfile = "~/.ssh/id_ed25519";
+    };
+  };
+
   # programs.doom-emacs = {
   #   enable = true;
   #   doomPrivateDir = ./doom;
   # };
 
+  # programs.doomEmacs = pkgs.stdenv.mkDerivation {
+  #   name = "doomInstall";
+  #   src = doomSrc;
+  #   buildInputs = [
+  #     pkgs.emacs29
+  #     pkgs.git
+  #     (pkgs.ripgrep.override { withPCRE2 = true; })
+  #   ];
+  #   buildPhase = "${doomExecutable} install";
+  #   installPhase = "cp -r . $out";
+  # };
+
+  services.emacs = {
+    package = pkgs.emacs29;
+    enable = true;
+  };
+
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 3600;
     maxCacheTtl = 86400;
+    pinentryFlavor = "qt";
     # pinentry-rofi not an optional flavor. 
-    pinentryFlavor = "gtk2";
     # extraConfig = ''
     #  pinentry-program /run/current-system/sw/bin/pinentry-gtk2
     # '';

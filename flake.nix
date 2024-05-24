@@ -10,16 +10,10 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, git-doom-emacs, ... } @ inputs:
+  outputs = { nixpkgs, home-manager, ... } @ inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-
-      doomEmacs = pkgs.fetchFromGitHub {
-        owner = "doomemacs";
-	repo = "doomemacs";
-	rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
-      };
     in {
       homeConfigurations."lyterk" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -31,7 +25,7 @@
 	];
         # Optionally use extraSpecialArgs
         # to pass through arguments to home.nix
-	extraSpecialArgs.flakeInputs = [ doomEmacs ];
+	# extraSpecialArgs.flakeInputs = [ doomEmacs ];
       };
     };
 }
