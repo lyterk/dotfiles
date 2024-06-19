@@ -5,11 +5,10 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      <home-manager/nixos>
-    ];
+  imports = [ # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    <home-manager/nixos>
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -21,6 +20,7 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -43,22 +43,40 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-
-
   # Configure console keymap
   console.keyMap = "dvorak";
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
+  services = {
+    # Enable CUPS to print documents.
+    printing.enable = true;
+    # vpn configuration
+    tailscale.enable = true;
+    # privacy vpn
+    mullvad-vpn.enable = true;
+    # For gpg key reading -- smart cards
+    pcscd.enable = true;
+    # Sound control, better api than pavucontrol. But I still install that anyway
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
 
-  # vpn configuration
-  services.tailscale.enable = true;
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
+    };
+    resolved = {
+      enable = true;
+      dnssec = "true";
+      domains = [ "~." ];
+      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      dnsovertls = "true";
+    };
+
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -66,25 +84,11 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
-  # Sound control, better api than pavucontrol. But I still install that anyway 
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
   systemd.user.services.kanshi = {
     description = "kanshi daemon";
     serviceConfig = {
       Type = "simple";
-      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c kanshi_config_file'';
+      ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
     };
   };
 
@@ -97,24 +101,24 @@
     description = "Kevin Lyter";
     extraGroups = [ "networkmanager" "wheel" "video" ];
     packages = with pkgs; [
-       (pass.withExtensions (ext: [ext.pass-otp]))
-       rofi-pass-wayland
-       rofimoji
-       vlc
-       signal-desktop
-       thunderbird
+      (pass.withExtensions (ext: [ ext.pass-otp ]))
+      rofi-pass-wayland
+      rofimoji
+      vlc
+      signal-desktop
+      thunderbird
     ];
   };
 
   # home-manager.users.lyterk = import /home/lyterk/.config/home-manager/home.nix;
 
-  programs.sway.enable = true;
-
-  # Adjusting brightness with keys
-  programs.light.enable = true;
-
-  # Install firefox.
-  programs.firefox.enable = true;
+  programs = {
+    sway.enable = true;
+    # Adjusting brightness with keys
+    light.enable = true;
+    # System-wide I guess?
+    firefox.enable = true;
+  };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -124,19 +128,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # terminal emulator
-    alacritty
-    # terminal history
-    atuin
+    # nix specific
+    home-manager
+    nixfmt
+    nix-ld
+    # build
+    gcc
     # editors
     neovim
     emacs29
-    # fonts
-    font-awesome
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    noto-fonts-monochrome-emoji
     # shells
     fish
     zsh
@@ -145,36 +145,17 @@
     eza
     fd
     git
+    jq
+    xsv
+    rlwrap
     htop
     unzip
     ripgrep
     tree
     wget
-    # data stores
-    sqlite
-    # secrets
-    gnupg
-    keychain
-    # notifications
-    mako
-    # runtimes
-    nodejs_21
-    python3
-    # sound
-    pulseaudio # used for getting and setting the volume
-    pamixer
-    # interfaces
-    wl-clipboard
-    rofi
-    pinentry-rofi
-    pinentry-qt
-    pinentry-gtk2
-    wev
-    wob
-    # monitors
-    kanshi
     # network
     tailscale
+    mullvad-vpn
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -190,11 +171,16 @@
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  # Connecting devices via USB to calibre
+  # https://nixos.wiki/wiki/Calibre
+  services.udisks2.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.iproute2.enable = true; # ostensibly useful for mullvad
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
