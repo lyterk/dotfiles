@@ -7,13 +7,31 @@ let
     repo = "doomemacs";
     rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
   };
-  doomConfigSrc = config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
-  doomExecutable = "${doomSrc}/bin/doom";
+  doomConfigSrc =
+    config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
+  # doomExecutable = "${doomSrc}/bin/doom";
+
+  shellTools = with pkgs; [ alacritty atuin direnv pwgen gnupg keychain ];
+  fonts = with pkgs; [
+    font-awesome
+    noto-fonts
+    noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    noto-fonts-monochrome-emoji
+  ];
+  programmingLanguages = with pkgs; [ nodejs_22 python3 poetry pyright ];
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lyterk";
   home.homeDirectory = "/home/lyterk";
+
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowUnfreePredicate = (_: true);
+    };
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -32,46 +50,38 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs; [
-    # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
-    # terminal emulators
-    alacritty
-    atuin
-    # fonts
-    font-awesome
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-color-emoji
-    noto-fonts-monochrome-emoji
-    # file display
-    xfce.thunar
-    # data stores
-    sqlite
-    # secrets
-    gnupg
-    keychain
-    # notifications
-    mako
-    # runtimes
-    nodejs_21
-    python3
-    # sound
-    pulseaudio # used for getting and setting the volume
-    pamixer
-    # interfaces
-    wl-clipboard
-    rofi
-    pinentry-rofi
-    pinentry-qt
-    wev
-    wob
-    # monitors
-    kanshi
-    # network
-    mullvad-vpn
-    # certs
-    # nss-cacert
-  ];
+  home.packages = with pkgs;
+    [
+      # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
+      # file display
+      xfce.thunar
+      calibre
+      # data stores
+      sqlite
+      # notifications
+      mako
+      # sound
+      pulseaudio # used for getting and setting the volume
+      pamixer
+      # interfaces
+      wl-clipboard
+      rofi
+      # pinentry-rofi # not working rn
+      pinentry-qt
+      wev
+      wob
+      # monitors
+      grim # screenshots
+      slurp # facilitate screenshots-- select a region in compositor.
+      kanshi # managing monitors
+      # network
+      # chat
+      beeper
+      # email
+      thunderbird
+      # gaming
+      steam
+    ] ++ shellTools ++ fonts ++ programmingLanguages;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -85,7 +95,8 @@ in {
     ".zshrc".source = common/zshrc;
     ".sbclrc".source = common/sbclrc;
     ".config/fish/config.fish".source = common/fish/config.fish;
-    ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
+    ".config/fish/functions/ssh_agent.fish".source =
+      common/fish/functions/ssh_agent.fish;
     ".config/mimeapps.list".source = common/mimeapps.list;
     ".config/rofi/config.rasi".source = common/rofi_config;
     ".config/sway/config".source = common/sway/sway_config;
@@ -99,6 +110,7 @@ in {
       [window]
       opacity = 0.9
     '';
+    # ".ssh/config".source = "common/ssh_config";
     # ".gnupg/gpg-agent.conf".source = common/gpg-agent.conf;
     # # Switch between profiles for alacritty
     # ".config/alacritty/circadian.toml".source = common/terminal/circadian.toml;
@@ -123,31 +135,58 @@ in {
     SHELL = "fish";
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
 
-  programs.waybar = {
-    enable = true;
-    systemd.enable = true;
-  };
+    firefox = {
+      enable = true;
+      profiles = {
+        default = {
+          id = 0;
+          name = "defaultNix";
+          isDefault = true;
+          settings = {
+            "browser.startup.homepage" = "https://wikipedia.org";
+            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+            "browser.newtabpage.activity-stream.showSponsored" = false;
+            "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+          };
+          userChrome = ''
+            @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
 
-  programs.ssh.matchBlocks = {
-    nuc = {
-      hostname = "txru.me";
-      port = 65222;
-      user = "lyterk";
-      identityfile = "~/.ssh/id_ed25519";
+            /* hides the native tabs */
+
+            #TabsToolbar {
+              visibility: collapse !important;
+            }
+          '';
+        };
+      };
     };
-    git = {
-      hostname = "txru.me";
-      port = 65222;
-      user = "git";
-      identityfile = "~/.ssh/id_ed25519";
+
+    waybar = {
+      enable = true;
+      systemd.enable = true;
     };
-    github = {
-      hostname = "github.com";
-      user = "git";
-      identityfile = "~/.ssh/id_ed25519";
+
+    ssh.matchBlocks = {
+      nuc = {
+        hostname = "txru.me";
+        port = 65222;
+        user = "lyterk";
+        identityfile = "~/.ssh/id_ed25519";
+      };
+      git = {
+        hostname = "txru.me";
+        port = 65222;
+        user = "git";
+        identityfile = "~/.ssh/id_ed25519";
+      };
+      github = {
+        hostname = "github.com";
+        user = "git";
+        identityfile = "~/.ssh/id_ed25519";
+      };
     };
   };
 
@@ -168,21 +207,25 @@ in {
   #   installPhase = "cp -r . $out";
   # };
 
-  services.emacs = {
-    package = pkgs.emacs29;
-    enable = true;
-  };
+  # services.mullvad-vpn.enable = true;
 
-  services.gpg-agent = {
-    enable = true;
-    defaultCacheTtl = 3600;
-    maxCacheTtl = 86400;
-    pinentryFlavor = "qt";
-    # pinentry-rofi not an optional flavor. 
-    # extraConfig = ''
-    #  pinentry-program /run/current-system/sw/bin/pinentry-gtk2
-    # '';
-    # pinentryPackage available as of 24.0
-    # pinentryPackage = pkgs.pinentry-rofi;
+  services = {
+    emacs = {
+      package = with pkgs;
+        ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [ epkgs.vterm ]));
+      enable = true;
+    };
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 3600;
+      maxCacheTtl = 86400;
+      # pinentryFlavor = "qt";
+      # pinentry-rofi not an optional flavor.
+      # extraConfig = ''
+      #  pinentry-program /run/current-system/sw/bin/pinentry-gtk2
+      # '';
+      # pinentryPackage available as of 24.0
+      pinentryPackage = pkgs.pinentry-qt;
+    };
   };
 }
