@@ -19,7 +19,27 @@ let
     noto-fonts-color-emoji
     noto-fonts-monochrome-emoji
   ];
-  programmingLanguages = with pkgs; [ nodejs_22 python3 poetry pyright ];
+  programmingLanguages = with pkgs; [ nodejs_22 python3 poetry elixir ];
+  dataStores = with pkgs; [ sqlite ];
+  collaboration = with pkgs; [ thunderbird beeper plantuml-c4 ];
+  fileViz = with pkgs; [ calibre xfce.thunar ];
+  studying = with pkgs; [ anki ];
+  languageServers = with pkgs; [ nil pyright elixir-ls rust-analyzer ];
+  python = with pkgs;
+    [
+      # tree-sitter-grammars.tree-sitter-python
+    ];
+  javascript = with pkgs;
+    [
+      yarn
+      # nodePackages.prettier
+      # tree-sitter-grammars.tree-sitter-typescript
+    ];
+  # elixir = with pkgs;
+  #   with tree-sitter-grammars; [
+  #     tree-sitter-elixir
+  #     tree-sitter-heex
+  #   ];
 in {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -52,13 +72,9 @@ in {
   # environment.
   home.packages = with pkgs;
     [
-      # pkgs.deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
-      # file display
-      xfce.thunar
-      calibre
-      # data stores
-      sqlite
+      deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
+      chromium
       mako
       # sound
       pulseaudio # used for getting and setting the volume
@@ -70,18 +86,22 @@ in {
       pinentry-qt
       wev
       wob
+      pandoc
+      libreoffice-qt
+      # video games
+      playonlinux
+      innoextract
+      openrct2
+      # torrents
+      transmission-qt
       # monitors
       grim # screenshots
       slurp # facilitate screenshots-- select a region in compositor.
       kanshi # managing monitors
       # network
-      # chat
-      beeper
-      # email
-      thunderbird
-      # gaming
-      steam
-    ] ++ shellTools ++ fonts ++ programmingLanguages;
+    ] ++ shellTools ++ fonts ++ programmingLanguages ++ studying
+    ++ collaboration ++ fileViz ++ dataStores ++ languageServers ++ python
+    ++ javascript;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -133,6 +153,8 @@ in {
   home.sessionVariables = {
     EDITOR = "emacsclient -t";
     SHELL = "fish";
+    # History in elixir and erlang shells
+    ERL_AFLAGS = "-kernel shell_history enabled";
   };
 
   programs = {
@@ -146,10 +168,13 @@ in {
           name = "defaultNix";
           isDefault = true;
           settings = {
+            "browser.aboutConfig.showWarning" = false;
+            "browser.tabs.closeWindowWithLastTab" = false;
             "browser.startup.homepage" = "https://wikipedia.org";
             "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
             "browser.newtabpage.activity-stream.showSponsored" = false;
             "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+            "extensions.pocket.enabled" = false;
           };
           userChrome = ''
             @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
@@ -212,7 +237,8 @@ in {
   services = {
     emacs = {
       package = with pkgs;
-        ((emacsPackagesFor emacs29).emacsWithPackages (epkgs: [ epkgs.vterm ]));
+        ((emacsPackagesFor emacs29).emacsWithPackages
+          (epkgs: with epkgs; [ vterm treesit-grammars.with-all-grammars ]));
       enable = true;
     };
     gpg-agent = {

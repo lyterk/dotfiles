@@ -97,6 +97,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.lyterk = {
+    shell = pkgs.fish;
     isNormalUser = true;
     description = "Kevin Lyter";
     extraGroups = [ "networkmanager" "wheel" "video" ];
@@ -118,6 +119,7 @@
     light.enable = true;
     # System-wide I guess?
     firefox.enable = true;
+    fish.enable = true;
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

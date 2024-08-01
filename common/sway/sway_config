@@ -56,7 +56,13 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-input * {
+input "us-dvorak" {
+    xkb_layout us
+    xkb_variant dvorak
+    xkb_options ctrl:nocaps
+}
+
+input "es" {
     xkb_layout us
     xkb_variant dvorak
     xkb_options ctrl:nocaps
