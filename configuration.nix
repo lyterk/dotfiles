@@ -106,7 +106,6 @@
       rofi-pass-wayland
       rofimoji
       vlc
-      signal-desktop
       thunderbird
     ];
   };

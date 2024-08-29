@@ -11,7 +11,17 @@ let
     config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
   # doomExecutable = "${doomSrc}/bin/doom";
 
-  shellTools = with pkgs; [ alacritty atuin direnv pwgen gnupg keychain ];
+  shellTools = with pkgs; [
+    alacritty
+    atuin
+    cmake
+    direnv
+    libtool
+    pwgen
+    gnupg
+    gnumake
+    keychain
+  ];
   fonts = with pkgs; [
     font-awesome
     noto-fonts
@@ -24,11 +34,13 @@ let
   collaboration = with pkgs; [ thunderbird beeper plantuml-c4 ];
   fileViz = with pkgs; [ calibre xfce.thunar ];
   studying = with pkgs; [ anki ];
-  languageServers = with pkgs; [ nil pyright elixir-ls rust-analyzer ];
-  python = with pkgs;
-    [
-      # tree-sitter-grammars.tree-sitter-python
-    ];
+  languageTools = with pkgs; [ nil pyright black elixir-ls rust-analyzer ];
+  python = with pkgs.python311Packages; [
+    bpython
+    ipython
+    pytest
+    # tree-sitter-grammars.tree-sitter-python
+  ];
   javascript = with pkgs;
     [
       yarn
@@ -88,6 +100,7 @@ in {
       wob
       pandoc
       libreoffice-qt
+      signal-desktop # out of date
       # video games
       playonlinux
       innoextract
@@ -100,7 +113,7 @@ in {
       kanshi # managing monitors
       # network
     ] ++ shellTools ++ fonts ++ programmingLanguages ++ studying
-    ++ collaboration ++ fileViz ++ dataStores ++ languageServers ++ python
+    ++ collaboration ++ fileViz ++ dataStores ++ languageTools ++ python
     ++ javascript;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

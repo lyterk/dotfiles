@@ -56,17 +56,17 @@ exec swayidle -w \
 #
 # Example configuration:
 #
-input "us-dvorak" {
+input * {
     xkb_layout us
     xkb_variant dvorak
     xkb_options ctrl:nocaps
 }
 
-input "es" {
-    xkb_layout us
-    xkb_variant dvorak
-    xkb_options ctrl:nocaps
-}
+# input "es" {
+#     xkb_layout us
+#     xkb_variant dvorak
+#     xkb_options ctrl:nocaps
+# }
 
 bindsym XF86MonBrightnessDown exec light -U 10
 bindsym XF86MonBrightnessUp exec light -A 10
