@@ -21,6 +21,7 @@ let
     gnupg
     gnumake
     keychain
+    node2nix
   ];
   fonts = with pkgs; [
     font-awesome
@@ -29,12 +30,20 @@ let
     noto-fonts-color-emoji
     noto-fonts-monochrome-emoji
   ];
-  programmingLanguages = with pkgs; [ nodejs_22 python3 poetry elixir ];
+  accounting = with pkgs; [ beancount fava beancount-language-server ];
+  programmingLanguages = with pkgs; [ clojure nodejs_22 python3 poetry elixir ];
   dataStores = with pkgs; [ sqlite ];
   collaboration = with pkgs; [ thunderbird beeper plantuml-c4 ];
   fileViz = with pkgs; [ calibre xfce.thunar ];
   studying = with pkgs; [ anki ];
-  languageTools = with pkgs; [ nil pyright black elixir-ls rust-analyzer ];
+  languageTools = with pkgs; [
+    nil
+    clojure-lsp
+    pyright
+    black
+    elixir-ls
+    rust-analyzer
+  ];
   python = with pkgs.python311Packages; [
     bpython
     ipython
@@ -114,7 +123,7 @@ in {
       # network
     ] ++ shellTools ++ fonts ++ programmingLanguages ++ studying
     ++ collaboration ++ fileViz ++ dataStores ++ languageTools ++ python
-    ++ javascript;
+    ++ javascript ++ accounting;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
