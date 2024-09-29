@@ -1,14 +1,18 @@
-{ stdenv, config, pkgs, flakeInputs, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 let
-  x = 1;
-  doomSrc = pkgs.fetchFromGitHub {
-    owner = "doomemacs";
-    repo = "doomemacs";
-    rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
-  };
-  doomConfigSrc =
-    config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
+  # doomSrc = pkgs.fetchFromGitHub {
+  #   owner = "doomemacs";
+  #   repo = "doomemacs";
+  #   rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
+  # };
+  # doomConfigSrc =
+  #   config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
   # doomExecutable = "${doomSrc}/bin/doom";
 
   shellTools = with pkgs; [
@@ -16,6 +20,7 @@ let
     atuin
     cmake
     direnv
+    graalvm-ce
     libtool
     pwgen
     gnupg
@@ -30,14 +35,39 @@ let
     noto-fonts-color-emoji
     noto-fonts-monochrome-emoji
   ];
-  accounting = with pkgs; [ beancount fava beancount-language-server ];
-  programmingLanguages = with pkgs; [ clojure nodejs_22 python3 poetry elixir ];
+  accounting = with pkgs; [
+    beancount
+    fava
+    beancount-language-server
+  ];
+  programmingLanguages = with pkgs; [
+    cargo
+    clojure
+    nodejs_22
+    python3
+    poetry
+    elixir
+  ];
+  gui = with pkgs; [
+    gtklock
+    imagemagick
+    rofi
+    sway
+  ];
   dataStores = with pkgs; [ sqlite ];
-  collaboration = with pkgs; [ thunderbird beeper plantuml-c4 ];
-  fileViz = with pkgs; [ calibre xfce.thunar ];
+  collaboration = with pkgs; [
+    thunderbird
+    beeper
+    plantuml-c4
+  ];
+  fileViz = with pkgs; [
+    calibre
+    xfce.thunar
+  ];
   studying = with pkgs; [ anki ];
   languageTools = with pkgs; [
     nil
+    cljfmt
     clojure-lsp
     pyright
     black
@@ -50,18 +80,18 @@ let
     pytest
     # tree-sitter-grammars.tree-sitter-python
   ];
-  javascript = with pkgs;
-    [
-      yarn
-      # nodePackages.prettier
-      # tree-sitter-grammars.tree-sitter-typescript
-    ];
-  # elixir = with pkgs;
-  #   with tree-sitter-grammars; [
-  #     tree-sitter-elixir
-  #     tree-sitter-heex
-  #   ];
-in {
+  javascript = with pkgs; [
+    yarn
+    # nodePackages.prettier
+    # tree-sitter-grammars.tree-sitter-typescript
+  ];
+in
+# elixir = with pkgs;
+#   with tree-sitter-grammars; [
+#     tree-sitter-elixir
+#     tree-sitter-heex
+#   ];
+{
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "lyterk";
@@ -91,7 +121,8 @@ in {
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = with pkgs;
+  home.packages =
+    with pkgs;
     [
       deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
@@ -102,8 +133,6 @@ in {
       pamixer
       # interfaces
       wl-clipboard
-      rofi
-      # pinentry-rofi # not working rn
       pinentry-qt
       wev
       wob
@@ -114,6 +143,7 @@ in {
       playonlinux
       innoextract
       openrct2
+      steam
       # torrents
       transmission-qt
       # monitors
@@ -121,9 +151,19 @@ in {
       slurp # facilitate screenshots-- select a region in compositor.
       kanshi # managing monitors
       # network
-    ] ++ shellTools ++ fonts ++ programmingLanguages ++ studying
-    ++ collaboration ++ fileViz ++ dataStores ++ languageTools ++ python
-    ++ javascript ++ accounting;
+    ]
+    ++ shellTools
+    ++ fonts
+    ++ programmingLanguages
+    ++ studying
+    ++ collaboration
+    ++ fileViz
+    ++ dataStores
+    ++ languageTools
+    ++ python
+    ++ javascript
+    ++ accounting
+    ++ gui;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -137,11 +177,10 @@ in {
     ".zshrc".source = common/zshrc;
     ".sbclrc".source = common/sbclrc;
     ".config/fish/config.fish".source = common/fish/config.fish;
-    ".config/fish/functions/ssh_agent.fish".source =
-      common/fish/functions/ssh_agent.fish;
+    ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
     ".config/mimeapps.list".source = common/mimeapps.list;
     ".config/rofi/config.rasi".source = common/rofi_config;
-    ".config/sway/config".source = common/sway/sway_config;
+    # ".config/sway/config".source = common/sway/sway_config;
     # TODO Figure out the emoji https://github.com/Alexays/Waybar/wiki/Examples
     # ".config/kanshi/config".source = common/sway/kanshi_config;
     ".config/waybar/config".source = common/sway/waybar_config;
@@ -151,6 +190,21 @@ in {
 
       [window]
       opacity = 0.9
+    '';
+    ".config/gtklock/config.ini".text = ''
+      [main]
+      gtk-theme=Adwaita-dark
+      style=layout.css
+    '';
+    ".config/gtklock/layout.css".text = ''
+      window {
+         background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center;
+         background-color: gray;
+         color: white;
+      }
     '';
     # ".ssh/config".source = "common/ssh_config";
     # ".gnupg/gpg-agent.conf".source = common/gpg-agent.conf;
@@ -237,6 +291,70 @@ in {
     };
   };
 
+  wayland.windowManager.sway =
+    let
+      ws1 = "1:browser";
+      ws2 = "2:terminal";
+      ws3 = "3:emacs";
+      ws4 = "4:signal";
+    in
+    {
+      enable = true;
+      systemd.enable = true;
+      checkConfig = true;
+      config = rec {
+        terminal = "alacritty";
+        modifier = "Mod4";
+        # Provided by swaybar
+        bars = [ ];
+        input = {
+          "*" = {
+            xkb_layout = "us";
+            xkb_variant = "dvorak";
+            xkb_options = "ctrl:nocaps";
+          };
+        };
+
+        keybindings = lib.mkOptionDefault {
+          "${modifier}+f2" = "exec ${pkgs.firefox}";
+          "${modifier}+d" = "exec ${pkgs.rofi} -show drun";
+          "${modifier}+p" = "exec ~/dotfiles/scripts/passmenu";
+          "Shift+Print" = "exec grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
+          # Switch to workspace
+          "${modifier}+1" = "workspace number ${ws1}";
+          "${modifier}+2" = "workspace number ${ws2}";
+          "${modifier}+3" = "workspace number ${ws3}";
+          "${modifier}+4" = "workspace number ${ws4}";
+          # Move container to workspace
+          "${modifier}+Shift+1" = "move container to workspace number $ws1; workspace number ${ws1}";
+          "${modifier}+Shift+2" = "move container to workspace number $ws2; workspace number ${ws2}";
+          "${modifier}+Shift+3" = "move container to workspace number $ws3; workspace number ${ws3}";
+          "${modifier}+Shift+4" = "move container to workspace number $ws4; workspace number ${ws4}";
+          # Brightness
+          "XF86MonBrightnessDown" = "exec light -U 10";
+          "XF86MonBrightnessUp" = "exec light -A 10";
+          # Loudness
+          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pamixer --get-volume > $WOBSOCK";
+          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pamixer --get-volume > $WOBSOCK";
+          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
+          # Personal mode
+          "${modifier}+m" = "mode kevin";
+        };
+
+        modes = {
+          kevin = {
+            "c" = "exec ${pkgs.calibre}";
+            "g" = "exec ${pkgs.chromium}";
+            "e" = "exec emacsclient -c";
+            "s" = "exec ${pkgs.signal-desktop}";
+            "w" = "exec ~/dotfiles/scripts/rofi-wifi-menu.sh";
+            "j" = "exec ${pkgs.rofimoji}";
+            "v" = "exec ${pkgs.vlc}";
+          };
+        };
+      };
+    };
+
   # programs.doom-emacs = {
   #   enable = true;
   #   doomPrivateDir = ./doom;
@@ -258,9 +376,14 @@ in {
 
   services = {
     emacs = {
-      package = with pkgs;
-        ((emacsPackagesFor emacs29).emacsWithPackages
-          (epkgs: with epkgs; [ vterm treesit-grammars.with-all-grammars ]));
+      package =
+        with pkgs;
+        ((emacsPackagesFor emacs29).emacsWithPackages (
+          epkgs: with epkgs; [
+            vterm
+            treesit-grammars.with-all-grammars
+          ]
+        ));
       enable = true;
     };
     gpg-agent = {
