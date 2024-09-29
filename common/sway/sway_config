@@ -44,9 +44,9 @@ output * bg ~/Pictures/pennsylvania.jpg fill
 # Example configuration:
 #
 exec swayidle -w \
-         timeout 300 'swaylock -f -c 000000' \
+         timeout 300 'gtklock -d' \
          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep 'gtklock -d'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -83,20 +83,6 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pa
 #
 # Basics:
 #
-    # Start a terminal
-    bindsym $mod+Return exec $term
-
-    # Start a browser
-    bindsym $mod+f2 exec firefox
-
-    # Kill focused window
-    bindsym $mod+Shift+q kill
-
-    # Start your launcher
-    bindsym $mod+d exec rofi -show drun
-
-    # passwords
-    bindsym $mod+p exec ~/dotfiles/scripts/passmenu
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -111,9 +97,9 @@ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pa
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
-    bindsym Shift+Print exec grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')
+    bindsym $mod+n gtklock -d
+    # ~/.config/gtklock/config.ini -s ~/.config/gtklock/layout.css
 
-#
 # Moving around:
 #
     # Move your focus around

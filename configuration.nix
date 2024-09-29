@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     <home-manager/nixos>
   ];
@@ -20,7 +21,10 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  networking.nameservers = [ "1.1.1.1" "1.0.0.1" ];
+  networking.nameservers = [
+    "1.1.1.1"
+    "1.0.0.1"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -72,7 +76,10 @@
       enable = true;
       dnssec = "true";
       domains = [ "~." ];
-      fallbackDns = [ "1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one" ];
+      fallbackDns = [
+        "1.1.1.1#one.one.one.one"
+        "1.0.0.1#one.one.one.one"
+      ];
       dnsovertls = "true";
     };
 
@@ -100,7 +107,11 @@
     shell = pkgs.fish;
     isNormalUser = true;
     description = "Kevin Lyter";
-    extraGroups = [ "networkmanager" "wheel" "video" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+    ];
     packages = with pkgs; [
       (pass.withExtensions (ext: [ ext.pass-otp ]))
       rofi-pass-wayland
@@ -113,25 +124,32 @@
   # home-manager.users.lyterk = import /home/lyterk/.config/home-manager/home.nix;
 
   programs = {
-    sway.enable = true;
+    # sway.enable = true;
     # Adjusting brightness with keys
     light.enable = true;
     # System-wide I guess?
     firefox.enable = true;
     fish.enable = true;
+    steam.enable = true;
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # https://github.com/NixOS/nixpkgs/issues/240886
+  security.pam.services.gtklock = { };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # nix specific
     home-manager
-    nixfmt
+    nixfmt-rfc-style
     nix-ld
     # build
     gcc
