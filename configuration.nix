@@ -8,12 +8,16 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    <home-manager/nixos>
+    # <home-manager/nixos>
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Building raspberry pis
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+  nix.settings.extra-platforms = config.boot.binfmt.emulatedSystems;
 
   networking.hostName = "laptop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -86,8 +90,8 @@
   };
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
@@ -129,9 +133,29 @@
     light.enable = true;
     # System-wide I guess?
     firefox.enable = true;
-    fish.enable = true;
+    fish = {
+      enable = true;
+
+      shellAliases = {
+        ppush = "pass git push origin mainline";
+        ppull = "pass git pull --rebase origin mainline";
+        ls = "exa";
+        vim = "nvim";
+      };
+      loginShellInit = ''
+        if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
+          exec sway
+        end
+      '';
+    };
     steam.enable = true;
   };
+
+  nix.nixPath = [
+    "/nix/var/nix/profiles/per-user/root/channels/nixos"
+    "nixos-config=/home/lyterk/dotfiles/configuration.nix"
+    "/nix/var/nix/profiles/per-user/root/channels"
+  ];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -146,36 +170,50 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # nix specific
-    home-manager
-    nixfmt-rfc-style
-    nix-ld
-    # build
-    gcc
-    # editors
-    neovim
-    emacs29
-    # shells
-    fish
-    zsh
-    # shell utilities
-    bat
-    eza
-    fd
-    git
-    jq
-    xsv
-    rlwrap
-    htop
-    unzip
-    ripgrep
-    tree
-    wget
-    # network
-    tailscale
-    mullvad-vpn
-  ];
+  environment = {
+    variables = {
+      EDITOR = "emacsclient -t";
+      # SHELL = "fish";
+      BROWSER = "${pkgs.firefox}/bin/firefox";
+      # History in elixir and erlang shells
+      ERL_AFLAGS = "-kernel shell_history enabled";
+      # Sound bar
+      WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
+    };
+
+    systemPackages = with pkgs; [
+      # nix specific
+      home-manager
+      nixfmt-rfc-style
+      nix-ld
+      # build
+      gcc
+      # editors
+      neovim
+      emacs29
+      # shells
+      fish
+      zsh
+      # shell utilities
+      bat
+      eza
+      fd
+      git
+      jq
+      xsv
+      rlwrap
+      htop
+      unzip
+      ripgrep
+      tree
+      wget
+      # network
+      tailscale
+      mullvad-vpn
+      # wm
+      sway
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

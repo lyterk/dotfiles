@@ -1,26 +1,12 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}:
+{ pkgs, lib, ... }:
 
 let
-  # doomSrc = pkgs.fetchFromGitHub {
-  #   owner = "doomemacs";
-  #   repo = "doomemacs";
-  #   rev = "9620bb45ac4cd7b0274c497b2d9d93c4ad9364ee";
-  # };
-  # doomConfigSrc =
-  #   config.lib.file.mkOutOfStoreSymlink "/home/lyterk/.config/doom";
-  # doomExecutable = "${doomSrc}/bin/doom";
-
   shellTools = with pkgs; [
     alacritty
     atuin
     cmake
     direnv
-    graalvm-ce
+    # graalvm-ce
     libtool
     pwgen
     gnupg
@@ -52,12 +38,10 @@ let
     gtklock
     imagemagick
     rofi
-    sway
   ];
   dataStores = with pkgs; [ sqlite ];
   collaboration = with pkgs; [
     thunderbird
-    beeper
     plantuml-c4
   ];
   fileViz = with pkgs; [
@@ -78,7 +62,15 @@ let
     bpython
     ipython
     pytest
+    # pymavlink
+    pyscaffold
+    uv
     # tree-sitter-grammars.tree-sitter-python
+  ];
+  cpp = with pkgs; [
+    clang
+    clang-tools
+    # llvmPackages_19.libcxx
   ];
   javascript = with pkgs; [
     yarn
@@ -115,8 +107,7 @@ in
 
   imports = [
     ./nix/batteryNotifier.nix
-    # ./nix/emacs.nix
-    # flakeInputs.git-doom-emacs
+    # ./nix/unstables/flake.nix
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -127,7 +118,11 @@ in
       deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
       chromium
-      mako
+      captive-browser
+      mako # notifications
+      blueman
+      bluez
+      bluez-tools
       # sound
       pulseaudio # used for getting and setting the volume
       pamixer
@@ -137,20 +132,25 @@ in
       wev
       wob
       pandoc
+      xorg.xhost
+      parted
+      gparted
       libreoffice-qt
       signal-desktop # out of date
       # video games
-      playonlinux
+      # playonlinux
       innoextract
-      openrct2
+      # openrct2
       steam
+      protonup-qt
       # torrents
       transmission-qt
+      tor
       # monitors
       grim # screenshots
       slurp # facilitate screenshots-- select a region in compositor.
       kanshi # managing monitors
-      # network
+      # pkgs-unstable.zed-editor
     ]
     ++ shellTools
     ++ fonts
@@ -161,6 +161,7 @@ in
     ++ dataStores
     ++ languageTools
     ++ python
+    ++ cpp
     ++ javascript
     ++ accounting
     ++ gui;
@@ -168,7 +169,7 @@ in
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".gitconfig".source = common/gitconfig;
+    # ".gitconfig".source = common/gitconfig;
     ".gitignore".source = common/gitignore;
     ".pip/pip.conf".source = common/pip.conf;
     ".config/flake8".source = common/flake8;
@@ -176,15 +177,15 @@ in
     ".zshenv".source = common/zshenv;
     ".zshrc".source = common/zshrc;
     ".sbclrc".source = common/sbclrc;
-    ".config/fish/config.fish".source = common/fish/config.fish;
+    # ".config/fish/config.fish".source = common/fish/config.fish;
     ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
     ".config/mimeapps.list".source = common/mimeapps.list;
     ".config/rofi/config.rasi".source = common/rofi_config;
     # ".config/sway/config".source = common/sway/sway_config;
     # TODO Figure out the emoji https://github.com/Alexays/Waybar/wiki/Examples
     # ".config/kanshi/config".source = common/sway/kanshi_config;
-    ".config/waybar/config".source = common/sway/waybar_config;
-    ".config/waybar/style.css".source = common/sway/waybar_style.css;
+    # ".config/waybar/config".source = common/sway/waybar_config;
+    # ".config/waybar/style.css".source = common/sway/waybar_style.css;
     ".config/alacritty/alacritty_base.toml".text = ''
       shell = "/usr/bin/env fish"
 
@@ -194,7 +195,7 @@ in
     ".config/gtklock/config.ini".text = ''
       [main]
       gtk-theme=Adwaita-dark
-      style=layout.css
+      style=.config/gtklock/layout.css
     '';
     ".config/gtklock/layout.css".text = ''
       window {
@@ -226,15 +227,62 @@ in
   #
   #  /etc/profiles/per-user/lyterk/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "emacsclient -t";
-    SHELL = "fish";
-    # History in elixir and erlang shells
-    ERL_AFLAGS = "-kernel shell_history enabled";
-  };
+  # home.sessionVariables = {
+  #   EDITOR = "emacsclient -t";
+  #   # SHELL = "fish";
+  #   BROWSER = "${pkgs.firefox}/bin/firefox";
+  #   # History in elixir and erlang shells
+  #   ERL_AFLAGS = "-kernel shell_history enabled";
+  #   # Sound bar
+  #   WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
+  # };
 
   programs = {
     home-manager.enable = true;
+
+    zsh = {
+      enable = true;
+      shellAliases = {
+        ppush = "pass git push origin mainline";
+        ppull = "pass git pull --rebase origin mainline";
+        ls = "exa";
+        vim = "nvim";
+      };
+    };
+
+    fish.enable = true;
+
+    keychain = {
+      enable = true;
+      enableFishIntegration = true;
+      keys = [ "~/.ssh/id_ed25519" ];
+    };
+
+    git = {
+      enable = true;
+      userEmail = "code@lyterk.com";
+      userName = "Kevin Lyter";
+      signing.key = "0F39E83B";
+
+      extraConfig = {
+        commit = {
+          gpgsign = true;
+        };
+        init = {
+          templateDir = "~/dotfiles/common/git_templates/";
+          defaultBranch = "mainline";
+        };
+        pull = {
+          rebase = true;
+        };
+        credential = {
+          helper = "cache";
+        };
+        core = {
+          excludesFile = "~/dotfiles/common/gitignore";
+        };
+      };
+    };
 
     firefox = {
       enable = true;
@@ -268,6 +316,146 @@ in
     waybar = {
       enable = true;
       systemd.enable = true;
+      settings = {
+        mainBar = {
+          position = "top";
+          height = 24;
+          modules-left = [
+            "sway/workspaces"
+            "sway/mode"
+            "sway/scratchpad"
+            "custom/media"
+          ];
+          modules-center = [ "sway/window" ];
+          modules-right = [
+            "idle_inhibitor"
+            "temperature"
+            "cpu"
+            "memory"
+            "network"
+            "pulseaudio"
+            "backlight"
+            "keyboard-state"
+            "battery"
+            "battery#bat2"
+            "tray"
+            "clock"
+          ];
+          "sway/mode" = {
+            "format" = "<span style=\"italic\">{}</span>";
+          };
+          "sway/scratchpad" = {
+            "format" = "{icon} {count}";
+            "show-empty" = false;
+            "format-icons" = [
+              ""
+              ""
+            ];
+            "tooltip" = true;
+            "tooltip-format" = "{app}: {title}";
+          };
+          "idle_inhibitor" = {
+            "format" = "{icon}";
+            format-icons = [
+              ""
+              ""
+            ];
+          };
+          keyboard-state = {
+            numlock = "true";
+            capslock = "true";
+            format = "{name} {icon}";
+            format-icons = [
+              ""
+              ""
+            ];
+          };
+          tray = {
+            spacing = 10;
+          };
+
+          clock = {
+            "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+            "format" = "{:L%Y-%m-%d<small>[%a]</small> <tt><small>%p</small></tt>%I:%M}";
+          };
+          cpu = {
+            "format" = " {usage}%";
+          };
+          memory = {
+            "format" = " {}%";
+          };
+          temperature = {
+            thermal-zone = 2;
+            hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
+            critical-threshold = 80;
+            format-critical = "{icon} {temperatureC}°C";
+            format = "{icon} {temperatureC}°C";
+            format-icons = [
+              ""
+              ""
+              ""
+            ];
+          };
+          backlight = {
+            format = "{icon} {percent}%";
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
+          };
+          battery = {
+            states = {
+              warning = 30;
+              critical = 15;
+            };
+            format = "{icon} {capacity}%";
+            format-charging = " {capacity}%";
+            format-plugged = " {capacity}%";
+            format-alt = "{icon} {time}";
+            format-icons = [
+              ""
+              ""
+              ""
+              ""
+              ""
+            ];
+          };
+          network = {
+            format-wifi = "{essid} ({signalStrength}%) ";
+            format-ethernet = " {ifname}";
+            tooltip-format = " {ifname} via {gwaddr}";
+            format-linked = " {ifname} (No IP)";
+            format-disconnected = "Disconnected ⚠ {ifname}";
+            format-alt = " {ifname}: {ipaddr}/{cidr}";
+          };
+          pulseaudio = {
+            scroll-step = 5; # %, can be a float
+            format = "{icon} {volume}% {format_source}";
+            format-bluetooth = " {icon} {volume}% {format_source}";
+            format-bluetooth-muted = "  {icon} {format_source}";
+            format-muted = "  {format_source}";
+            format-source = " {volume}%";
+            format-source-muted = "";
+            format-icons = {
+              default = [
+                ""
+                ""
+                ""
+              ];
+            };
+            on-click = "pavucontrol";
+            on-click-right = "foot -a pw-top pw-top";
+          };
+        };
+      };
+      style = ./common/sway/waybar_style.css;
     };
 
     ssh.matchBlocks = {
@@ -301,25 +489,37 @@ in
     {
       enable = true;
       systemd.enable = true;
-      checkConfig = true;
+      checkConfig = false;
+      extraConfig = "exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob";
       config = rec {
         terminal = "alacritty";
         modifier = "Mod4";
         # Provided by swaybar
         bars = [ ];
+        assigns = {
+          "${ws1}" = [ { app_id = "firefox"; } ];
+          "${ws2}" = [ { app_id = "Alacritty"; } ];
+          "${ws3}" = [ { class = "Emacs"; } ];
+          "${ws4}" = [ { class = "Signal"; } ];
+        };
+        output = {
+          "*" = {
+            bg = "/home/lyterk/Pictures/backgrounds/presque-ile.png fill";
+          };
+        };
         input = {
           "*" = {
-            xkb_layout = "us";
-            xkb_variant = "dvorak";
-            xkb_options = "ctrl:nocaps";
+            xkb_layout = "us,es";
+            xkb_variant = "dvorak,dvorak";
+            xkb_options = "ctrl:nocaps,grp:rctrl_toggle";
           };
         };
 
         keybindings = lib.mkOptionDefault {
-          "${modifier}+f2" = "exec ${pkgs.firefox}";
-          "${modifier}+d" = "exec ${pkgs.rofi} -show drun";
+          "${modifier}+f2" = "exec ${pkgs.firefox}/bin/firefox";
+          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
           "${modifier}+p" = "exec ~/dotfiles/scripts/passmenu";
-          "Shift+Print" = "exec grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
+          "Shift+Print" = "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
           # Switch to workspace
           "${modifier}+1" = "workspace number ${ws1}";
           "${modifier}+2" = "workspace number ${ws2}";
@@ -339,17 +539,32 @@ in
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
           # Personal mode
           "${modifier}+m" = "mode kevin";
+          "${modifier}+r" = "mode resize";
         };
 
         modes = {
           kevin = {
-            "c" = "exec ${pkgs.calibre}";
-            "g" = "exec ${pkgs.chromium}";
-            "e" = "exec emacsclient -c";
-            "s" = "exec ${pkgs.signal-desktop}";
-            "w" = "exec ~/dotfiles/scripts/rofi-wifi-menu.sh";
-            "j" = "exec ${pkgs.rofimoji}";
-            "v" = "exec ${pkgs.vlc}";
+            "c" = "exec ${pkgs.calibre}/bin/calibre; mode default";
+            "g" = "exec ${pkgs.chromium}/bin/chromium; mode default";
+            "e" = "exec ${pkgs.emacs}/bin/emacsclient -c; mode default";
+            "s" = "exec ${pkgs.signal-desktop}/bin/signal-desktop; mode default";
+            "w" = "exec ~/dotfiles/scripts/rofi-wifi-menu.sh; mode default";
+            "j" = "exec ${pkgs.rofimoji}/bin/rofimoji; mode default";
+            "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";
+            "Escape" = "mode default";
+            "Return" = "mode default";
+          };
+          resize = {
+            Down = "resize grow height 10 px";
+            Escape = "mode default";
+            Left = "resize shrink width 10 px";
+            Return = "mode default";
+            Right = "resize grow width 10 px";
+            Up = "resize shrink height 10 px";
+            h = "resize shrink width 10 px";
+            j = "resize grow height 10 px";
+            k = "resize shrink height 10 px";
+            l = "resize grow width 10 px";
           };
         };
       };
@@ -376,6 +591,7 @@ in
 
   services = {
     emacs = {
+      enable = true;
       package =
         with pkgs;
         ((emacsPackagesFor emacs29).emacsWithPackages (
@@ -384,7 +600,10 @@ in
             treesit-grammars.with-all-grammars
           ]
         ));
+    };
+    mako = {
       enable = true;
+      defaultTimeout = 15000;
     };
     gpg-agent = {
       enable = true;
@@ -397,6 +616,26 @@ in
       # '';
       # pinentryPackage available as of 24.0
       pinentryPackage = pkgs.pinentry-qt;
+    };
+    swayidle = {
+      enable = true;
+      timeouts = [
+        # Restart `swayidle` if adjusting timeouts
+        {
+          timeout = 300;
+          command = "${pkgs.gtklock}/bin/gtklock -d";
+        }
+        {
+          timeout = 300;
+          command = ''swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'';
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.gtklock}/bin/gtklock -d";
+        }
+      ];
     };
   };
 }
