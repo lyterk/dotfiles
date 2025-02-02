@@ -79,3 +79,9 @@ Host pihole
      User pi
      Port 4222
      IdentityFile ~/.ssh/pi/id_rsa
+
+Host desktop
+     HostName 100.104.38.117
+     User lyterk
+     Port 55555
+     IdentityFile ~/.ssh/id_ed25519

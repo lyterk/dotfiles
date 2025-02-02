@@ -137,6 +137,7 @@ in
       gparted
       libreoffice-qt
       signal-desktop # out of date
+      kdePackages.kdeconnect-kde
       # video games
       # playonlinux
       innoextract
@@ -474,6 +475,12 @@ in
       github = {
         hostname = "github.com";
         user = "git";
+        identityfile = "~/.ssh/id_ed25519";
+      };
+      desktop = {
+        hostname = "100.104.38.117";
+        port = 55555;
+        user = "lyterk";
         identityfile = "~/.ssh/id_ed25519";
       };
     };
