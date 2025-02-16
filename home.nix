@@ -37,7 +37,7 @@ let
   gui = with pkgs; [
     gtklock
     imagemagick
-    rofi
+    rofi-wayland
   ];
   dataStores = with pkgs; [ sqlite ];
   collaboration = with pkgs; [
@@ -115,6 +115,10 @@ in
   home.packages =
     with pkgs;
     [
+      # phone interface
+      busybox
+      android-file-transfer
+
       deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
       chromium
@@ -145,7 +149,7 @@ in
       steam
       protonup-qt
       # torrents
-      transmission-qt
+      transmission_4-qt
       tor
       # monitors
       grim # screenshots
@@ -459,29 +463,41 @@ in
       style = ./common/sway/waybar_style.css;
     };
 
-    ssh.matchBlocks = {
-      nuc = {
-        hostname = "txru.me";
-        port = 65222;
-        user = "lyterk";
-        identityfile = "~/.ssh/id_ed25519";
-      };
-      git = {
-        hostname = "txru.me";
-        port = 65222;
-        user = "git";
-        identityfile = "~/.ssh/id_ed25519";
-      };
-      github = {
-        hostname = "github.com";
-        user = "git";
-        identityfile = "~/.ssh/id_ed25519";
-      };
-      desktop = {
-        hostname = "100.104.38.117";
-        port = 55555;
-        user = "lyterk";
-        identityfile = "~/.ssh/id_ed25519";
+    ssh = {
+      enable = true;
+
+      matchBlocks = {
+        git = {
+          hostname = "txru.me";
+          port = 65222;
+          user = "git";
+          identityFile = "~/.ssh/id_ed25519";
+        };
+        github = {
+          hostname = "github.com";
+          user = "git";
+          identityFile = "~/.ssh/id_ed25519";
+        };
+        desktop = {
+          hostname = "txru.me";
+          port = 65222;
+          user = "lyterk";
+          identityFile = "~/.ssh/id_ed25519";
+        };
+        # Not working atm
+        plexProxy = {
+          hostname = "txru.me";
+          port = 65222;
+          user = "lyterk";
+          identityFile = "~/.ssh/id_ed25519";
+          remoteForwards = [
+            {
+              bind.port = 8080;
+              host.address = "127.0.0.1";
+              host.port = 32400;
+            }
+          ];
+        };
       };
     };
   };
@@ -524,7 +540,7 @@ in
 
         keybindings = lib.mkOptionDefault {
           "${modifier}+f2" = "exec ${pkgs.firefox}/bin/firefox";
-          "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
+          "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun";
           "${modifier}+p" = "exec ~/dotfiles/scripts/passmenu";
           "Shift+Print" = "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
           # Switch to workspace
@@ -553,10 +569,10 @@ in
           kevin = {
             "c" = "exec ${pkgs.calibre}/bin/calibre; mode default";
             "g" = "exec ${pkgs.chromium}/bin/chromium; mode default";
-            "e" = "exec ${pkgs.emacs}/bin/emacsclient -c; mode default";
+            "e" = "exec ${pkgs.emacs29}/bin/emacsclient -c; mode default";
             "s" = "exec ${pkgs.signal-desktop}/bin/signal-desktop; mode default";
             "w" = "exec ~/dotfiles/scripts/rofi-wifi-menu.sh; mode default";
-            "j" = "exec ${pkgs.rofimoji}/bin/rofimoji; mode default";
+            "j" = "exec ${pkgs.rofi-wayland}/bin/rofi -modi 'emoji:rofimoji' -show emoji; mode default";
             "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";
             "Escape" = "mode default";
             "Return" = "mode default";

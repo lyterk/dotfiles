@@ -133,6 +133,12 @@
     light.enable = true;
     # System-wide I guess?
     firefox.enable = true;
+    # Mounting phones with mtp
+    fuse = {
+      mountMax = 1000;
+      userAllowOther = true;
+    };
+
     fish = {
       enable = true;
 
