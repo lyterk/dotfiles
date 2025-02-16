@@ -176,21 +176,13 @@ in
   home.file = {
     # ".gitconfig".source = common/gitconfig;
     ".gitignore".source = common/gitignore;
-    ".pip/pip.conf".source = common/pip.conf;
-    ".config/flake8".source = common/flake8;
     ".config/rustfmt/rustfmt.toml".source = common/rustfmt.toml;
     ".zshenv".source = common/zshenv;
     ".zshrc".source = common/zshrc;
     ".sbclrc".source = common/sbclrc;
-    # ".config/fish/config.fish".source = common/fish/config.fish;
     ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
-    ".config/mimeapps.list".source = common/mimeapps.list;
-    ".config/rofi/config.rasi".source = common/rofi_config;
-    # ".config/sway/config".source = common/sway/sway_config;
-    # TODO Figure out the emoji https://github.com/Alexays/Waybar/wiki/Examples
-    # ".config/kanshi/config".source = common/sway/kanshi_config;
-    # ".config/waybar/config".source = common/sway/waybar_config;
-    # ".config/waybar/style.css".source = common/sway/waybar_style.css;
+    # ".config/mimeapps.list".source = common/mimeapps.list;
+    # ".config/rofi/config.rasi".source = common/rofi_config;
     ".config/alacritty/alacritty_base.toml".text = ''
       shell = "/usr/bin/env fish"
 
@@ -212,13 +204,6 @@ in
          color: white;
       }
     '';
-    # ".ssh/config".source = "common/ssh_config";
-    # ".gnupg/gpg-agent.conf".source = common/gpg-agent.conf;
-    # # Switch between profiles for alacritty
-    # ".config/alacritty/circadian.toml".source = common/terminal/circadian.toml;
-    # ".config/alacritty/ayu_dark.toml".source = common/terminal/ayu_dark.toml;
-    # ".config/alacritty/solarized_light.toml".source = common/terminal/solarized_light.toml;
-    # # Systemd
   };
 
   # Home Manager can also manage your environment variables through
