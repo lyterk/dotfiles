@@ -458,6 +458,8 @@
     ## notifications
     mako
     syncthing
+    # image hosting
+    immich
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -475,6 +477,33 @@
   services = {
     gnome.gnome-keyring.enable = true;
 
+    immich = {
+      enable = true;
+      port = 2283;
+      mediaLocation = "/mnt/orange/immich";
+    };
+
+    nginx = {
+      enable = true;
+      virtualHosts = {
+        "localhost" = {
+          # enableACME = true;
+          # forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://[::1]:2283";
+            proxyWebsockets = true;
+            recommendedProxySettings = true;
+            extraConfig = ''
+              client_max_body_size 50000M;
+              proxy_read_timeout   600s;
+              proxy_send_timeout   600s;
+              send_timeout         600s;
+            '';
+          };
+        };
+      };
+    };
+
     plex = {
       enable = true;
       openFirewall = true;
@@ -483,9 +512,14 @@
     syncthing = {
       enable = true;
       openDefaultPorts = true;
-      settings.gui = {
-        user = "lyterk";
-        password = "freddy";
+      settings = {
+        devices = {
+
+        };
+        gui = {
+          user = "lyterk";
+          password = "freddy";
+        };
       };
     };
 
@@ -510,7 +544,10 @@
       ports = [ 65222 ];
       settings = {
         PasswordAuthentication = false;
-        AllowUsers = [ "lyterk" "git" ];
+        AllowUsers = [
+          "lyterk"
+          "git"
+        ];
         X11Forwarding = false;
         PermitRootLogin = "no";
       };

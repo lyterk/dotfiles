@@ -76,6 +76,18 @@
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
+
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      settings = {
+        gui = {
+          user = "lyterk";
+          password = "freddy";
+        };
+      };
+    };
+
     resolved = {
       enable = true;
       dnssec = "true";
