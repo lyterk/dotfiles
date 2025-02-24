@@ -1,39 +1,68 @@
 {
-  description = "Home Manager configuration of lyterk";
-
   inputs = {
-    # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-    # nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      # url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    {
-      nixpkgs,
-      # nixpkgs-unstable,
-      home-manager,
-      ...
-    }@inputs:
+    { self, nixpkgs, ... }@flakeInputs:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs { inherit system; };
     in
-    # pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
     {
-      homeConfigurations."lyterk" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        # inherit pkgs-unstable;
+      formatter.${system} = pkgs.nixpkgs-fmt;
 
-        # Specify your home configuration modules here, for example,
-        # the path to your home.nix.
-        modules = [ ./home.nix ];
-        # Optionally use extraSpecialArgs
-        # to pass through arguments to home.nix
-        # extraSpecialArgs.flakeInputs = [ doomEmacs ];
-      };
+      nixosConfigurations =
+        let
+          mkNixosConfiguration =
+            name:
+            nixpkgs.lib.nixosSystem {
+              inherit system;
+              specialArgs = {
+                inherit flakeInputs;
+              };
+              modules = [
+                {
+                  networking.hostName = name;
+                  nixpkgs.overlays = [ (_: _: { nixfiles = self.packages.${system}; }) ];
+                }
+                ./shared
+                (./hosts + "/${name}" + /configuration.nix)
+                (./hosts + "/${name}" + /hardware.nix)
+              ];
+            };
+        in
+        {
+          laptop = mkNixosConfiguration "laptop";
+          desktop = mkNixosConfiguration "desktop";
+        };
+
+      apps.${system} =
+        let
+          mkApp = name: script: {
+            type = "app";
+            program = toString (pkgs.writeShellScript "${name}.sh" script);
+          };
+        in
+        {
+          fmt = mkApp "fmt" ''
+            PATH=${with pkgs; lib.makeBinPath [ nixfmt-rfc-style ]}
+
+            ${pkgs.lib.fileContents ./scripts/fmt.sh}
+          '';
+
+          lint = mkApp "lint" ''
+            # TODO: add nix-linter back when the package is no longer broken
+            PATH=${with pkgs; lib.makeBinPath [ statix ]}
+
+            ${pkgs.lib.fileContents ./scripts/lint.sh}
+          '';
+        };
     };
 }

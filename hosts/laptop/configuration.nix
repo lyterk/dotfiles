@@ -7,8 +7,9 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # <home-manager/nixos>
+    ./hardware.nix
+    # ./home.nix
+    <home-manager/nixos>
   ];
 
   # Bootloader.
@@ -128,14 +129,9 @@
       "wheel"
       "video"
     ];
-    packages = with pkgs; [
-      (pass.withExtensions (ext: [ ext.pass-otp ]))
-      rofi-pass-wayland
-      rofimoji
-      vlc
-      thunderbird
-    ];
   };
+
+  home-manager.users.lyterk = ./home.nix;
 
   # home-manager.users.lyterk = import /home/lyterk/.config/home-manager/home.nix;
 

@@ -10,7 +10,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+    ./hardware.nix
     <home-manager/nixos>
   ];
 
@@ -29,7 +29,7 @@
 
   boot.initrd.luks.devices."luks-1b0c3782-0fa1-4b3e-9588-f44d5564da32".keyFile = "/boot/crypto_keyfile.bin";
   boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".keyFile = "/boot/crypto_keyfile.bin";
-  networking.hostName = "nixos"; # Define your hostname.
+  # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -250,7 +250,7 @@
               };
             };
           };
-          style = ./common/sway/waybar_style.css;
+          style = ../../shared/waybar/style.css;
         };
       };
 
@@ -283,7 +283,7 @@
           ];
         };
       };
-      home.stateVersion = "24.11";
+      home.stateVersion = "24.05";
 
       wayland.windowManager.sway =
         let

@@ -29,7 +29,6 @@ let
   programmingLanguages = with pkgs; [
     cargo
     clojure
-    nodejs_22
     python3
     poetry
     elixir
@@ -106,7 +105,7 @@ in
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
   imports = [
-    ./nix/batteryNotifier.nix
+    # ./nix/batteryNotifier.nix
     # ./nix/unstables/flake.nix
   ];
 
@@ -175,35 +174,35 @@ in
   # plain files is through 'home.file'.
   home.file = {
     # ".gitconfig".source = common/gitconfig;
-    ".gitignore".source = common/gitignore;
-    ".config/rustfmt/rustfmt.toml".source = common/rustfmt.toml;
-    ".zshenv".source = common/zshenv;
-    ".zshrc".source = common/zshrc;
-    ".sbclrc".source = common/sbclrc;
-    ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
+    ".gitignore".source = ../../shared/gitignore;
+    # ".config/rustfmt/rustfmt.toml".source = common/rustfmt.toml;
+    # ".zshenv".source = common/zshenv;
+    # ".zshrc".source = common/zshrc;
+    # ".sbclrc".source = common/sbclrc;
+    # ".config/fish/functions/ssh_agent.fish".source = common/fish/functions/ssh_agent.fish;
     # ".config/mimeapps.list".source = common/mimeapps.list;
     # ".config/rofi/config.rasi".source = common/rofi_config;
-    ".config/alacritty/alacritty_base.toml".text = ''
-      shell = "/usr/bin/env fish"
+    # ".config/alacritty/alacritty_base.toml".text = ''
+    #   shell = "/usr/bin/env fish"
 
-      [window]
-      opacity = 0.9
-    '';
-    ".config/gtklock/config.ini".text = ''
-      [main]
-      gtk-theme=Adwaita-dark
-      style=.config/gtklock/layout.css
-    '';
-    ".config/gtklock/layout.css".text = ''
-      window {
-         background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
-         background-size: cover;
-         background-repeat: no-repeat;
-         background-position: center;
-         background-color: gray;
-         color: white;
-      }
-    '';
+    #   [window]
+    #   opacity = 0.9
+    # '';
+    # ".config/gtklock/config.ini".text = ''
+    #   [main]
+    #   gtk-theme=Adwaita-dark
+    #   style=.config/gtklock/layout.css
+    # '';
+    # ".config/gtklock/layout.css".text = ''
+    #   window {
+    #      background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
+    #      background-size: cover;
+    #      background-repeat: no-repeat;
+    #      background-position: center;
+    #      background-color: gray;
+    #      color: white;
+    #   }
+    # '';
   };
 
   # Home Manager can also manage your environment variables through
@@ -445,7 +444,7 @@ in
           };
         };
       };
-      style = ./common/sway/waybar_style.css;
+      style = ../../shared/waybar/style.css;
     };
 
     ssh = {
