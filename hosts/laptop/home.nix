@@ -115,7 +115,7 @@ in
     with pkgs;
     [
       # phone interface
-      busybox
+      # busybox
       android-file-transfer
 
       deja-dup # TODO https://github.com/NixOS/nixpkgs/issues/122671
@@ -188,21 +188,21 @@ in
     #   [window]
     #   opacity = 0.9
     # '';
-    # ".config/gtklock/config.ini".text = ''
-    #   [main]
-    #   gtk-theme=Adwaita-dark
-    #   style=.config/gtklock/layout.css
-    # '';
-    # ".config/gtklock/layout.css".text = ''
-    #   window {
-    #      background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
-    #      background-size: cover;
-    #      background-repeat: no-repeat;
-    #      background-position: center;
-    #      background-color: gray;
-    #      color: white;
-    #   }
-    # '';
+    ".config/gtklock/config.ini".text = ''
+      [main]
+      gtk-theme=Adwaita-dark
+      style=.config/gtklock/layout.css
+    '';
+    ".config/gtklock/layout.css".text = ''
+      window {
+         background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center;
+         background-color: gray;
+         color: white;
+      }
+    '';
   };
 
   # Home Manager can also manage your environment variables through
@@ -526,7 +526,8 @@ in
           "${modifier}+f2" = "exec ${pkgs.firefox}/bin/firefox";
           "${modifier}+d" = "exec ${pkgs.rofi-wayland}/bin/rofi -show drun";
           "${modifier}+p" = "exec ~/dotfiles/scripts/passmenu";
-          "Shift+Print" = "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
+          "Shift+Print" =
+            "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
           # Switch to workspace
           "${modifier}+1" = "workspace number ${ws1}";
           "${modifier}+2" = "workspace number ${ws2}";
@@ -541,9 +542,12 @@ in
           "XF86MonBrightnessDown" = "exec light -U 10";
           "XF86MonBrightnessUp" = "exec light -A 10";
           # Loudness
-          "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pamixer --get-volume > $WOBSOCK";
-          "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pamixer --get-volume > $WOBSOCK";
-          "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
+          "XF86AudioMute" =
+            "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pamixer --get-volume > $WOBSOCK";
+          "XF86AudioRaiseVolume" =
+            "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pamixer --get-volume > $WOBSOCK";
+          "XF86AudioLowerVolume" =
+            "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
           # Personal mode
           "${modifier}+m" = "mode kevin";
           "${modifier}+r" = "mode resize";
