@@ -196,6 +196,7 @@
     };
 
     systemPackages = with pkgs; [
+      xwayland # necessary for proxying x connections for wayland
       # nix specific
       home-manager
       nixfmt-rfc-style
