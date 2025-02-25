@@ -140,7 +140,6 @@ in
       gparted
       libreoffice-qt
       signal-desktop # out of date
-      kdePackages.kdeconnect-kde
       # video games
       # playonlinux
       innoextract
@@ -195,7 +194,7 @@ in
     '';
     ".config/gtklock/layout.css".text = ''
       window {
-         background-image: url("/home/lyterk/Pictures/backgrounds/lehighton.png");
+         background-image: url("/home/lyterk/Pictures/backgrounds/lockscreen.png");
          background-size: cover;
          background-repeat: no-repeat;
          background-position: center;
@@ -511,7 +510,7 @@ in
         };
         output = {
           "*" = {
-            bg = "/home/lyterk/Pictures/backgrounds/presque-ile.png fill";
+            bg = "/home/lyterk/Pictures/backgrounds/background.png fill";
           };
         };
         input = {
@@ -627,6 +626,9 @@ in
       # '';
       # pinentryPackage available as of 24.0
       pinentryPackage = pkgs.pinentry-qt;
+    };
+    kdeconnect = {
+      enable = true;
     };
     swayidle = {
       enable = true;

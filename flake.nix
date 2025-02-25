@@ -1,16 +1,20 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
-
     home-manager = {
-      # url = "github:nix-community/home-manager/release-24.11";
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.11";
+      # url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
-    { self, nixpkgs, ... }@flakeInputs:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      ...
+    }@flakeInputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
@@ -32,6 +36,7 @@
                   networking.hostName = name;
                   nixpkgs.overlays = [ (_: _: { nixfiles = self.packages.${system}; }) ];
                 }
+                home-manager.nixosModules.home-manager
                 ./shared
                 (./hosts + "/${name}" + /configuration.nix)
                 (./hosts + "/${name}" + /hardware.nix)

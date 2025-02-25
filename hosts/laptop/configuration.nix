@@ -9,7 +9,7 @@
     # Include the results of the hardware scan.
     ./hardware.nix
     # ./home.nix
-    <home-manager/nixos>
+    # <home-manager/nixos>
   ];
 
   # Bootloader.
@@ -146,6 +146,7 @@
       mountMax = 1000;
       userAllowOther = true;
     };
+    kdeconnect.enable = true;
 
     fish = {
       enable = true;
@@ -196,7 +197,6 @@
     };
 
     systemPackages = with pkgs; [
-      xwayland # necessary for proxying x connections for wayland
       # nix specific
       home-manager
       nixfmt-rfc-style
@@ -225,8 +225,11 @@
       # network
       tailscale
       mullvad-vpn
+      # phone connection
+      kdePackages.kdeconnect-kde
       # wm
       sway
+      xwayland # necessary for proxying x connections for wayland
     ];
   };
 
@@ -249,8 +252,10 @@
 
   # Open ports in the firewall.
   networking.firewall = rec {
+    enable = true;
     allowedTCPPortRanges = [
       {
+        # kdeconnect range
         from = 1714;
         to = 1764;
       }
