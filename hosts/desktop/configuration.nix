@@ -19,7 +19,8 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
-  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".device = "/dev/disk/by-uuid/fd1d935d-35e5-4b29-99f9-ea309ab83efc";
+  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".device =
+    "/dev/disk/by-uuid/fd1d935d-35e5-4b29-99f9-ea309ab83efc";
   # Setup keyfile
   boot.initrd.secrets = {
     "/boot/crypto_keyfile.bin" = null;
@@ -27,8 +28,10 @@
 
   boot.loader.grub.enableCryptodisk = true;
 
-  boot.initrd.luks.devices."luks-1b0c3782-0fa1-4b3e-9588-f44d5564da32".keyFile = "/boot/crypto_keyfile.bin";
-  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".keyFile = "/boot/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-1b0c3782-0fa1-4b3e-9588-f44d5564da32".keyFile =
+    "/boot/crypto_keyfile.bin";
+  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".keyFile =
+    "/boot/crypto_keyfile.bin";
   # networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -325,7 +328,8 @@
               "${modifier}+f2" = "exec ${pkgs.firefox}/bin/firefox";
               "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
               "${modifier}+p" = "exec ~/dotfiles/scripts/passmenu";
-              "Shift+Print" = "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
+              "Shift+Print" =
+                "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
               # Switch to workspace
               "${modifier}+1" = "workspace number ${ws1}";
               "${modifier}+2" = "workspace number ${ws2}";
@@ -340,9 +344,12 @@
               "XF86MonBrightnessDown" = "exec light -U 10";
               "XF86MonBrightnessUp" = "exec light -A 10";
               # Loudness
-              "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pamixer --get-volume > $WOBSOCK";
-              "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pamixer --get-volume > $WOBSOCK";
-              "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
+              "XF86AudioMute" =
+                "exec pactl set-sink-mute @DEFAULT_SINK@ toggle && pamixer --get-volume > $WOBSOCK";
+              "XF86AudioRaiseVolume" =
+                "exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pamixer --get-volume > $WOBSOCK";
+              "XF86AudioLowerVolume" =
+                "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
               # Personal mode
               "${modifier}+m" = "mode kevin";
               "${modifier}+r" = "mode resize";
@@ -379,7 +386,6 @@
 
   programs = {
     light.enable = true;
-    firefox.enable = true;
 
     fish = {
       enable = true;
@@ -415,7 +421,6 @@
     eza
     git
     jq
-    xsv
     rlwrap
     htop
     unzip

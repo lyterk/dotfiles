@@ -15,9 +15,10 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   networking = {
-    hostName = "laptop";
+    hostName = "lenovo13";
 
     nameservers = [
       "1.1.1.1"
@@ -121,6 +122,7 @@
   # Enable sound with pipewire.
   # hardware.bluetooth.enable = true; # enabled by default
   hardware.graphics.enable = true;
+  # hardware.pulseaudio.enable = true;
   security.polkit.enable = true;
   security.rtkit.enable = true;
 

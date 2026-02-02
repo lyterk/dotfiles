@@ -68,7 +68,7 @@
     # Select internationalisation properties.
     i18n.defaultLocale = "en_US.UTF-8";
     # Keyboard
-    console.keyMap = "dvorak";
+    # console.keyMap = "dvorak";
 
     #############################################################################
     ## Firewall
@@ -153,7 +153,7 @@
       gnupg
       htop
       lsof
-      python3
+      python312
       ripgrep
       rsync
       shellcheck
@@ -171,7 +171,7 @@
       gcc
       # editors
       neovim
-      emacs29
+      emacs30
       # shells
       fish
       zsh
@@ -179,7 +179,6 @@
       bat
       eza
       jq
-      xsv
       rlwrap
       tree
       # network
@@ -188,9 +187,9 @@
       # wm
       sway
       (pass.withExtensions (ext: [ ext.pass-otp ]))
-      rofi-wayland
+      rofi
       rofi-pass-wayland
-      syncthing
+      rofimoji
     ];
   };
 }
