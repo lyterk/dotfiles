@@ -17,6 +17,30 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
+  # sops.defaultSopsFile = null;
+  sops.defaultSopsFile = ../../secrets/default-secret.yaml;
+  sops.secrets = {
+    sshPrivateKey = {
+      # It breaks when I try to make these paths, which feels silly but oh well.
+      path = "/etc/nixos/secrets/ssh-private-key";
+      owner = "lyterk";
+      group = "users";
+      mode = "0600";
+    };
+    gpgCode = {
+      path = "/etc/nixos/secrets/code-gpg-key";
+      owner = "lyterk";
+      group = "users";
+      mode = "0600";
+    };
+    gpgKev = {
+      path = "/etc/nixos/secrets/kev-gpg-key";
+      owner = "lyterk";
+      group = "users";
+      mode = "0600";
+    };
+  };
+
   networking = {
     hostName = "lenovo13";
 
