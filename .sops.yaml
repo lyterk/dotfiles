@@ -1,7 +1,9 @@
 creation_rules:
   # Apply encryption to all files
   - path_regex: .* # Regular expression to match all file paths
-    pgp:
-      # Replace these with the fingerprints of your GPG keys
-      - A81DCCE8555B5DBF52B530CFB1E5BE18EFA4DE90 # code@lyterk.com
-      - 7BC4D154D6F8B0F15F5456851ABEC6FC8FFE77DC # kev@lyterk.com
+    age:
+      - age153u0tqlr0afd7xq63xsygr0ftmces54dramgkgdpdck46s20qvqs4892xg
+    # pgp:
+    #   # Replace these with the fingerprints of your GPG keys
+    #   - A81DCCE8555B5DBF52B530CFB1E5BE18EFA4DE90 # code@lyterk.com
+    #   - 7BC4D154D6F8B0F15F5456851ABEC6FC8FFE77DC # kev@lyterk.com

@@ -4,10 +4,28 @@
 
 { config, pkgs, ... }:
 
+let
+  # Link ssh private key from secrets to home directory
+  deploySshScript = pkgs.writeShellApplication {
+    name = "deploy-ssh-key";
+    runtimeInputs = [
+      pkgs.zsh
+      pkgs.coreutils
+    ]; # Dependencies required at runtime
+    text = ''
+      #!/usr/bin/env zsh
+      ${pkgs.coreutils}/bin/mkdir -p /home/lyterk/.ssh
+      ${pkgs.coreutils}/bin/ln -sf /run/secrets/sshPrivateKey /home/lyterk/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/chmod 0600 /home/lyterk/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/chown lyterk:users /home/lyterk/.ssh/id_ed25519
+    '';
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
+    ../../shared/sops.nix
     # ./home.nix
     # <home-manager/nixos>
   ];
@@ -16,30 +34,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
-
-  # sops.defaultSopsFile = null;
-  sops.defaultSopsFile = ../../secrets/default-secret.yaml;
-  sops.secrets = {
-    sshPrivateKey = {
-      # It breaks when I try to make these paths, which feels silly but oh well.
-      path = "/etc/nixos/secrets/ssh-private-key";
-      owner = "lyterk";
-      group = "users";
-      mode = "0600";
-    };
-    gpgCode = {
-      path = "/etc/nixos/secrets/code-gpg-key";
-      owner = "lyterk";
-      group = "users";
-      mode = "0600";
-    };
-    gpgKev = {
-      path = "/etc/nixos/secrets/kev-gpg-key";
-      owner = "lyterk";
-      group = "users";
-      mode = "0600";
-    };
-  };
 
   networking = {
     hostName = "lenovo13";
@@ -150,12 +144,30 @@
   security.polkit.enable = true;
   security.rtkit.enable = true;
 
-  systemd.user.services.kanshi = {
-    description = "kanshi daemon";
-    serviceConfig = {
-      Type = "simple";
-      ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
+  systemd = {
+    services.deploy-ssh-key = {
+      description = "Deploy SSH private key to ~/.ssh/id_ed25519";
+      after = [ "network-online.target" ]; # Wait until the network is online
+      wants = [ "network-online.target" ]; # Wait until the network is online
+
+      serviceConfig = {
+        # Command to copy the key and apply permissions
+        ExecStart = "${deploySshScript}/bin/deploy-ssh-key";
+        User = "lyterk";
+        Group = "users";
+      };
+
+      wantedBy = [ "multi-user.target" ];
     };
+
+    user.services.kanshi = {
+      description = "kanshi daemon";
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
+      };
+    };
+
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -279,6 +291,7 @@
       sway
       sops # secrets
       xwayland # necessary for proxying x connections for wayland
+      age
     ];
   };
 
