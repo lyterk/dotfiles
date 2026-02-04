@@ -20,6 +20,22 @@ let
       ${pkgs.coreutils}/bin/chown lyterk:users /home/lyterk/.ssh/id_ed25519
     '';
   };
+
+  gpgKeyScriptFn =
+    keyFilename:
+    pkgs.pkgs.writeShellApplication {
+      name = "deploy-gpg-key";
+      runtimeInputs = [
+        pkgs.zsh
+        pkgs.coreutils
+      ];
+      text = ''
+        #!/usr/bin/env zsh
+        ${pkgs.gnupg}/bin/gpg --import /run/secrets/${keyFilename}
+        # Set restrictive permissions for the GPG directory
+        ${pkgs.coreutils}/bin/chmod 0700 ~/.gnupg
+      '';
+    };
 in
 {
   imports = [
@@ -36,7 +52,7 @@ in
   boot.kernelParams = [ "mem_sleep_default=deep" ];
 
   networking = {
-    hostName = "lenovo13";
+    hostName = "miranda";
 
     nameservers = [
       "1.1.1.1"
@@ -145,19 +161,53 @@ in
   security.rtkit.enable = true;
 
   systemd = {
-    services.deploy-ssh-key = {
-      description = "Deploy SSH private key to ~/.ssh/id_ed25519";
-      after = [ "network-online.target" ]; # Wait until the network is online
-      wants = [ "network-online.target" ]; # Wait until the network is online
+    services = {
+      deploy-ssh-key = {
+        description = "Deploy SSH private key to ~/.ssh/id_ed25519";
+        after = [ "network-online.target" ]; # Wait until the network is online
+        wants = [ "network-online.target" ];
 
-      serviceConfig = {
-        # Command to copy the key and apply permissions
-        ExecStart = "${deploySshScript}/bin/deploy-ssh-key";
-        User = "lyterk";
-        Group = "users";
+        serviceConfig = {
+          # Command to copy the key and apply permissions
+          ExecStart = "${deploySshScript}/bin/deploy-ssh-key";
+          User = "lyterk";
+          Group = "users";
+        };
+
+        wantedBy = [ "multi-user.target" ];
       };
 
-      wantedBy = [ "multi-user.target" ];
+      deploy-gpg-code-key = {
+        description = "Deploy code@lyterk.com GPG key";
+
+        after = [ "network-online.target" ]; # Wait until the network is online
+        wants = [ "network-online.target" ];
+
+        serviceConfig = {
+          # Command to copy the key and apply permissions
+          ExecStart = "${gpgKeyScriptFn "gpgCode"}/bin/deploy-gpg-key";
+          User = "lyterk";
+          Group = "users";
+        };
+
+        wantedBy = [ "multi-user.target" ];
+      };
+
+      deploy-gpg-kev-key = {
+        description = "Deploy kev@lyterk.com GPG key";
+
+        after = [ "network-online.target" ]; # Wait until the network is online
+        wants = [ "network-online.target" ];
+
+        serviceConfig = {
+          # Command to copy the key and apply permissions
+          ExecStart = "${gpgKeyScriptFn "gpgKev"}/bin/deploy-gpg-key";
+          User = "lyterk";
+          Group = "users";
+        };
+
+        wantedBy = [ "multi-user.target" ];
+      };
     };
 
     user.services.kanshi = {

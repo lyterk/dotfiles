@@ -1,7 +1,6 @@
 {
   ...
 }:
-
 {
   sops = {
     age.keyFile = "/home/lyterk/.config/sops/age/keys.txt";

@@ -57,7 +57,7 @@
         {
           laptop = mkNixosConfiguration "laptop";
           desktop = mkNixosConfiguration "desktop";
-          lenovo13 = mkNixosConfiguration "lenovo13";
+          miranda = mkNixosConfiguration "miranda";
         };
 
       apps.${system} =
