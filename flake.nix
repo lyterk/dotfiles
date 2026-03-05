@@ -10,6 +10,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix/release-25.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # TODO: Decide if this is worth the change
     # firefox-addons = {
     #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -23,6 +27,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      stylix,
       ...
     }@flakeInputs:
     let
@@ -48,6 +53,7 @@
                 }
                 home-manager.nixosModules.home-manager
                 sops-nix.nixosModules.sops
+                stylix.nixosModules.stylix
                 ./shared
                 (./hosts + "/${name}" + /configuration.nix)
                 (./hosts + "/${name}" + /hardware.nix)

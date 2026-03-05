@@ -42,14 +42,26 @@ in
     # Include the results of the hardware scan.
     ./hardware.nix
     ../../shared/sops.nix
+    # ../../shared/flutter.nix
     # ./home.nix
     # <home-manager/nixos>
   ];
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    image = pkgs.fetchurl {
+      url = "https://getwallpapers.com/wallpaper/full/c/7/2/454788.jpg";
+      hash = "sha256-3jJ1KZ3zxW9sb2q9n3foMMv7Ey78Gl5c43EC7fPQKtc=";
+    };
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelParams = [ "mem_sleep_default=deep" ];
+
+  virtualisation.docker.enable = true;
 
   networking = {
     hostName = "miranda";
@@ -77,6 +89,14 @@ in
     # networking.firewall.enable = false;
     iproute2.enable = true; # ostensibly useful for mullvad
   };
+
+  environment.etc."libinput/local-overrides.quirks".text = ''
+    [Serial Keyboards]
+    MatchUdevType=keyboard
+    MatchName=keyd virtual keyboard
+    AttrKeyboardIntegration=internal
+  '';
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -129,6 +149,52 @@ in
       #media-session.enable = true;
     };
 
+    atuin = {
+      enable = true;
+      # openRegistration = false;
+      # host = "0.0.0.0";
+      # port = 8888;
+      # database.createLocally = true;
+    };
+    blueman.enable = true;
+
+    # home-assistant = {
+    #   enable = true;
+    #   extraComponents = [
+    #     # Components required to complete the onboarding
+    #     "analytics"
+    #     "google_translate"
+    #     "met"
+    #     "radio_browser"
+    #     "shopping_list"
+    #     # Recommended for fast zlib compression
+    #     # https://www.home-assistant.io/integrations/isal
+    #     "isal"
+    #   ];
+    #   config = {
+    #     # Includes dependencies for a basic setup
+    #     # https://www.home-assistant.io/integrations/default_config/
+    #     default_config = { };
+    #   };
+    # };
+
+    # Fuck ChatGPT
+    keyd = {
+      enable = true;
+      keyboards = {
+        default = {
+          ## the id of your keyboard taken from the monitor command - specifying it here and not using a wildcard * might avoid the aforementioned libinput issue with palm rejection.
+          ids = [ "0001:0001:70533846" ];
+          settings = {
+            main = {
+              ## taking the key combination from the monitor command and remapping it to meta / super key
+              "f23" = "rightcontrol";
+            };
+          };
+        };
+      };
+    };
+
     syncthing = {
       enable = true;
       openDefaultPorts = true;
@@ -154,7 +220,7 @@ in
   };
 
   # Enable sound with pipewire.
-  # hardware.bluetooth.enable = true; # enabled by default
+  hardware.bluetooth.enable = true; # enabled by default
   hardware.graphics.enable = true;
   # hardware.pulseaudio.enable = true;
   security.polkit.enable = true;
@@ -168,10 +234,12 @@ in
         wants = [ "network-online.target" ];
 
         serviceConfig = {
+          Type = "oneshot";
           # Command to copy the key and apply permissions
           ExecStart = "${deploySshScript}/bin/deploy-ssh-key";
           User = "lyterk";
           Group = "users";
+          RemainAfterExit = true;
         };
 
         wantedBy = [ "multi-user.target" ];
@@ -184,10 +252,12 @@ in
         wants = [ "network-online.target" ];
 
         serviceConfig = {
+          Type = "oneshot";
           # Command to copy the key and apply permissions
           ExecStart = "${gpgKeyScriptFn "gpgCode"}/bin/deploy-gpg-key";
           User = "lyterk";
           Group = "users";
+          RemainAfterExit = true;
         };
 
         wantedBy = [ "multi-user.target" ];
@@ -200,10 +270,12 @@ in
         wants = [ "network-online.target" ];
 
         serviceConfig = {
+          Type = "oneshot";
           # Command to copy the key and apply permissions
           ExecStart = "${gpgKeyScriptFn "gpgKev"}/bin/deploy-gpg-key";
           User = "lyterk";
           Group = "users";
+          RemainAfterExit = true;
         };
 
         wantedBy = [ "multi-user.target" ];
@@ -232,6 +304,7 @@ in
       "networkmanager"
       "wheel"
       "video"
+      "docker"
     ];
   };
 
@@ -289,7 +362,10 @@ in
       options = "--delete-older-than 30d";
     };
   };
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    # android_sdk.accept_license = true;
+  };
 
   # https://github.com/NixOS/nixpkgs/issues/240886
   security.pam.services.gtklock = { };
@@ -342,6 +418,7 @@ in
       sops # secrets
       xwayland # necessary for proxying x connections for wayland
       age
+      bluez # necessary for home-assistant
     ];
   };
 

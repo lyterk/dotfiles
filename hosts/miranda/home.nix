@@ -18,13 +18,20 @@ let
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
     noto-fonts-monochrome-emoji
+    nerd-fonts.jetbrains-mono
   ];
   programmingLanguages = with pkgs; [
-    cargo
+    # cargo
     # clojure
     # erlang
-    # elixir
+    elixir
     # gleam
+    flutter
+    # fvm
+    flutter_rust_bridge_codegen
+    # android-studio
+    # androidenv.androidPkgs.androidsdk
+    rustup
   ];
   gui = with pkgs; [
     gtklock
@@ -34,6 +41,7 @@ let
   collaboration = with pkgs; [
     # thunderbird
     # plantuml-c4
+    google-chrome
   ];
   fileViz = with pkgs; [
     calibre
@@ -48,7 +56,7 @@ let
     pyright
     black
     # elixir-ls
-    rust-analyzer
+    # rust-analyzer
     nodejs # Basically only for the copilot plugin
     beancount-language-server
   ];
@@ -65,6 +73,10 @@ let
     # clang
     # clang-tools
     # llvmPackages_19.libcxx
+  ];
+  # homeAssistant = [];
+  selfHostedModels = with pkgs; [
+    ollama-cuda
   ];
 in
 {
@@ -129,6 +141,7 @@ in
       # libreoffice-qt
       signal-desktop # out of date
       # video games
+      brogue-ce
       # playonlinux
       innoextract
       # reading codes
@@ -146,7 +159,8 @@ in
       slurp # facilitate screenshots-- select a region in compositor.
       kanshi # managing monitors
       # pkgs-unstable.zed-editor
-      # docker
+      docker
+      docker-compose
       libgourou
       nix-du
       graphviz
@@ -165,7 +179,8 @@ in
     ++ python
     ++ cpp
     ++ gui
-    ++ beam;
+    ++ beam
+    ++ videoEditing;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -201,7 +216,12 @@ in
       };
     };
 
-    fish.enable = true;
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        atuin init fish | source
+      '';
+    };
 
     keychain = {
       enable = true;
@@ -211,8 +231,8 @@ in
 
     rofi = {
       enable = true;
-      font = "hack 13";
-      theme = "solarized";
+      # font = "hack 13";
+      # theme = "solarized";
     };
 
     git = {

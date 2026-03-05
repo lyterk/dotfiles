@@ -39,11 +39,11 @@
           "${ws3}" = [ { class = "Emacs"; } ];
           "${ws4}" = [ { class = "Signal"; } ];
         };
-        output = {
-          "*" = {
-            bg = "/home/lyterk/Pictures/selectedBackgrounds/background.png fill";
-          };
-        };
+        # output = {
+        #   "*" = {
+        #     bg = "/home/lyterk/Pictures/selectedBackgrounds/background.png fill";
+        #   };
+        # };
         input = {
           "*" = {
             xkb_layout = "us(dvorak),es(dvorak),hr";
