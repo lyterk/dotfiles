@@ -5,6 +5,7 @@
 { config, pkgs, ... }:
 
 let
+  home = "/home/lyterk";
   # Link ssh private key from secrets to home directory
   deploySshScript = pkgs.writeShellApplication {
     name = "deploy-ssh-key";
@@ -14,10 +15,11 @@ let
     ]; # Dependencies required at runtime
     text = ''
       #!/usr/bin/env zsh
-      ${pkgs.coreutils}/bin/mkdir -p /home/lyterk/.ssh
-      ${pkgs.coreutils}/bin/ln -sf /run/secrets/sshPrivateKey /home/lyterk/.ssh/id_ed25519
-      ${pkgs.coreutils}/bin/chmod 0600 /home/lyterk/.ssh/id_ed25519
-      ${pkgs.coreutils}/bin/chown lyterk:users /home/lyterk/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/mkdir -p ${home}/.ssh
+      ${pkgs.coreutils}/bin/rm -f ${home}/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/ln -sf /run/secrets/sshPrivateKey ${home}/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/chmod 0600 ${home}/.ssh/id_ed25519
+      ${pkgs.coreutils}/bin/chown lyterk:users ${home}/.ssh/id_ed25519
     '';
   };
 
@@ -56,10 +58,14 @@ in
     };
   };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = [ "mem_sleep_default=deep" ];
+  boot = {
+    # Bootloader.
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelParams = [ "mem_sleep_default=deep" ];
+    # </ Bootloader>
+    initrd.systemd.enable = true;
+  };
 
   virtualisation.docker.enable = true;
 
@@ -156,6 +162,18 @@ in
       # port = 8888;
       # database.createLocally = true;
     };
+    # anki-sync-server = {
+    #   enable = true;
+    #   address = "0.0.0.0";
+    #   openFirewall = true;
+    #   users = [
+    #     {
+    #       username = "lyterk";
+    #       password = "freddy";
+    #     }
+    #   ];
+    # };
+
     blueman.enable = true;
 
     # home-assistant = {
@@ -177,6 +195,10 @@ in
     #     default_config = { };
     #   };
     # };
+    logind.settings.Login = {
+      HandleLidSwitchDocked = "ignore";
+      HandleLidSwitchExternalPower = "ignore";
+    };
 
     # Fuck ChatGPT
     keyd = {
@@ -217,21 +239,31 @@ in
       dnsovertls = "true";
     };
 
+    udev.packages = [ pkgs.yubikey-personalization ];
+
   };
 
   # Enable sound with pipewire.
   hardware.bluetooth.enable = true; # enabled by default
   hardware.graphics.enable = true;
   # hardware.pulseaudio.enable = true;
-  security.polkit.enable = true;
-  security.rtkit.enable = true;
+
+  security = {
+    polkit.enable = true;
+    rtkit.enable = true;
+    # pam.services.sudo.u2fAuth = true;
+  };
 
   systemd = {
     services = {
       deploy-ssh-key = {
         description = "Deploy SSH private key to ~/.ssh/id_ed25519";
-        after = [ "network-online.target" ]; # Wait until the network is online
+        after = [
+          "network-online.target"
+          "sops-nix.service"
+        ]; # Wait until the network is online
         wants = [ "network-online.target" ];
+        requires = [ "sops-nix.service" ];
 
         serviceConfig = {
           Type = "oneshot";
@@ -349,7 +381,7 @@ in
     settings.extra-platforms = config.boot.binfmt.emulatedSystems;
     nixPath = [
       "/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=/home/lyterk/dotfiles/configuration.nix"
+      "nixos-config=${home}/dotfiles/configuration.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
     settings.experimental-features = [
@@ -364,7 +396,7 @@ in
   };
   nixpkgs.config = {
     allowUnfree = true;
-    # android_sdk.accept_license = true;
+    android_sdk.accept_license = true;
   };
 
   # https://github.com/NixOS/nixpkgs/issues/240886
@@ -381,6 +413,7 @@ in
       ERL_AFLAGS = "-kernel shell_history enabled";
       # Sound bar
       WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
+      ANDROID_HOME = "${pkgs.androidenv.androidPkgs.androidsdk}/libexec/android-sdk";
     };
 
     systemPackages = with pkgs; [
@@ -413,12 +446,16 @@ in
       mullvad-vpn
       # phone connection
       kdePackages.kdeconnect-kde
+      kdePackages.okular
       # wm
       sway
       sops # secrets
       xwayland # necessary for proxying x connections for wayland
       age
       bluez # necessary for home-assistant
+      android-studio
+      androidenv.androidPkgs.androidsdk
+      # anki-sync-server
     ];
   };
 

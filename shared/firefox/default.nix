@@ -47,4 +47,5 @@ in
       };
     };
   };
+  # stylix.targets.firefox.profileNames = [ "kevinDefault" ];
 }

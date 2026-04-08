@@ -1,0 +1,21 @@
+# Whitelist directories
+whitelist ${HOME}/code
+whitelist ${HOME}/Downloads
+whitelist ${HOME}/.config
+whitelist /etc/nixos
+whitelist ${HOME}/Pictures
+whitelist ${HOME}/Documents
+whitelist ${HOME}/org
+whitelist ${HOME}/.emacs
+
+noblacklist ${HOME}/code
+noblacklist ${HOME}/Downloads
+noblacklist ${HOME}/Pictures
+noblacklist ${HOME}/Documents
+noblacklist ${HOME}/org
+noblacklist ${HOME}/.config
+noblacklist /etc/nixos
+noblacklist ${HOME}/.emacs
+
+net none
+netfilter

@@ -11,6 +11,7 @@ let
     gnupg
     gnumake
     keychain
+    mermaid-cli
   ];
   fonts = with pkgs; [
     font-awesome
@@ -25,12 +26,9 @@ let
     # clojure
     # erlang
     elixir
+    go
     # gleam
-    flutter
     # fvm
-    flutter_rust_bridge_codegen
-    # android-studio
-    # androidenv.androidPkgs.androidsdk
     rustup
   ];
   gui = with pkgs; [
@@ -59,9 +57,6 @@ let
     # rust-analyzer
     nodejs # Basically only for the copilot plugin
     beancount-language-server
-  ];
-  beam = with pkgs.beamMinimal28Packages; [
-    # rebar3
   ];
   python = with pkgs.python312Packages; [
     ipython
@@ -117,6 +112,7 @@ in
       # phone interface
       # busybox
       # android-file-transfer
+      cheese # photos
       duplicity # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
       chromium
@@ -178,9 +174,7 @@ in
     ++ languageTools
     ++ python
     ++ cpp
-    ++ gui
-    ++ beam
-    ++ videoEditing;
+    ++ gui;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -280,6 +274,11 @@ in
           user = "git";
           identityFile = "~/.ssh/id_ed25519";
         };
+        bitbucket = {
+          hostname = "bitbucket.org";
+          user = "git";
+          identityFile = "~/.ssh/id_ed25519";
+        };
         desktop = {
           hostname = "txru.me";
           port = 65222;
@@ -360,6 +359,40 @@ in
       # pinentryPackage available as of 24.0
       pinentry.package = pkgs.pinentry-qt;
     };
+
+    kanshi = {
+      enable = true;
+      settings = [
+        {
+          profile.name = "undocked";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              scale = 1.0;
+              status = "enable";
+            }
+          ];
+        }
+        {
+          profile.name = "docked";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              scale = 1.0;
+              status = "disable";
+              position = "0,0";
+            }
+            {
+              criteria = "AOC 2470W D35F9BA001634";
+              scale = 1.0;
+              status = "enable";
+              position = "1920,0";
+            }
+          ];
+        }
+      ];
+    };
+
     kdeconnect = {
       enable = true;
     };

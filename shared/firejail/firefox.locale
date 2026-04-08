@@ -1,0 +1,7 @@
+
+whitelist ${HOME}/Downloads
+noblacklist ${HOME}/Downloads
+
+# Network restrictions
+net none
+netfilter
