@@ -40,6 +40,7 @@ let
     # thunderbird
     # plantuml-c4
     google-chrome
+    libreoffice
   ];
   fileViz = with pkgs; [
     calibre
