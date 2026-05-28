@@ -12,6 +12,10 @@ let
     gnumake
     keychain
     mermaid-cli
+    ripgrep-all # searching in epubs etc.
+    pandoc
+    xan
+    zip
   ];
   fonts = with pkgs; [
     font-awesome
@@ -25,7 +29,7 @@ let
     # cargo
     # clojure
     # erlang
-    elixir
+    # elixir
     go
     # gleam
     # fvm
@@ -39,7 +43,7 @@ let
   collaboration = with pkgs; [
     # thunderbird
     # plantuml-c4
-    google-chrome
+    # google-chrome
     libreoffice
   ];
   fileViz = with pkgs; [
@@ -71,9 +75,9 @@ let
     # llvmPackages_19.libcxx
   ];
   # homeAssistant = [];
-  selfHostedModels = with pkgs; [
-    ollama-cuda
-  ];
+  # selfHostedModels = with pkgs; [
+  #   ollama-cuda
+  # ];
 in
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -116,7 +120,7 @@ in
       cheese # photos
       duplicity # TODO https://github.com/NixOS/nixpkgs/issues/122671
       # notifications
-      chromium
+      # chromium
       # captive-browser
       mako # notifications
       blueman

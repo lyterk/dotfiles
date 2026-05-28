@@ -46,7 +46,7 @@
         # };
         input = {
           "*" = {
-            xkb_layout = "us(dvorak),es(dvorak),hr";
+            xkb_layout = "us(dvorak),es(dvorak)";
             xkb_options = "ctrl:nocaps,grp:rctrl_toggle";
           };
         };

@@ -139,6 +139,14 @@ in
     # privacy vpn
     mullvad-vpn.enable = true;
     # For gpg key reading -- smart cards
+
+    privoxy = {
+      enable = true;
+      settings = {
+        listen-address = "127.0.0.01:8118";
+      };
+    };
+
     pcscd.enable = true;
     pulseaudio.enable = false;
     # Sound control, better api than pavucontrol. But I still install that anyway
@@ -154,6 +162,12 @@ in
       # no need to redefine it in your config for now)
       #media-session.enable = true;
     };
+
+    # ollama = {
+    #   enable = true;
+    #   loadModels = [ "qwen3.6" ];
+    #   acceleration = "cuda";
+    # };
 
     atuin = {
       enable = true;
@@ -387,6 +401,7 @@ in
     settings.experimental-features = [
       "nix-command"
       "flakes"
+      "pipe-operators"
     ];
     gc = {
       automatic = true;
