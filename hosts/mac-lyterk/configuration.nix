@@ -4,11 +4,20 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # System-wide settings
   environment.systemPackages = with pkgs; [
+    cargo
+    direnv
+    fd
+    gcc
     git
+    git
+    gnupg
     neovim
-    wget
+    nil
     (pass.withExtensions (ext: [ ext.pass-otp ]))
-    # Add your favorite packages here!
+    ripgrep
+    rust-analyzer
+    wget
+    zstd
   ];
 
   environment.variables.HOMEBREW_NO_ANALYTICS = "1";
@@ -24,12 +33,6 @@
   
     brews = [
       "coreutils"
-      "direnv"
-      "fd"
-      "gcc"
-      "git"
-      "grep"
-      "ripgrep"
       "trash"
       "pinentry-mac"
     ];
