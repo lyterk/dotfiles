@@ -1,8 +1,6 @@
 # Edit this configuration file to define what should be installed on your system.
 {
-  config,
   pkgs,
-  lib,
   ...
 }:
 
