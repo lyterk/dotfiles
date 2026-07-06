@@ -98,6 +98,8 @@
             "j" = "exec ${pkgs.rofi}/bin/rofi -modi 'emoji:rofimoji' -show emoji; mode default";
             "l" = "exec ${pkgs.gtklock}/bin/gtklock -d; mode default";
             "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";
+            "o" =
+              "exec ${pkgs.rofi}/bin/rofi -dmenu -p 'Exit sway? (yes/no)' | grep -q yes && swaymsg exit; mode default";
             "Escape" = "mode default";
             "Return" = "mode default";
           };

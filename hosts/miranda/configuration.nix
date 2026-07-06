@@ -2,9 +2,34 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
 
 let
+  users = [
+    {
+      name = "lyterk";
+      homedir = "/home/lyterk";
+      gpgKeys = [
+        "gpgCode"
+        "gpgKev"
+      ];
+    }
+    {
+      name = "work";
+      homedir = "/home/work";
+      gpgKeys = [
+        "gpgCode"
+        "gpgKev"
+      ];
+    }
+  ];
+
   home = "/home/lyterk";
   # Link ssh private key from secrets to home directory
   deploySshScript = pkgs.writeShellApplication {
@@ -44,6 +69,7 @@ in
     # Include the results of the hardware scan.
     ./hardware.nix
     ../../shared/sops.nix
+    ../../shared/duplicity.nix
     # ../../shared/flutter.nix
     # ./home.nix
     # <home-manager/nixos>
@@ -52,10 +78,6 @@ in
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-    image = pkgs.fetchurl {
-      url = "https://getwallpapers.com/wallpaper/full/c/7/2/454788.jpg";
-      hash = "sha256-3jJ1KZ3zxW9sb2q9n3foMMv7Ey78Gl5c43EC7fPQKtc=";
-    };
   };
 
   boot = {
@@ -140,10 +162,22 @@ in
     mullvad-vpn.enable = true;
     # For gpg key reading -- smart cards
 
+    emacs.enable = true;
+
     privoxy = {
       enable = true;
       settings = {
         listen-address = "127.0.0.01:8118";
+      };
+    };
+
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+          user = "lyterk";
+        };
       };
     };
 
@@ -214,7 +248,6 @@ in
       HandleLidSwitchExternalPower = "ignore";
     };
 
-    # Fuck ChatGPT
     keyd = {
       enable = true;
       keyboards = {
@@ -328,11 +361,17 @@ in
       };
     };
 
-    user.services.kanshi = {
-      description = "kanshi daemon";
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
+    user.services = {
+      kanshi = {
+        description = "kanshi daemon";
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.kanshi}/bin/kanshi -c kanshi_config_file";
+        };
+      };
+
+      emacs.serviceConfig = {
+        Slice = "session.slice";
       };
     };
 
@@ -354,7 +393,20 @@ in
     ];
   };
 
-  home-manager.users.lyterk = ./home.nix;
+  users.users.work = {
+    shell = pkgs.fish;
+    isNormalUser = true;
+    description = "Yotta work profile";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "docker"
+    ];
+  };
+
+  home-manager.users.work = ./users/work-home.nix;
+  home-manager.users.lyterk = ./users/lyterk-home.nix;
 
   # home-manager.users.lyterk = import /home/lyterk/.config/home-manager/home.nix;
 
@@ -379,11 +431,12 @@ in
         ls = "exa";
         vim = "nvim";
       };
-      loginShellInit = ''
-        if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
-          exec sway
-        end
-      '';
+      # Making this per-user
+      # loginShellInit = ''
+      #   if test (id --user $USER) -ge 1000 && string match -qr '/dev/tty[0-9]' (tty)
+      #     exec sway
+      #   end
+      # '';
     };
     # steam.enable = true;
   };
@@ -395,7 +448,6 @@ in
     settings.extra-platforms = config.boot.binfmt.emulatedSystems;
     nixPath = [
       "/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "nixos-config=${home}/dotfiles/configuration.nix"
       "/nix/var/nix/profiles/per-user/root/channels"
     ];
     settings.experimental-features = [
@@ -470,7 +522,11 @@ in
       bluez # necessary for home-assistant
       android-studio
       androidenv.androidPkgs.androidsdk
-      # anki-sync-server
+      # window manager
+      greetd
+      # AI yo
+      pkgs-unstable.code-cursor
+      nodejs_22
     ];
   };
 

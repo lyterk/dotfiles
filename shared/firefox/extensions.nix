@@ -26,10 +26,10 @@ let
     (extensionFn "multiple-tab-handler" "multipletab@piro.sakura.ne.jp" "navbar")
     # Last 100 subreddits a user visited
     (extensionFn "neutral-reddit-masstagger" "{007e5327-f1ba-433d-aead-41cab2b7afb1}" "navbar")
-    (extensionFn "reveddit-real-time" "real-time-stable@reveddit.com" "navbar")
+    # (extensionFn "reveddit-real-time" "real-time-stable@reveddit.com" "navbar")
     (extensionFn "reddit-enhancement-suite" "jid1-xUfzOsOFlzSOXg@jetpack" "navbar")
     # Fix clickbait youtube thumbnails
-    (extensionFn "dearrow" "deArrow@ajay.app" "navbar")
+    # (extensionFn "dearrow" "deArrow@ajay.app" "navbar")
   ];
 in
 {

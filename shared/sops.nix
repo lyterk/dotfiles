@@ -25,6 +25,11 @@
         group = "users";
         mode = "0600";
       };
+      duplicityAws = {
+        sopsFile = ../secrets/duplicityAws.json;
+        format = "json";
+        mode = "0400";
+      };
     };
   };
 }

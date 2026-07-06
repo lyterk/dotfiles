@@ -1,0 +1,272 @@
+{ pkgs, lib, ... }:
+
+let
+  shellTools = with pkgs; [
+    alacritty
+    atuin
+    direnv
+    # graalvm-ce
+    libtool
+    pwgen
+    gnupg
+    gnumake
+    keychain
+    mermaid-cli
+    ripgrep-all # searching in epubs etc.
+    pandoc
+    wl-clipboard
+    xan
+    zip
+  ];
+  interfaces = with pkgs; [
+    blueman
+    bluez
+    bluez-tools
+    grim # screenshots
+    kanshi # managing monitors
+    slurp # facilitate screenshots-- select a region in compositor.
+    inotify-tools
+    pinentry-qt
+    pulseaudio # used for getting and setting the volume
+    pamixer
+    wev
+    wob
+    qrencode
+  ];
+  environments = with pkgs; [
+    docker
+    docker-compose
+  ];
+  fonts = with pkgs; [
+    font-awesome
+    noto-fonts
+    # noto-fonts-cjk-sans
+    noto-fonts-color-emoji
+    # noto-fonts-monochrome-emoji
+    nerd-fonts.jetbrains-mono
+  ];
+  programmingLanguages = with pkgs; [
+    # cargo
+    # clojure
+    # erlang
+    # elixir
+    # go
+    # gleam
+    # fvm
+    rustup
+  ];
+  gui = with pkgs; [
+    gtklock # lock screen
+    imagemagick # Software suite to create, edit, compose, or convert bitmap images
+    poppler-utils # pdf-rendering
+    # tesseract # OCR
+    mako # notifications
+  ];
+  dataStores = with pkgs; [ sqlite ];
+  collaboration = with pkgs; [
+    # thunderbird
+    # plantuml-c4
+    # google-chrome
+    libreoffice
+    gimp
+  ];
+  fileSystems = with pkgs; [
+    # cdrtools # cd reading
+    calibre
+    xfce.thunar
+    duplicity # TODO https://github.com/NixOS/nixpkgs/issues/122671
+  ];
+  studying = with pkgs; [ anki ];
+  languageTools = with pkgs; [
+    nil
+    pyright
+    black
+    # elixir-ls
+    # rust-analyzer
+    nodejs # Basically only for the copilot plugin
+    # beancount-language-server
+  ];
+  python = with pkgs.python312Packages; [
+    ipython
+    # debugpy # Handle this through uv?
+    pyscaffold # project generator
+    uv
+  ];
+  # homeAssistant = [];
+  # selfHostedModels = with pkgs; [
+  #   ollama-cuda
+  # ];
+in
+{
+  home.stateVersion = "23.11";
+
+  home.packages =
+    shellTools
+    ++ interfaces
+    ++ environments
+    ++ fonts
+    ++ programmingLanguages
+    ++ gui
+    ++ dataStores
+    ++ collaboration
+    ++ fileSystems
+    ++ studying
+    ++ languageTools
+    ++ python;
+
+  # Home Manager is pretty good at managing dotfiles. The primary way to manage
+  # plain files is through 'home.file'.
+  home.file = {
+    ".gitignore".source = ./gitignore;
+  };
+
+  programs = {
+    home-manager.enable = true;
+
+    zsh = {
+      enable = true;
+      shellAliases = {
+        ppush = "pass git push origin mainline";
+        ppull = "pass git pull --rebase origin mainline";
+        ls = "exa";
+        vim = "nvim";
+      };
+    };
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        atuin init fish | source
+      '';
+    };
+
+    keychain = {
+      enable = true;
+      enableFishIntegration = true;
+      keys = [ "~/.ssh/id_ed25519" ];
+    };
+
+    rofi = {
+      enable = true;
+      # font = "hack 13";
+      # theme = "solarized";
+    };
+
+    git = {
+      enable = true;
+      settings = {
+        pull.rebase = true;
+        credential.helper = "cache";
+        init.defaultBranch = "mainline";
+      };
+    };
+  };
+
+  services = {
+    emacs = {
+      enable = true;
+      package =
+        with pkgs;
+        ((emacsPackagesFor emacs30).emacsWithPackages (
+          epkgs: with epkgs; [
+            vterm
+            treesit-grammars.with-all-grammars
+          ]
+        ));
+    };
+    # Redshift screen temperature
+    gammastep = {
+      enable = true;
+      provider = "manual";
+      latitude = 47.6;
+      longitude = -122.3;
+    };
+    # wayland notifications
+    mako = {
+      enable = true;
+      settings = {
+        default-timeout = 15000;
+      };
+    };
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtl = 3600;
+      maxCacheTtl = 86400;
+      # pinentryFlavor = "qt";
+      # pinentry-rofi not an optional flavor.
+      # extraConfig = ''
+      #  pinentry-program /run/current-system/sw/bin/pinentry-gtk2
+      # '';
+      # pinentryPackage available as of 24.0
+      pinentry.package = pkgs.pinentry-qt;
+    };
+
+    kanshi = {
+      enable = true;
+      settings = [
+        {
+          profile.name = "undocked";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              scale = 1.0;
+              status = "enable";
+            }
+          ];
+        }
+        {
+          profile.name = "docked";
+          profile.outputs = [
+            {
+              criteria = "eDP-1";
+              scale = 1.0;
+              status = "disable";
+              position = "0,0";
+            }
+            {
+              criteria = "AOC 2470W D35F9BA001634";
+              scale = 1.0;
+              status = "enable";
+              position = "1920,0";
+            }
+          ];
+        }
+      ];
+    };
+
+    # kdeconnect = {
+    #   enable = true;
+    # };
+
+    swayidle = {
+      enable = true;
+      timeouts = [
+        # Restart `swayidle` if adjusting timeouts
+        {
+          timeout = 300;
+          command = "${pkgs.gtklock}/bin/gtklock -d";
+        }
+        {
+          timeout = 300;
+          command = ''swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'';
+        }
+      ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "${pkgs.gtklock}/bin/gtklock -d";
+        }
+      ];
+    };
+  };
+  xdg = {
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/http" = [ "firefox.desktop" ];
+        "x-scheme-handler/https" = [ "firefox.desktop" ];
+        "text/html" = [ "firefox.desktop" ];
+      };
+    };
+  };
+}
