@@ -60,7 +60,7 @@ in
     git = {
       settings = {
         user.name = "Kevin Lyter";
-        user.email = "kevin@yottanav.com";
+        user.email = "kevin.lyter@yottanav.com";
         commit.gpgsign = true;
       };
     };

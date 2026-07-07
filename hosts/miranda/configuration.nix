@@ -527,6 +527,8 @@ in
       # AI yo
       pkgs-unstable.code-cursor
       nodejs_22
+      pnpm
+      awscli2
     ];
   };
 
