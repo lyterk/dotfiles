@@ -37,7 +37,7 @@
       {
         name = "Nixos Package Search";
         keyword = "np";
-        url = "https://search.nixos.org/packages?channel=25.11&query=%s";
+        url = "https://search.nixos.org/packages?channel=26.05&query=%s";
       }
     ];
   }

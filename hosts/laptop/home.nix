@@ -37,7 +37,7 @@ let
   ];
   fileViz = with pkgs; [
     calibre
-    xfce.thunar
+    thunar
   ];
   fileSystems = with pkgs; [
     cdrtools

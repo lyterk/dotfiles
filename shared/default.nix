@@ -153,7 +153,7 @@
       gnupg
       htop
       lsof
-      python312
+      python313
       ripgrep
       rsync
       shellcheck

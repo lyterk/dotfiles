@@ -73,7 +73,7 @@ let
   fileSystems = with pkgs; [
     # cdrtools # cd reading
     calibre
-    xfce.thunar
+    thunar
     duplicity # TODO https://github.com/NixOS/nixpkgs/issues/122671
   ];
   studying = with pkgs; [ anki ];
@@ -86,7 +86,7 @@ let
     nodejs # Basically only for the copilot plugin
     # beancount-language-server
   ];
-  python = with pkgs.python312Packages; [
+  python = with pkgs.python313Packages; [
     ipython
     # debugpy # Handle this through uv?
     pyscaffold # project generator
@@ -199,6 +199,13 @@ in
       # '';
       # pinentryPackage available as of 24.0
       pinentry.package = pkgs.pinentry-qt;
+    };
+    gnome-keyring = {
+      enable = true;
+      components = [
+        "secrets"
+        "ssh"
+      ]; # optional; omit for defaults
     };
 
     kanshi = {

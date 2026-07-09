@@ -4,8 +4,8 @@
 
 {
   config,
-  lib,
   pkgs,
+  lib,
   pkgs-unstable,
   ...
 }:
@@ -15,6 +15,8 @@ let
     {
       name = "lyterk";
       homedir = "/home/lyterk";
+      targetUrl = "";
+      secretFile = "/run/secrets/duplicityAws";
       gpgKeys = [
         "gpgCode"
         "gpgKev"
@@ -23,6 +25,8 @@ let
     {
       name = "work";
       homedir = "/home/work";
+      targetUrl = "";
+      secretFile = "/run/secrets/duplicityAws";
       gpgKeys = [
         "gpgCode"
         "gpgKev"
@@ -30,39 +34,16 @@ let
     }
   ];
 
-  home = "/home/lyterk";
-  # Link ssh private key from secrets to home directory
-  deploySshScript = pkgs.writeShellApplication {
-    name = "deploy-ssh-key";
-    runtimeInputs = [
-      pkgs.zsh
-      pkgs.coreutils
-    ]; # Dependencies required at runtime
-    text = ''
-      #!/usr/bin/env zsh
-      ${pkgs.coreutils}/bin/mkdir -p ${home}/.ssh
-      ${pkgs.coreutils}/bin/rm -f ${home}/.ssh/id_ed25519
-      ${pkgs.coreutils}/bin/ln -sf /run/secrets/sshPrivateKey ${home}/.ssh/id_ed25519
-      ${pkgs.coreutils}/bin/chmod 0600 ${home}/.ssh/id_ed25519
-      ${pkgs.coreutils}/bin/chown lyterk:users ${home}/.ssh/id_ed25519
-    '';
-  };
+  duplicityUnits = map (
+    u:
+    config.duplicity.mkDuplicityUser {
+      user = u.name;
+      homedir = u.homedir;
+      targetUrl = "s3://lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
+      secretFile = u.secretFile;
+    }
+  ) users;
 
-  gpgKeyScriptFn =
-    keyFilename:
-    pkgs.pkgs.writeShellApplication {
-      name = "deploy-gpg-key";
-      runtimeInputs = [
-        pkgs.zsh
-        pkgs.coreutils
-      ];
-      text = ''
-        #!/usr/bin/env zsh
-        ${pkgs.gnupg}/bin/gpg --import /run/secrets/${keyFilename}
-        # Set restrictive permissions for the GPG directory
-        ${pkgs.coreutils}/bin/chmod 0700 ~/.gnupg
-      '';
-    };
 in
 {
   imports = [
@@ -277,13 +258,15 @@ in
 
     resolved = {
       enable = true;
-      dnssec = "true";
-      domains = [ "~." ];
-      fallbackDns = [
-        "1.1.1.1#one.one.one.one"
-        "1.0.0.1#one.one.one.one"
-      ];
-      dnsovertls = "true";
+      settings.Resolve = {
+        DNSSEC = true;
+        DNSOverTLS = true;
+        Domains = [ "~." ];
+        FallbackDNS = [
+          "1.1.1.1#one.one.one.one"
+          "1.0.0.1#one.one.one.one"
+        ];
+      };
     };
 
     udev.packages = [ pkgs.yubikey-personalization ];
@@ -302,64 +285,7 @@ in
   };
 
   systemd = {
-    services = {
-      deploy-ssh-key = {
-        description = "Deploy SSH private key to ~/.ssh/id_ed25519";
-        after = [
-          "network-online.target"
-          "sops-nix.service"
-        ]; # Wait until the network is online
-        wants = [ "network-online.target" ];
-        requires = [ "sops-nix.service" ];
-
-        serviceConfig = {
-          Type = "oneshot";
-          # Command to copy the key and apply permissions
-          ExecStart = "${deploySshScript}/bin/deploy-ssh-key";
-          User = "lyterk";
-          Group = "users";
-          RemainAfterExit = true;
-        };
-
-        wantedBy = [ "multi-user.target" ];
-      };
-
-      deploy-gpg-code-key = {
-        description = "Deploy code@lyterk.com GPG key";
-
-        after = [ "network-online.target" ]; # Wait until the network is online
-        wants = [ "network-online.target" ];
-
-        serviceConfig = {
-          Type = "oneshot";
-          # Command to copy the key and apply permissions
-          ExecStart = "${gpgKeyScriptFn "gpgCode"}/bin/deploy-gpg-key";
-          User = "lyterk";
-          Group = "users";
-          RemainAfterExit = true;
-        };
-
-        wantedBy = [ "multi-user.target" ];
-      };
-
-      deploy-gpg-kev-key = {
-        description = "Deploy kev@lyterk.com GPG key";
-
-        after = [ "network-online.target" ]; # Wait until the network is online
-        wants = [ "network-online.target" ];
-
-        serviceConfig = {
-          Type = "oneshot";
-          # Command to copy the key and apply permissions
-          ExecStart = "${gpgKeyScriptFn "gpgKev"}/bin/deploy-gpg-key";
-          User = "lyterk";
-          Group = "users";
-          RemainAfterExit = true;
-        };
-
-        wantedBy = [ "multi-user.target" ];
-      };
-    };
+    services = lib.mkMerge ((map (x: x.services) duplicityUnits));
 
     user.services = {
       kanshi = {
@@ -412,8 +338,6 @@ in
 
   programs = {
     # sway.enable = true;
-    # Adjusting brightness with keys
-    light.enable = true;
     # System-wide I guess?
     # Mounting phones with mtp
     fuse = {
@@ -520,8 +444,8 @@ in
       xwayland # necessary for proxying x connections for wayland
       age
       bluez # necessary for home-assistant
-      android-studio
-      androidenv.androidPkgs.androidsdk
+      # android-studio
+      # androidenv.androidPkgs.androidsdk
       # window manager
       greetd
       # AI yo
@@ -529,6 +453,9 @@ in
       nodejs_22
       pnpm
       awscli2
+      claude-code
+      # tidal
+      # tidal-dl
     ];
   };
 

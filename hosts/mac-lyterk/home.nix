@@ -45,7 +45,7 @@ let
   ];
   fileViz = with pkgs; [
     calibre
-    xfce.thunar
+    thunar
   ];
   studying = with pkgs; [ anki ];
   languageTools = with pkgs; [

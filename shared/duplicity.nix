@@ -1,135 +1,150 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }:
 let
-  mkDuplicityConfig =
-    {
-      homedir,
-      targetUrl,
-      secretFile ? null,
-    }:
-    {
-      enable = true;
-      root = homedir;
-      include = [ homedir ];
-      exclude = [
-        "${homedir}/.cache"
-        # ... rest of your excludes
-      ];
-      targetUrl = targetUrl;
-      frequency = "daily";
-      secretFile = secretFile;
-      extraFlags = [
-        "--volsize"
-        "100"
-      ];
-      fullIfOlderThan = "1M";
-      cleanup = {
-        maxAge = "1M";
-        maxFull = 2;
-        maxIncr = 1;
-      };
-    };
+  defaults = {
+    volsize = "100";
+    fullIfOlderThan = "1M";
+    maxFull = "2";
+    excludeDirs = [
+      ".PlayOnLinux"
+      ".android"
+      ".cache"
+      ".clojure"
+      ".config"
+      ".dartServer"
+      ".dart-tool"
+      ".factorio"
+      ".git-credential-cache"
+      ".gitlibs"
+      ".gnome2"
+      ".gnupg"
+      ".google-chrome-captive"
+      ".hex"
+      ".ipython"
+      ".java"
+      ".keychain"
+      ".local"
+      ".m2"
+      ".mc"
+      ".minio"
+      ".mix"
+      ".mozilla"
+      ".nix-defexpr"
+      ".nix-profile"
+      ".npm"
+      ".ollama"
+      ".password-store"
+      ".pki"
+      ".sbt"
+      ".ssh"
+      ".steam"
+      ".tenv"
+      ".terraform.d"
+      ".thunderbird"
+      ".tor"
+      ".yarn"
+      "Downloads"
+    ];
+  };
 
   mkExcludeFlags =
     homedir:
-    lib.concatMap
-      (dir: [
-        "--exclude"
-        dir
-      ])
-      [
-        "${homedir}/.cache"
-        "${homedir}/.npm"
-        "${homedir}/.mozilla"
-        "${homedir}/.PlayOnLinux"
-        "${homedir}/.clojure"
-        "${homedir}/.config"
-        "${homedir}/.factorio"
-        "${homedir}/.gitlibs"
-        "${homedir}/.git-credential-cache"
-        "${homedir}/.gnupg"
-        "${homedir}/.google-chrome-captive"
-        "${homedir}/.hex"
-        "${homedir}/.ipython"
-        "${homedir}/.java"
-        "${homedir}/.keychain"
-        "${homedir}/.local"
-        "${homedir}/.m2"
-        "${homedir}/.mc"
-        "${homedir}/.minio"
-        "${homedir}/.mix"
-        "${homedir}/.nix-defexpr"
-        "${homedir}/.nix-profile"
-        "${homedir}/.password-store"
-        "${homedir}/.pki"
-        "${homedir}/.sbt"
-        "${homedir}/.ssh"
-        "${homedir}/.steam"
-        "${homedir}/.tenv"
-        "${homedir}/.terraform.d"
-        "${homedir}/.thunderbird"
-        "${homedir}/.tor"
-        "${homedir}/.yarn"
-      ];
+    lib.concatMap (d: [
+      "--exclude"
+      "${homedir}/${d}"
+    ]) defaults.excludeDirs;
+
+  mkBackupArgs =
+    { homedir, targetUrl }:
+    [
+      "--volsize"
+      defaults.volsize
+      "--full-if-older-than"
+      defaults.fullIfOlderThan
+    ]
+    ++ mkExcludeFlags homedir
+    ++ [
+      homedir
+      targetUrl
+    ];
 
   mkDuplicityService =
     {
       user,
       homedir,
       targetUrl,
-      secretFile ? null,
+      secretFile,
+      ...
     }:
     {
       description = "Duplicity backup for ${user}";
-      startAt = "daily";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      unitConfig.ConditionACPower = true;
       serviceConfig = {
-        User = "root";
-        ExecStart = lib.concatStringsSep " " (
-          [ "${pkgs.duplicity}/bin/duplicity" ]
-          ++ [
-            "--volsize"
-            "100"
+        Type = "oneshot";
+        User = user;
+        Group = "users";
+        RuntimeDirectory = "duplicity-${user}";
+        ExecStart = lib.escapeShellArgs (
+          [
+            "${pkgs.util-linux}/bin/flock"
+            "--nonblock"
+            "/run/duplicity-${user}/lock"
+            "${pkgs.duplicity}/bin/duplicity"
           ]
-          ++ [
-            "--full-if-older-than"
-            "1M"
-          ]
-          ++ (mkExcludeFlags homedir)
-          ++ [
-            homedir
-            targetUrl
-          ]
+          ++ mkBackupArgs { inherit homedir targetUrl; }
         );
-        EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityTimer =
+    { user, ... }:
+    {
+      description = "Duplicity backup timer for ${user}";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        Persistent = true;
+        RandomizedDelaySec = "3h";
+        OnCalendar = "*-*-* 05:00:00";
       };
     };
 
   mkDuplicityCleanupService =
     {
       user,
-      homedir,
       targetUrl,
-      secretFile ? null,
+      secretFile,
+      ...
     }:
     {
       description = "Duplicity cleanup for ${user}";
-      after = [ "duplicity-${user}.service" ];
+      after = [
+        "duplicity-${user}.service"
+        "network-online.target"
+      ];
       requires = [ "duplicity-${user}.service" ];
+      wants = [ "network-online.target" ];
       wantedBy = [ "duplicity-${user}.service" ];
       serviceConfig = {
-        User = "root";
-        ExecStart = lib.concatStringsSep " " [
+        Type = "oneshot";
+        User = user;
+        Group = "users";
+        RuntimeDirectory = "duplicity-${user}";
+        ExecStart = lib.escapeShellArgs [
+          "${pkgs.util-linux}/bin/flock"
+          "/run/duplicity-${user}/lock"
           "${pkgs.duplicity}/bin/duplicity"
           "remove-all-but-n-full"
-          "2"
+          defaults.maxFull
           "--force"
           targetUrl
         ];
-        EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+        EnvironmentFile = secretFile;
       };
     };
 
@@ -138,28 +153,26 @@ let
       user,
       homedir,
       targetUrl,
-      secretFile ? null,
+      secretFile,
     }:
     {
-      "duplicity-${user}" = mkDuplicityService args;
-      "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+      services = {
+        "duplicity-${user}" = mkDuplicityService args;
+        "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+      };
+      timers = {
+        "duplicity-${user}" = mkDuplicityTimer args;
+      };
     };
-
 in
 {
-  options = {
-    lyterBackups = {
-      mkDuplicityConfig = lib.mkOption {
-        type = lib.types.raw;
-        default = mkDuplicityConfig;
-        readOnly = true;
-      };
-
-      mkDuplicityUser = lib.mkOption {
-        type = lib.types.raw;
-        default = mkDuplicityUser;
-        readOnly = true;
-      };
-    };
+  options.duplicity.mkDuplicityUser = lib.mkOption {
+    type = lib.types.raw;
+    default = mkDuplicityUser;
+    readOnly = true;
+    description = ''
+      Function that returns { services, timers } attrsets for a given user.
+      Merge the results into systemd.services and systemd.timers respectively.
+    '';
   };
 }

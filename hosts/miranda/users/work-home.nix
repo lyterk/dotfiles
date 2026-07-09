@@ -57,6 +57,16 @@ in
         end
       '';
     };
+
+    keychain = {
+      enable = true;
+      enableFishIntegration = true;
+      keys = [
+        "~/.ssh/id_ed25519"
+        "~/.ssh/work_ed25519"
+      ];
+    };
+
     git = {
       settings = {
         user.name = "Kevin Lyter";
@@ -70,7 +80,7 @@ in
       enableDefaultConfig = false;
 
       matchBlocks = {
-        "gitlab" = {
+        "gitlab.com" = {
           hostname = "gitlab.com";
           user = "git";
           identityFile = "~/.ssh/work_ed25519";
