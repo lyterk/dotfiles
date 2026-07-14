@@ -44,6 +44,23 @@ let
     }
   ) users;
 
+  refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
+      SUDO_PASSWORD=$(rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
+      REBUILD_COMMAND="echo \"$SUDO_PASSWORD\" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda"
+      if eval "$REBUILD_COMMAND"; then
+      ${pkgs.libnotify}/bin/notify-send \
+        --urgency=normal \
+        --icon=emblem-default \
+        "NixOS Rebuild" \
+        "Configuration switched successfully ✓"
+    else
+      ${pkgs.libnotify}/bin/notify-send \
+        --urgency=critical \
+        --icon=dialog-error \
+        "NixOS Rebuild" \
+        "Rebuild failed ✗"
+    fi
+  '';
 in
 {
   imports = [
@@ -226,7 +243,7 @@ in
     # };
     logind.settings.Login = {
       HandleLidSwitchDocked = "ignore";
-      HandleLidSwitchExternalPower = "ignore";
+      # HandleLidSwitchExternalPower = "ignore";
     };
 
     keyd = {
@@ -410,7 +427,7 @@ in
     systemPackages = with pkgs; [
       # nix specific
       home-manager
-      nixfmt-rfc-style
+      nixfmt
       nix-ld
       # build
       gcc
@@ -456,6 +473,7 @@ in
       claude-code
       # tidal
       # tidal-dl
+      refreshConfigScript
     ];
   };
 

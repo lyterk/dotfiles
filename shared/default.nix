@@ -165,7 +165,7 @@
       which
       whois
 
-      nixfmt-rfc-style
+      nixfmt
       nix-ld
       # build
       gcc

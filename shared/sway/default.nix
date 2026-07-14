@@ -3,6 +3,104 @@
   pkgs,
   ...
 }:
+let
+  mkWKConfig =
+    menu:
+    (pkgs.formats.yaml { }).generate "wk-config.yaml" ({
+      font = "JetBrainsMono Nerd Font 12";
+      background = "#1e1e2e";
+      color = "#cdd6f4";
+      border = "#f38ba8";
+      separator = " ➜ ";
+      border_width = 2;
+      corner_r = 15;
+      padding = 15;
+      rows_per_column = 5;
+      column_padding = 25;
+      anchor = "bottom-right";
+      margin_right = 0;
+      margin_bottom = 5;
+      inherit menu;
+    });
+
+  wkKevin = mkWKConfig {
+    c = {
+      desc = "Calibre";
+    };
+    g = {
+      desc = "Chromium";
+    };
+    e = {
+      desc = "Emacs client";
+    };
+    s = {
+      desc = "Signal";
+    };
+    w = {
+      desc = "WiFi menu";
+    };
+    r = {
+      desc = "Refresh Nix";
+    };
+    j = {
+      desc = "Emoji picker";
+    };
+    l = {
+      desc = "Lock screen";
+    };
+    v = {
+      desc = "VLC";
+    };
+    o = {
+      desc = "Exit sway";
+    };
+    Escape = {
+      desc = "Cancel";
+    };
+  };
+
+  wkMonitor = mkWKConfig {
+    l = {
+      desc = "Move to eDP-1 (laptop)";
+    };
+    m = {
+      desc = "Move to HDMI-A-1 (monitor)";
+    };
+    Escape = {
+      desc = "Cancel";
+    };
+  };
+
+  wkResize = mkWKConfig {
+    h = {
+      desc = "Shrink width";
+    };
+    j = {
+      desc = "Grow height";
+    };
+    k = {
+      desc = "Shrink height";
+    };
+    l = {
+      desc = "Grow width";
+    };
+    Left = {
+      desc = "Shrink width";
+    };
+    Down = {
+      desc = "Grow height";
+    };
+    Up = {
+      desc = "Shrink height";
+    };
+    Right = {
+      desc = "Grow width";
+    };
+    Escape = {
+      desc = "Cancel";
+    };
+  };
+in
 {
   wayland.windowManager.sway =
     let
@@ -79,9 +177,12 @@
           "XF86AudioLowerVolume" =
             "exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pamixer --get-volume > $WOBSOCK";
           # Personal mode
-          "${modifier}+Shift+m" = "mode monitor";
-          "${modifier}+m" = "mode kevin";
-          "${modifier}+r" = "mode resize";
+          # "${modifier}+Shift+m" = "mode monitor";
+          # "${modifier}+m" = "mode kevin";
+          # "${modifier}+r" = "mode resize";
+          "${modifier}+Shift+m" = "mode monitor; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkMonitor}";
+          "${modifier}+m" = "mode kevin; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkKevin}";
+          "${modifier}+r" = "mode resize; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkResize}";
         };
 
         modes = {
@@ -95,6 +196,7 @@
             "e" = "exec ${pkgs.emacs30}/bin/emacsclient -c; mode default";
             "s" = "exec ${pkgs.signal-desktop}/bin/signal-desktop; mode default";
             "w" = "exec ~/dotfiles/scripts/rofi-wifi-menu.sh; mode default";
+            "r" = "exec /run/current-system/sw/bin/refreshNix.sh; mode default";
             "j" = "exec ${pkgs.rofi}/bin/rofi -modi 'emoji:rofimoji' -show emoji; mode default";
             "l" = "exec ${pkgs.gtklock}/bin/gtklock -d; mode default";
             "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";

@@ -20,7 +20,7 @@ in
 
   home.username = "work";
   home.homeDirectory = "/home/work";
-
+  home.packages = [ pkgs.ts-ls ];
   home.file = {
     ".config/gtklock/config.ini".text = ''
       [main]

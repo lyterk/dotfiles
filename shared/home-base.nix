@@ -32,6 +32,7 @@ let
     wev
     wob
     qrencode
+    libgourou # Adobe DRM removal
   ];
   environments = with pkgs; [
     docker
@@ -61,6 +62,8 @@ let
     poppler-utils # pdf-rendering
     # tesseract # OCR
     mako # notifications
+    libnotify
+    wlr-which-key
   ];
   dataStores = with pkgs; [ sqlite ];
   collaboration = with pkgs; [
@@ -175,9 +178,8 @@ in
         ));
     };
     # Redshift screen temperature
-    gammastep = {
+    wlsunset = {
       enable = true;
-      provider = "manual";
       latitude = 47.6;
       longitude = -122.3;
     };
@@ -258,12 +260,9 @@ in
           command = ''swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'';
         }
       ];
-      events = [
-        {
-          event = "before-sleep";
-          command = "${pkgs.gtklock}/bin/gtklock -d";
-        }
-      ];
+      events = {
+        before-sleep = "${pkgs.gtklock}/bin/gtklock -d";
+      };
     };
   };
   xdg = {
