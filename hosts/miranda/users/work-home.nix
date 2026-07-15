@@ -20,7 +20,10 @@ in
 
   home.username = "work";
   home.homeDirectory = "/home/work";
-  home.packages = [ pkgs.ts-ls ];
+  home.packages = with pkgs; [
+    typescript-language-server
+    aws-cdk-cli
+  ];
   home.file = {
     ".config/gtklock/config.ini".text = ''
       [main]

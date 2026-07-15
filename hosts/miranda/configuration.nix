@@ -116,6 +116,12 @@ in
     iproute2.enable = true; # ostensibly useful for mullvad
   };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    config.common.default = "wlr";
+  };
+
   environment.etc."libinput/local-overrides.quirks".text = ''
     [Serial Keyboards]
     MatchUdevType=keyboard

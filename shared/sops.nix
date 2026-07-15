@@ -3,7 +3,8 @@
 }:
 {
   sops = {
-    age.keyFile = "/home/lyterk/.config/sops/age/keys.txt";
+    age.keyFile = "/var/lib/sops-nix/key.txt";
+    # age.keyFile = "/home/lyterk/.config/sops/age/keys.txt";
     defaultSopsFile = ../secrets/default-secret.yaml;
     secrets = {
       gpgCode = {
