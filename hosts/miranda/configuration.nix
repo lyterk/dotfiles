@@ -16,7 +16,7 @@ let
       name = "lyterk";
       homedir = "/home/lyterk";
       targetUrl = "";
-      secretFile = "/run/secrets/duplicityAws";
+      secretFile = "/run/secrets/resticSecrets";
       gpgKeys = [
         "gpgCode"
         "gpgKev"
@@ -26,7 +26,7 @@ let
       name = "work";
       homedir = "/home/work";
       targetUrl = "";
-      secretFile = "/run/secrets/duplicityAws";
+      secretFile = "/run/secrets/resticSecrets";
       gpgKeys = [
         "gpgCode"
         "gpgKev"
@@ -34,12 +34,12 @@ let
     }
   ];
 
-  duplicityUnits = map (
+  resticUnits = map (
     u:
-    config.duplicity.mkDuplicityUser {
+    config.restic.mkResticUser {
       user = u.name;
       homedir = u.homedir;
-      targetUrl = "s3://lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
+      targetUrl = "s3:s3.us-west-2.amazonaws.com/lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
       secretFile = u.secretFile;
     }
   ) users;
@@ -72,7 +72,7 @@ in
     # Include the results of the hardware scan.
     ./hardware.nix
     ../../shared/sops.nix
-    ../../shared/duplicity.nix
+    ../../shared/restic.nix
     # ../../shared/flutter.nix
     # ./home.nix
     # <home-manager/nixos>
@@ -313,7 +313,7 @@ in
   };
 
   systemd = {
-    services = lib.mkMerge ((map (x: x.services) duplicityUnits));
+    services = lib.mkMerge ((map (x: x.services) resticUnits));
 
     user.services = {
       kanshi = {
@@ -484,6 +484,7 @@ in
       claude-code
       # tidal
       # tidal-dl
+      restic
       refreshConfigScript
       foot
       yazi # file browser

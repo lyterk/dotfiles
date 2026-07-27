@@ -1,0 +1,40 @@
+:PROPERTIES:
+:ID:       7ee25085-765c-44fc-9841-51ae6567ee41
+:END:
+#+title: yy command
+
+* Request
+:PROPERTIES:
+:ID:       c950fb18-0d24-46de-bf06-a049d2928ff7
+:END:
+#+BEGIN_QUOTE
+Convert this bash command to fish shell:
+#+END_QUOTE
+
+#+begin_src bash
+function yy() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+    yazi "$@" --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+#+end_src
+** Response :ai:
+:PROPERTIES:
+:ID:       c7faf505-1fa5-4589-9a16-e28c4744ddd7
+:END:
+
+
+#+begin_src fish
+function yy
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    set cwd (cat -- $tmp)
+    if test -n "$cwd" && test "$cwd" != "$PWD"
+        cd -- $cwd
+    end
+    rm -f -- $tmp
+end
+#+end_src

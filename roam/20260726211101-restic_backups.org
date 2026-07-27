@@ -1,0 +1,295 @@
+:PROPERTIES:
+:ID:       f5d893e0-c80d-41ce-b934-bcccca462112
+:END:
+#+title: Restic backups
+
+* Moving to restic
+:PROPERTIES:
+:ID:       ceaba161-8ef4-426d-bd03-b45ddb385ed0
+:END:
+#+BEGIN_QUOTE
+I think duplicity just isn't good enough. It's fragile and I don't like it. I'm thinking of changing to restic, is that reasonable? If so, provide a diff converting these two files to use restic writing to my S3 bucket.
+#+END_QUOTE
+** Response
+:PROPERTIES:
+:ID:       f75c7a00-9dbc-4bda-996e-38eeff35f5fa
+:END:
+
+
+Restic is an excellent choice - it's more actively maintained, has better error handling, deduplication at the block level, and generally more reliable than duplicity. The migration makes sense.
+
+Here's the diff:
+
+*=/etc/nixos/shared/duplicity.nix= → =/etc/nixos/shared/restic.nix=*
+
+#+begin_src diff
+--- a/shared/duplicity.nix
++++ b/shared/restic.nix
+@@ -1,170 +1,114 @@
+ {
+   lib,
+   pkgs,
+   ...
+ }:
+ let
+   defaults = {
+-    volsize = "100";
+-    fullIfOlderThan = "1M";
+-    maxFull = "2";
+     excludeDirs = [
+       ".PlayOnLinux"
+       ".android"
+       ".cache"
+       ".clojure"
+       ".config"
+       ".dartServer"
+       ".dart-tool"
+       ".factorio"
+       ".git-credential-cache"
+       ".gitlibs"
+       ".gnome2"
+       ".gnupg"
+       ".google-chrome-captive"
+       ".hex"
+       ".ipython"
+       ".java"
+       ".keychain"
+       ".local"
+       ".m2"
+       ".mc"
+       ".minio"
+       ".mix"
+       ".mozilla"
+       ".nix-defexpr"
+       ".nix-profile"
+       ".npm"
+       ".ollama"
+       ".password-store"
+       ".pki"
+       ".sbt"
+       ".ssh"
+       ".steam"
+       ".tenv"
+       ".terraform.d"
+       ".thunderbird"
+       ".tor"
+       ".yarn"
+       "Downloads"
+     ];
+   };
+ 
+-  mkExcludeFlags =
+-    homedir:
+-    lib.concatMap (d: [
+-      "--exclude"
+-      "${homedir}/${d}"
+-    ]) defaults.excludeDirs;
+-
+-  mkBackupArgs =
+-    { homedir, targetUrl }:
+-    [
+-      "--volsize"
+-      defaults.volsize
+-      "--full-if-older-than"
+-      defaults.fullIfOlderThan
+-    ]
+-    ++ mkExcludeFlags homedir
+-    ++ [
+-      homedir
+-      targetUrl
+-    ];
+-
+-  mkDuplicityService =
++  mkExcludeArgs =
++    homedir:
++    lib.concatMap (d: [
++      "--exclude"
++      "${homedir}/${d}"
++    ]) defaults.excludeDirs;
++
++  mkResticService =
+     {
+       user,
+       homedir,
+       targetUrl,
+       secretFile,
+       ...
+     }:
+     {
+-      description = "Duplicity backup for ${user}";
++      description = "Restic backup for ${user}";
+       after = [ "network-online.target" ];
+       wants = [ "network-online.target" ];
+       unitConfig.ConditionACPower = true;
+       serviceConfig = {
+         Type = "oneshot";
+         User = user;
+         Group = "users";
+-        RuntimeDirectory = "duplicity-${user}";
++        RuntimeDirectory = "restic-${user}";
+         ExecStart = lib.escapeShellArgs (
+           [
+             "${pkgs.util-linux}/bin/flock"
+             "--nonblock"
+-            "/run/duplicity-${user}/lock"
+-            "${pkgs.duplicity}/bin/duplicity"
++            "/run/restic-${user}/lock"
++            "${pkgs.restic}/bin/restic"
++            "backup"
+           ]
+-          ++ mkBackupArgs { inherit homedir targetUrl; }
++          ++ mkExcludeArgs homedir
++          ++ [ homedir ]
+         );
+         EnvironmentFile = secretFile;
++        Environment = [
++          "RESTIC_REPOSITORY=${targetUrl}"
++        ];
+       };
+     };
+ 
+-  mkDuplicityTimer =
++  mkResticTimer =
+     { user, ... }:
+     {
+-      description = "Duplicity backup timer for ${user}";
++      description = "Restic backup timer for ${user}";
+       wantedBy = [ "timers.target" ];
+       timerConfig = {
+         Persistent = true;
+         RandomizedDelaySec = "3h";
+         OnCalendar = "*-*-* 05:00:00";
+       };
+     };
+ 
+-  mkDuplicityCleanupService =
++  mkResticForgetService =
+     {
+       user,
+       targetUrl,
+       secretFile,
+       ...
+     }:
+     {
+-      description = "Duplicity cleanup for ${user}";
++      description = "Restic forget/prune for ${user}";
+       after = [
+-        "duplicity-${user}.service"
++        "restic-${user}.service"
+         "network-online.target"
+       ];
+-      requires = [ "duplicity-${user}.service" ];
++      requires = [ "restic-${user}.service" ];
+       wants = [ "network-online.target" ];
+-      wantedBy = [ "duplicity-${user}.service" ];
++      wantedBy = [ "restic-${user}.service" ];
+       serviceConfig = {
+         Type = "oneshot";
+         User = user;
+         Group = "users";
+-        RuntimeDirectory = "duplicity-${user}";
++        RuntimeDirectory = "restic-${user}";
+         ExecStart = lib.escapeShellArgs [
+           "${pkgs.util-linux}/bin/flock"
+-          "/run/duplicity-${user}/lock"
+-          "${pkgs.duplicity}/bin/duplicity"
+-          "remove-all-but-n-full"
+-          defaults.maxFull
++          "/run/restic-${user}/lock"
++          "${pkgs.restic}/bin/restic"
++          "forget"
+           "--force"
+-          targetUrl
++          "--keep-monthly"
++          "3"
++          "--prune"
+         ];
+         EnvironmentFile = secretFile;
++        Environment = [
++          "RESTIC_REPOSITORY=${targetUrl}"
++        ];
+       };
+     };
+ 
+-  mkDuplicityUser =
++  mkResticUser =
+     args@{
+       user,
+       homedir,
+       targetUrl,
+       secretFile,
+     }:
+     {
+       services = {
+-        "duplicity-${user}" = mkDuplicityService args;
+-        "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
++        "restic-${user}" = mkResticService args;
++        "restic-forget-${user}" = mkResticForgetService args;
+       };
+       timers = {
+-        "duplicity-${user}" = mkDuplicityTimer args;
++        "restic-${user}" = mkResticTimer args;
+       };
+     };
+ in
+ {
+-  options.duplicity.mkDuplicityUser = lib.mkOption {
++  options.restic.mkResticUser = lib.mkOption {
+     type = lib.types.raw;
+-    default = mkDuplicityUser;
++    default = mkResticUser;
+     readOnly = true;
+     description = ''
+-      Function that returns { services, timers } attrsets for a given user.
++      Function that returns { services, timers } attrsets for a given user.
+       Merge the results into systemd.services and systemd.timers respectively.
+     '';
+   };
+ }
+#+end_src
+
+*=/etc/nixos/hosts/miranda/configuration.nix=* (relevant sections only):
+
+#+begin_src diff
+--- a/hosts/miranda/configuration.nix
++++ b/hosts/miranda/configuration.nix
+@@ -1,6 +1,6 @@
+-    ../../shared/duplicity.nix
++    ../../shared/restic.nix
+
+@@ -40,7 +40,7 @@
+   duplicityUnits = map (
++  resticUnits = map (
+     u:
+-    config.duplicity.mkDuplicityUser {
++    config.restic.mkResticUser {
+       user = u.name;
+       homedir = u.homedir;
+-      targetUrl = "s3://lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
++      targetUrl = "s3:s3.amazonaws.com/lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
+       secretFile = u.secretFile;
+     }
+   ) users;
+
+@@ -280,7 +280,7 @@
+   systemd = {
+-    services = lib.mkMerge ((map (x: x.services) duplicityUnits));
++    services = lib.mkMerge ((map (x: x.services) resticUnits));
+#+end_src
+
+*Important notes:*
+
+1. *Secret file format changes.* Your =secretFile= needs different env vars for restic. Replace duplicity's AWS vars with:
+   #+begin_src 
+   AWS_ACCESS_KEY_ID=...
+   AWS_SECRET_ACCESS_KEY=...
+   RESTIC_PASSWORD=...
+   #+end_src
+   =RESTIC_PASSWORD= (or =RESTIC_PASSWORD_FILE=) is required by restic to encrypt the repo.
+
+2. *Initialize the repo first* before the service runs:
+   #+begin_src bash
+   RESTIC_REPOSITORY=s3:... AWS_ACCESS_KEY_ID=... AWS_SECRET_ACCESS_KEY=... RESTIC_PASSWORD=... restic init
+   #+end_src
+
+3. The S3 URL format for restic is =s3:s3.amazonaws.com/bucket-name/path= rather than duplicity's =s3://bucket/path=.

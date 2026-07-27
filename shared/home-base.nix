@@ -2,7 +2,6 @@
 
 let
   shellTools = with pkgs; [
-    alacritty
     atuin
     direnv
     # graalvm-ce
@@ -144,6 +143,19 @@ in
       interactiveShellInit = ''
         atuin init fish | source
       '';
+      functions = {
+        yy = {
+          body = ''
+            set tmp (mktemp -t "yazi-cwd.XXXXXX")
+            yazi $argv --cwd-file="$tmp"
+            set cwd (cat -- $tmp)
+            if test -n "$cwd" && test "$cwd" != "$PWD"
+                cd -- $cwd
+            end
+            rm -f -- $tmp
+          '';
+        };
+      };
     };
 
     foot = {

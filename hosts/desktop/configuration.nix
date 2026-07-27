@@ -119,7 +119,6 @@
     wget
     neovim
     emacs
-    alacritty
     atuin
     pwgen
     keychain

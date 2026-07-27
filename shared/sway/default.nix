@@ -115,7 +115,7 @@ in
       checkConfig = false;
       extraConfig = "exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob";
       config = rec {
-        terminal = "alacritty";
+        terminal = "foot";
         modifier = "Mod4";
         # Provided by swaybar
         bars = [ ];
@@ -133,7 +133,7 @@ in
         };
         assigns = {
           "${ws1}" = [ { app_id = "firefox"; } ];
-          # "${ws2}" = [ { app_id = "Alacritty"; } ];
+          # "${ws2}" = [ { app_id = "foot"; } ];
           "${ws3}" = [ { class = "Emacs"; } ];
           "${ws4}" = [ { class = "Signal"; } ];
         };
@@ -202,7 +202,7 @@ in
             "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";
             "o" =
               "exec ${pkgs.rofi}/bin/rofi -dmenu -p 'Exit sway? (yes/no)' | grep -q yes && swaymsg exit; mode default";
-            "y" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi; mode default";
+            "y" = "exec ${pkgs.foot}/bin/foot -e ${pkgs.yazi}/bin/yazi; mode default";
             "Escape" = "mode default";
             "Return" = "mode default";
           };

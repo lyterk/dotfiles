@@ -1,7 +1,10 @@
 { config, pkgs, ... }:
 
 {
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # System-wide settings
   environment.systemPackages = with pkgs; [
     cargo
@@ -24,37 +27,35 @@
 
   homebrew = {
     enable = true;
-  
+
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
       upgrade = true;
     };
-  
+
     brews = [
       "coreutils"
       "trash"
       "pinentry-mac"
     ];
-  
+
     # Update these applicatons manually.
     # As brew would update them by unninstalling and installing the newest
     # version, it could lead to data loss.
     casks = [
       "emacs-mac" # Emacs fork with better macOS support
       "firefox"
-      "alacritty"
     ];
-  
+
     taps = [
       "railwaycat/emacsmacport" # emacs-mac
     ];
-  
+
     masApps = {
       Tailscale = 1475387142; # App Store URL id
     };
   };
-
 
   # Set your preferred shell
   programs.fish.enable = true;

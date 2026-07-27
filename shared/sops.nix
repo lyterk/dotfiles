@@ -40,9 +40,8 @@
         path = "/home/work/.ssh/work_ed25519";
         sopsFile = ../secrets/sshKeys.yaml;
       };
-      duplicityAws = {
-        sopsFile = ../secrets/duplicityAws.json;
-        format = "json";
+      resticSecrets = {
+        sopsFile = ../secrets/resticSecrets.yaml;
         mode = "0444";
       };
     };

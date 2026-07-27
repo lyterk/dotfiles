@@ -9,6 +9,7 @@
 ** [[id:62fbd32d-ebe0-4fb1-ad1c-627be318f457][Adding a user]]
 ** [[id:0e612db9-7976-4ba9-98c8-6bb43a83071d][Secrets to multiple users]]
 ** [[id:67934721-c53c-4421-8e43-81f4e36ded50][Per-user backups]]
+*** Restic backups
 ** Home-Manager changes
 :PROPERTIES:
 :ID:       bb5ea45d-fc54-4c27-a345-b679c26f9627

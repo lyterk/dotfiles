@@ -235,13 +235,14 @@ xdg = {
 
 Note that =xdg.portal= in home-manager configures the /user-level/ portal, while your system-level portal is in =configuration.nix=. The termfilechooser config file is the key piece — the portal will call that script when a file dialog opens.
 * Using Yazi
+** Handing back to the browser
 :PROPERTIES:
 :ID:       10497bac-14a3-459a-bc78-f4bc3de95271
 :END:
 #+BEGIN_QUOTE
 I have yazi set as my file chooser. I can start selecting files, and yazi opens correctly, but then when it's open I can't select the file to give it back to the browser. It just tries to open the file in gimp or an editor. How do I do this?
 #+END_QUOTE
-** Response :ai:
+*** Response :ai:
 :PROPERTIES:
 :ID:       07655c4b-def4-4ccf-89c0-65d53e6e87ba
 :END:
@@ -274,14 +275,14 @@ yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
 #+end_src
 
 The =--chooser-file= flag puts yazi in chooser mode where pressing =Enter= writes the path to the specified file rather than opening it.
-*** Followup
+**** Followup
 :PROPERTIES:
 :ID:       2a3c7311-a1ca-4839-bf01-589f14203160
 :END:
 #+BEGIN_QUOTE
 I think this escaping is wrong. What does the ${@:2} command do? When I run this, nothing happens, so I think the filepicker is not correctly handling the output
 #+END_QUOTE
-**** Response :ai:
+***** Response :ai:
 :PROPERTIES:
 :ID:       c7ecae25-9707-4e2d-b564-7b6381965fa2
 :END:
@@ -319,7 +320,7 @@ More likely culprits:
 1. Alacritty is launching but closing before yazi writes output
 2. The portal config path isn't being read
 3. The portal isn't selecting termfilechooser - check =$XDG_CURRENT_DESKTOP= and portal logs via =journalctl --user -u xdg-desktop-portal
-*** With Error
+**** With Error
 #+BEGIN_QUOTE
 The error that I'm seeing is: 
 
@@ -384,7 +385,7 @@ Also confirm alacritty is actually launching - try replacing with a simpler term
 ''
 #+end_src
 
-** Query
+*** Query
 :PROPERTIES:
 :ID:       6b7dfc1b-8e4d-4aef-97dc-5d17a238d84d
 :END:
@@ -395,7 +396,7 @@ Called with: 0 0 0 /home/lyterk/Desktop /tmp/termfilechooser-1000.portal 2
 
 What else could be going wrong?
 #+END_QUOTE
-*** Response :ai:
+**** Response :ai:
 :PROPERTIES:
 :ID:       d3347576-a930-4c36-bc0f-489eb5327ef0
 :END:
@@ -439,14 +440,14 @@ Check =/tmp/yazi-picker.log= to confirm the script is being called and what argu
 The most common issues at this point are:
 - Yazi requires you to explicitly *enter* a file (press =Enter=/=Space= to add to chooser, then =q= to quit) — it doesn't auto-select on quit
 - The portal service isn't running: =systemctl --user status xdg-desktop-portal-termfilechooser
-** Not working
+*** Not working
 :PROPERTIES:
 :ID:       7f27eb1d-753e-4ad0-b4d1-94cfa6e21f65
 :END:
 #+BEGIN_QUOTE
 Yazi is not working as a file chooser. I have attached relevant parts of my nixos config. Yazi does open, and I can select a file. I've attached the yazi-picker.log. The yazi-1000 files contain the photos themselves.
 #+END_QUOTE
-*** Response :ai:
+**** Response :ai:
 :PROPERTIES:
 :ID:       df69611a-477a-4d8e-8905-cd1eb208547f
 :END:
@@ -472,4 +473,5 @@ yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
 #+end_src
 
 The =$1= arg (multiple=1) is why the last two calls look different — it's requesting multi-select mode. You may also want to handle that case with =--chooser-file= still pointing to =$5=.
+** [[id:7ee25085-765c-44fc-9841-51ae6567ee41][yy command]]
   
