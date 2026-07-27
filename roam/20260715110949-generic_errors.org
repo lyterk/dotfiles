@@ -1,0 +1,43 @@
+:PROPERTIES:
+:ID:       5155948c-9bb8-479b-84fb-fb8141d4e0e7
+:END:
+#+title: Generic errors
+
+* Install Bootloader failing
+#+BEGIN_QUOTE
+I'm seeing this error:
+
+Command 'systemd-run -E LOCALE_ARCHIVE -E NIXOS_INSTALL_BOOTLOADER -E NIXOS_NO_CHECK --collect --no-ask-password --pipe --quiet --service-type=exec --unit=nixos-rebuild-switch-to-configuration /nix/store/mhdrybddfqv1zd1qxfzq03xvcp6gjk2s-nixos-system-miranda-26.05.20260707.0ad6f47/bin/switch-to-configuration switch' returned non-zero exit status 2.
+
+I just switched to use a different sops key locaion, that may be related
+#+END_QUOTE
+
+
+The error itself is vague. To get more details, run:
+
+#+begin_src bash
+sudo nixos-rebuild switch --show-trace 2>&1 | tail -50
+#+end_src
+
+Or check the journal for the failed unit:
+
+#+begin_src bash
+journalctl -u sops-nix.service -n 50
+#+end_src
+
+Since you changed the key location, the likely issue is that the new key file doesn't exist yet at the path specified in =age.keyFile=. Check:
+
+#+begin_src bash
+ls -la /var/lib/sops-nix/key.txt
+#+end_src
+
+If it's missing, you need to copy your age key there:
+
+#+begin_src bash
+sudo mkdir -p /var/lib/sops-nix
+sudo cp /home/lyterk/.config/sops/age/keys.txt /var/lib/sops-nix/key.txt
+sudo chmod 600 /var/lib/sops-nix/key.txt
+#+end_src
+
+Then retry the rebuild.
+* [[id:0d123894-5bef-4d44-b25c-15f1892658df][Kvantum File Placing]]

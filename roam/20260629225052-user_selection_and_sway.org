@@ -1,0 +1,92 @@
+:PROPERTIES:
+:ID:       537e7ffb-7c44-4ab5-97eb-1a195af25b17
+:END:
+#+title: User Selection and Sway
+
+* Logout and log in
+#+BEGIN_QUOTE
+I use this file to configure sway, and also gtklock to log in. What's a good change to allow myself to log out of one user and into another?
+#+END_QUOTE
+
+
+Add a keybinding or mode entry to run =swaymsg exit=, which terminates the Sway session and returns you to your display manager (e.g., greetd, gdm, lightdm).
+
+Add to your =kevin= mode:
+
+#+begin_src nix
+"o" = "exec swaymsg exit; mode default";
+#+end_src
+
+This assumes you have a display manager running that presents a login screen when Sway exits. If you're using a TTY-based setup (e.g., greetd with =agreety= or =tuigreet=), it will drop back to that login prompt where another user can log in.
+
+If you want a confirmation prompt before exiting, you could use:
+
+#+begin_src nix
+"o" = "exec ${pkgs.rofi}/bin/rofi -dmenu -p 'Exit sway? (yes/no)' | grep -q yes && swaymsg exit; mode default";
+#+end_src
+
+* No greeter
+#+BEGIN_QUOTE
+I don't actually have a display manager (greetd/gdm/lightdm, see my home-base.nix file). Recommend one, and help me implement that
+#+END_QUOTE
+
+
+
+Looking at your setup (Wayland/Sway, NixOS, home-manager), I'd recommend *greetd* with *tuigreet* — it's minimal, TTY-based, and pairs well with Sway.
+
+** NixOS system configuration
+
+Add to your =/etc/nixos/configuration.nix= (or a shared module):
+
+#+begin_src nix
+services.greetd = {
+  enable = true;
+  settings = {
+    default_session = {
+      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+      user = "greeter";
+    };
+  };
+};
+#+end_src
+
+This starts tuigreet on the default TTY, remembers the last user, and launches Sway on login.
+
+** Fix the exit keybinding
+
+Your existing ="o"= entry already works:
+
+#+begin_src nix
+"o" = "exec ${pkgs.rofi}/bin/rofi -dmenu -p 'Exit sway? (yes/no)' | grep -q yes && swaymsg exit; mode default";
+#+end_src
+
+When =swaymsg exit= runs, Sway terminates and greetd restarts tuigreet automatically.
+
+** Optional: suppress the PAM/systemd noise
+
+#+begin_src nix
+# Prevent greetd from being swallowed by getty
+systemd.services.greetd.serviceConfig.TTYPath = "/dev/tty1";
+#+end_src
+
+** Caveats
+
+- tuigreet is single-user-session focused; switching users means logging out and back in (which is what you want).
+- If you want a graphical greeter, *gtkgreet* (also part of greetd) works similarly but requires a compositor — more complex.
+- Make sure =services.getty.autologinUser= is *not* set, or it will bypass greetd.
+
+* Why is a compositor more complex?
+#+BEGIN_QUOTE
+Why is a compositor more complex?
+#+END_QUOTE
+
+
+Because gtkgreet is a Wayland application — it needs a compositor running /before/ the user logs in to render itself. So you'd need something like =cage= (a single-application Wayland compositor) to host it:
+
+#+begin_src nix
+command = "${pkgs.greetd.gtkgreet}/bin/gtkgreet -l -s /path/to/style.css";
+# wrapped with:
+command = "${pkgs.cage}/bin/cage -s -- gtkgreet";
+#+end_src
+
+That's an extra process, extra configuration, and another potential failure point — versus tuigreet which runs directly on a TTY with no compositor dependency.

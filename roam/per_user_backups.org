@@ -1,0 +1,1303 @@
+:PROPERTIES:
+:ID:       67934721-c53c-4421-8e43-81f4e36ded50
+:END:
+#+title: Per-user backups
+
+* First Pass
+#+BEGIN_QUOTE
+I am starting backups using duplicity. I need to back up mulitple users. So far I have changes in my duplicity.nix file. I don't want backups to interfere with each other at the same time.
+
+Can you help me fix this up accordingly? Prefer using diffs, or explanations of what to change.
+#+END_QUOTE
+
+Looking at your setup, you have a few things to address:
+
+1. *Prevent concurrent backups* - use systemd's =Conflicts== or serialize via =After==/timer offsets
+2. *Actually wire up the services* - your =mkDuplicityUser= function exists but isn't invoked anywhere in =configuration.nix=
+3. *Fix the =startAt=* - all daily timers fire at midnight, causing overlap
+
+** Suggested changes
+
+*** 1. Serialize backups via =After== dependency
+
+The cleanest way to prevent interference is to chain user backups so they run sequentially. Alternative: use =Conflicts== so systemd refuses to run them concurrently.
+
+Update =mkDuplicityService= in =duplicity.nix=:
+
+#+begin_src diff
+   mkDuplicityService =
+     {
+       user,
+       homedir,
+       targetUrl,
+       secretFile ? null,
++      after ? [ ],
+     }:
+     {
+       description = "Duplicity backup for ${user}";
+       startAt = "daily";
++      after = after;
+       serviceConfig = {
+         User = "root";
++        # Prevent any two duplicity backups from running at once
++        # (belt-and-suspenders with `after`)
+         ExecStart = lib.concatStringsSep " " (
+#+end_src
+
+And in the service unit add:
+
+#+begin_src nix
+      unitConfig = {
+        # Refuse to start if another duplicity backup is running
+        ConditionPathExists = "!/run/duplicity.lock";
+      };
+#+end_src
+
+Actually, a simpler and more robust approach: use a *shared systemd slice* or *flock*. My recommendation is =flock=:
+
+#+begin_src diff
+         ExecStart = lib.concatStringsSep " " (
+-          [ "${pkgs.duplicity}/bin/duplicity" ]
++          [ "${pkgs.util-linux}/bin/flock" "/var/lock/duplicity.lock" "${pkgs.duplicity}/bin/duplicity" ]
+#+end_src
+
+Apply the same to =mkDuplicityCleanupService=. This guarantees only one duplicity process runs at a time, regardless of scheduling.
+
+*** 2. Stagger the timers
+
+Replace =startAt = "daily"= with per-user times so they don't all wake at once:
+
+#+begin_src diff
+   mkDuplicityService =
+     {
+       user,
+       homedir,
+       targetUrl,
+       secretFile ? null,
++      startAt ? "daily",
+     }:
+     {
+       description = "Duplicity backup for ${user}";
+-      startAt = "daily";
++      startAt = startAt;
+#+end_src
+
+Then when instantiating: =startAt = "*-*-* 02:00:00"= for one user, ="*-*-* 03:00:00"= for another.
+
+*** 3. Actually invoke the function
+
+In =hosts/miranda/configuration.nix=, you never call =mkDuplicityUser=. Add something like:
+
+#+begin_src nix
+  systemd.services = lib.mkMerge [
+    # ... your existing services ...
+    (config.lyterBackups.mkDuplicityUser {
+      user = "lyterk";
+      homedir = "/home/lyterk";
+      targetUrl = "file:///backups/lyterk";  # or b2://, s3://, etc.
+      secretFile = config.sops.secrets.duplicityEnv.path;  # if using sops
+      startAt = "*-*-* 02:00:00";
+    })
+    (config.lyterBackups.mkDuplicityUser {
+      user = "work";
+      homedir = "/home/work";
+      targetUrl = "file:///backups/work";
+      secretFile = config.sops.secrets.duplicityEnv.path;
+      startAt = "*-*-* 03:00:00";
+    })
+  ];
+#+end_src
+
+You'll need to convert the existing =systemd.services = { ... }= block in =configuration.nix= to use =lib.mkMerge= (wrap the existing attrset as one element of the list).
+
+*** 4. Minor: dead code
+
+Your =mkDuplicityConfig= function isn't used anywhere and duplicates the logic from =mkDuplicityService=. Consider removing it, or refactoring so both consume a shared config.
+
+** Summary
+
+- *Add =flock=* around duplicity invocations → guarantees mutual exclusion
+- *Stagger =startAt=* → reduces contention and log noise
+- *Call =mkDuplicityUser=* in =configuration.nix= via =lib.mkMerge=
+- Optionally drop the unused =mkDuplicityConfig=
+
+Want me to write out the full revised =duplicity.nix=?
+* Encryption
+#+BEGIN_QUOTE
+Right now, these backups aren't encrypted. I already have a gpg key on the host, how can I direct duplicity to use that (or an age key, or ssh, whatever is simplest)
+#+END_QUOTE
+
+
+Duplicity has native GPG support, so using your existing GPG key is the simplest path. You just need to pass =--encrypt-key <KEYID>= (and optionally =--sign-key <KEYID>=) and set =PASSPHRASE= in the environment (needed even for public-key encryption, though it can be empty if your key has no passphrase; for signing you'll need the real one).
+
+Here's how to modify your =duplicity.nix=:
+
+#+begin_src nix
+mkDuplicityService =
+  {
+    user,
+    homedir,
+    targetUrl,
+    secretFile ? null,
+    encryptKey ? null,
+    signKey ? null,
+  }:
+  {
+    description = "Duplicity backup for ${user}";
+    startAt = "daily";
+    serviceConfig = {
+      User = "root";
+      ExecStart = lib.concatStringsSep " " (
+        [ "${pkgs.duplicity}/bin/duplicity" ]
+        ++ lib.optionals (encryptKey != null) [ "--encrypt-key" encryptKey ]
+        ++ lib.optionals (signKey != null) [ "--sign-key" signKey ]
+        ++ [ "--volsize" "100" ]
+        ++ [ "--full-if-older-than" "1M" ]
+        ++ (mkExcludeFlags homedir)
+        ++ [ homedir targetUrl ]
+      );
+      EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+    };
+  };
+#+end_src
+
+Then in your host config, when you call =mkDuplicityUser=, pass =encryptKey = "0F39E83B";= (your existing key ID).
+
+The =secretFile= should contain at minimum:
+
+#+begin_src 
+PASSPHRASE=your-gpg-passphrase
+#+end_src
+
+If you're only encrypting (not signing) and want to avoid the passphrase entirely, add =--no-encryption= is wrong — instead you can use a key with no passphrase, or set =PASSPHRASE== (empty) and duplicity will only need it for restore.
+
+A few gotchas since this runs as root:
+
+1. *GPG home*: root won't see your user's keyring. Either import the public key into root's keyring (=gpg --import= as root), or set =GNUPGHOME=/home/lyterk/.gnupg= in the =EnvironmentFile=. For encryption you only need the public key, so importing to root's keyring is cleaner:
+   #+begin_src 
+   sudo gpg --import /home/lyterk/pubkey.asc
+   sudo gpg --edit-key 0F39E83B trust  # set ultimate trust
+   #+end_src
+
+2. *Cleanup command* also needs the same =--encrypt-key= flag (or it'll complain), so pass it through there too.
+
+3. Consider running the service as your user instead of root if the homedir is readable — simpler GPG story. But then you lose access to files owned by other users.
+
+Alternative: if you want to avoid GPG passphrase juggling, use *symmetric encryption* with just =PASSPHRASE=<long-random-string>= in the secret file and no =--encrypt-key=. Duplicity encrypts with that passphrase via GPG symmetric cipher. Simplest possible setup, and you already have sops for storing the passphrase.
+
+** Symmetric encryption
+#+BEGIN_QUOTE
+I'm going to go the symmetric encryption path. Could you help fix up my duplicity.nix file?
+#+END_QUOTE
+
+
+Here's the updated =duplicity.nix= for symmetric encryption. The key changes: pass =PASSPHRASE= via =EnvironmentFile= (which you already have wired up), and ensure the cleanup service also gets it.
+
+#+begin_src nix
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  mkDuplicityConfig =
+    {
+      homedir,
+      targetUrl,
+      secretFile ? null,
+    }:
+    {
+      enable = true;
+      root = homedir;
+      include = [ homedir ];
+      exclude = [
+        "${homedir}/.cache"
+        # ... rest of your excludes
+      ];
+      targetUrl = targetUrl;
+      frequency = "daily";
+      secretFile = secretFile;
+      extraFlags = [
+        "--volsize"
+        "100"
+      ];
+      fullIfOlderThan = "1M";
+      cleanup = {
+        maxAge = "1M";
+        maxFull = 2;
+        maxIncr = 1;
+      };
+    };
+
+  mkExcludeFlags =
+    homedir:
+    lib.concatMap
+      (dir: [
+        "--exclude"
+        dir
+      ])
+      [
+        "${homedir}/.cache"
+        "${homedir}/.npm"
+        "${homedir}/.mozilla"
+        "${homedir}/.PlayOnLinux"
+        "${homedir}/.clojure"
+        "${homedir}/.config"
+        "${homedir}/.factorio"
+        "${homedir}/.gitlibs"
+        "${homedir}/.git-credential-cache"
+        "${homedir}/.gnupg"
+        "${homedir}/.google-chrome-captive"
+        "${homedir}/.hex"
+        "${homedir}/.ipython"
+        "${homedir}/.java"
+        "${homedir}/.keychain"
+        "${homedir}/.local"
+        "${homedir}/.m2"
+        "${homedir}/.mc"
+        "${homedir}/.minio"
+        "${homedir}/.mix"
+        "${homedir}/.nix-defexpr"
+        "${homedir}/.nix-profile"
+        "${homedir}/.password-store"
+        "${homedir}/.pki"
+        "${homedir}/.sbt"
+        "${homedir}/.ssh"
+        "${homedir}/.steam"
+        "${homedir}/.tenv"
+        "${homedir}/.terraform.d"
+        "${homedir}/.thunderbird"
+        "${homedir}/.tor"
+        "${homedir}/.yarn"
+      ];
+
+  mkDuplicityService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+    }:
+    {
+      description = "Duplicity backup for ${user}";
+      startAt = "daily";
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.concatStringsSep " " (
+          [ "${pkgs.duplicity}/bin/duplicity" ]
+          ++ [
+            "--volsize"
+            "100"
+          ]
+          ++ [
+            "--full-if-older-than"
+            "1M"
+          ]
+          ++ (mkExcludeFlags homedir)
+          ++ [
+            homedir
+            targetUrl
+          ]
+        );
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityCleanupService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+    }:
+    {
+      description = "Duplicity cleanup for ${user}";
+      after = [ "duplicity-${user}.service" ];
+      requires = [ "duplicity-${user}.service" ];
+      wantedBy = [ "duplicity-${user}.service" ];
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.concatStringsSep " " [
+          "${pkgs.duplicity}/bin/duplicity"
+          "remove-all-but-n-full"
+          "2"
+          "--force"
+          targetUrl
+        ];
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityUser =
+    args@{
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+    }:
+    {
+      "duplicity-${user}" = mkDuplicityService args;
+      "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+    };
+
+in
+{
+  options = {
+    lyterBackups = {
+      mkDuplicityConfig = lib.mkOption {
+        type = lib.types.raw;
+        default = mkDuplicityConfig;
+        readOnly = true;
+      };
+
+      mkDuplicityUser = lib.mkOption {
+        type = lib.types.raw;
+        default = mkDuplicityUser;
+        readOnly = true;
+      };
+    };
+  };
+}
+#+end_src
+
+Key changes:
+- Removed =signKey= parameter (no GPG keys needed for symmetric).
+- Made =secretFile= required (no longer optional) since encryption depends on it.
+- Cleanup service now also gets =EnvironmentFile= — duplicity needs =PASSPHRASE= to read metadata during cleanup.
+
+Your =secretFile= (managed by sops) just needs:
+
+#+begin_src 
+PASSPHRASE=<long-random-string-here>
+#+end_src
+
+Generate one with e.g. =openssl rand -base64 48= and store it in sops. Save this passphrase somewhere safe outside the machine too — without it, backups are unrecoverable.
+* Code Cleanup
+#+BEGIN_QUOTE
+I feel like this code has some problems. It creates a configuration through mkDuplicityConfig, then hardcodes that to strings. How could I clean this up?
+#+END_QUOTE
+
+
+You're right — there's significant duplication. The =mkDuplicityConfig= function creates a config that's never actually used, while =mkDuplicityService=/=mkDuplicityCleanupService= hardcode the same values (excludes, volsize, =1M=, =2= full backups).
+
+Here are a few cleanup approaches:
+
+** Option 1: Single source of truth via =let= bindings
+
+Extract the shared values into a config record, then derive both the module config /and/ the service commands from it:
+
+#+begin_src nix
+let
+  defaults = {
+    volsize = "100";
+    fullIfOlderThan = "1M";
+    maxFull = 2;
+    excludeDirs = [
+      ".cache" ".npm" ".mozilla" ".PlayOnLinux" ".clojure"
+      ".config" ".factorio" # ... etc
+    ];
+  };
+
+  mkExcludeFlags = homedir:
+    lib.concatMap (d: [ "--exclude" "${homedir}/${d}" ]) defaults.excludeDirs;
+
+  mkBackupArgs = { homedir, targetUrl }:
+    [ "--volsize" defaults.volsize
+      "--full-if-older-than" defaults.fullIfOlderThan
+    ]
+    ++ mkExcludeFlags homedir
+    ++ [ homedir targetUrl ];
+
+  mkDuplicityService = { user, homedir, targetUrl, secretFile, ... }: {
+    description = "Duplicity backup for ${user}";
+    startAt = "daily";
+    serviceConfig = {
+      User = "root";
+      ExecStart = lib.escapeShellArgs
+        ([ "${pkgs.duplicity}/bin/duplicity" ] ++ mkBackupArgs { inherit homedir targetUrl; });
+      EnvironmentFile = secretFile;
+    };
+  };
+in ...
+#+end_src
+
+** Option 2: Just use =services.duplicity=
+
+If you're targeting NixOS's built-in =services.duplicity=, drop the custom systemd services entirely and only expose =mkDuplicityConfig=. The module already handles scheduling and cleanup:
+
+#+begin_src nix
+mkDuplicityUser = { user, homedir, targetUrl, secretFile }: {
+  services.duplicity = mkDuplicityConfig { inherit homedir targetUrl secretFile; };
+};
+#+end_src
+
+But note =services.duplicity= is a singleton — it doesn't support per-user instances. So this only works if you have one backup config per host.
+
+** Option 3: Drop =mkDuplicityConfig= entirely
+
+Since it's unused, just delete it and keep the raw systemd services. Then fix the duplication with the =defaults= set from Option 1.
+
+** Other issues worth fixing
+
+1. *=lib.concatStringsSep " "= is unsafe* — use =lib.escapeShellArgs= instead, in case any path contains spaces.
+2. *=mkExcludeFlags= has hardcoded excludes* while =mkDuplicityConfig= has its own (truncated) exclude list — these will drift.
+3. *=wantedBy = [ "duplicity-${user}.service" ]=* on the cleanup service is backwards; =wantedBy= means "start me when that starts," but combined with =after=+=requires=, you probably want a separate timer or =OnSuccess== on the main service.
+
+*My recommendation:* Option 1 + fix the shell escaping. Want me to write out the full refactored file?
+
+* Apply fixes
+#+BEGIN_QUOTE
+Fix what problems are remaining. Option 1 + fix shell escaping.
+#+END_QUOTE
+
+#+begin_src nix
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  defaults = {
+    volsize = "100";
+    fullIfOlderThan = "1M";
+    maxFull = "2";
+    excludeDirs = [
+      ".cache"
+      ".npm"
+      ".mozilla"
+      ".PlayOnLinux"
+      ".clojure"
+      ".config"
+      ".factorio"
+      ".gitlibs"
+      ".git-credential-cache"
+      ".gnupg"
+      ".google-chrome-captive"
+      ".hex"
+      ".ipython"
+      ".java"
+      ".keychain"
+      ".local"
+      ".m2"
+      ".mc"
+      ".minio"
+      ".mix"
+      ".nix-defexpr"
+      ".nix-profile"
+      ".password-store"
+      ".pki"
+      ".sbt"
+      ".ssh"
+      ".steam"
+      ".tenv"
+      ".terraform.d"
+      ".thunderbird"
+      ".tor"
+      ".yarn"
+    ];
+  };
+
+  mkExcludeFlags =
+    homedir:
+    lib.concatMap (d: [
+      "--exclude"
+      "${homedir}/${d}"
+    ]) defaults.excludeDirs;
+
+  mkBackupArgs =
+    { homedir, targetUrl }:
+    [
+      "--volsize"
+      defaults.volsize
+      "--full-if-older-than"
+      defaults.fullIfOlderThan
+    ]
+    ++ mkExcludeFlags homedir
+    ++ [
+      homedir
+      targetUrl
+    ];
+
+  mkDuplicityService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+      ...
+    }:
+    {
+      description = "Duplicity backup for ${user}";
+      startAt = "daily";
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.escapeShellArgs (
+          [ "${pkgs.duplicity}/bin/duplicity" ]
+          ++ mkBackupArgs { inherit homedir targetUrl; }
+        );
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityCleanupService =
+    {
+      user,
+      targetUrl,
+      secretFile,
+      ...
+    }:
+    {
+      description = "Duplicity cleanup for ${user}";
+      after = [ "duplicity-${user}.service" ];
+      requires = [ "duplicity-${user}.service" ];
+      wantedBy = [ "duplicity-${user}.service" ];
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.escapeShellArgs [
+          "${pkgs.duplicity}/bin/duplicity"
+          "remove-all-but-n-full"
+          defaults.maxFull
+          "--force"
+          targetUrl
+        ];
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityUser =
+    args@{
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+    }:
+    {
+      "duplicity-${user}" = mkDuplicityService args;
+      "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+    };
+
+in
+{
+  options = {
+    lyterBackups = {
+      mkDuplicityUser = lib.mkOption {
+        type = lib.types.raw;
+        default = mkDuplicityUser;
+        readOnly = true;
+      };
+    };
+  };
+}
+#+end_src
+
+Key changes:
+
+1. /Removed unused =mkDuplicityConfig=/ and its option.
+2. /Single =defaults= set/ is now the source of truth — =volsize=, =fullIfOlderThan=, =maxFull=, and =excludeDirs= are all referenced from it.
+3. /=lib.escapeShellArgs=/ replaces =concatStringsSep " "= for safe shell quoting.
+4. /=mkBackupArgs=/ factored out so both service definitions build their argv the same way.
+5. /=secretFile= is no longer optional/ — =EnvironmentFile = null= would fail anyway, so the type is now honest.
+6. /Cleanup service/ dropped the unused =homedir= parameter.
+
+Note: the =wantedBy= on the cleanup service is still questionable (as mentioned before) — you may want to review whether cleanup should run via its own timer instead of being pulled in by the backup service.
+* Per-user, and causality
+** When to start the timer
+#+BEGIN_QUOTE
+This machine is a laptop, which very likely will be closed (+ suspended) at midnight. How will systemd handle that? How should I?
+#+END_QUOTE
+
+*** How systemd handles missed timers
+
+With =startAt = "daily"=, NixOS creates a =systemd.timer= with =OnCalendar=daily= (midnight). By default:
+
+- *If suspended at trigger time*: the timer does /not/ fire during suspend, and it does /not/ automatically catch up when you resume — unless =Persistent=true= is set.
+- *If the machine is off*: same thing — missed without =Persistent=true=.
+
+*** What you should do
+
+Set =Persistent = true= on the timer. Then systemd stores the last run time on disk and, on resume/boot, if the scheduled time was missed, it runs the unit immediately.
+
+Since =startAt= only gives you the calendar spec, use =timerConfig= to add persistence. Something like:
+
+#+begin_src nix
+{
+  description = "Duplicity backup for ${user}";
+  startAt = "daily";
+  timerConfig = {
+    Persistent = true;
+    RandomizedDelaySec = "30min";  # optional: avoid thundering herd on resume
+  };
+  serviceConfig = { ... };
+}
+#+end_src
+
+Note: =startAt= + =timerConfig= both work — NixOS merges them (=startAt= sets =OnCalendar=, =timerConfig= fills the rest).
+
+*** Extra considerations
+
+1. *Network/target availability on resume*: if =targetUrl= is remote (S3, SSH, etc.), duplicity may run before the network is up. Add to the /service/:
+   #+begin_src nix
+   after = [ "network-online.target" ];
+   wants = [ "network-online.target" ];
+   #+end_src
+
+2. *Battery*: you probably don't want a 100-volsize backup to kick off the moment you open the lid on battery. Options:
+   - =ConditionACPower=true= in =unitConfig= (skips if on battery — but then it's skipped, not deferred).
+   - Or a small script wrapper that waits for AC.
+
+3. *Randomized delay* helps if you resume and /both/ the backup and cleanup fire immediately alongside other daily jobs.
+
+4. *=OnCalendar=daily= = midnight exactly.* Consider ="*-*-* 12:00:00"= (lunchtime) or similar if you're more reliably awake then — reduces reliance on =Persistent=.
+
+Minimal fix: just add =timerConfig.Persistent = true;= to both services.
+** From systemdwide to per-user
+#+BEGIN_QUOTE
+This duplicity backup is being run as root. How can I make it run as the respective user, and use flock to ensure that it doesn't run at the same time?
+#+END_QUOTE
+
+
+Here's how to modify your module to run as the user and use =flock= for mutex:
+
+#+begin_src nix
+mkDuplicityService =
+  {
+    user,
+    homedir,
+    targetUrl,
+    secretFile,
+    ...
+  }:
+  {
+    description = "Duplicity backup for ${user}";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    startAt = "daily";
+    unitConfig = {
+      ConditionACPower = true;
+    };
+    timerConfig = {
+      Persistent = true;
+      RandomizedDelaySec = "3hr";
+      OnCalendar = "*-*-* 05:00:00";
+    };
+    serviceConfig = {
+      User = user;
+      Group = user;
+      # Lock file in user's runtime dir
+      RuntimeDirectory = "duplicity-${user}";
+      ExecStart = lib.escapeShellArgs (
+        [
+          "${pkgs.util-linux}/bin/flock"
+          "--nonblock"
+          "/run/duplicity-${user}/lock"
+          "${pkgs.duplicity}/bin/duplicity"
+        ]
+        ++ mkBackupArgs { inherit homedir targetUrl; }
+      );
+      EnvironmentFile = secretFile;
+    };
+  };
+
+mkDuplicityCleanupService =
+  {
+    user,
+    targetUrl,
+    secretFile,
+    ...
+  }:
+  {
+    description = "Duplicity cleanup for ${user}";
+    after = [
+      "duplicity-${user}.service"
+      "network-online.target"
+    ];
+    requires = [
+      "duplicity-${user}.service"
+      "network-online.target"
+    ];
+    wantedBy = [ "duplicity-${user}.service" ];
+    serviceConfig = {
+      User = user;
+      Group = user;
+      RuntimeDirectory = "duplicity-${user}";
+      ExecStart = lib.escapeShellArgs [
+        "${pkgs.util-linux}/bin/flock"
+        "/run/duplicity-${user}/lock"
+        "${pkgs.duplicity}/bin/duplicity"
+        "remove-all-but-n-full"
+        defaults.maxFull
+        "--force"
+        targetUrl
+      ];
+      EnvironmentFile = secretFile;
+    };
+  };
+#+end_src
+
+Key changes:
+
+1. *=User = user; Group = user;=* — runs as the target user instead of root.
+2. *=RuntimeDirectory = "duplicity-${user}"=* — systemd creates =/run/duplicity-${user}/= owned by that user, cleaned up automatically.
+3. *=flock=* wraps duplicity:
+   - Backup uses =--nonblock=: if a backup is already running (e.g. previous still going), it exits immediately instead of stacking up.
+   - Cleanup blocks (waits) for the lock since it =requires= the backup service anyway; this guarantees they don't overlap.
+4. Both services share the same lock file, so backup and cleanup are mutually exclusive.
+
+*Caveats to verify:*
+- =secretFile= must be readable by =user= (or use =LoadCredential== for stricter handling).
+- The user needs write access to any local target path (irrelevant if =targetUrl= is remote like S3/B2).
+- =~/.cache/duplicity= (signature cache) will now live in the user's home — make sure it's not in your exclude list (it isn't, good).
+** Applying it for use
+#+BEGIN_QUOTE
+Implement the duplicity function in my configuration.nix for users lyterk and work. Provide your response in a diff with the relevant line numbers.
+#+END_QUOTE
+
+
+Looking at your =duplicity.nix=, it exposes =duplicity.mkDuplicityUser= as an option that returns a set of systemd services. You need to:
+
+1. Add sops secrets for the duplicity env files (assumed naming)
+2. Call =mkDuplicityUser= for each user and merge into =systemd.services=
+
+Here's the diff:
+
+#+begin_src diff
+--- a/hosts/miranda/configuration.nix
++++ b/hosts/miranda/configuration.nix
+@@ -14,20 +14,24 @@
+ let
+   users = [
+     {
+       name = "lyterk";
+       homedir = "/home/lyterk";
++      targetUrl = "b2://[email protected]/lyterk-miranda-backup";
++      secretFile = "/run/secrets/duplicityLyterk";
+       gpgKeys = [
+         "gpgCode"
+         "gpgKev"
+       ];
+     }
+     {
+       name = "work";
+       homedir = "/home/work";
++      targetUrl = "b2://[email protected]/work-miranda-backup";
++      secretFile = "/run/secrets/duplicityWork";
+       gpgKeys = [
+         "gpgCode"
+         "gpgKev"
+       ];
+     }
+   ];
+@@ -232,11 +236,20 @@
+     udev.packages = [ pkgs.yubikey-personalization ];
+
+   };
+
+   systemd = {
+-    services = {
++    services = lib.mkMerge [
++      (lib.foldl' (acc: u:
++        acc // (config.duplicity.mkDuplicityUser {
++          user = u.name;
++          homedir = u.homedir;
++          targetUrl = u.targetUrl;
++          secretFile = u.secretFile;
++        })
++      ) { } users)
++      {
+       deploy-ssh-key = {
+         description = "Deploy SSH private key to ~/.ssh/id_ed25519";
+         ...
+       };
+       # (keep the rest of your existing services here)
+-    };
++      }
++    ];
+#+end_src
+
+*Important caveats about your =duplicity.nix=:*
+
+1. It declares =options.duplicity.mkDuplicityUser= but never sets =config=, so referencing =config.duplicity.mkDuplicityUser= works — but only because you're calling it as a function. You could equivalently =import= the helper directly.
+
+2. The generated services are missing =wantedBy = [ "timers.target" ]= / the =startAt= will only work if the unit is wanted somewhere. Since =startAt= on a service auto-creates a timer, you should be fine, but note =timerConfig= inside a service definition isn't a valid NixOS option — that belongs on =systemd.timers.<name>=. You'll want to fix =duplicity.nix= to move =timerConfig=/=startAt= out, or use =systemd.timers."duplicity-${user}"= separately.
+
+3. You'll need to add the =duplicityLyterk= and =duplicityWork= secrets to your sops config with the B2 credentials (e.g. =B2_ACCOUNT_ID=...=, =B2_ACCOUNT_KEY=...=, =PASSPHRASE=...=).
+
+Want me to also patch =duplicity.nix= to fix the timer issue?
+*** Patches
+#+BEGIN_QUOTE
+Yes, make those fixes
+#+END_QUOTE
+
+
+Here's a corrected =duplicity.nix= that properly separates timers from services and drops the unused option indirection in favor of a direct import.
+
+#+begin_src nix
+{
+  lib,
+  pkgs,
+  ...
+}:
+let
+  defaults = {
+    volsize = "100";
+    fullIfOlderThan = "1M";
+    maxFull = "2";
+    excludeDirs = [
+      ".cache" ".npm" ".mozilla" ".PlayOnLinux" ".clojure" ".config"
+      ".factorio" ".gitlibs" ".git-credential-cache" ".gnupg"
+      ".google-chrome-captive" ".hex" ".ipython" ".java" ".keychain"
+      ".local" ".m2" ".mc" ".minio" ".mix" ".nix-defexpr" ".nix-profile"
+      ".password-store" ".pki" ".sbt" ".ssh" ".steam" ".tenv"
+      ".terraform.d" ".thunderbird" ".tor" ".yarn"
+    ];
+  };
+
+  mkExcludeFlags =
+    homedir:
+    lib.concatMap (d: [ "--exclude" "${homedir}/${d}" ]) defaults.excludeDirs;
+
+  mkBackupArgs =
+    { homedir, targetUrl }:
+    [
+      "--volsize" defaults.volsize
+      "--full-if-older-than" defaults.fullIfOlderThan
+    ]
+    ++ mkExcludeFlags homedir
+    ++ [ homedir targetUrl ];
+
+  mkDuplicityService =
+    { user, homedir, targetUrl, secretFile, ... }:
+    {
+      description = "Duplicity backup for ${user}";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      unitConfig.ConditionACPower = true;
+      serviceConfig = {
+        Type = "oneshot";
+        User = user;
+        Group = user;
+        RuntimeDirectory = "duplicity-${user}";
+        ExecStart = lib.escapeShellArgs (
+          [
+            "${pkgs.util-linux}/bin/flock"
+            "--nonblock"
+            "/run/duplicity-${user}/lock"
+            "${pkgs.duplicity}/bin/duplicity"
+          ]
+          ++ mkBackupArgs { inherit homedir targetUrl; }
+        );
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityTimer =
+    { user, ... }:
+    {
+      description = "Duplicity backup timer for ${user}";
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        Persistent = true;
+        RandomizedDelaySec = "3h";
+        OnCalendar = "*-*-* 05:00:00";
+      };
+    };
+
+  mkDuplicityCleanupService =
+    { user, targetUrl, secretFile, ... }:
+    {
+      description = "Duplicity cleanup for ${user}";
+      after = [
+        "duplicity-${user}.service"
+        "network-online.target"
+      ];
+      requires = [ "duplicity-${user}.service" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "duplicity-${user}.service" ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = user;
+        Group = user;
+        RuntimeDirectory = "duplicity-${user}";
+        ExecStart = lib.escapeShellArgs [
+          "${pkgs.util-linux}/bin/flock"
+          "/run/duplicity-${user}/lock"
+          "${pkgs.duplicity}/bin/duplicity"
+          "remove-all-but-n-full"
+          defaults.maxFull
+          "--force"
+          targetUrl
+        ];
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  mkDuplicityUser =
+    args@{ user, homedir, targetUrl, secretFile }:
+    {
+      services = {
+        "duplicity-${user}" = mkDuplicityService args;
+        "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+      };
+      timers = {
+        "duplicity-${user}" = mkDuplicityTimer args;
+      };
+    };
+in
+{
+  options.duplicity.mkDuplicityUser = lib.mkOption {
+    type = lib.types.raw;
+    default = mkDuplicityUser;
+    readOnly = true;
+    description = ''
+      Function that returns { services, timers } attrsets for a given user.
+      Merge the results into systemd.services and systemd.timers respectively.
+    '';
+  };
+}
+#+end_src
+
+Now update =configuration.nix= to consume the new shape:
+
+#+begin_src diff
+--- a/hosts/miranda/configuration.nix
++++ b/hosts/miranda/configuration.nix
+@@ -14,20 +14,24 @@
+ let
+   users = [
+     {
+       name = "lyterk";
+       homedir = "/home/lyterk";
++      targetUrl = "b2://[email protected]/lyterk-miranda-backup";
++      secretFile = "/run/secrets/duplicityLyterk";
+       gpgKeys = [ "gpgCode" "gpgKev" ];
+     }
+     {
+       name = "work";
+       homedir = "/home/work";
++      targetUrl = "b2://[email protected]/work-miranda-backup";
++      secretFile = "/run/secrets/duplicityWork";
+       gpgKeys = [ "gpgCode" "gpgKev" ];
+     }
+   ];
++
++  duplicityUnits = map (u: config.duplicity.mkDuplicityUser {
++    user = u.name;
++    homedir = u.homedir;
++    targetUrl = u.targetUrl;
++    secretFile = u.secretFile;
++  }) users;
+@@
+   systemd = {
+-    services = {
++    services = lib.mkMerge ((map (x: x.services) duplicityUnits) ++ [{
+       deploy-ssh-key = { ... };
+       deploy-gpg-code-key = { ... };
+       deploy-gpg-kev-key = { ... };
+-    };
++    }]);
++
++    timers = lib.mkMerge (map (x: x.timers) duplicityUnits);
+
+     user.services = { ... };
+   };
+#+end_src
+
+Key changes:
+
+1. *Timers moved to =systemd.timers.<name>=* with =wantedBy = [ "timers.target" ]= so they actually activate.
+2. *Services are =Type = "oneshot"=* — appropriate for a backup that runs and exits.
+3. *=mkDuplicityUser= now returns ={ services, timers }=* so the caller can merge each into the right top-level attrset.
+4. *Dropped =startAt=* in favor of an explicit timer unit (cleaner, and =timerConfig= on a service was invalid).
+5. *Removed =requires= on =network-online.target=* from the cleanup service (kept =wants=); =requires= on network-online is generally discouraged since it causes hard failures on transient network issues.
+
+Don't forget to declare the sops secrets — something like:
+
+#+begin_src nix
+sops.secrets.duplicityLyterk = {
+  owner = "lyterk";
+  mode = "0400";
+};
+sops.secrets.duplicityWork = {
+  owner = "work";
+  mode = "0400";
+};
+#+end_src
+
+with contents like:
+
+#+begin_src 
+B2_ACCOUNT_ID=...
+B2_ACCOUNT_KEY=...
+PASSPHRASE=...
+#+end_src
+** S3 Fix
+#+begin_src javascript
+{
+    "duplicityAws": "AWS_ACCESS_KEY_ID=AKIA\nAWS_SECRET_ACCESS_KEY=..."
+}
+#+end_src
+
+#+BEGIN_QUOTE
+I am uploading these backups to S3, and I already have a sops secret set up with that. How can I change my duplicity file to always use this user (all backups use the same user)
+#+END_QUOTE
+
+
+You have a few good options. The cleanest is to bake the shared secret into =duplicity.nix= itself so callers don't need to pass it:
+
+** Option 1: Hardcode the secret file in =duplicity.nix=
+
+#+begin_src diff
+--- a/shared/duplicity.nix
++++ b/shared/duplicity.nix
+@@
+ let
+   defaults = {
+     volsize = "100";
+     fullIfOlderThan = "1M";
+     maxFull = "2";
++    secretFile = "/run/secrets/duplicityAws";
+     excludeDirs = [
+@@
+   mkDuplicityService =
+     {
+       user,
+       homedir,
+       targetUrl,
+-      secretFile,
+       ...
+     }:
+     {
+@@
+-        EnvironmentFile = secretFile;
++        EnvironmentFile = defaults.secretFile;
+       };
+     };
+@@
+   mkDuplicityCleanupService =
+     {
+       user,
+       targetUrl,
+-      secretFile,
+       ...
+     }:
+@@
+-        EnvironmentFile = secretFile;
++        EnvironmentFile = defaults.secretFile;
+       };
+     };
+@@
+   mkDuplicityUser =
+     args@{
+       user,
+       homedir,
+       targetUrl,
+-      secretFile,
+     }:
+#+end_src
+
+Then in =configuration.nix=, drop =secretFile= from the user records and the call site.
+
+** Also: fix the sops secret so duplicity can read it
+
+Your =duplicityAws= secret has =mode = "0400"= with no owner set (defaults to root). Since the duplicity services run as =User = user= (lyterk/work), they won't be able to read it. Either:
+
+- Set =mode = "0444"= (world-readable — fine if the file is only on this host), or
+- Create per-user copies, or
+- Use a group both users are in and set =mode = "0440"=.
+
+Simplest:
+
+#+begin_src diff
+       duplicityAws = {
+         sopsFile = ../secrets/duplicityAws.json;
+         format = "json";
+-        mode = "0400";
++        mode = "0444";
+       };
+#+end_src
+
+Also note: your JSON secret has key =duplicityAws=, but sops-nix uses the secret /name/ as the key by default, so that matches — good. The rendered file will contain the value string (=AWS_ACCESS_KEY_ID=...\nAWS_SECRET_ACCESS_KEY=...=), which is exactly what =EnvironmentFile== expects.
+* Service failing
+Jul 06 23:57:37 miranda systemd[1]: Starting Duplicity backup for lyterk...
+Jul 06 23:57:37 miranda (flock)[1033073]: duplicity-lyterk.service: Failed to determine group credentials: No such process
+Jul 06 23:57:37 miranda (flock)[1033073]: duplicity-lyterk.service: Failed at step GROUP spawning /nix/store/7bl4d6ijc99qksdwy4kjmpm6pcqpw117-util-linux-2.41.4-bin/bin/flock: No such process
+Jul 06 23:57:37 miranda systemd[1]: duplicity-lyterk.service: Main process exited, code=exited, status=216/GROUP
+Jul 06 23:57:37 miranda systemd[1]: duplicity-lyterk.service: Failed with result 'exit-code'.
+Jul 06 23:57:37 miranda systemd[1]: Failed to start Duplicity backup for lyterk.
+
+Jul 07 00:00:37 miranda flock[1037992]:     passwd = fallback_getpass(prompt, stream)
+Jul 07 00:00:37 miranda flock[1037992]:   File "/nix/store/sdfysgb89zdysrknjavcr0crs4qxpk8r-python3-3.13.12/lib/python3.13/getpass.py", line 126, in fallback_getpass
+Jul 07 00:00:37 miranda flock[1037992]:     return _raw_input(prompt, stream)
+Jul 07 00:00:37 miranda flock[1037992]:   File "/nix/store/sdfysgb89zdysrknjavcr0crs4qxpk8r-python3-3.13.12/lib/python3.13/getpass.py", line 148, in _raw_input
+Jul 07 00:00:37 miranda flock[1037992]:     raise EOFError
+Jul 07 00:00:37 miranda flock[1037992]:  EOFError
+Jul 07 00:00:37 miranda systemd[1]: duplicity-lyterk.service: Main process exited, code=exited, status=30/n/a
+Jul 07 00:00:37 miranda systemd[1]: duplicity-lyterk.service: Failed with result 'exit-code'.
+Jul 07 00:00:37 miranda systemd[1]: Failed to start Duplicity backup for lyterk.
+Jul 07 00:00:37 miranda systemd[1]: duplicity-lyterk.service: Consumed 946ms CPU time, 74.3M memory peak, 26.9M read from disk, 15.5K incoming IP traffic, 7.6K outgoing IP traffic.
+#+BEGIN_QUOTE
+I'm seeing my duplicity service fail with the above. What could be going wrong?
+#+END_QUOTE
+
+
+The error =EOFError= from =fallback_getpass= means duplicity is prompting for a passphrase interactively but has no TTY (it's running as a systemd service).
+
+Duplicity needs =PASSPHRASE= to encrypt with GPG. Your =EnvironmentFile=secretFile= should set it, but likely one of these is wrong:
+
+1. *=PASSPHRASE= is missing* from your =secretFile=. Add:
+   #+begin_src 
+   PASSPHRASE=your-passphrase-here
+   #+end_src
+
+2. *The secret file isn't readable by the service user* (=user=). Check permissions — systemd reads the =EnvironmentFile= as root, but if you're using something like sops/agenix, verify the file exists and has proper =KEY=value= format (no =export=, no quotes needed).
+
+3. *If you don't want encryption*, pass =--no-encryption= in your =mkBackupArgs=.
+
+4. *If using a GPG key instead*, you need =--encrypt-key <KEYID>= and =PASSPHRASE= (or =--use-agent=, which won't work in a service).
+
+Quick check:
+#+begin_src bash
+sudo systemctl cat duplicity-lyterk.service | grep EnvironmentFile
+sudo cat /path/to/secretFile   # confirm PASSPHRASE= is there
+#+end_src
+
+The most common fix is just ensuring =PASSPHRASE=...= is in the environment file.
+** Boto3 Vuln
+#+BEGIN_QUOTE
+It seems that boto3 is broken with duplicity, and they recommend just accessing s3 through rclone. Can I change this config to allow that?
+#+END_QUOTE
+
+
+Yes, duplicity supports rclone backends via =rclone://= URLs. You'll need to:
+
+1. Add =rclone= to the service's PATH
+2. Configure rclone with the S3 remote (typically via a config file the user owns)
+3. Change =targetUrl= from =s3://...= to =rclone://remote-name:bucket/path=
+
+Here's the modified config:
+
+#+begin_src nix
+{
+  lib,
+  pkgs,
+  ...
+}:
+let
+  defaults = {
+    volsize = "100";
+    fullIfOlderThan = "1M";
+    maxFull = "2";
+    excludeDirs = [
+      # ... unchanged ...
+    ];
+  };
+
+  mkExcludeFlags =
+    homedir:
+    lib.concatMap (d: [
+      "--exclude"
+      "${homedir}/${d}"
+    ]) defaults.excludeDirs;
+
+  mkBackupArgs =
+    { homedir, targetUrl }:
+    [
+      "--volsize"
+      defaults.volsize
+      "--full-if-older-than"
+      defaults.fullIfOlderThan
+    ]
+    ++ mkExcludeFlags homedir
+    ++ [
+      homedir
+      targetUrl
+    ];
+
+  mkDuplicityService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile,
+      ...
+    }:
+    {
+      description = "Duplicity backup for ${user}";
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      unitConfig.ConditionACPower = true;
+      path = [ pkgs.rclone ];
+      serviceConfig = {
+        Type = "oneshot";
+        User = user;
+        Group = "users";
+        RuntimeDirectory = "duplicity-${user}";
+        ExecStart = lib.escapeShellArgs (
+          [
+            "${pkgs.util-linux}/bin/flock"
+            "--nonblock"
+            "/run/duplicity-${user}/lock"
+            "${pkgs.duplicity}/bin/duplicity"
+          ]
+          ++ mkBackupArgs { inherit homedir targetUrl; }
+        );
+        EnvironmentFile = secretFile;
+      };
+    };
+
+  # ... same change (path = [ pkgs.rclone ];) for mkDuplicityCleanupService ...
+#+end_src
+
+Then per-user, set:
+
+#+begin_src nix
+targetUrl = "rclone://myremote:my-bucket/backups/lyterk";
+#+end_src
+
+** Rclone config
+
+Duplicity invokes =rclone= as the backup user, so rclone's config must be readable by that user. Options:
+
+*Option A: User-managed config* at =~/.config/rclone/rclone.conf=:
+
+#+begin_src ini
+[myremote]
+type = s3
+provider = AWS
+access_key_id = ...
+secret_access_key = ...
+region = us-east-1
+#+end_src
+
+*Option B: Environment variables* in your =secretFile= (systemd =EnvironmentFile=):
+
+#+begin_src 
+RCLONE_CONFIG_MYREMOTE_TYPE=s3
+RCLONE_CONFIG_MYREMOTE_PROVIDER=AWS
+RCLONE_CONFIG_MYREMOTE_ACCESS_KEY_ID=...
+RCLONE_CONFIG_MYREMOTE_SECRET_ACCESS_KEY=...
+RCLONE_CONFIG_MYREMOTE_REGION=us-east-1
+#+end_src
+
+Option B is cleanest since it keeps everything in the existing secret file and requires no user-writable config.
+
+** Optional: rclone tuning
+
+You can pass rclone flags via duplicity:
+
+#+begin_src nix
+ExecStart = lib.escapeShellArgs (
+  [
+    "${pkgs.util-linux}/bin/flock"
+    "--nonblock"
+    "/run/duplicity-${user}/lock"
+    "${pkgs.duplicity}/bin/duplicity"
+    "--rclone-options=--transfers=4 --checkers=8"
+  ]
+  ++ mkBackupArgs { inherit homedir targetUrl; }
+);
+#+end_src
+
+That should replace the broken boto3 path entirely.

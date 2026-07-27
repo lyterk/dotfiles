@@ -1,0 +1,40 @@
+:PROPERTIES:
+:ID:       e7750e3e-cfa2-4c14-b283-627bc6e5891c
+:END:
+#+title: Per-user wallpaper images
+
+#+BEGIN_QUOTE
+I would like to have different wallpapers per-user. How would I go about doing that with stylix?
+#+END_QUOTE
+
+
+Stylix's =image= option can be set per-user in home-manager configuration, which overrides the system-level setting.
+
+In your =lyterk-home.nix= (and similarly for =work-home.nix=), add:
+
+#+begin_src nix
+stylix.image = pkgs.fetchurl {
+  url = "https://example.com/your-wallpaper.jpg";
+  hash = "sha256-...";
+};
+#+end_src
+
+You'll also want to move the system-level =stylix= config in =configuration.nix= to only set things that should be shared (colorscheme, fonts, etc.), and remove the =image= from there, or keep it as a fallback:
+
+#+begin_src nix
+# In configuration.nix - keep scheme but remove image, or keep as fallback
+stylix = {
+  enable = true;
+  base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  # Remove or keep image as system-wide fallback
+};
+#+end_src
+
+*Prerequisites:*
+- Make sure =home-manager= has the stylix module available. In your flake, you likely need to pass the stylix home-manager module. It's typically done via:
+  #+begin_src nix
+  stylix.homeManagerModules.stylix
+  #+end_src
+  imported in your home configs, or configured at the flake level to be available to all home-manager users.
+
+If stylix is already working system-wide with home-manager integration, the =stylix.image= override in the home config should just work.

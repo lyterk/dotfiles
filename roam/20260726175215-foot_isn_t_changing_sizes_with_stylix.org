@@ -1,0 +1,32 @@
+:PROPERTIES:
+:ID:       53cc295b-ff38-4f44-8ad0-3f5eb0b8a0de
+:END:
+#+title: Foot isn't changing sizes with stylix
+
+* Request
+:PROPERTIES:
+:ID:       f5f7d123-14d6-49d2-93d5-29ff42ca98a2
+:END:
+#+BEGIN_QUOTE
+I'm using Nixos, home-manager, Sway, Stylix, and Alacritty and Foot. The foot font is way too small. The alacritty font is more normal. Setting stylix.fonts.sizes.terminal doesn't work for overriding the foot font. If I try to set it in programs.foot.settings.main.font results in a conflict with home-manager. What could I be doing wrong?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       3537d1f1-6fe5-481c-8dda-df2a2c8685d7
+:END:
+
+
+The conflict happens because Stylix generates =programs.foot.settings.main.font= and you're trying to set the same option. Use =mkForce= to override it:
+
+#+begin_src nix
+programs.foot.settings.main.font = lib.mkForce "monospace:size=12";
+#+end_src
+
+Or if Stylix is reading =stylix.fonts.sizes.terminal= but not applying it correctly, check that you're setting it at the *system level* (=configuration.nix=) not just home-manager, since Stylix's NixOS module and home-manager module can be separate.
+
+Also verify the option name — in some Stylix versions it's:
+#+begin_src nix
+stylix.fonts.sizes.terminal = 12;  # integer, not float
+#+end_src
+
+If the conflict error is specifically about =mkForce= not being enough, you may need to check if Stylix uses =mkDefault= (priority 1000) — =mkForce= (priority 50) should win over that. If Stylix uses =mkForce= itself, you'd need =lib.mkOverride 49 "monospace:size=12"=.

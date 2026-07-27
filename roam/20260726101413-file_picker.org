@@ -1,0 +1,475 @@
+:PROPERTIES:
+:ID:       063a6b8a-b64c-4380-afa5-d8053755586f
+:END:
+#+title: File Picker
+
+* Options
+:PROPERTIES:
+:ID:       fcc0fcdf-c8c4-455d-a58a-8f7ce90e7d8f
+:END:
+#+BEGIN_QUOTE
+What are alterative file pickers I could choose for nixos and sway? I prefer keyboard interaction and not opening up a terminal, being able to see images.
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       a278380d-f5f5-4f38-be92-a7fb800a724a
+:END:
+
+
+Here are some good file picker options for NixOS + Sway:
+
+** GTK-based (integrates with portal)
+- *Nautilus* - GNOME Files, works as a portal backend, image thumbnails
+- *Thunar* - XFCE's file manager, lightweight, good keyboard nav
+
+** Native Wayland / Keyboard-focused
+- *lf* + *sixel/kitty* - terminal but excellent keyboard nav, image preview in kitty
+- *yazi* - modern terminal file manager, excellent image preview (sixel/kitty protocol)
+- *nnn* - fast terminal file manager with image preview plugin
+
+** Dedicated Pickers (no full terminal needed)
+- *fuzzel* - not a file picker but launcher-style
+- *wofi* + scripts - can be wired up for file picking
+- *xdg-desktop-portal-gtk* - provides native GTK file chooser dialog (most apps use this)
+
+** Best practical options for Sway:
+1. *=xdg-desktop-portal-gtk=* - Already handles most app file dialogs transparently with image thumbnails. Make sure it's enabled.
+2. *Thunar* - Good balance of keyboard use + images, light dependencies
+3. *Yazi* - If you're okay with a terminal popup, best image preview support
+
+Check if you have =xdg-desktop-portal-wlr= or =xdg-desktop-portal-gtk= configured, as that covers most use cases without a dedicated file manager.
+* Changing my file picker
+:PROPERTIES:
+:ID:       86b186d7-77b9-49a6-b7e7-b6e253792528
+:END:
+#+BEGIN_QUOTE
+I use nixos and sway. I would like to change to a different file picker, instead of the default gtk one. How would I do that (yazi, for example)
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       400630f2-a4c6-4678-8450-f0183fbbe758
+:END:
+
+
+To use Yazi as your file picker in Sway/NixOS, you have a few options depending on what's invoking the file picker:
+
+** For XDG Desktop Portal (GTK apps, Firefox, etc.)
+
+The GTK file chooser dialog comes from =xdg-desktop-portal=. You can replace it with a terminal-based picker using *=xdg-desktop-portal-termfilechooser=*:
+
+#+begin_src nix
+# In your NixOS or home-manager config
+xdg.portal = {
+  enable = true;
+  extraPortals = [ pkgs.xdg-desktop-portal-termfilechooser ];
+  config.common.default = "*";
+  config.sway = {
+    "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+  };
+};
+#+end_src
+
+Then configure it to use Yazi. The portal needs a wrapper script:
+
+#+begin_src nix
+# ~/.config/xdg-desktop-portal-termfilechooser/config
+[filechooser]
+cmd = /path/to/yazi-wrapper.sh
+#+end_src
+
+A minimal wrapper script:
+#+begin_src bash
+#!/usr/bin/env bash
+# args: $1=path hint, rest=extra args
+foot yazi "$1" # or your preferred terminal
+#+end_src
+
+** Caveats
+
+- =xdg-desktop-portal-termfilechooser= has a specific script interface — check the [upstream repo](https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser) for the exact script API
+- Some GTK4 apps bypass the portal entirely
+- This affects *open/save dialogs*, not file manager launching
+
+** In NixOS packages
+
+#+begin_src nix
+environment.systemPackages = [ pkgs.xdg-desktop-portal-termfilechooser ];
+#+end_src
+
+Check if it's in nixpkgs: =nix search nixpkgs xdg-desktop-portal-termfilechooser=.
+* Switching to yazi
+#+BEGIN_QUOTE
+How would I switch my sway and home-manager config to use yazi, instead of the default file chooser?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       476d979d-fa02-4792-bc24-f03abf75cda3
+:END:
+
+
+To use Yazi as a file manager in your setup, you have a few integration points:
+
+** 1. Add yazi to home packages
+
+In =home-base.nix=, add to =fileSystems= (or another group):
+#+begin_src nix
+fileSystems = with pkgs; [
+  calibre
+  thunar
+  duplicity
+  yazi  # add this
+];
+#+end_src
+
+(Note: =yazi= is already in =configuration.nix= system packages, but better to have it in home packages too.)
+
+** 2. Add a sway keybinding for yazi
+
+In =sway/default.nix=, add to the =kevin= mode and =wkKevin= config:
+
+#+begin_src nix
+# In wkKevin menu:
+y = {
+  desc = "Yazi file manager";
+};
+
+# In modes.kevin:
+"y" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi; mode default";
+#+end_src
+
+** 3. For XDG file chooser (replacing the portal file picker)
+
+For Wayland file chooser dialogs (e.g. from Firefox), you'd use =xdg-desktop-portal-termfilechooser= (already commented out in your config). Uncomment it:
+
+In =configuration.nix=:
+#+begin_src nix
+# xdg-desktop-portal-termfilechooser
+#+end_src
+→ uncomment and add configuration:
+#+begin_src nix
+xdg.portal = {
+  extraPortals = [ 
+    pkgs.xdg-desktop-portal-wlr
+    pkgs.xdg-desktop-portal-termfilechooser
+  ];
+};
+#+end_src
+
+Then configure it to use yazi — create a wrapper script and point the portal at it. See [the termfilechooser docs](https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser) for the =TERMCMD= config pointing to =alacritty -e yazi=.
+
+The keybinding approach (step 2) is the simplest win; the portal approach (step 3) replaces system-wide file dialogs.
+
+** Followup
+:PROPERTIES:
+:ID:       1e3c2028-e3e4-4f4b-9d41-ece8512cd00a
+:END:
+#+BEGIN_QUOTE
+I have all but the wrapper script. Would it be possible to do that with =pkgs.writeShellScriptBin= instead of creating a new file?
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       ac2b5d2b-5691-42ec-acef-f4382244812e
+:END:
+
+
+Yes, absolutely. You can define it inline similar to your =refreshConfigScript=. In =configuration.nix=:
+
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  alacritty -e yazi "$@"
+'';
+#+end_src
+
+Then add it to =environment.systemPackages= and configure the portal to use it. The termfilechooser portal looks for a =TERMCMD= or script path — you'd point it at =${yaziFilePicker}/bin/yazi-filepicker.sh=.
+
+Check the termfilechooser config format; it typically wants a config file at =~/.config/xdg-desktop-portal-termfilechooser/config= with:
+
+#+begin_src ini
+[filechooser]
+cmd=/run/current-system/sw/bin/yazi-filepicker.sh
+#+end_src
+
+Or you can set it via home-manager if you prefer per-user config.
+
+** Second followup
+:PROPERTIES:
+:ID:       38128627-3a3e-47e7-8aab-64836ff85f84
+:END:
+#+BEGIN_QUOTE
+Could you help me set that up with home-manager?
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       727a2c2b-4d1b-4ef2-9844-eb87e3939f72
+:END:
+
+
+Looking at your config, you already have =xdg-desktop-portal-termfilechooser= and =yaziFilePicker= in =configuration.nix=. You need to:
+
+1. Add the termfilechooser config file via home-manager in =home-base.nix=:
+
+#+begin_src nix
+home.file.".config/xdg-desktop-portal-termfilechooser/config".text = ''
+  [filechooser]
+  cmd=/run/current-system/sw/bin/yazi-filepicker.sh
+'';
+#+end_src
+
+2. Make sure the portal is configured in =home-base.nix=. You already have it in =xdg.portal.extraPortals=, but you also need to tell the portal which one handles filechooser. Add to =xdg= in =home-base.nix=:
+
+#+begin_src nix
+xdg = {
+  portal = {
+    extraPortals = [
+      pkgs.xdg-desktop-portal-wlr
+      pkgs.xdg-desktop-portal-termfilechooser
+    ];
+    config.common = {
+      default = "wlr";
+      "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
+    };
+  };
+  # ... rest of xdg config
+};
+#+end_src
+
+Note that =xdg.portal= in home-manager configures the /user-level/ portal, while your system-level portal is in =configuration.nix=. The termfilechooser config file is the key piece — the portal will call that script when a file dialog opens.
+* Using Yazi
+:PROPERTIES:
+:ID:       10497bac-14a3-459a-bc78-f4bc3de95271
+:END:
+#+BEGIN_QUOTE
+I have yazi set as my file chooser. I can start selecting files, and yazi opens correctly, but then when it's open I can't select the file to give it back to the browser. It just tries to open the file in gimp or an editor. How do I do this?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       07655c4b-def4-4ccf-89c0-65d53e6e87ba
+:END:
+
+
+The issue is that =xdg-desktop-portal-termfilechooser= uses its own wrapper script protocol — yazi needs to write the selected file path(s) to a specific file descriptor or temp file that the portal reads back.
+
+The termfilechooser portal actually ships with example wrapper scripts. You shouldn't be calling yazi directly — you need a wrapper that:
+
+1. Receives the output file path as =$1= (where results should be written)
+2. Opens yazi
+3. Writes the selected path(s) to that file
+
+Check the [termfilechooser examples](https://github.com/hunkyburrito/xdg-desktop-portal-termfilechooser/tree/master/contrib) — there's a =yazi.sh= wrapper. The key pattern is:
+
+#+begin_src bash
+#!/bin/sh
+output="$1"
+alacritty -e yazi --chooser-file="$output" "${@:2}"
+#+end_src
+
+The crucial part is =--chooser-file= — yazi has built-in support for file chooser mode where it writes selections to that file instead of opening them.
+
+Update your wrapper script in =configuration.nix=:
+
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  alacritty -e yazi --chooser-file="$1" "''${@:2}"
+'';
+#+end_src
+
+The =--chooser-file= flag puts yazi in chooser mode where pressing =Enter= writes the path to the specified file rather than opening it.
+*** Followup
+:PROPERTIES:
+:ID:       2a3c7311-a1ca-4839-bf01-589f14203160
+:END:
+#+BEGIN_QUOTE
+I think this escaping is wrong. What does the ${@:2} command do? When I run this, nothing happens, so I think the filepicker is not correctly handling the output
+#+END_QUOTE
+**** Response :ai:
+:PROPERTIES:
+:ID:       c7ecae25-9707-4e2d-b564-7b6381965fa2
+:END:
+
+
+
+=${@:2}= is bash array slicing - it means "all arguments starting from index 2" (skipping =$1=). But you're using =''${@:2}= which is the Nix string escape for =${= - that part is correct in Nix.
+
+However, looking at the =xdg-desktop-portal-termfilechooser= docs more carefully, the script receives arguments differently. The typical signature is:
+
+#+begin_src 
+cmd <output-file> [<path>]
+#+end_src
+
+So =$1= is the output file and =$2= would be an optional starting path.
+
+*The likely issue*: =yazi --chooser-file= writes the selected file to the output file, but you need to check if yazi is actually launching. Try testing the script directly:
+
+#+begin_src bash
+/run/current-system/sw/bin/yazi-filepicker.sh /tmp/test-output
+cat /tmp/test-output
+#+end_src
+
+Also, your current script:
+#+begin_src nix
+''
+  output="$1"
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi --chooser-file="$output" "''${@:2}"
+''
+#+end_src
+
+The =''${@:2}= escaping *is* correct for Nix (produces =${@:2}= in the shell script). 
+
+More likely culprits:
+1. Alacritty is launching but closing before yazi writes output
+2. The portal config path isn't being read
+3. The portal isn't selecting termfilechooser - check =$XDG_CURRENT_DESKTOP= and portal logs via =journalctl --user -u xdg-desktop-portal
+*** With Error
+#+BEGIN_QUOTE
+The error that I'm seeing is: 
+
+Jul 26 11:22:05 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:22:05 [WARN] - dbus: unknown option filters
+Jul 26 11:22:05 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:22:05 [WARN] - dbus: unknown option current_filter
+Jul 26 11:22:40 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:22:40 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+Jul 26 11:23:51 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:23:51 [WARN] - dbus: unknown option filters
+Jul 26 11:23:51 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:23:51 [WARN] - dbus: unknown option current_filter
+Jul 26 11:24:34 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:24:34 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+Jul 26 11:26:06 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:26:06 [WARN] - dbus: unknown option filters
+Jul 26 11:26:06 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:26:06 [WARN] - dbus: unknown option current_filter
+Jul 26 11:26:41 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:26:41 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+Jul 26 11:34:00 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:00 [WARN] - dbus: unknown option filters
+Jul 26 11:34:00 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:00 [WARN] - dbus: unknown option current_filter
+Jul 26 11:34:04 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:04 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+Jul 26 11:34:17 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:17 [WARN] - dbus: unknown option filters
+Jul 26 11:34:17 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:17 [WARN] - dbus: unknown option current_filter
+Jul 26 11:34:29 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:34:29 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+Jul 26 11:37:48 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:37:48 [WARN] - dbus: unknown option filters
+Jul 26 11:37:48 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:37:48 [WARN] - dbus: unknown option current_filter
+Jul 26 11:38:02 miranda xdg-desktop-portal-termfilechooser[67550]: 2026/07/26 11:38:02 [ERROR] - filechooser: failed to open '/tmp/termfilechooser-1000.portal'
+#+END_QUOTE
+
+
+The error =failed to open '/tmp/termfilechooser-1000.portal'= means the portal is writing its output path to that file, but your script isn't creating/writing to it correctly.
+
+Looking at how =xdg-desktop-portal-termfilechooser= works: it passes the output file path as the *first argument* to your script, and your script must write the selected file(s) to that path.
+
+The issue is likely that your script receives =/tmp/termfilechooser-1000.portal= as =$1=, but you're passing it as =--chooser-file="$output"= to yazi... which should be correct.
+
+Test manually:
+#+begin_src bash
+/run/current-system/sw/bin/yazi-filepicker.sh /tmp/test.portal
+cat /tmp/test.portal
+#+end_src
+
+If nothing appears, yazi may not be writing to the chooser file. Check your yazi version - =--chooser-file= requires yazi 0.3+:
+#+begin_src bash
+yazi --version
+#+end_src
+
+Also check your current script in =configuration.nix=:
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  output="$1"
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi --chooser-file="$output" "''${@:2}"
+'';
+#+end_src
+
+The =${@:2}= passes remaining args as starting paths - that should be fine. But try simplifying to isolate the issue:
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi --chooser-file="$1"
+'';
+#+end_src
+
+Also confirm alacritty is actually launching - try replacing with a simpler terminal like =foot= temporarily, or add logging:
+#+begin_src nix
+''
+  echo "Called with: $@" >> /tmp/yazi-picker.log
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi --chooser-file="$1"
+''
+#+end_src
+
+** Query
+:PROPERTIES:
+:ID:       6b7dfc1b-8e4d-4aef-97dc-5d17a238d84d
+:END:
+#+BEGIN_QUOTE
+The chooser file is being written correctly. The yazi-picker.log shows this:
+
+Called with: 0 0 0 /home/lyterk/Desktop /tmp/termfilechooser-1000.portal 2
+
+What else could be going wrong?
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       d3347576-a930-4c36-bc0f-489eb5327ef0
+:END:
+
+
+Looking at your current script in =configuration.nix=:
+
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  echo "Called with: $@" >> /tmp/yazi-picker.log
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi  --chooser-file="$1"
+'';
+#+end_src
+
+Check =/tmp/yazi-picker.log= to confirm the script is being called and what arguments it receives.
+
+*Next debugging steps:*
+
+1. *Check the log:*
+   #+begin_src bash
+   cat /tmp/yazi-picker.log
+   #+end_src
+
+2. *Test manually:*
+   #+begin_src bash
+   /run/current-system/sw/bin/yazi-filepicker.sh /tmp/test.portal
+   # Then in yazi, select a file with Enter/Space, then quit with q
+   cat /tmp/test.portal
+   #+end_src
+
+3. *Check yazi version* supports =--chooser-file=:
+   #+begin_src bash
+   yazi --version
+   #+end_src
+
+4. *Check portal is active:*
+   #+begin_src bash
+   journalctl --user -u xdg-desktop-portal-termfilechooser -f
+   #+end_src
+
+The most common issues at this point are:
+- Yazi requires you to explicitly *enter* a file (press =Enter=/=Space= to add to chooser, then =q= to quit) — it doesn't auto-select on quit
+- The portal service isn't running: =systemctl --user status xdg-desktop-portal-termfilechooser
+** Not working
+:PROPERTIES:
+:ID:       7f27eb1d-753e-4ad0-b4d1-94cfa6e21f65
+:END:
+#+BEGIN_QUOTE
+Yazi is not working as a file chooser. I have attached relevant parts of my nixos config. Yazi does open, and I can select a file. I've attached the yazi-picker.log. The yazi-1000 files contain the photos themselves.
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       df69611a-477a-4d8e-8905-cd1eb208547f
+:END:
+
+
+Looking at your log, the arguments are positional:
+
+#+begin_src 
+0 0 0 /home/lyterk/Desktop /tmp/termfilechooser-1000.portal 2
+#+end_src
+
+The format is: =multiple save filter_list start_dir output_file ...=
+
+So =$1= is the *multiple* flag (0/1), and the output file is *=$5=*, not =$1=.
+
+Fix:
+
+#+begin_src nix
+yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+  echo "Called with: $@" >> /tmp/yazi-picker.log
+  ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi --chooser-file="$5"
+'';
+#+end_src
+
+The =$1= arg (multiple=1) is why the last two calls look different — it's requesting multi-select mode. You may also want to handle that case with =--chooser-file= still pointing to =$5=.
+  

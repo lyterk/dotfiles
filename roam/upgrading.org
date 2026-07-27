@@ -1,0 +1,65 @@
+:PROPERTIES:
+:ID:       d6be1521-13fb-4383-9d80-f88d6e30f551
+:END:
+#+title: Upgrading
+
+* Python Failures to build
+#+BEGIN_QUOTE
+rror: Cannot build '/nix/store/gihfl0vw38v43vfy9lk54jykn0c7i2qd-python3.12-3.12.13-doc.drv'.
+       Reason: builder failed with exit code 2.
+       Output paths:
+         /nix/store/hh9xas6ywhchsj4yzc9cjjf6p088jpdc-python3.12-3.12.13-doc
+       Last 25 log lines:
+       >         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       >                              node, match_titles)
+       >                              ^^^^^^^^^^^^^^^^^^^
+       >       File "/nix/store/vfnv45k86qwd4xqq5dv29h6ysgphhcsi-python3.13-docutils-0.22.4/lib/python3.13/site-packages/docutils/parsers/rst/states.py", line 215, in run
+       >         results = StateMachineWS.run(self, input_lines, input_offset)
+       >       File "/nix/store/vfnv45k86qwd4xqq5dv29h6ysgphhcsi-python3.13-docutils-0.22.4/lib/python3.13/site-packages/docutils/statemachine.py", line 234, in run
+       >         context, next_state, result = self.check_line(
+       >                                       ~~~~~~~~~~~~~~~^
+       >             context, state, transitions)
+       >             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       >       File "/nix/store/vfnv45k86qwd4xqq5dv29h6ysgphhcsi-python3.13-docutils-0.22.4/lib/python3.13/site-packages/docutils/statemachine.py", line 446, in check_line
+       >         return method(match, context, next_state)
+       >       File "/nix/store/vfnv45k86qwd4xqq5dv29h6ysgphhcsi-python3.13-docutils-0.22.4/lib/python3.13/site-packages/docutils/parsers/rst/states.py", line 1409, in enumerator
+       >         format, sequence, text, ordinal = self.parse_enumerator(match)
+       >                                           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+       >       File "/nix/store/vfnv45k86qwd4xqq5dv29h6ysgphhcsi-python3.13-docutils-0.22.4/lib/python3.13/site-packages/docutils/parsers/rst/states.py", line 1494, in parse_enumerator
+       >         ordinal = int(self.enum.converters[sequence](text))
+       >     TypeError: int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+       >
+       >
+       > The full traceback has been saved in:
+       > /build/sphinx-err-he6bohpg.log
+       >
+       > To report this error to the developers, please open an issue at <https://github.com/sphinx-doc/sphinx/issues/>. Thanks!
+       > Please also report this if it was a user error, so that a better error message can be provided next time.
+       For full logs, run:
+         nix log /nix/store/gihfl0vw38v43vfy9lk54jykn0c7i2qd-python3.12-3.12.13-doc.drv
+error: Cannot build '/nix/store/8gf12fb6ja8kdm7v31jqpagkrr71dgl7-system-path.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/fmb5yxr4xc4mlm3xgncg4zla4wvcvl54-system-path
+error: Build failed due to failed dependency
+error: Cannot build '/nix/store/0vznwgmkrdy8vgvri22r9ivsd5pbj8v6-X-Restart-Triggers-polkit.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/f0kbhgi63isnvn66svrxargsplz3w80s-X-Restart-Triggers-polkit
+error: Cannot build '/nix/store/7s5qvziizhv3kdj6zdk3y65a9rpyiz5z-dbus-1.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/bkg24sg0qzsydlg0gp851s9hzvamf5si-dbus-1
+error: Cannot build '/nix/store/ypkcmg54p7jlxp9mwcb6a71nyjrizrpa-etc.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/fa7i0bkpklc3p93w4mlhc7clglikf5p5-etc
+error: Cannot build '/nix/store/zq4sw072f3khjmkfg4j9nbgv3g85bqk1-nixos-system-miranda-26.05.20260707.0ad6f47.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/s9brr05676fn3gsxq8fgichw7xvq7z7f-nixos-system-miranda-26.05.20260707.0ad6f47
+error: Build failed due to failed dependency
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."miranda".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+
+fish: Job 1, 'cd /etc/nixos &' has ended
+#+END_QUOTE

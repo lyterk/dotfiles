@@ -1,0 +1,13 @@
+:PROPERTIES:
+:ID:       bf6ae1a1-420f-42e3-bb36-98622323146d
+:END:
+#+title: Default Directory from Firefox
+
+* Request
+:PROPERTIES:
+:ID:       4f36c84c-8ea9-45b0-9895-c60e51ffad8e
+:END:
+** Response :ai:
+:PROPERTIES:
+:ID:       b43702b2-e386-4e8e-9926-860b20452f95
+:END:

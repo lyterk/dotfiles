@@ -1,0 +1,778 @@
+:PROPERTIES:
+:ID:       ef2c91cf-9f13-444a-8f1c-90d67794221d
+:END:
+#+title: Fixing the duplicity backup settings for work
+
+* First pass :duplicity:nixos:
+:PROPERTIES:
+:ID:       ff646554-f71c-42d4-a884-1b91c9f9166a
+:END:
+#+BEGIN_QUOTE
+I need to fix this file up some. First, parameterize the homedir. I want to call it for ~me and ~work.
+
+Additionally, I would like to write my backups to S3 instead of an rsync. I have a bucket created, I will have an IAM user. Recommend a way to get the secret credentials. Sops? Password Store?
+#+END_QUOTE
+
+
+Here's a refactored version:
+
+#+begin_src nix
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  mkDuplicityConfig = { homedir, targetUrl, secretFile ? null }: {
+    enable = true;
+    root = homedir;
+    include = [ homedir ];
+    exclude = [
+      "${homedir}/.cache"
+      "${homedir}/.npm"
+      "${homedir}/.mozilla"
+      "${homedir}/.PlayOnLinux"
+      "${homedir}/.clojure"
+      "${homedir}/.config"
+      "${homedir}/.factorio"
+      "${homedir}/.gitlibs"
+      "${homedir}/.git-credential-cache"
+      "${homedir}/.gnupg"
+      "${homedir}/.google-chrome-captive"
+      "${homedir}/.hex"
+      "${homedir}/.ipython"
+      "${homedir}/.java"
+      "${homedir}/.keychain"
+      "${homedir}/.local"
+      "${homedir}/.m2"
+      "${homedir}/.mc"
+      "${homedir}/.minio"
+      "${homedir}/.mix"
+      "${homedir}/.nix-defexpr"
+      "${homedir}/.nix-profile"
+      "${homedir}/.password-store"
+      "${homedir}/.pki"
+      "${homedir}/.sbt"
+      "${homedir}/.ssh"
+      "${homedir}/.steam"
+      "${homedir}/.tenv"
+      "${homedir}/.terraform.d"
+      "${homedir}/.thunderbird"
+      "${homedir}/.tor"
+      "${homedir}/.yarn"
+    ];
+    targetUrl = targetUrl;
+    frequency = "daily";
+    secretFile = secretFile;
+    extraFlags = [ "--volsize" "100" ];
+    fullIfOlderThan = "1M";
+    cleanup = {
+      maxAge = "1M";
+      maxFull = 2;
+      maxIncr = 1;
+    };
+  };
+in
+{
+  services.duplicity = mkDuplicityConfig {
+    homedir = "/home/lyterk";
+    targetUrl = "s3://s3.amazonaws.com/your-bucket-name/lyterk";
+    secretFile = "/run/secrets/duplicity-aws";
+  };
+
+  # For work:
+  # services.duplicity = mkDuplicityConfig {
+  #   homedir = "/home/lyterk-work";
+  #   targetUrl = "s3://s3.amazonaws.com/your-bucket-name/lyterk-work";
+  #   secretFile = "/run/secrets/duplicity-aws";
+  # };
+}
+#+end_src
+
+---
+
+*** S3 Credentials: Recommendation
+
+*Use =sops-nix=* over password-store for this use case. Reasons:
+- Secrets are decrypted at boot to =/run/secrets/= — duplicity can read them as a file
+- Works well with NixOS system services (which run as root, not your user)
+- =pass= is user-session oriented and awkward to wire into systemd services
+
+The =secretFile= for duplicity should export:
+#+begin_src bash
+AWS_ACCESS_KEY_ID=AKIAxxxxxxxx
+AWS_SECRET_ACCESS_KEY=xxxxxxxx
+#+end_src
+
+*sops-nix setup sketch:*
+#+begin_src nix
+# In your configuration.nix
+sops.secrets."duplicity-aws" = {
+  sopsFile = ./secrets/duplicity-aws.yaml;
+  mode = "0400";
+};
+#+end_src
+
+#+begin_src yaml
+# secrets/duplicity-aws.yaml (encrypted with sops)
+duplicity-aws: |
+  AWS_ACCESS_KEY_ID=AKIAxxxxxxxx
+  AWS_SECRET_ACCESS_KEY=xxxxxxxx
+#+end_src
+
+The IAM user should have a minimal policy — only =s3:GetObject=, =s3:PutObject=, =s3:ListBucket=, =s3:DeleteObject= on your specific bucket.
+*** Exporting that function
+:PROPERTIES:
+:ID:       d65d9ee4-9f83-4ccc-a2da-c2ec12436825
+:END:
+#+BEGIN_QUOTE
+I would like to export this function. I would call `services.duplicity` etc in another file. How do I do that?
+#+END_QUOTE
+
+
+You can export the function via =lib.mkOption= or simply by returning it as part of the module's =config= and using a custom option. The simplest approach is to add it to a shared =lib= overlay, but the idiomatic NixOS way is to use module options.
+
+*shared/duplicity.nix* — export only the function:
+
+#+begin_src nix
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  mkDuplicityConfig =
+    {
+      homedir,
+      targetUrl,
+      secretFile ? null,
+    }:
+    {
+      # ... same as before
+    };
+in
+{
+  # Export the function so other modules can use it
+  options.lib.mkDuplicityConfig = lib.mkOption {
+    type = lib.types.raw;
+    default = mkDuplicityConfig;
+    readOnly = true;
+  };
+}
+#+end_src
+
+*Then in another file* (e.g., =hosts/myhost/default.nix=):
+
+#+begin_src nix
+{ config, lib, ... }:
+{
+  imports = [ ../../shared/duplicity.nix ];
+
+  services.duplicity = config.lib.mkDuplicityConfig {
+    homedir = "/home/lyterk";
+    targetUrl = "s3://s3.amazonaws.com/your-bucket-name/lyterk";
+    secretFile = "/run/secrets/duplicity-aws";
+  };
+}
+#+end_src
+
+The key is =lib.types.raw= which allows passing arbitrary values (including functions) through the option system, and =readOnly = true= to prevent overriding.
+
+** Having more than one service
+#+BEGIN_QUOTE
+I use home-manager, which is a module in my nixos configuration.
+
+Ideally, how should I configure this backup so it runs per-user directory? I want each user to back up to a separate S3 folder in the bucket.
+#+END_QUOTE
+
+
+For a per-user setup with NixOS (not home-manager modules), the cleanest approach is to configure =services.duplicity= instances per user in each host's configuration file, using the shared helper.
+
+Since =services.duplicity= is a NixOS service (not home-manager), it runs as root but can back up user directories. You'd configure it per-host with the specific user's home:
+
+#+begin_src nix
+# hosts/myhost/configuration.nix
+{ config, lib, ... }:
+{
+  imports = [ ../../shared/duplicity.nix ];
+
+  services.duplicity = config.lib.mkDuplicityConfig {
+    homedir = "/home/lyterk";
+    targetUrl = "s3://s3.amazonaws.com/your-bucket/hosts/myhost/lyterk";
+    secretFile = "/run/secrets/duplicity-aws";
+  };
+}
+#+end_src
+
+*If you have multiple users on one host*, =services.duplicity= only supports one instance. You have two options:
+
+1. *Extend =mkDuplicityConfig=* to merge multiple users' includes into one backup job (simpler, one S3 path per host).
+
+2. *Use systemd services directly* — create a =systemd.services.duplicity-<user>= for each user, giving you true per-user isolation:
+
+#+begin_src nix
+# shared/duplicity.nix — add alongside mkDuplicityConfig
+mkDuplicitySystemdService = { user, homedir, targetUrl, secretFile }: {
+  description = "Duplicity backup for ${user}";
+  startAt = "daily";
+  serviceConfig = {
+    User = "root";
+    ExecStart = /* duplicity command */;
+    EnvironmentFile = secretFile;
+  };
+};
+#+end_src
+
+Then in your host config:
+#+begin_src nix
+systemd.services.duplicity-lyterk = mkDuplicitySystemdService { ... };
+systemd.services.duplicity-otheruser = mkDuplicitySystemdService { ... };
+#+end_src
+
+*Recommended bucket layout:*
+#+begin_src 
+s3://your-bucket/
+  hosts/
+    myhost/
+      lyterk/
+      otheruser/
+    workhost/
+      lyterk-work/
+#+end_src
+
+Which approach fits your setup — single user per host, or multiple users per host?
+
+** Systemd duplicity service
+:PROPERTIES:
+:ID:       8bce6948-91f6-4da7-9a1a-0c2168a7022b
+:END:
+#+BEGIN_QUOTE
+I would like to do the multiple user per host, systemd approach. How would I do that?
+#+END_QUOTE
+
+
+Here's how to implement the systemd approach. Update your =shared/duplicity.nix=:
+
+#+begin_src nix
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  mkDuplicityConfig =
+    {
+      homedir,
+      targetUrl,
+      secretFile ? null,
+    }:
+    {
+      enable = true;
+      root = homedir;
+      include = [ homedir ];
+      exclude = [
+        "${homedir}/.cache"
+        # ... rest of your excludes
+      ];
+      targetUrl = targetUrl;
+      frequency = "daily";
+      secretFile = secretFile;
+      extraFlags = [ "--volsize" "100" ];
+      fullIfOlderThan = "1M";
+      cleanup = {
+        maxAge = "1M";
+        maxFull = 2;
+        maxIncr = 1;
+      };
+    };
+
+  mkExcludeFlags = homedir: lib.concatMap (dir: [ "--exclude" dir ]) [
+    "${homedir}/.cache"
+    "${homedir}/.npm"
+    "${homedir}/.mozilla"
+    "${homedir}/.PlayOnLinux"
+    "${homedir}/.clojure"
+    "${homedir}/.config"
+    "${homedir}/.factorio"
+    "${homedir}/.gitlibs"
+    "${homedir}/.git-credential-cache"
+    "${homedir}/.gnupg"
+    "${homedir}/.google-chrome-captive"
+    "${homedir}/.hex"
+    "${homedir}/.ipython"
+    "${homedir}/.java"
+    "${homedir}/.keychain"
+    "${homedir}/.local"
+    "${homedir}/.m2"
+    "${homedir}/.mc"
+    "${homedir}/.minio"
+    "${homedir}/.mix"
+    "${homedir}/.nix-defexpr"
+    "${homedir}/.nix-profile"
+    "${homedir}/.password-store"
+    "${homedir}/.pki"
+    "${homedir}/.sbt"
+    "${homedir}/.ssh"
+    "${homedir}/.steam"
+    "${homedir}/.tenv"
+    "${homedir}/.terraform.d"
+    "${homedir}/.thunderbird"
+    "${homedir}/.tor"
+    "${homedir}/.yarn"
+  ];
+
+  mkDuplicityService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile ? null,
+    }:
+    {
+      description = "Duplicity backup for ${user}";
+      startAt = "daily";
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.concatStringsSep " " (
+          [ "${pkgs.duplicity}/bin/duplicity" ]
+          ++ [ "--volsize" "100" ]
+          ++ [ "--full-if-older-than" "1M" ]
+          ++ (mkExcludeFlags homedir)
+          ++ [ homedir targetUrl ]
+        );
+        EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+      };
+    };
+
+  mkDuplicityCleanupService =
+    {
+      user,
+      homedir,
+      targetUrl,
+      secretFile ? null,
+    }:
+    {
+      description = "Duplicity cleanup for ${user}";
+      after = [ "duplicity-${user}.service" ];
+      serviceConfig = {
+        User = "root";
+        ExecStart = lib.concatStringsSep " " [
+          "${pkgs.duplicity}/bin/duplicity"
+          "remove-all-but-n-full" "2"
+          "--force"
+          targetUrl
+        ];
+        EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+      };
+    };
+
+  mkDuplicityUser =
+    args@{ user, homedir, targetUrl, secretFile ? null }:
+    {
+      systemd.services."duplicity-${user}" = mkDuplicityService args;
+      systemd.services."duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+    };
+
+in
+{
+  options.lib.mkDuplicityConfig = lib.mkOption {
+    type = lib.types.raw;
+    default = mkDuplicityConfig;
+    readOnly = true;
+  };
+
+  options.lib.mkDuplicityUser = lib.mkOption {
+    type = lib.types.raw;
+    default = mkDuplicityUser;
+    readOnly = true;
+  };
+}
+#+end_src
+
+Then in your host config:
+
+#+begin_src nix
+# hosts/myhost/configuration.nix
+{ config, lib, ... }:
+{
+  imports = [ ../../shared/duplicity.nix ];
+
+  # Merge multiple users' systemd services
+  systemd.services = lib.mkMerge [
+    (config.lib.mkDuplicityUser {
+      user = "lyterk";
+      homedir = "/home/lyterk";
+      targetUrl = "s3://s3.amazonaws.com/your-bucket/hosts/myhost/lyterk";
+      secretFile = "/run/secrets/duplicity-aws";
+    }).systemd.services
+
+    (config.lib.mkDuplicityUser {
+      user = "otheruser";
+      homedir = "/home/otheruser";
+      targetUrl = "s3://s3.amazonaws.com/your-bucket/hosts/myhost/otheruser";
+      secretFile = "/run/secrets/duplicity-aws";
+    }).systemd.services
+  ];
+}
+#+end_src
+
+A few notes:
+- The =EnvironmentFile= should contain your AWS credentials (=AWS_ACCESS_KEY_ID=, =AWS_SECRET_ACCESS_KEY=)
+- Each user gets their own =duplicity-<user>= and =duplicity-cleanup-<user>= service
+- You can =systemctl start duplicity-lyterk= to run manually
+- The cleanup service isn't wired to auto-run after the backup yet — you could add a =systemd.timers= entry or use =wants=/=after= to chain them 
+
+*** Duplicative?
+#+BEGIN_QUOTE
+Isn't the systemd.services."duplicity-${user}" duplicative? We just dereference it with (}).systemd.services.
+#+END_QUOTE
+
+
+Yes, you're right. The =mkDuplicityUser= function returns ={ systemd.services = ...; }= and then you immediately unwrap =.systemd.services= at the call site, which is pointless indirection.
+
+Either:
+
+*Option A* — Have =mkDuplicityUser= return the services attrset directly:
+#+begin_src nix
+mkDuplicityUser = args@{ user, ... }: {
+  "duplicity-${user}" = mkDuplicityService args;
+  "duplicity-cleanup-${user}" = mkDuplicityCleanupService args;
+};
+
+# usage:
+systemd.services = lib.mkMerge [
+  (config.lib.mkDuplicityUser { user = "lyterk"; ... })
+  (config.lib.mkDuplicityUser { user = "otheruser"; ... })
+];
+#+end_src
+
+*Option B* — Keep =mkDuplicityUser= returning the full module attrset and use it with =imports= or =lib.mkMerge= at the top level, not just =.systemd.services=.
+
+Option A is cleaner given how you're actually using it.
+*** Confused
+#+BEGIN_QUOTE
+I'm a little confused now. Please fix my functions and configuration.nix if necessary, so I would implement Option A for mkDuplicityUser. Return your answer as a git diff.
+#+END_QUOTE
+
+
+
+Looking at the code, =mkDuplicityUser= already implements Option A (returns the services attrset directly). The issue is in =configuration.nix= where the usage is malformed — it has =lib.mkMerge [...]= as a key in the =systemd.services= attrset instead of being assigned to it.
+
+#+begin_src diff
+--- a/etc/nixos/hosts/miranda/configuration.nix
++++ b/etc/nixos/hosts/miranda/configuration.nix
+@@ -198,13 +198,14 @@ in
+       };
+ 
+-      lib.mkMerge [
+-      (config.lib.mkDuplicityUser { user = "lyterk"; homedir = "/home/lyterk"; targetUrl = ""; secretFile = "/run/secrets/duplicityAws"; })
+-      ]
+     };
+ 
++  systemd.services = lib.mkMerge [
++    (config.lib.mkDuplicityUser { user = "lyterk"; homedir = "/home/lyterk"; targetUrl = "s3://s3.amazonaws.com/your-bucket/hosts/miranda/lyterk"; secretFile = "/run/secrets/duplicityAws"; })
++    (config.lib.mkDuplicityUser { user = "work"; homedir = "/home/work"; targetUrl = "s3://s3.amazonaws.com/your-bucket/hosts/miranda/work"; secretFile = "/run/secrets/duplicityAws"; })
++  ];
++
+     user.services.kanshi = {
+#+end_src
+
+The =systemd.services = lib.mkMerge [...]= block needs to be a top-level assignment in the module, not nested inside the existing =systemd.services = { ... }= block.
+
+*** mkMerge erase current state?
+#+BEGIN_QUOTE
+Would doing that mkMerge as a toplevel assignment delete the other services in the systemd.services block?
+#+END_QUOTE
+
+
+
+No. =lib.mkMerge= merges attribute sets, so assigning =systemd.services = lib.mkMerge [...]= at the top level will be merged with the existing =systemd.services = { deploy-ssh-key = ...; ... }= block by the NixOS module system. Both definitions of =systemd.services= get merged together — that's exactly what the module system does with attrsets.
+
+However, the current file has a different bug: =systemd.services= is nested /inside/ the =systemd = { ... }= block as =systemd.services= (i.e., =systemd.systemd.services=), which is wrong. It should be a sibling to the existing =systemd.services= block, or you should just add the duplicity services directly inside the existing =systemd.services = { ... }= attrset using =lib.mkMerge= there.
+
+The simplest fix is to fold it into the existing block:
+
+#+begin_src nix
+systemd = {
+  services = lib.mkMerge [
+    {
+      deploy-ssh-key = { ... };
+      deploy-gpg-code-key = { ... };
+      deploy-gpg-kev-key = { ... };
+    }
+    (config.lib.mkDuplicityUser { user = "lyterk"; ... })
+    (config.lib.mkDuplicityUser { user = "work"; ... })
+  ];
+  user.services.kanshi = { ... };
+};
+#+end_src
+*** cleanup or trigger
+#+BEGIN_QUOTE
+A while back you said:
+
+```- The cleanup service isn't wired to auto-run after the backup yet — you could add a =systemd.timers= entry or use =wants=/=after= to chain them```
+
+How would I do the =wants=/=after= chaining?
+#+END_QUOTE
+
+
+The cleanup service already has =after = [ "duplicity-${user}.service" ]=, but it needs =wantedBy= or the backup service needs to =wants= it. The simplest approach — have the backup service trigger the cleanup:
+
+#+begin_src nix
+mkDuplicityService =
+  args@{ user, homedir, targetUrl, secretFile ? null }:
+  {
+    description = "Duplicity backup for ${user}";
+    startAt = "daily";
+    wants = [ "duplicity-cleanup-${user}.service" ];
+    after = [ "duplicity-cleanup-${user}.service" ];  # cleanup runs AFTER backup
+    # ^ actually this is wrong, use:
+  };
+#+end_src
+
+Wait — =after= means "start me after X", so to run cleanup /after/ backup:
+
+#+begin_src nix
+mkDuplicityCleanupService =
+  args@{ user, homedir, targetUrl, secretFile ? null }:
+  {
+    description = "Duplicity cleanup for ${user}";
+    after = [ "duplicity-${user}.service" ];
+    requires = [ "duplicity-${user}.service" ];  # don't run if backup failed
+    wantedBy = [ "duplicity-${user}.service" ];  # trigger when backup is activated
+    serviceConfig = { ... };
+  };
+#+end_src
+
+The key addition is =wantedBy = [ "duplicity-${user}.service" ]= on the cleanup service — this means "activate me whenever the backup service is activated", and =after= + =requires= ensures ordering and failure propagation.
+*** Lib exports
+       error: The option `lib' in module `/nix/store/7w2x8yric1i39jc4prsj2s1xrabm71yx-source/nixos/modules/misc/lib.nix' would be a parent of the following options, but its type `attribute set of (attribute set)' does not support nested options.
+        - option(s) with prefix `lib.mkDuplicityConfig' in module `/nix/store/f52wxq1b6p5ipkh72n7awjgscrn0vh26-source/shared/duplicity.nix'
+        - option(s) with prefix `lib.mkDuplicityUser' in module `/nix/store/f52wxq1b6p5ipkh72n7awjgscrn0vh26-source/shared/duplicity.nix'
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."miranda".config.system.build.nixos-rebuild' --no-link' returned non-zero exit status 1.
+#+BEGIN_QUOTE
+I got the error above for how I export the function. What am I doing wrong?
+#+END_QUOTE
+
+
+The error says you can't add options under =lib= because NixOS's =lib= module uses =attribute set of (attribute set)= type which doesn't support nested options.
+
+*Fix*: Export your functions via =config= instead of =options.lib=:
+
+In =duplicity.nix=, replace the =options= block with:
+
+#+begin_src nix
+{
+  config = {
+    lib.mkDuplicityConfig = mkDuplicityConfig;
+    lib.mkDuplicityUser = mkDuplicityUser;
+  };
+}
+#+end_src
+
+Wait — that's also wrong since =lib= isn't a config key.
+
+*Actual fix*: Use a custom namespace under =config=, like =config._module.args= or better, just pass them via a dedicated option namespace:
+
+#+begin_src nix
+options = {
+  myLib = {
+    mkDuplicityConfig = lib.mkOption {
+      type = lib.types.raw;
+      default = mkDuplicityConfig;
+      readOnly = true;
+    };
+    mkDuplicityUser = lib.mkOption {
+      type = lib.types.raw;
+      default = mkDuplicityUser;
+      readOnly = true;
+    };
+  };
+};
+#+end_src
+
+Then in =configuration.nix= use =config.myLib.mkDuplicityUser= instead of =config.lib.mkDuplicityUser=.
+
+The root cause: =lib= is already claimed by NixOS as an attrset-of-attrset option, so you can't add sub-options to it.
+*** Encrypting backups
+#+BEGIN_QUOTE
+How can I change this config to encrypt those backups with my gpg key in sops secrets?
+#+END_QUOTE
+
+
+To encrypt Duplicity backups with your GPG key, you need to pass =--encrypt-key= to Duplicity. Here's how to modify your setup:
+
+** 1. Add your GPG key ID to sops secrets
+
+In your =secrets.yaml=, add your GPG key ID (or fingerprint):
+#+begin_src yaml
+gpgKeyId: "YOUR_KEY_FINGERPRINT"
+#+end_src
+
+Or more practically, since Duplicity needs the key ID at runtime, you can hardcode the key ID (it's not secret) and just ensure the key is imported.
+
+** 2. Modify =duplicity.nix= to accept and use a GPG key ID
+
+#+begin_src nix
+mkDuplicityService =
+  {
+    user,
+    homedir,
+    targetUrl,
+    secretFile ? null,
+    gpgKeyId ? null,  # Add this parameter
+  }:
+  {
+    description = "Duplicity backup for ${user}";
+    startAt = "daily";
+    serviceConfig = {
+      User = "root";
+      ExecStart = lib.concatStringsSep " " (
+        [ "${pkgs.duplicity}/bin/duplicity" ]
+        ++ (lib.optionals (gpgKeyId != null) [ "--encrypt-key" gpgKeyId ])
+        ++ [ "--volsize" "100" ]
+        ++ [ "--full-if-older-than" "1M" ]
+        ++ (mkExcludeFlags homedir)
+        ++ [ homedir targetUrl ]
+      );
+      EnvironmentFile = lib.mkIf (secretFile != null) secretFile;
+    };
+  };
+#+end_src
+
+Do the same for =mkDuplicityCleanupService= and =mkDuplicityUser=.
+
+** 3. Update =configuration.nix=
+
+#+begin_src nix
+(config.lyterBackups.mkDuplicityUser {
+  user = "lyterk";
+  homedir = "/home/lyterk";
+  targetUrl = "s3://...";
+  secretFile = "/run/secrets/duplicityAws";
+  gpgKeyId = "YOUR_KEY_FINGERPRINT";  # public info, safe to hardcode
+})
+#+end_src
+
+** 4. Ensure GPG key is available to root
+
+Since Duplicity runs as =root=, you need the key imported into root's keyring. Add a service:
+
+#+begin_src nix
+deploy-gpg-root = {
+  description = "Import GPG public key for root (duplicity encryption)";
+  after = [ "sops-nix.service" ];
+  requires = [ "sops-nix.service" ];
+  before = [ "duplicity-lyterk.service" "duplicity-work.service" ];
+  wantedBy = [ "multi-user.target" ];
+  serviceConfig = {
+    Type = "oneshot";
+    User = "root";
+    ExecStart = "${pkgs.gnupg}/bin/gpg --import /run/secrets/gpgCode";
+    RemainAfterExit = true;
+  };
+};
+#+end_src
+
+Your GPG key ID is the fingerprint (e.g., =ABCD1234...=), which is public information and safe to hardcode in the config.
+* Dealing with SOPS :nixos:sops:
+:PROPERTIES:
+:ID:       dec3f01c-17ab-4d50-a8a5-8fa4284bd78d
+:END:
+
+#+BEGIN_QUOTE
+I always forget how to create a sops secret. I have my aws access key. Walk me through creating that sops secret. I've already done this in this repo before.
+#+END_QUOTE
+
+
+Since you've done this before in the repo, the pattern is already established. Here's the workflow:
+
+*1. Find your existing sops config*
+#+begin_src bash
+cat /etc/nixos/.sops.yaml
+#+end_src
+This tells you which keys are used for encryption.
+
+*2. Edit (or create) the secrets file*
+#+begin_src bash
+cd /etc/nixos
+sops secrets/duplicity-aws.yaml
+#+end_src
+=sops= will open your editor. Add:
+#+begin_src yaml
+duplicity-aws: |
+  AWS_ACCESS_KEY_ID=AKIAxxxxxxxx
+  AWS_SECRET_ACCESS_KEY=xxxxxxxx
+#+end_src
+Save and quit — sops encrypts it automatically.
+
+*3. Reference it in your nix config*
+#+begin_src nix
+sops.secrets."duplicity-aws" = {
+  sopsFile = ./secrets/duplicity-aws.yaml;
+  mode = "0400";
+};
+#+end_src
+
+*4. Rebuild*
+#+begin_src bash
+sudo nixos-rebuild switch
+#+end_src
+
+---
+
+*Key tip:* If the file already exists and is encrypted, =sops secrets/duplicity-aws.yaml= will decrypt-edit-reencrypt transparently. If it's a /new/ file in an existing repo, sops will use the keys from =.sops.yaml= automatically.
+
+What does your =.sops.yaml= look like? That'll confirm the exact invocation needed.
+** Key not found
+:PROPERTIES:
+:ID:       cf81a41e-d6f0-423d-bdc7-4faf8978312c
+:END:
+error: Cannot build '/nix/store/07yfbfh4rq54jq8i4yj60ak3wqaq2ajf-manifest.json.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/8islsdk2qya467w22ax2zvjd4z5d80f0-manifest.json
+       Last 1 log lines:
+       > /nix/store/a00hxyr0w9bfz0z1zg4p3lwfy7rmzivs-sops-install-secrets-0.0.1/bin/sops-install-secrets: manifest is not valid: secret duplicityAws in /nix/store/hnssxrw6b5k57ikvrjx67s0l2mhhxr18-duplicityAws.json is not valid: the key 'duplicityAws' cannot be found
+       For full logs, run:
+         nix log /nix/store/07yfbfh4rq54jq8i4yj60ak3wqaq2ajf-manifest.json.drv
+error: Cannot build '/nix/store/fgmbzldd4rldv8jmj4c46vf4y4x07y4g-nixos-system-miranda-25.11.20260505.0c88e1f.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/hngkjbr1a31787wmgck0ini426cg5zhy-nixos-system-miranda-25.11.20260505.0c88e1f
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."miranda".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+
+#+BEGIN_QUOTE
+As you can see, it says that a manifest is not valid. Where would I put that duplicityAws key?
+#+END_QUOTE
+
+The error says =the key 'duplicityAws' cannot be found= in your =duplicityAws.json= file. The key in the JSON must match the secret name.
+
+Your =duplicityAws.json= needs to look like:
+
+#+begin_src json
+{
+    "duplicityAws": "AWS_ACCESS_KEY_ID=AKIAxxxxxxxx\nAWS_SECRET_ACCESS_KEY=xxxxxxxx",
+    "sops": { ... }
+}
+#+end_src
+
+To create it properly:
+
+#+begin_src bash
+# Create the plaintext file first
+cat > /tmp/duplicityAws.json << 'EOF'
+{
+    "duplicityAws": "AWS_ACCESS_KEY_ID=AKIAxxxxxxxx\nAWS_SECRET_ACCESS_KEY=xxxxxxxx"
+}
+EOF
+
+# Encrypt with sops
+sops --encrypt /tmp/duplicityAws.json > /etc/nixos/secrets/duplicityAws.json
+#+end_src
+
+The key inside the JSON file must exactly match the secret name used in your sops config (=duplicityAws=).
+

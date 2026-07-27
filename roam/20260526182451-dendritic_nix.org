@@ -1,0 +1,63 @@
+:PROPERTIES:
+:ID:       c4bf5911-2ef8-441d-a419-c7ea6949bd37
+:END:
+#+title: Dendritic Nix
+
+* Converting my Repo to Dendritic Nix
+#+BEGIN_QUOTE
+What's a good way to make this more modular? Is it worthwhile to consider dendritic nix?
+#+END_QUOTE
+
+
+** Modularity Improvements
+
+Your config is already reasonably structured. Here are practical improvements:
+
+*** 1. Split =configuration.nix= into focused modules
+
+#+begin_src 
+hosts/miranda/
+├── configuration.nix  # thin orchestrator, just imports
+├── hardware.nix
+├── home.nix
+├── modules/
+│   ├── services.nix      # all services.* config
+│   ├── networking.nix    # networking config
+│   ├── systemd.nix       # deploy-ssh-key, deploy-gpg-* services
+│   ├── security.nix      # security, pam, polkit
+│   └── packages.nix      # environment.systemPackages
+#+end_src
+
+*** 2. Move shared patterns to =shared/=
+
+Your =gpgKeyScriptFn= and =deploySshScript= could become a shared module:
+
+#+begin_src nix
+# shared/secrets-deployment.nix
+{ config, pkgs, lib, ... }:
+{
+  options.secretsDeployment = {
+    sshKey = lib.mkOption { ... };
+    gpgKeys = lib.mkOption { ... };
+  };
+}
+#+end_src
+
+*** 3. Extract home.nix package lists
+
+They're already grouped by variable — good. Consider moving them to =shared/packages/= if other hosts share them.
+
+---
+
+** On Dendritic Nix
+
+*Probably not worth it for your use case.* Dendritic is experimental/niche. You'd be trading:
+- Known: NixOS module system (well-documented, stable)
+- Unknown: smaller community, less tooling, migration cost
+
+*Better alternatives for your pain points:*
+- [=flake-parts=](https://flake.parts/) — more modular flake structure, widely adopted
+- [=haumea=](https://github.com/nix-community/haumea) — filesystem-based module loading
+- Just more disciplined use of NixOS module system with =lib.mkOption=
+
+Your config is ~500 lines total. The complexity doesn't yet justify a new framework.

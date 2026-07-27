@@ -1,0 +1,51 @@
+:PROPERTIES:
+:ID:       bac54b92-babc-4c28-9ebf-cd621390887f
+:END:
+#+title: Switching user
+
+* Freezes when I switch TTY
+#+BEGIN_QUOTE
+I'm using nixos, I have two users, X and Y. I start sway in TTY1 and TTY2 for each respective user. However, when I try to switch from the first TTY to the second, it freezes. Look at my config and tell me how to avoid this.
+
+I have already fixed a tty bug in the fish init attribute.
+#+END_QUOTE
+
+
+Looking at your fish =loginShellInit=:
+
+#+begin_src nix
+loginShellInit = ''
+  if test (id --user $USER) -ge 1000 && string match -qr '/dev/tty[0-9]' (tty)
+    exec sway
+  end
+'';
+#+end_src
+
+The issue is that *both users auto-launch sway on any TTY*, so switching TTYs likely triggers a second sway instance competing for the same GPU/display resources, causing the freeze.
+
+*Fix*: assign each user a specific TTY:
+
+#+begin_src nix
+loginShellInit = ''
+  if test (id --user $USER) -ge 1000
+    switch (tty)
+      case '/dev/tty1'
+        test (whoami) = 'lyterk' && exec sway
+      case '/dev/tty2'
+        test (whoami) = 'work' && exec sway
+    end
+  end
+'';
+#+end_src
+
+However, since this is a *system-wide* fish config, both users share it. You may want to set per-user =loginShellInit= in their respective home-manager configs instead, e.g. in =lyterk-home.nix=:
+
+#+begin_src nix
+programs.fish.loginShellInit = ''
+  if string match -q '/dev/tty1' (tty)
+    exec sway
+  end
+'';
+#+end_src
+
+And similarly for =work= with =tty2=. This way each user only starts sway on their designated TTY, preventing conflicts when switching.

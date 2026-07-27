@@ -1,0 +1,66 @@
+#+title: Notes
+
+* sops
+:PROPERTIES:
+:ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
+:END:
+** [[id:66bcaaa6-5340-403b-b5df-54bd9a826f6b][Sops Key Deployment]]
+* Multi-user stuff
+** [[id:62fbd32d-ebe0-4fb1-ad1c-627be318f457][Adding a user]]
+** [[id:0e612db9-7976-4ba9-98c8-6bb43a83071d][Secrets to multiple users]]
+** [[id:67934721-c53c-4421-8e43-81f4e36ded50][Per-user backups]]
+** Home-Manager changes
+:PROPERTIES:
+:ID:       bb5ea45d-fc54-4c27-a345-b679c26f9627
+:END:
+*** [[id:e7750e3e-cfa2-4c14-b283-627bc6e5891c][Per-user wallpaper images]]
+* Home-Manager
+:PROPERTIES:
+:ID:       76bda23a-f78c-44a5-98de-0ffb2014d8e2
+:END:
+** [[id:41c01784-8c6b-4d9d-901f-32f47757507c][GTKLock]]
+* [[id:aa45a867-81c5-4e30-afb7-91fc44db7207][Blocking sites]]
+* [[id:5155948c-9bb8-479b-84fb-fb8141d4e0e7][Generic errors]]
+* [[id:7031c775-355e-4c0c-bb13-9b0b05b45ce6][nixpkgs]]
+* [[id:ff39d78f-1f43-47a0-b2b2-6f2d1d3fc413][Sleep and Hibernate]]
+* Sway
+:PROPERTIES:
+:ID:       2db0a407-ec1b-41cd-922e-03008e0fabd9
+:END:
+** Swayidle
+:PROPERTIES:
+:ID:       0800e17e-c16f-4e37-b78c-42327f5ad3a2
+:END:
+*** [[id:ede0b44c-de4d-449b-b1b4-cccdb9debe08][Changed to attrset]]
+** Submenus
+:PROPERTIES:
+:ID:       367b14be-871e-451b-aacc-5bf311256bda
+:END:
+*** [[id:c95435d9-d915-4a6e-97a0-c406a5513d6e][Commands not showing]]
+** Terminal Emulators
+:PROPERTIES:
+:ID:       115f64cb-abee-49b0-8473-629f307122a2
+:END:
+*** Alacritty
+:PROPERTIES:
+:ID:       ae09fb96-f9ec-4d94-bc60-6315c8a27190
+:END:
+*** Foot
+:PROPERTIES:
+:ID:       a2bff206-7b5c-4b10-8188-da469c6860f4
+:END:
+**** [[id:53cc295b-ff38-4f44-8ad0-3f5eb0b8a0de][Foot isn't changing sizes with stylix]]
+* Window Manager
+:PROPERTIES:
+:ID:       c0c8e3b8-189a-4e64-b440-3ac5f6360491
+:END:
+** [[id:063a6b8a-b64c-4380-afa5-d8053755586f][File Picker]]
+* Scripts
+:PROPERTIES:
+:ID:       bcd26d89-9a85-4736-a7e9-55ea28dc528e
+:END:
+** [[id:1bdc0a7e-0b72-4449-bfd1-6b90dd2e465e][Config Refresh Script]]
+* Backups
+** Fixing the duplicity backup settings for work
+* Imports
+** TODO [[id:d10b8a35-29cc-49d6-8799-52df47165425][Deep relative import fixing]]

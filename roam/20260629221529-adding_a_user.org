@@ -1,0 +1,299 @@
+:PROPERTIES:
+:ID:       62fbd32d-ebe0-4fb1-ad1c-627be318f457
+:END:
+#+title: Adding a user
+#+BEGIN_QUOTE
+I have this nixos configuration. I would like to add a user which will be my work profile for this laptop. What's a good way to do that modularly?
+#+END_QUOTE
+
+* Response 1:
+
+Here's a clean modular approach:
+
+** 1. Create a separate module for the work user
+
+Create =/etc/nixos/hosts/miranda/users/work.nix=:
+
+#+begin_src nix
+{ pkgs, config, ... }:
+
+{
+  users.users.work = {
+    shell = pkgs.fish;
+    isNormalUser = true;
+    description = "Work Profile";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "docker"
+    ];
+    # Set a password with passwd after creation
+  };
+
+  home-manager.users.work = { pkgs, ... }: {
+    home.username = "work";
+    home.homeDirectory = "/home/work";
+    home.stateVersion = "23.11";
+    programs.home-manager.enable = true;
+    # work-specific config here, or import a shared file
+  };
+}
+#+end_src
+
+** 2. Extract shared home-manager config
+
+Since you'll want some overlap (git tools, shell aliases, etc.), consider:
+
+- =/etc/nixos/shared/home-base.nix= — common tools/programs
+- =/etc/nixos/hosts/miranda/users/lyterk-home.nix= — personal overrides
+- =/etc/nixos/hosts/miranda/users/work-home.nix= — work overrides
+
+Both home files can =import ../../shared/home-base.nix= and override as needed (different git email, different SSH keys, etc.).
+
+** 3. Import in configuration.nix
+
+#+begin_src nix
+imports = [
+  ./hardware.nix
+  ../../shared/sops.nix
+  ./users/work.nix   # add this
+];
+#+end_src
+
+** Key benefits of this structure
+
+- Work user gets its own =~/.gnupg=, =~/.ssh=, git config
+- You can have separate browser profiles, credentials, etc.
+- Easy to enable/disable by commenting out the import
+- Secrets via sops can be scoped per-user
+
+Would you like help extracting the shared base config or setting up work-specific SSH/GPG keys via sops?
+* Response 2:
+#+BEGIN_QUOTE
+Would you like help extracting the shared base config or setting up work-specific SSH/GPG keys via sops?
+
+Yes, do that.
+#+END_QUOTE
+
+
+
+Here's how to set it up:
+
+* 1. Extract shared base config
+
+Create =/etc/nixos/shared/home-base.nix=:
+
+#+begin_src nix
+{ pkgs, lib, ... }:
+
+let
+  shellTools = with pkgs; [
+    atuin
+    direnv
+    libtool
+    pwgen
+    gnupg
+    gnumake
+    keychain
+    ripgrep-all
+    pandoc
+    xan
+    zip
+  ];
+  languageTools = with pkgs; [
+    nil
+    pyright
+    black
+    nodejs
+    beancount-language-server
+  ];
+in
+{
+  home.stateVersion = "23.11";
+  programs.home-manager.enable = true;
+
+  home.packages = shellTools ++ languageTools;
+
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      ls = "exa";
+      vim = "nvim";
+    };
+  };
+
+  programs.fish = {
+    enable = true;
+    interactiveShellInit = ''
+      atuin init fish | source
+    '';
+  };
+
+  programs.keychain = {
+    enable = true;
+    enableFishIntegration = true;
+    keys = [ "~/.ssh/id_ed25519" ];
+  };
+
+  programs.git = {
+    enable = true;
+    settings = {
+      pull.rebase = true;
+      credential.helper = "cache";
+      init.defaultBranch = "mainline";
+    };
+  };
+}
+#+end_src
+
+* 2. Personal home config
+
+Update =/etc/nixos/hosts/miranda/home.nix= to import the base and add personal overrides:
+
+#+begin_src nix
+{ pkgs, lib, ... }:
+
+{
+  imports = [
+    ../../shared/home-base.nix
+    ../../shared/firefox
+    ../../shared/waybar
+    ../../shared/sway
+  ];
+
+  home.username = "lyterk";
+  home.homeDirectory = "/home/lyterk";
+
+  nixpkgs.config.allowUnfree = true;
+
+  # Personal git config
+  programs.git = {
+    settings = {
+      user.name = "Kevin Lyter";
+      user.email = "code@lyterk.com";
+      commit.gpgsign = true;
+      signing.key = "0F39E83B";
+    };
+  };
+
+  programs.ssh = {
+    # ... your existing ssh config
+  };
+
+  # ... rest of personal packages/services
+}
+#+end_src
+
+* 3. Work home config
+
+Create =/etc/nixos/hosts/miranda/users/work-home.nix=:
+
+#+begin_src nix
+{ pkgs, lib, ... }:
+
+{
+  imports = [ ../../../shared/home-base.nix ];
+
+  home.username = "work";
+  home.homeDirectory = "/home/work";
+
+  nixpkgs.config.allowUnfree = true;
+
+  programs.git = {
+    settings = {
+      user.name = "Kevin Lyter";
+      user.email = "kevin@company.com";
+      commit.gpgsign = true;
+    };
+  };
+
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github-work" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519_work";
+      };
+    };
+  };
+
+  home.packages = with pkgs; [
+    # work-specific tools
+  ];
+}
+#+end_src
+
+* 4. Work user module
+
+Create =/etc/nixos/hosts/miranda/users/work.nix=:
+
+#+begin_src nix
+{ pkgs, config, ... }:
+
+{
+  users.users.work = {
+    shell = pkgs.fish;
+    isNormalUser = true;
+    description = "Work Profile";
+    extraGroups = [ "networkmanager" "wheel" "video" "docker" ];
+  };
+
+  home-manager.users.work = import ./work-home.nix;
+}
+#+end_src
+
+* 5. Work SSH/GPG keys via sops
+
+In your =/etc/nixos/shared/sops.nix=, add work secrets:
+
+#+begin_src nix
+sops.secrets = {
+  sshPrivateKey = { owner = "lyterk"; };
+  sshWorkPrivateKey = { owner = "work"; };  # add this
+  gpgCode = { };
+  gpgWork = { };                             # add this
+};
+#+end_src
+
+Then add a deploy service in =configuration.nix= similar to your existing =deploy-ssh-key=:
+
+#+begin_src nix
+systemd.services.deploy-work-ssh-key = {
+  description = "Deploy work SSH key";
+  after = [ "sops-nix.service" ];
+  requires = [ "sops-nix.service" ];
+  serviceConfig = {
+    Type = "oneshot";
+    ExecStart = pkgs.writeShellScript "deploy-work-ssh" ''
+      mkdir -p /home/work/.ssh
+      ln -sf /run/secrets/sshWorkPrivateKey /home/work/.ssh/id_ed25519_work
+      chmod 0600 /home/work/.ssh/id_ed25519_work
+      chown work:users /home/work/.ssh/id_ed25519_work
+    '';
+    User = "root";  # needs root to chown
+    RemainAfterExit = true;
+  };
+  wantedBy = [ "multi-user.target" ];
+};
+#+end_src
+
+* 6. Wire it all together in configuration.nix
+
+#+begin_src nix
+imports = [
+  ./hardware.nix
+  ../../shared/sops.nix
+  ./users/work.nix  # add this
+];
+#+end_src
+
+And encrypt your work secrets with sops:
+#+begin_src bash
+# Generate work SSH key
+ssh-keygen -t ed25519 -f work_key -C "kevin@company.com"
+# Add to sops secrets file
+sops /etc/nixos/secrets/secrets.yaml
+#+end_src
+

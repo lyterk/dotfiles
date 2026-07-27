@@ -64,14 +64,13 @@ let
     mako # notifications
     libnotify
     wlr-which-key
+    yazi
   ];
   dataStores = with pkgs; [ sqlite ];
   collaboration = with pkgs; [
-    # thunderbird
-    # plantuml-c4
-    # google-chrome
     libreoffice
     gimp
+    thunderbird
   ];
   fileSystems = with pkgs; [
     # cdrtools # cd reading
@@ -121,6 +120,10 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".gitignore".source = ./gitignore;
+    ".config/xdg-desktop-portal-termfilechooser/config".text = ''
+      [filechooser]
+      cmd=/run/current-system/sw/bin/yazi-filepicker.sh
+    '';
   };
 
   programs = {
@@ -141,6 +144,19 @@ in
       interactiveShellInit = ''
         atuin init fish | source
       '';
+    };
+
+    foot = {
+      enable = true;
+      # enableFishIntegration = true;
+      settings = {
+        main = {
+          font = lib.mkForce "FreeMono:size=12";
+        };
+        scrollback = {
+          lines = 100000;
+        };
+      };
     };
 
     keychain = {
@@ -272,6 +288,16 @@ in
         "x-scheme-handler/http" = [ "firefox.desktop" ];
         "x-scheme-handler/https" = [ "firefox.desktop" ];
         "text/html" = [ "firefox.desktop" ];
+      };
+    };
+    portal = {
+      extraPortals = [
+        pkgs.xdg-desktop-portal-wlr
+        pkgs.xdg-desktop-portal-termfilechooser
+      ];
+      config.common = {
+        default = "wlr";
+        "org.freedesktop.impl.portal.FileChooser" = "termfilechooser";
       };
     };
   };

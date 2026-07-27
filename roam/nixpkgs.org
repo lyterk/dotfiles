@@ -1,0 +1,106 @@
+:PROPERTIES:
+:ID:       7031c775-355e-4c0c-bb13-9b0b05b45ce6
+:END:
+#+title: nixpkgs
+
+* Installing packages from unstable
+#+BEGIN_QUOTE
+I have a package (cursor-code) that I would like to install from the unstable channel. How do I go about doing that?
+#+END_QUOTE
+
+
+In your flake, you can add =nixpkgs-unstable= as an input and pass it through to your configuration. Here's the general approach:
+
+*1. In your =flake.nix=, add unstable input:*
+#+begin_src nix
+inputs = {
+  nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  # ... other inputs
+};
+#+end_src
+
+*2. Pass unstable pkgs to your configuration:*
+#+begin_src nix
+outputs = { self, nixpkgs, nixpkgs-unstable, ... }:
+{
+  nixosConfigurations.miranda = nixpkgs.lib.nixosSystem {
+    specialArgs = {
+      pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+    };
+    modules = [ ./hosts/miranda/configuration.nix ];
+  };
+};
+#+end_src
+
+*3. In =configuration.nix=, accept and use it:*
+#+begin_src nix
+{ config, lib, pkgs, pkgs-unstable, ... }:
+{
+  environment.systemPackages = with pkgs; [
+    # ... existing packages
+    pkgs-unstable.cursor-code
+  ];
+}
+#+end_src
+
+If you're not using flakes, the approach differs (using =import <nixpkgs-unstable> {}=), but since you have =flakes= in your experimental features, the above is likely your setup.
+** Still error
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: attribute 'pkgs-unstable' missing
+       at /nix/store/7w2x8yric1i39jc4prsj2s1xrabm71yx-source/lib/modules.nix:685:13:
+          684|             "noting that argument `${name}` is not externally provided, so querying `_module.args` instead, requiring `config`"
+          685|             config._module.args.${name}
+             |             ^
+          686|           )
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '.#nixosConfigurations."miranda".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+lyterk@miranda /e/nixos (mainline) [1]>
+
+#+BEGIN_QUOTE
+I'm seeing this error. Please help me fix this.
+#+END_QUOTE
+
+The issue is that =pkgs-unstable= is passed as a =specialArgs= in the flake, but it's not included in =specialArgs=. Looking at your =flake.nix=:
+
+#+begin_src nix
+specialArgs = {
+  inherit flakeInputs;
+};
+#+end_src
+
+You need to add =pkgs-unstable= to =specialArgs=:
+
+#+begin_src nix
+specialArgs = {
+  inherit flakeInputs pkgs-unstable;
+};
+#+end_src
+
+This makes =pkgs-unstable= available as a module argument, which =configuration.nix= expects in its function signature:
+
+#+begin_src nix
+{ config, lib, pkgs, pkgs-unstable, ... }:
+#+end_src
+** Unfree error
+#+BEGIN_QUOTE
+I'm seeing an unfree package error, but I have allowed unfree in nixpkgs-unstable.config. 
+#+END_QUOTE
+
+
+The issue is that in your flake, you're not passing =allowUnfree = true= when importing =nixpkgs-unstable=:
+
+#+begin_src nix
+pkgs-unstable = import nixpkgs-unstable { inherit system; };
+#+end_src
+
+Should be:
+
+#+begin_src nix
+pkgs-unstable = import nixpkgs-unstable { 
+  inherit system; 
+  config.allowUnfree = true; 
+};
+#+end_src
+
+The =nixpkgs-unstable.config= option in your NixOS configuration only affects packages from the main nixpkgs channel, not the separately imported =pkgs-unstable=. The =pkgs-unstable= instance is created in the flake before NixOS modules are evaluated, so it needs its config set there directly.

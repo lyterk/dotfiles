@@ -1,0 +1,132 @@
+:PROPERTIES:
+:ID:       0cdc2882-576c-45fd-87fb-3c10db64955c
+:END:
+#+title: Journalctl issue hunting
+
+* 2026-07-11 Journalctl
+:PROPERTIES:
+:ID:       c2ae0255-c1bc-4790-a143-e2e63050a7c2
+:END:
+#+BEGIN_QUOTE
+Please look through this journalctl buffer from yesterday and see if there are any fixes to be made. List them in descending terms of importance, and call out how severe the issues would be.
+
+Also: I had an unexpected poweroff last night. My computer should be s2idle, but today it was powered off, which I don't want.
+#+END_QUOTE
+** Response :ai:
+
+
+Looking at the logs, here are the issues in descending order of importance:
+
+---
+
+** 1. 🔴 Unexpected Poweroff from Suspend (CRITICAL - your main concern)
+
+The log shows:
+#+begin_src 
+PM: suspend entry (s2idle)
+#+end_src
+...and then the buffer cuts off. The system entered s2idle but powered off instead of resuming. Likely causes:
+- *Battery died* while suspended (s2idle has higher drain than deep sleep)
+- *A wake event triggered* that caused a failed resume → emergency shutdown
+- *Kernel/firmware bug* with s2idle on your hardware
+
+*Fix options:*
+- Check =journalctl -b -1= (previous boot) for shutdown reason
+- Consider switching to =mem_sleep_default=deep= in your kernel params if battery drain is the issue — though note the log shows it tried =deep= first, then fell back to =s2idle=, which is suspicious
+- Check =cat /sys/power/mem_sleep= to see what's available
+
+---
+
+** 2. 🟡 PostgreSQL Collation Mismatch (MODERATE)
+
+Repeated every ~30s for both =postgres= and =atuin= databases:
+#+begin_src 
+collation version mismatch: created with 2.40, OS provides 2.42
+#+end_src
+This is *not immediately dangerous* but can cause subtle index corruption over time.
+
+*Fix:*
+#+begin_src sql
+ALTER DATABASE postgres REFRESH COLLATION VERSION;
+ALTER DATABASE atuin REFRESH COLLATION VERSION;
+#+end_src
+Run =REINDEX DATABASE= on each if you want to be safe.
+
+---
+
+** 3. 🟡 Gammastep Warning (LOW-MODERATE)
+
+#+begin_src 
+Warning: Zero outputs support gamma adjustment.
+#+end_src
+Firing every ~5 seconds — likely because you're on Wayland with a compositor that doesn't support the gamma protocol gammastep needs. Harmless but wasteful.
+
+*Fix:* Switch to =wlsunset= or configure your compositor's built-in night light instead.
+
+---
+
+** 4. 🟢 Bluetooth Bogus Device (LOW)
+
+#+begin_src 
+Unable to register device interface for 00:00:00:00:00:00
+#+end_src
+Occasional spurious Bluetooth advertisement with a null MAC. Harmless.
+
+---
+
+** 5. 🟢 gtklock Failed to Lock Session (LOW)
+
+#+begin_src 
+gtklock[1385067]: Failed to lock session
+#+end_src
+Screen locker failed when the lid closed — likely because suspend raced ahead of it. Not a security issue since the machine suspended immediately anyway, but worth noting.
+
+---
+
+*** Priority action: investigate the poweroff
+#+begin_src bash
+journalctl -b -1 --priority=err
+last -x | head -20
+#+end_src
+* 2026-07-11 Journalctl
+:PROPERTIES:
+:ID:       dab3a3bf-af33-449a-9e2e-477e44a7d132
+:END:
+#+BEGIN_QUOTE
+Please look through this journalctl buffer and see if there are any fixes to be made. List them in descending terms of importance, and call out how severe the issues would be.
+#+END_QUOTE
+** Response :ai:
+
+Here's what I see, ranked by importance:
+
+*** 1. 🟡 PostgreSQL Collation Version Mismatch (Medium)
+*Databases:* =postgres= and =atuin=
+*Issue:* Created with collation 2.40, OS now provides 2.42. This could cause *incorrect sort ordering or index corruption* over time.
+*Fix:*
+#+begin_src sql
+-- Run for each database
+ALTER DATABASE postgres REFRESH COLLATION VERSION;
+ALTER DATABASE atuin REFRESH COLLATION VERSION;
+#+end_src
+Optionally rebuild objects: =REINDEX DATABASE postgres;= etc.
+
+---
+
+*** 2. 🟢 Bluetooth Null Device (Low)
+*Issue:* Repeated errors registering device =00:00:00:00:00:00= — likely a ghost/spurious BLE advertisement.
+*Fix:* Usually harmless. Check =bluetoothctl= for stale paired devices, or investigate if a nearby device is misbehaving.
+
+---
+
+*** 3. 🟢 =g_settings_schema_source_lookup= in Emacs (Low)
+*Issue:* GSettings schema source is NULL — likely a missing GLib schema in the Nix environment.
+*Fix:* Ensure =gsettings-desktop-schemas= or =dconf= is available in your Emacs environment/package.
+
+---
+
+*** 4. ℹ️ =pipewire-pulse= Bad File Descriptor (Informational)
+Clients connecting and disconnecting quickly. Typically harmless transient errors.
+
+---
+
+*Nothing critical* — the PostgreSQL collation issue is the most actionable item.

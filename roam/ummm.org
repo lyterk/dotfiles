@@ -1,0 +1,44 @@
+:PROPERTIES:
+:ID:       57d760a3-62a7-40bc-a8dd-761a764df226
+:END:
+#+title: Ummm
+
+lyterk@miranda ~> ls -lah /etc/nixos
+Permissions Size User Date Modified Name
+.---------     0 root -             .dir-locals.el
+d---------     - root -             .git
+.---------     0 root -             .gitignore
+.---------     0 root -             .sops.yaml
+.---------     0 root -             flake.lock
+.---------     0 root -             flake.nix
+d---------     - root -             flakes
+d---------     - root -             hosts
+d---------     - root -             secrets
+d---------     - root -             shared
+lyterk@miranda ~> sudo ls -lah /etc/nixos
+total 56K
+drw-rw-r--  7 lyterk users 4.0K Jun 26 15:55 .
+drwxr-xr-x 37 root   root  4.0K Jul  2 11:00 ..
+-rw-rw-r--  1 lyterk users  177 Feb  1 19:04 .dir-locals.el
+-rw-rw-r--  1 lyterk users  11K Jul  2 09:48 flake.lock
+-rw-rw-r--  1 lyterk users 2.7K Jul  2 09:56 flake.nix
+drw-rw-r--  4 lyterk users 4.0K Feb  1 19:04 flakes
+drw-rw-r--  5 lyterk users 4.0K Jul  2 12:43 .git
+-rw-rw-r--  1 lyterk users  126 Jan 24 21:13 .gitignore
+drw-rw-r--  6 lyterk users 4.0K Feb  3 20:49 hosts
+drw-rw-r--  2 lyterk users 4.0K Jun 30 16:57 secrets
+drw-rw-r--  7 lyterk users 4.0K Jun 29 12:33 shared
+-rw-rw-r--  1 lyterk users  405 Feb  2 23:33 .sops.yaml
+
+#+BEGIN_QUOTE
+How on earth is this possible?
+#+END_QUOTE
+
+
+The difference is due to *execute permissions on directories*.
+
+When you run =ls= as a normal user on =/etc/nixos=, you lack *execute (=x=) permission* on the directory. Without =x=, you can't access inode metadata for the contents — so =ls= can see the names (because you have =r= read permission) but shows zeroed-out/missing metadata (size 0, no dates, no real permissions).
+
+When you run =sudo ls=, you have full access and see everything correctly.
+
+The directory permissions =drw-rw-r--= confirm this: *no execute bit* for anyone. So even though =lyterk= owns it and has =rw=, without =x= you can list names but not =stat()= the entries.

@@ -133,7 +133,7 @@ in
         };
         assigns = {
           "${ws1}" = [ { app_id = "firefox"; } ];
-          "${ws2}" = [ { app_id = "Alacritty"; } ];
+          # "${ws2}" = [ { app_id = "Alacritty"; } ];
           "${ws3}" = [ { class = "Emacs"; } ];
           "${ws4}" = [ { class = "Signal"; } ];
         };
@@ -202,6 +202,7 @@ in
             "v" = "exec ${pkgs.vlc}/bin/vlc; mode default";
             "o" =
               "exec ${pkgs.rofi}/bin/rofi -dmenu -p 'Exit sway? (yes/no)' | grep -q yes && swaymsg exit; mode default";
+            "y" = "exec ${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi; mode default";
             "Escape" = "mode default";
             "Return" = "mode default";
           };

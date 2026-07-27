@@ -44,6 +44,11 @@ let
     }
   ) users;
 
+  yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+    echo "Called with: $@" >> /tmp/yazi-picker.log
+    ${pkgs.foot}/bin/foot -e ${pkgs.yazi}/bin/yazi  --chooser-file="$5"
+  '';
+
   refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
       SUDO_PASSWORD=$(rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
       REBUILD_COMMAND="echo \"$SUDO_PASSWORD\" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda"
@@ -480,6 +485,10 @@ in
       # tidal
       # tidal-dl
       refreshConfigScript
+      foot
+      yazi # file browser
+      xdg-desktop-portal-termfilechooser
+      yaziFilePicker
     ];
   };
 

@@ -1,0 +1,46 @@
+:PROPERTIES:
+:ID:       d10b8a35-29cc-49d6-8799-52df47165425
+:END:
+#+title: Deep relative import fixing
+
+#+BEGIN_QUOTE
+Is there a better way to address deep relative imports like this?
+#+END_QUOTE
+
+
+Yes, a few approaches:
+
+1. *Use =inputs.self= or flake path* (if using flakes):
+   #+begin_src nix
+   inputs.self + "/shared/home-base.nix"
+   #+end_src
+
+2. *Pass a =root= argument* and use it:
+   #+begin_src nix
+   # In your module, accept `root` as a parameter
+   { root, ... }:
+   {
+     imports = [
+       "${root}/shared/home-base.nix"
+     ];
+   }
+   #+end_src
+
+3. *Define a =sharedModules= list* at the flake level and pass it down, avoiding path traversal entirely.
+
+4. *Use =self.outPath=* in flakes:
+   #+begin_src nix
+   "${self.outPath}/shared/home-base.nix"
+   #+end_src
+
+The most idiomatic flake approach is using =self=:
+#+begin_src nix
+{ inputs, ... }:
+{
+  imports = [
+    "${inputs.self}/shared/home-base.nix"
+  ];
+}
+#+end_src
+
+This avoids fragile =../../../= chains that break if you reorganize the directory structure.

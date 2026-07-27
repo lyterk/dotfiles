@@ -1,0 +1,59 @@
+:PROPERTIES:
+:ID:       41c01784-8c6b-4d9d-901f-32f47757507c
+:END:
+#+title: GTKLock
+
+* Dynamic image from URL
+#+begin_src nix
+    ".config/gtklock/config.ini".text = ''
+      [main]
+      gtk-theme=Adwaita-dark
+      style=.config/gtklock/layout.css
+    '';
+    ".config/gtklock/layout.css".text = ''
+      window {
+         background-image: url("/home/lyterk/Pictures/selectedBackgrounds/lockscreen.png");
+         background-size: cover;
+         background-repeat: no-repeat;
+         background-position: center;
+         background-color: gray;
+         color: white;
+      }
+    '';
+#+end_src
+
+#+BEGIN_QUOTE
+I would like to change this nix snippet from a hardcoded file on the device, to a URL that Nix fetches. Is that possible?
+#+END_QUOTE
+
+
+Yes, that's possible using =pkgs.fetchurl=. Here's how you'd change the background image reference:
+
+#+begin_src nix
+let
+  lockscreenBg = pkgs.fetchurl {
+    url = "https://example.com/lockscreen.png";
+    sha256 = "sha256-...";
+  };
+in
+{
+  ".config/gtklock/layout.css".text = ''
+    window {
+       background-image: url("${lockscreenBg}");
+       background-size: cover;
+       background-repeat: no-repeat;
+       background-position: center;
+       background-color: gray;
+       color: white;
+    }
+  '';
+}
+#+end_src
+
+=fetchurl= downloads to the Nix store, so the path will look like =/nix/store/hash-lockscreen.png=.
+
+To get the =sha256=, you can:
+1. Run =nix-prefetch-url <url>= to get the hash
+2. Or temporarily use =sha256 = lib.fakeHash;=, let it fail, and copy the correct hash from the error message
+
+You'll need =pkgs= in scope — if it's not already available in your =home.nix=, add ={ pkgs, ... }:= to the function arguments.

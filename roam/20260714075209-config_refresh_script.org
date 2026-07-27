@@ -1,0 +1,115 @@
+:PROPERTIES:
+:ID:       1bdc0a7e-0b72-4449-bfd1-6b90dd2e465e
+:END:
+#+title: Config Refresh Script
+
+* Request
+:PROPERTIES:
+:ID:       1d367c7d-3016-44a4-82cb-0d1a58e7abc0
+:END:
+#+BEGIN_QUOTE
+I have this script to refresh my config with a sudo prompt, which I will attach to a key-binding. Is this the best way to do it? I don't like the `cd`, and it starts a shell which runs post-shell hooks (like asking for an ssh password)
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       7ee74d13-22ba-4782-bd48-a6f475d6c23d
+:END:
+
+
+
+Here are some improvements:
+
+#+begin_src nix
+refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
+  SUDO_PASSWORD=$(${pkgs.rofi}/bin/rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
+  echo "$SUDO_PASSWORD" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda
+'';
+#+end_src
+
+Key changes:
+- *Removed =zsh=* — =writeShellScriptBin= already uses =bash=, no need to spawn another shell
+- *Removed =cd=* — use the absolute path directly in =--flake=
+- *Quoted =$SUDO_PASSWORD=* — prevents word splitting issues with special characters
+- *Used absolute paths* for =rofi= and =nixos-rebuild= — more robust in keybinding contexts where PATH may be limited
+
+If you want to avoid passing the password via =echo= (slightly safer), you could use =sudo -A= with a =SUDO_ASKPASS= script, but that's more complex.
+** Followup
+:PROPERTIES:
+:ID:       4f1d4b50-a805-4160-8cca-df5dc5dd5694
+:END:
+#+BEGIN_QUOTE
+I would like to send a nice-looking mako success notification when this is finished, if it succeeded. How should I do that?
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       763564ea-f2f5-4202-b061-0f95e46f06b0
+:END:
+
+
+Add a success notification after the rebuild command using =makoctl= or simply =notify-send= (which mako handles). Here's how:
+
+#+begin_src nix
+refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
+  SUDO_PASSWORD=$(${pkgs.rofi}/bin/rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
+  if echo "$SUDO_PASSWORD" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda; then
+    ${pkgs.libnotify}/bin/notify-send \
+      --urgency=normal \
+      --icon=emblem-default \
+      "NixOS Rebuild" \
+      "Configuration switched successfully ✓"
+  else
+    ${pkgs.libnotify}/bin/notify-send \
+      --urgency=critical \
+      --icon=dialog-error \
+      "NixOS Rebuild" \
+      "Rebuild failed ✗"
+  fi
+'';
+#+end_src
+
+You'll need =pkgs.libnotify= in your packages. The icons (=emblem-default=, =dialog-error=) come from your icon theme — swap them for whatever your theme provides if those don't render.
+*** Followup
+:PROPERTIES:
+:ID:       4147f032-e345-4bb2-af17-93acdeeb2f9d
+:END:
+#+BEGIN_QUOTE
+Can I easily make the background of the notification green or red, and the text still readable? Also, the icons didn't render.
+#+END_QUOTE
+**** Response :ai:
+:PROPERTIES:
+:ID:       5ee06e7a-1ec9-4fdf-a35a-f70f2793b9f4
+:END:
+
+
+Notification appearance (background color, etc.) is controlled by your *notification daemon's theme/config*, not by =notify-send= itself. =notify-send= has no color arguments.
+
+*For colors:* configure your notification daemon directly:
+- *dunst*: edit =~/.config/dunst/dunstrc= — you can set =[urgency_normal]= and =[urgency_critical]= sections with =background=, =foreground= colors
+- *mako*, *swaync*, etc. have similar per-urgency styling
+
+Since you're already using =--urgency=normal= vs =--urgency=critical=, dunst will automatically style them differently if you configure those urgency blocks.
+
+Example dunst config:
+#+begin_src ini
+[urgency_normal]
+background = "#2d8a2d"
+foreground = "#ffffff"
+
+[urgency_critical]
+background = "#cc2222"
+foreground = "#ffffff"
+#+end_src
+
+*For icons not rendering:* the icon names are freedesktop standard names that depend on your icon theme having them. Try using absolute paths to actual image files instead:
+
+#+begin_src nix
+--icon=${pkgs.gnome.adwaita-icon-theme}/share/icons/Adwaita/48x48/emblems/emblem-default.png
+#+end_src
+
+Or just drop the =--icon= flag if you don't need it — the color differentiation via dunst urgency styling is more reliable anyway.
+
+What notification daemon are you running?
+*** Saving shell command as a variable, and making that the test of the conditional
+#+BEGIN_QUOTE
+How can I save the shell command as a variable, and making that the test of the conditional
+#+END_QUOTE

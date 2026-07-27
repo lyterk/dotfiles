@@ -1,0 +1,48 @@
+:PROPERTIES:
+:ID:       66bcaaa6-5340-403b-b5df-54bd9a826f6b
+:END:
+#+title: Sops Key Deployment
+
+* Keys don't deploy on startup
+:PROPERTIES:
+:ID:       69991710-46fb-49e9-abf7-e935ed636629
+:END:
+#+BEGIN_QUOTE
+I have this sops configuration, and it's invoked from a flake. What I find though is that this doesn't work from startup. If it helps, it also doesn't work if invoke =nixos-rebuild switch= without the =--flake= argument. Is this addressable?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       965f6546-6b27-4bbe-be30-bce2bcfdab0c
+:END:
+
+
+The issue is that =sops-nix= needs the age key to decrypt secrets at activation time, but the key file path =/home/lyterk/.config/sops/age/keys.txt= is in a user's home directory. During early boot (or when running =nixos-rebuild switch= without =--flake=), this path may not be accessible.
+
+** Common fixes:
+
+*1. Move the key to a system path* (most reliable):
+#+begin_src nix
+sops.age.keyFile = "/var/lib/sops-nix/key.txt";
+#+end_src
+Then move your key there and ensure permissions are correct (=600=, owned by root).
+
+*2. Use a host SSH key instead of age* (if you have a host ed25519 key):
+#+begin_src nix
+sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+#+end_src
+This key exists before any user home directories are mounted.
+
+*3. Keep both* as fallbacks:
+#+begin_src nix
+sops = {
+  age.keyFile = "/var/lib/sops-nix/key.txt";
+  age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  ...
+};
+#+end_src
+
+---
+
+Regarding =nixos-rebuild switch= without =--flake=: without =--flake=, NixOS won't use your =flake.nix= at all, so =sops-nix= module won't be loaded — that's expected behavior and not fixable without using the flake.
+
+The *host SSH key approach* is typically the recommended solution for boot-time reliability.

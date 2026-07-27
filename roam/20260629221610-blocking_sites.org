@@ -1,0 +1,91 @@
+:PROPERTIES:
+:ID:       aa45a867-81c5-4e30-afb7-91fc44db7207
+:END:
+#+title: Blocking sites
+#+BEGIN_QUOTE
+Is it possible to block sites by path on Nixos/Linux? For instance, block example.com/foo and allow example.com/bar
+#+END_QUOTE
+
+
+
+Yes, it's possible to block sites by path on NixOS/Linux, though it requires more than just =/etc/hosts=. Here are the main approaches:
+
+* 1. *HTTP/HTTPS Proxy (Recommended)*
+Use a filtering proxy like *Privoxy* or *Squid*:
+
+#+begin_src nix
+# configuration.nix
+services.privoxy = {
+  enable = true;
+  settings = {
+    listen-address = "127.0.0.1:8118";
+  };
+  # Add blocking rules in actionsfile
+};
+#+end_src
+
+Then configure browsers/apps to use the proxy.
+
+* 2. *DNS-based with SNI inspection*
+Use *Pi-hole* with custom scripts, but this only works for HTTP (not HTTPS) without a MITM proxy.
+
+* 3. *Browser Extensions*
+Most practical for end-users: use extensions like *uBlock Origin* with custom filters:
+#+begin_src 
+||example.com/foo^
+#+end_src
+
+* 4. *iptables with Layer 7 filtering (Limited)*
+Only works for unencrypted HTTP:
+#+begin_src bash
+iptables -A OUTPUT -m string --string "GET /foo" --algo bm -j DROP
+#+end_src
+
+*Key limitation*: HTTPS encryption means you typically can't inspect paths without a MITM proxy that decrypts traffic (which requires certificate trust issues).
+
+For most use cases, a filtering proxy like *Privoxy* or browser extensions are the most practical solutions.
+* Going with privoxy
+#+BEGIN_QUOTE
+I'm choosing privoxy. Create that nixos configuration, blocking "example.com/foo" (it should not back "example.com/bar")
+#+END_QUOTE
+
+Here's a NixOS configuration for Privoxy that blocks =example.com/foo= but allows =example.com/bar=:
+
+#+begin_src nix
+# configuration.nix
+services.privoxy = {
+  enable = true;
+  settings = {
+    listen-address = "127.0.0.1:8118";
+  };
+  # Create action file with blocking rules
+  actionsFiles = [
+    (pkgs.writeText "privoxy-custom.action" ''
+      # Block example.com/foo
+      {+block{Blocked path}}
+      example.com/foo*
+      
+      # Allow everything else (default)
+      {-block}
+      /
+    '')
+  ];
+};
+
+# Optional: Set system-wide proxy
+environment.variables = {
+  http_proxy = "http://127.0.0.1:8118";
+  https_proxy = "http://127.0.0.1:8118";
+};
+#+end_src
+
+*Key points:*
+- The ={+block{...}}= section blocks URLs matching =example.com/foo*=
+- The ={-block}= section at the end ensures everything else is allowed
+- After adding this, run =sudo nixos-rebuild switch=
+- Configure your browser to use proxy =127.0.0.1:8118=
+
+*Note:* For HTTPS, you may need to configure SSL interception, but that's complex. Privoxy works best for HTTP or with browser-level proxy settings.
+
+* SSL Problems
+

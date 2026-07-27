@@ -1,0 +1,223 @@
+:PROPERTIES:
+:ID:       c95435d9-d915-4a6e-97a0-c406a5513d6e
+:END:
+#+title: Commands not showing
+
+* Request
+:PROPERTIES:
+:ID:       cb72b1b5-3a32-4fc9-854e-202f449c01b1
+:END:
+#+BEGIN_QUOTE
+I don't see any desktop hinting of what commands I have set (for example, in the menu `kevin`). Is that possible in sway + nixos?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       5be87b48-e4fc-41d7-b241-b1d70f3ba47d
+:END:
+
+
+Yes! You can use *=swaynag=* or more commonly *=rofi=* itself to show available bindings.
+
+The most popular approach is *=sway-which-key=* or displaying a menu with =rofi=/=wofi= when entering a mode.
+
+*** Simple approach: show a notification with =notify-send=
+
+When entering the mode, also fire a notification listing the keys:
+
+#+begin_src nix
+"${modifier}+m" = ''exec notify-send "Kevin mode" "c=calibre g=chromium e=emacs s=signal w=wifi r=refresh j=emoji l=lock v=vlc o=exit"; mode kevin'';
+#+end_src
+
+*** Better approach: =swaynag= as a hint bar
+
+#+begin_src nix
+"${modifier}+m" = ''exec swaynag -m "c=calibre | g=chromium | e=emacs | s=signal | w=wifi | r=refresh | j=emoji | l=lock | v=vlc | o=exit" -t warning; mode kevin'';
+#+end_src
+
+But you'd need to kill swaynag on =mode default=.
+
+*** Best approach: =i3-mode-bindings= / =which-key= style
+
+There's *=sway-which-key=* (a community tool):
+- https://github.com/MaxVerevkin/sway-which-key
+
+In nixos, check if it's in nixpkgs:
+#+begin_src bash
+nix search nixpkgs sway-which-key
+#+end_src
+
+It reads your sway config and automatically displays current mode bindings in a popup — exactly like Emacs which-key.
+* wlr-which-key
+:PROPERTIES:
+:ID:       1257be06-f24d-4123-8667-bfb4e4a8f5d8
+:END:
+#+BEGIN_QUOTE
+I've installed wlr-which-key, and attached my sway config. I've also attached some docs for nix integration (which is sparse). Could you read my config, look at the mode keys, and make a which-key config for me, and provide a diff to put that in the sway file?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       456cc362-28e3-47ba-b5af-1e5b8e266b0d
+:END:
+
+
+Looking at your sway config, I can see three modes: =monitor=, =kevin=, and =resize=. Here's a =wlr-which-key= config for each, plus a diff to integrate them.
+
+*=wlr-which-key= config YAML* (e.g., =~/.config/wlr-which-key/config.yaml=):
+
+#+begin_src yaml
+font: "JetBrainsMono Nerd Font 12"
+background: "#1e1e2e"
+color: "#cdd6f4"
+border: "#f38ba8"
+separator: " ➜ "
+border_width: 2
+corner_r: 15
+padding: 15
+rows_per_column: 5
+column_padding: 25
+anchor: "bottom-right"
+margin_right: 0
+margin_bottom: 5
+menu:
+  l:
+    desc: "Move to eDP-1"
+  m:
+    desc: "Move to HDMI-A-1"
+#+end_src
+
+Since =wlr-which-key= shows one menu per invocation (you pass the config file as an arg), you need *one config per mode*. Here are the three:
+
+*kevin.yaml:*
+#+begin_src yaml
+font: "JetBrainsMono Nerd Font 12"
+background: "#1e1e2e"
+color: "#cdd6f4"
+border: "#f38ba8"
+separator: " ➜ "
+border_width: 2
+corner_r: 15
+padding: 15
+rows_per_column: 5
+column_padding: 25
+anchor: "bottom-right"
+margin_right: 0
+margin_bottom: 5
+menu:
+  c: {desc: "Calibre"}
+  g: {desc: "Chromium"}
+  e: {desc: "Emacs client"}
+  s: {desc: "Signal"}
+  w: {desc: "WiFi menu"}
+  r: {desc: "Refresh Nix"}
+  j: {desc: "Emoji picker"}
+  l: {desc: "Lock screen"}
+  v: {desc: "VLC"}
+  o: {desc: "Exit sway"}
+  Escape: {desc: "Cancel"}
+#+end_src
+
+*monitor.yaml:*
+#+begin_src yaml
+# ... same styling ...
+menu:
+  l: {desc: "Move to eDP-1 (laptop)"}
+  m: {desc: "Move to HDMI-A-1 (monitor)"}
+  Escape: {desc: "Cancel"}
+#+end_src
+
+*resize.yaml:*
+#+begin_src yaml
+# ... same styling ...
+menu:
+  h: {desc: "Shrink width"}
+  j: {desc: "Grow height"}
+  k: {desc: "Shrink height"}
+  l: {desc: "Grow width"}
+  Left:  {desc: "Shrink width"}
+  Down:  {desc: "Grow height"}
+  Up:    {desc: "Shrink height"}
+  Right: {desc: "Grow width"}
+  Escape: {desc: "Cancel"}
+#+end_src
+
+---
+
+*Diff for =default.nix=* — store configs as Nix-generated files and exec =wlr-which-key= alongside mode entry:
+
+#+begin_src diff
+--- a/etc/nixos/shared/sway/default.nix
++++ b/etc/nixos/shared/sway/default.nix
+@@ -1,6 +1,6 @@
+ {
+   lib,
+   pkgs,
++  pkgs,
+   ...
+ }:
+-{
++let
++  mkWKConfig = menu: (pkgs.formats.yaml {}).generate "wk-config.yaml" ({
++    font = "JetBrainsMono Nerd Font 12";
++    background = "#1e1e2e";
++    color = "#cdd6f4";
++    border = "#f38ba8";
++    separator = " ➜ ";
++    border_width = 2;
++    corner_r = 15;
++    padding = 15;
++    rows_per_column = 5;
++    column_padding = 25;
++    anchor = "bottom-right";
++    margin_right = 0;
++    margin_bottom = 5;
++    inherit menu;
++  });
++
++  wkKevin = mkWKConfig {
++    c = { desc = "Calibre"; };
++    g = { desc = "Chromium"; };
++    e = { desc = "Emacs client"; };
++    s = { desc = "Signal"; };
++    w = { desc = "WiFi menu"; };
++    r = { desc = "Refresh Nix"; };
++    j = { desc = "Emoji picker"; };
++    l = { desc = "Lock screen"; };
++    v = { desc = "VLC"; };
++    o = { desc = "Exit sway"; };
++    Escape = { desc = "Cancel"; };
++  };
++
++  wkMonitor = mkWKConfig {
++    l = { desc = "Move to eDP-1 (laptop)"; };
++    m = { desc = "Move to HDMI-A-1 (monitor)"; };
++    Escape = { desc = "Cancel"; };
++  };
++
++  wkResize = mkWKConfig {
++    h = { desc = "Shrink width"; };
++    j = { desc = "Grow height"; };
++    k = { desc = "Shrink height"; };
++    l = { desc = "Grow width"; };
++    Left  = { desc = "Shrink width"; };
++    Down  = { desc = "Grow height"; };
++    Up    = { desc = "Shrink height"; };
++    Right = { desc = "Grow width"; };
++    Escape = { desc = "Cancel"; };
++  };
++in
++{
+   wayland.windowManager.sway =
+#+end_src
+
+Then update the mode-entry keybindings to also launch =wlr-which-key=:
+
+#+begin_src diff
+-          "${modifier}+Shift+m" = "mode monitor";
+-          "${modifier}+m" = "mode kevin";
+-          "${modifier}+r" = "mode resize";
++          "${modifier}+Shift+m" = "mode monitor; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkMonitor}";
++          "${modifier}+m" = "mode kevin; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkKevin}";
++          "${modifier}+r" = "mode resize; exec ${pkgs.wlr-which-key}/bin/wlr-which-key ${wkResize}";
+#+end_src
+
+> *Note:* The =wlr-which-key= process will stay open until a key is pressed or =Escape=. Since sway handles the actual keypress and then does =mode default=, the popup will linger — you may want to also kill it on mode exit, or rely on the fact that =wlr-which-key= auto-closes on any keypress if it's configured that way. Check your version's behavior.
