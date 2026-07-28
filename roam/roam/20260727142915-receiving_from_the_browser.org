@@ -1,0 +1,51 @@
+:PROPERTIES:
+:ID:       9302b193-7c9c-43fd-8401-54d7ae9722c8
+:END:
+#+title: Receiving from the browser
+
+* Request
+:PROPERTIES:
+:ID:       10270289-37c5-4662-9ef0-27d2be166e37
+:END:
+#+BEGIN_QUOTE
+I use Nixos and sway and have yazi set as my file chooser. I can start selecting files, and yazi finds them correctly. However when downloading files from the browser, the yazi window opens (I assume to name the file and location), but nothing happens. I'm still only in browse or pick mode. I can pick an existing file to change the contents, but not create a new file.
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       e346acf6-df2f-4a2c-966d-084094d1254a
+:END:
+
+
+This is a known limitation with Yazi as an XDG file chooser. When a browser wants to *save* a file (save dialog), it needs the file chooser to support a "save" mode where you can type a new filename. Yazi's file chooser wrapper typically only handles the *open/pick* mode.
+
+The issue is likely in your file chooser wrapper script. The =xdg-desktop-portal= save dialog passes a =--save= flag or similar, and the script needs to handle it differently.
+
+** Check your wrapper script
+
+Look at your file chooser script (often something like =~/.config/xdg-desktop-portal-termfilechooser= or similar). Find where it calls yazi.
+
+The script needs to handle the save case by letting you *type a filename*. A common fix is to detect the save mode and either:
+
+1. *Use a prompt for the filename* (e.g., with =bemenu=/=wofi=/=fuzzel=) after picking the directory in yazi
+2. Use a different tool for save dialogs
+
+** Typical fix
+
+In your chooser script, look for the =--save= or =save= condition and add something like:
+
+#+begin_src bash
+if [ "$save" = "true" ]; then
+    # Let user pick directory with yazi, then prompt for filename
+    dir=$(yazi --chooser-file=/dev/stdout "$startdir" | head -1)
+    filename=$(bemenu -p "Save as:" <<< "$suggested_filename")
+    echo "$dir/$filename"
+fi
+#+end_src
+
+** Which portal are you using?
+
+- =xdg-desktop-portal-termfilechooser=
+- =xdg-desktop-portal-gtk= with a custom script
+- Something else?
+
+Sharing your wrapper script would help pinpoint the exact fix needed.

@@ -1,0 +1,64 @@
+:PROPERTIES:
+:ID:       bfd8d98f-67c6-412d-be6f-0d67cda3f7b2
+:END:
+#+title: sudo with a physical token
+
+* Request
+:PROPERTIES:
+:ID:       0a98fcd5-91d5-43f6-8e5c-15346c6bf615
+:END:
+
+#+BEGIN_QUOTE
+I have my nixos installation, and I would like to require a physical (yubikey) token when I enter my sudo password. How can I do that?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       7c97f571-8b98-442f-833b-de215da4d1af
+:END:
+
+
+
+To require a YubiKey for sudo authentication on NixOS, you need to enable U2F/FIDO2 PAM authentication. Here's how:
+
+** 1. Install and configure =pam-u2f=
+
+First, register your YubiKey:
+#+begin_src bash
+mkdir -p ~/.config/Yubico
+pamu2fcfg > ~/.config/Yubico/u2f_keys
+#+end_src
+(Touch your YubiKey when it blinks)
+
+For multiple keys, append with:
+#+begin_src bash
+pamu2fcfg -n >> ~/.config/Yubico/u2f_keys
+#+end_src
+
+** 2. Add to your NixOS configuration
+
+#+begin_src nix
+security.pam.services.sudo = {
+  u2fAuth = true;
+};
+
+security.pam.u2f = {
+  enable = true;
+  settings = {
+    cue = true;       # prints "Please touch your YubiKey"
+    authFile = "/etc/security/u2f_keys"; # or use per-user ~/.config/Yubico/u2f_keys
+  };
+};
+#+end_src
+
+If you want a *system-wide* auth file (recommended):
+#+begin_src bash
+# As root, collect key for each user:
+sudo pamu2fcfg -u lyterk >> /etc/security/u2f_keys
+#+end_src
+
+** 3. Behavior options
+
+- *=u2fAuth = true=* (default) — password *AND* YubiKey required
+- To make YubiKey *sufficient* (no password needed): set =control = "sufficient"= instead
+
+I notice you already have =pam.services.gtklock = {}= in your config — the same pattern applies to sudo. Rebuild and test with a non-root terminal open as a safety net.

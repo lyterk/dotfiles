@@ -1,5 +1,11 @@
 #+title: Notes
 
+* Security
+:PROPERTIES:
+:ID:       6e518e8c-ecdc-4027-9bb9-2c24422e2284
+:END:
+** 
+
 * sops
 :PROPERTIES:
 :ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
@@ -9,7 +15,7 @@
 ** [[id:62fbd32d-ebe0-4fb1-ad1c-627be318f457][Adding a user]]
 ** [[id:0e612db9-7976-4ba9-98c8-6bb43a83071d][Secrets to multiple users]]
 ** [[id:67934721-c53c-4421-8e43-81f4e36ded50][Per-user backups]]
-*** Restic backups
+*** [[id:f5d893e0-c80d-41ce-b934-bcccca462112][Restic backups]]
 ** Home-Manager changes
 :PROPERTIES:
 :ID:       bb5ea45d-fc54-4c27-a345-b679c26f9627
@@ -51,6 +57,11 @@
 :ID:       a2bff206-7b5c-4b10-8188-da469c6860f4
 :END:
 **** [[id:53cc295b-ff38-4f44-8ad0-3f5eb0b8a0de][Foot isn't changing sizes with stylix]]
+* Monitors
+:PROPERTIES:
+:ID:       cc16c497-41e8-4353-8f81-d7716cd14579
+:END:
+** [[id:d2e59a6c-1627-4486-afd1-9f69b6eb6b6a][Make one monitor main]]
 * Window Manager
 :PROPERTIES:
 :ID:       c0c8e3b8-189a-4e64-b440-3ac5f6360491

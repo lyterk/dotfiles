@@ -113,7 +113,14 @@ in
       enable = true;
       systemd.enable = true;
       checkConfig = false;
-      extraConfig = "exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob";
+      extraConfig = ''
+        exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
+        workspace 1 output HDMI-A-1 eDP-1
+        workspace 2 output HDMI-A-1 eDP-1
+        workspace 3 output HDMI-A-1 eDP-1
+        workspace 4 output HDMI-A-1 eDP-1
+      '';
+
       config = rec {
         terminal = "foot";
         modifier = "Mod4";
@@ -189,6 +196,7 @@ in
           monitor = {
             "l" = "move container to output eDP-1; mode default";
             "m" = "move container to output HDMI-A-1; mode default";
+            "Escape" = "mode default";
           };
           kevin = {
             "c" = "exec ${pkgs.calibre}/bin/calibre; mode default";

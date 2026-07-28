@@ -57,3 +57,137 @@ To get the =sha256=, you can:
 2. Or temporarily use =sha256 = lib.fakeHash;=, let it fail, and copy the correct hash from the error message
 
 You'll need =pkgs= in scope — if it's not already available in your =home.nix=, add ={ pkgs, ... }:= to the function arguments.
+
+* Debugging the CSS
+:PROPERTIES:
+:ID:       533ef338-170d-41d6-9340-6e494999bdee
+:END:
+#+BEGIN_QUOTE
+Fix up this css
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       e6e0c812-b041-4804-b7e0-cefbd712a805
+:END:
+
+
+
+Here's the fixed CSS. The main issues were that =halign= and =valign= are GTK properties, not CSS properties — in CSS you'd use =justify-content=/=align-items= or similar. Also, some structural fixes:
+
+#+begin_src nix
+{
+  lib,
+  ...
+}:
+
+let
+  mkGtklockCss = targetUrl: ''
+    window {
+      background-image: url("${targetUrl}");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: gray;
+      color: white;
+    }
+
+    /* Main container - align content to bottom-right */
+    window box {
+      margin: 50px;
+    }
+
+    #clock-label {
+      font-size: 64px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    #date-label {
+      font-size: 24px;
+      color: #e0e0e0;
+      margin-top: 5px;
+      margin-bottom: 20px;
+    }
+
+    #input-field {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #ffffff;
+      border: 2px solid #33ccff;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 18px;
+      min-width: 250px;
+    }
+  '';
+in
+{
+  options.gtklock.mkGtklockCss = lib.mkOption {
+    type = lib.types.raw;
+    default = mkGtklockCss;
+    readOnly = true;
+    description = ''
+      Return a CSS string for the login page, with the target url as the background image.
+    '';
+  };
+}
+#+end_src
+
+The =halign=/=valign= directives in CSS blocks are silently ignored — gtklock uses the GTK widget tree for alignment, which you'd control via its config options (e.g., =anchor=, =margin= in the gtklock config), not CSS.
+
+* Fix the centering
+:PROPERTIES:
+:ID:       37e5f39b-ce9e-47d9-96d4-0e7c1bbd6c7f
+:END:
+#+BEGIN_QUOTE
+I want the input field and the clock and date to be at the bottom of the screen, but they're still pretty centered. What could be going wrong here?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       d8e370fb-1b4f-4ea2-9ac4-7ed38d2edcdf
+:END:
+
+
+
+The issue is that =window box= likely doesn't fill the full height, or the alignment isn't set correctly. In GTK/gtklock, you need to explicitly set the box to expand and align its children to the bottom. Try:
+
+#+begin_src css
+window box {
+  margin: 50px;
+  min-height: 100vh; /* or a large value */
+  valign: end;       /* this is a GTK property, not standard CSS */
+}
+#+end_src
+
+However, GTK doesn't use standard CSS flexbox. The GTK-specific approach is to set the =valign= property. But in GTK CSS, positioning is limited.
+
+*More reliable approach* — set the alignment on the box widget using GTK CSS:
+
+#+begin_src css
+window box {
+  margin: 50px;
+}
+
+window > box {
+  -gtk-icon-size: 0; /* placeholder */
+}
+#+end_src
+
+Actually, the most reliable fix for gtklock specifically is to use the =margin-top: auto= trick or ensure the box has =valign = end=. In GTK CSS you can try:
+
+#+begin_src css
+window box {
+  margin: 50px;
+  margin-top: auto;
+}
+#+end_src
+
+=margin-top: auto= should push the box content to the bottom if the parent is allocating full height. This is the most likely fix — replace your current =window box= rule with:
+
+#+begin_src css
+window box {
+  margin: 50px;
+  margin-top: auto;
+}
+#+end_src
+
+If that doesn't work, gtklock may require using its module system or the =--gtk-module= flags to control widget placement, as pure CSS has limited layout control in GTK4.

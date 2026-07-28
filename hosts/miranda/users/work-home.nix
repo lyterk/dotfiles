@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   nightCity = pkgs.fetchurl {
@@ -16,6 +21,7 @@ in
     ../../../shared/firefox
     ../../../shared/waybar
     ../../../shared/sway
+    ../../../shared/sway/gtklock.nix
   ];
 
   home.username = "work";
@@ -30,16 +36,7 @@ in
       gtk-theme=Adwaita-dark
       style=.config/gtklock/layout.css
     '';
-    ".config/gtklock/layout.css".text = ''
-      window {
-         background-image: url("${nightCity}");
-         background-size: cover;
-         background-repeat: no-repeat;
-         background-position: center;
-         background-color: gray;
-         color: white;
-      }
-    '';
+    ".config/gtklock/layout.css".text = config.gtklock.mkGtklockCss nightCity;
   };
 
   nixpkgs.config.allowUnfree = true;

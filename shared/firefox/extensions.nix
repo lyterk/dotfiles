@@ -1,7 +1,5 @@
 {
-  config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -22,7 +20,7 @@ let
     (extensionFn "tree-style-tab" "treestyletab@piro.sakura.ne.jp" "navbar")
     (extensionFn "old-reddit-redirect" "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}" "navbar")
     (extensionFn "multi-account-containers" "@testpilot-containers" "navbar")
-    # (extensionFn "leechblock-ng" "leechblockng@proginosko.com" "navbar")
+    (extensionFn "leechblock-ng" "leechblockng@proginosko.com" "navbar")
     (extensionFn "multiple-tab-handler" "multipletab@piro.sakura.ne.jp" "navbar")
     # Last 100 subreddits a user visited
     (extensionFn "neutral-reddit-masstagger" "{007e5327-f1ba-433d-aead-41cab2b7afb1}" "navbar")

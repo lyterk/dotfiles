@@ -7,6 +7,8 @@
 :PROPERTIES:
 :ID:       4f36c84c-8ea9-45b0-9895-c60e51ffad8e
 :END:
+#+BEGIN_QUOTE
+#+END_QUOTE
 ** Response :ai:
 :PROPERTIES:
 :ID:       b43702b2-e386-4e8e-9926-860b20452f95

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   eagleTreesFog = pkgs.fetchurl {
@@ -21,6 +21,7 @@ in
     ../../../shared/firefox
     ../../../shared/waybar
     ../../../shared/sway
+    ../../../shared/sway/gtklock.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -32,16 +33,7 @@ in
       gtk-theme=Adwaita-dark
       style=.config/gtklock/layout.css
     '';
-    ".config/gtklock/layout.css".text = ''
-      window {
-         background-image: url("${eagleTreesFog}");
-         background-size: cover;
-         background-repeat: no-repeat;
-         background-position: center;
-         background-color: gray;
-         color: white;
-      }
-    '';
+    ".config/gtklock/layout.css".text = config.gtklock.mkGtklockCss eagleTreesFog;
   };
 
   stylix = {

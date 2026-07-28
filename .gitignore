@@ -8,3 +8,4 @@ Pipfile.lock
 home/doom.dconfig.org
 bootstrap.*
 .direnv
+*.db

@@ -1,0 +1,99 @@
+:PROPERTIES:
+:ID:       d2e59a6c-1627-4486-afd1-9f69b6eb6b6a
+:END:
+#+title: Make one monitor main
+
+* Request
+:PROPERTIES:
+:ID:       899bd0dc-ac12-42fb-8d1c-6688363fae35
+:END:
+#+BEGIN_QUOTE
+I'm using nixos + sway and a laptop with an external monitor.
+
+How can I make the external monitor main when it's plugged in? The new "screens" only spawn on the laptop monitor.
+
+Also, the move container instruction doesn't work. Nothing happens. How can I fix that?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       737e912d-a394-450f-ab77-e350d26996df
+:END:
+
+
+** External Monitor as Primary
+
+Your =kanshi= config has the right idea but needs workspace assignments. Add =workspace= assignments to the kanshi outputs:
+
+#+begin_src nix
+kanshi = {
+  enable = true;
+  settings = [
+    {
+      profile.name = "undocked";
+      profile.outputs = [
+        {
+          criteria = "eDP-1";
+          scale = 1.0;
+          status = "enable";
+        }
+      ];
+    }
+    {
+      profile.name = "docked";
+      profile.outputs = [
+        {
+          criteria = "eDP-1";
+          scale = 1.0;
+          status = "disable";  # or "enable" if you want both
+          position = "0,0";
+        }
+        {
+          criteria = "AOC 2470W D35F9BA001634";
+          scale = 1.0;
+          status = "enable";
+          position = "1920,0";
+        }
+      ];
+    }
+  ];
+};
+#+end_src
+
+In sway config, assign workspaces to outputs:
+
+#+begin_src nix
+output = {
+  "eDP-1" = { };
+  "HDMI-A-1" = { };  # adjust to your actual output name
+};
+#+end_src
+
+Add to =extraConfig= or a separate sway config file:
+
+#+begin_src 
+workspace 1 output HDMI-A-1 eDP-1
+workspace 2 output HDMI-A-1 eDP-1
+workspace 3 output HDMI-A-1 eDP-1
+workspace 4 output HDMI-A-1 eDP-1
+#+end_src
+
+This tells sway to prefer the external monitor for all workspaces, falling back to the laptop.
+
+** Move Container Not Working
+
+Your =monitor= mode bindings are missing =Escape=/=Return= to exit, and more importantly the output name might not match. Check with:
+
+#+begin_src bash
+swaymsg -t get_outputs
+#+end_src
+
+Your mode definition:
+#+begin_src nix
+monitor = {
+  "l" = "move container to output eDP-1; mode default";
+  "m" = "move container to output HDMI-A-1; mode default";  # verify this name
+  "Escape" = "mode default";  # missing - add this
+};
+#+end_src
+
+The output name =HDMI-A-1= may differ — it could be =DP-1=, =DP-2=, etc. Run =swaymsg -t get_outputs | grep name= to confirm.

@@ -6,27 +6,79 @@
   ...
 }:
 
+let
+  users = [
+    {
+      name = "lyterk";
+      homedir = "/home/lyterk";
+      targetUrl = "";
+      secretFile = "/run/secrets/resticSecrets";
+      gpgKeys = [
+        "gpgCode"
+        "gpgKev"
+      ];
+    }
+  ];
+
+  # TODO Move to shared
+  yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
+    echo "Called with: $@" >> /tmp/yazi-picker.log
+    ${pkgs.foot}/bin/foot -e ${pkgs.yazi}/bin/yazi  --chooser-file="$5"
+  '';
+
+  # TODO Move to shared
+  refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
+      SUDO_PASSWORD=$(rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
+      REBUILD_COMMAND="echo \"$SUDO_PASSWORD\" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda"
+      if eval "$REBUILD_COMMAND"; then
+      ${pkgs.libnotify}/bin/notify-send \
+        --urgency=normal \
+        --icon=emblem-default \
+        "NixOS Rebuild" \
+        "Configuration switched successfully ✓"
+    else
+      ${pkgs.libnotify}/bin/notify-send \
+        --urgency=critical \
+        --icon=dialog-error \
+        "NixOS Rebuild" \
+        "Rebuild failed ✗"
+    fi
+  '';
+  resticUnits = map (
+    u:
+    config.restic.mkResticUser {
+      user = u.name;
+      homedir = u.homedir;
+      targetUrl = "s3:s3.us-west-2.amazonaws.com/lyterk-backups-383137109783-us-west-2-an/hosts/miranda/users/${u.name}";
+      secretFile = u.secretFile;
+    }
+  ) users;
+in
 {
   imports = [
     ./hardware.nix
-    <home-manager/nixos>
+    ../../shared/sops.nix
+    ../../shared/restic.nix
   ];
 
   # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
-
-  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".device =
-    "/dev/disk/by-uuid/fd1d935d-35e5-4b29-99f9-ea309ab83efc";
-  boot.initrd.secrets = {
-    "/boot/crypto_keyfile.bin" = null;
+  boot = {
+    loader.grub = {
+      enable = true;
+      device = "/dev/sda";
+      useOSProber = true;
+      enableCryptodisk = true;
+    };
+    initrd = {
+      luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".device =
+        "/dev/disk/by-uuid/fd1d935d-35e5-4b29-99f9-ea309ab83efc";
+      secrets = {
+        "/boot/crypto_keyfile.bin" = null;
+      };
+      luks.devices."luks-1b0c3782-0fa1-4b3e-9588-f44d5564da32".keyFile = "/boot/crypto_keyfile.bin";
+      luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".keyFile = "/boot/crypto_keyfile.bin";
+    };
   };
-  boot.loader.grub.enableCryptodisk = true;
-  boot.initrd.luks.devices."luks-1b0c3782-0fa1-4b3e-9588-f44d5564da32".keyFile =
-    "/boot/crypto_keyfile.bin";
-  boot.initrd.luks.devices."luks-fd1d935d-35e5-4b29-99f9-ea309ab83efc".keyFile =
-    "/boot/crypto_keyfile.bin";
 
   networking.networkmanager.enable = true;
 
@@ -150,6 +202,16 @@
 
   services = {
     gnome.gnome-keyring.enable = true;
+
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+          user = "lyterk";
+        };
+      };
+    };
 
     immich = {
       enable = true;

@@ -306,10 +306,29 @@ in
   hardware.graphics.enable = true;
   # hardware.pulseaudio.enable = true;
 
+  # https://github.com/NixOS/nixpkgs/issues/240886
+  security.pam.services.gtklock = { };
+  # text = ''
+  #   auth      sufficient  pam_u2f.so
+  #   auth      include     login
+  #   account   include     login
+  #   session   include     login
+  # '';
+
   security = {
     polkit.enable = true;
     rtkit.enable = true;
-    # pam.services.sudo.u2fAuth = true;
+    pam = {
+      services.sudo.u2fAuth = true;
+      u2f = {
+        enable = false; # do not enable, will require FIDO for login
+        control = "required";
+        settings = {
+          cue = true;
+          authFile = "/etc/security/u2f_keys";
+        };
+      };
+    };
   };
 
   systemd = {
@@ -418,9 +437,6 @@ in
     android_sdk.accept_license = true;
   };
 
-  # https://github.com/NixOS/nixpkgs/issues/240886
-  security.pam.services.gtklock = { };
-
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment = {
@@ -485,7 +501,9 @@ in
       # tidal
       # tidal-dl
       restic
+      pam_u2f
       refreshConfigScript
+      wlr-randr
       foot
       yazi # file browser
       xdg-desktop-portal-termfilechooser
