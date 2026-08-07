@@ -1,0 +1,24 @@
+:PROPERTIES:
+:ID:       244586c6-3673-4628-9f8e-eff688b99aae
+:END:
+#+title: Emitting systemd units
+
+* Broken nixlang string
+:PROPERTIES:
+:ID:       b4db33be-907b-4763-92c2-8f875cf13d45
+:END:
+
+#+BEGIN_QUOTE
+I have this snippet. The todo is relevant. When I try to add that to the list, the "--exclude node_modules" is emitted surrounded by a 'single quote', which breaks the statement. How can I have that return something bare of quotes?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       d275e991-e398-437d-b571-b836bad93cb7
+:END:
+The issue is that =lib.escapeShellArgs= quotes each list element as a single argument. You need =--exclude= and =node_modules= as *two separate list elements*:
+
+#+begin_src nix
+++ [ "--exclude" "node_modules" ]
+#+end_src
+
+This way =escapeShellArgs= treats them as two separate arguments rather than one string containing a space.

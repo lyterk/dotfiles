@@ -16,6 +16,7 @@ let
     wl-clipboard
     xan
     zip
+    yt-dlp
   ];
   interfaces = with pkgs; [
     blueman
@@ -70,6 +71,7 @@ let
     libreoffice
     gimp
     thunderbird
+    obs-studio
   ];
   fileSystems = with pkgs; [
     # cdrtools # cd reading
@@ -123,6 +125,10 @@ in
       [filechooser]
       cmd=/run/current-system/sw/bin/yazi-filepicker.sh
     '';
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
   };
 
   programs = {
@@ -258,13 +264,13 @@ in
               criteria = "eDP-1";
               scale = 1.0;
               status = "disable";
-              position = "0,0";
+              position = "3440,0";
             }
             {
-              criteria = "AOC 2470W D35F9BA001634";
+              criteria = "Dell Inc. DELL S3422DWG BNT3KK3";
               scale = 1.0;
               status = "enable";
-              position = "1920,0";
+              position = "0,0";
             }
           ];
         }

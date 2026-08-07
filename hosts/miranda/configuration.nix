@@ -66,6 +66,25 @@ let
         "Rebuild failed ✗"
     fi
   '';
+
+  mkU2fMapping = username: ''
+    # oberon
+    ${username}:/O9GzHla8dBfV1xiSYRDNjcmd8jt+JWNhpvJYQeZMvn6aTuml82v2/WP1TV4NtbY9AXCvr7b9mNZbr4CnJMYjWOIiZOp58GvrEXwRSUMxC3Y3S9ApLhogs+c3LniEyhg,O0J0U8hKVWHsXw3RccQnP4Vp/GoAK8qBgF3Tm5UbE9OiVSXe5XyWYB+c8p1BmjSNvng5aJBU5e/0t6ZdySbmkg==,es256,+presence
+
+    # horatio
+    ${username}:ixQHaz3f6ry/Q7CXXeA/1F9CZSRGD5VVGXFEv59FY15nkYl19Fi0H8rpKFfGQ+IgB9JIcx8M5Exzx9oWuVrEk4N1xk3nbmHYE3CrLg3FAh4Dnm0zlYe64LKLJeUdaSz4,U7KqjFrOVo9kntDClTyvBQ7swV9dcNL0GGlVJ6ncs83UEx7QUSaLDGZHR+A+uUjQSgXKen1AM+3UdcCrdkWl/Q==,es256,+presence
+
+    # desdemona
+    ${username}:MUCS5cu6PVjs7oER1iUWo7bEuyhzhwgCMTUXMY3LP/Tl+lxjJJC9Lmq5FI8sZeXep6LfRtdm7t9kCzLQMAjaZGuJ3pH/5/ZY+/uQPjtE+Ni8HiyuXBn8ks+ve0wFYAV8,AN8w1w35NYghnhV4COcn3tvN+aPwptoYItsbkIdCZud7/XQ8GxywbOHowV9goqsoO6xm3Em5+vAsmAWepAxChw==,es256,+presence
+
+    # yotta
+    ${username}:k4r1o2GJnKWpx/SWAOZ66psAlB8oNwoog5yMUgwPpvJPBUcGwdhO2Dc13AYoWabXOOMsqpxTlPILdn/BBOqBPg==,5hGxVmOVPnUBOPWWb1ni3i3xEfxubk8Fg3bamopkxe++en8Du1afYz65B8/afJtedVT638SLz1SVpkOKpUGoJA==,es256,+presence
+  '';
+  targetUsers = [
+    "lyterk"
+    "work"
+  ];
+  combinedU2fMappings = builtins.concatStringsSep "\n" (map mkU2fMapping targetUsers);
 in
 {
   imports = [
@@ -325,7 +344,7 @@ in
         control = "required";
         settings = {
           cue = true;
-          authFile = "/etc/security/u2f_keys";
+          authFile = pkgs.writeText "u2f-mappings" combinedU2fMappings;
         };
       };
     };
@@ -476,6 +495,7 @@ in
       ripgrep
       tree
       wget
+      ffmpeg
       # network
       tailscale
       mullvad-vpn

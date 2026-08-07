@@ -7,5 +7,5 @@
 		               (setq-local org-roam-capture-templates
                                '(("d" "default" plain "%?"
                                   :target (file+head
-                                           "roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+                                           (concat roam-dir "roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n"))
                                   :unnarrowed t))))))))

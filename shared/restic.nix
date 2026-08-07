@@ -83,7 +83,10 @@ let
             "${pkgs.restic}/bin/restic"
           ]
           ++ mkExcludeArgs homedir
-          ++ [ "--exclude node_modules" ]
+          ++ [
+            "--exclude"
+            "node_modules"
+          ]
           ++ [
             "backup"
             homedir
@@ -134,7 +137,6 @@ let
           "/run/restic-${user}/lock"
           "${pkgs.restic}/bin/restic"
           "forget"
-          "--force"
           "--keep-monthly"
           "3"
           "--prune"

@@ -4,8 +4,7 @@
 :PROPERTIES:
 :ID:       6e518e8c-ecdc-4027-9bb9-2c24422e2284
 :END:
-** 
-
+** [[id:bfd8d98f-67c6-412d-be6f-0d67cda3f7b2:::ID: bfd8d98f-67c6-412d-be6f-0d67cda3f7b2][sudo with a physical token]]
 * sops
 :PROPERTIES:
 :ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
@@ -30,6 +29,15 @@
 * [[id:5155948c-9bb8-479b-84fb-fb8141d4e0e7][Generic errors]]
 * [[id:7031c775-355e-4c0c-bb13-9b0b05b45ce6][nixpkgs]]
 * [[id:ff39d78f-1f43-47a0-b2b2-6f2d1d3fc413][Sleep and Hibernate]]
+* nixlang
+:PROPERTIES:
+:ID:       74315e98-930b-4616-adc9-b2a4ba0372a3
+:END:
+* systemd
+:PROPERTIES:
+:ID:       9e70a5e7-1373-4ceb-bd74-af0b3377c13f
+:END:
+** Emitting systemd units
 * Sway
 :PROPERTIES:
 :ID:       2db0a407-ec1b-41cd-922e-03008e0fabd9
