@@ -29,6 +29,12 @@ in
   home.packages = with pkgs; [
     typescript-language-server
     aws-cdk-cli
+    (python313.withPackages (
+      ps: with ps; [
+        pandas
+        numpy
+      ]
+    ))
   ];
   home.file = {
     ".config/gtklock/config.ini".text = ''

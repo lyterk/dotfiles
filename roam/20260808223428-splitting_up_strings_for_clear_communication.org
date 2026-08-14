@@ -1,0 +1,76 @@
+:PROPERTIES:
+:ID:       9238fd52-d9ab-48e4-9596-dfdcee07b36a
+:END:
+#+title: Splitting up strings for clear communication
+
+* Request
+:PROPERTIES:
+:ID:       99ec5cb6-0fa0-4875-a6d5-c9963ecc3e5e
+:END:
+#+BEGIN_QUOTE
+I would like to split this nixos definition of a fish function as a list. Please document what each of these options is used for. Additionally tell me if it's possible to dynamically set the name of the outputted file
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       f82652e6-ac5f-4e1c-a69e-5d29f49b8738
+:END:
+
+
+
+
+Here's the split definition with documentation:
+
+#+begin_src nix
+ytsrt = {
+  body = ''
+    yt-dlp \
+      --write-auto-subs \        # Download auto-generated subtitles
+      --sub-langs es \           # Only download Spanish subtitles
+      --skip-download \          # Don't download the video, only subtitles
+      --convert-subs srt \       # Convert subtitles to SRT format
+      --extractor-arg "youtube:skip=hls,dash" \  # Skip HLS and DASH formats (faster)
+      --ignore-no-formats \      # Don't error if no formats found
+  '';
+};
+#+end_src
+
+Regarding dynamic output filename: Yes, you can use =--output= (or =-o=) with yt-dlp's template syntax:
+
+#+begin_src nix
+ytsrt = {
+  body = ''
+    yt-dlp \
+      --write-auto-subs \
+      --sub-langs es \
+      --skip-download \
+      --convert-subs srt \
+      --extractor-arg "youtube:skip=hls,dash" \
+      --ignore-no-formats \
+      --output "$argv[1]" \      # Use first argument as filename
+  '';
+};
+#+end_src
+
+Or using yt-dlp's built-in template variables:
+#+begin_src bash
+--output "%(title)s.%(ext)s"    # Title of video
+--output "%(upload_date)s.%(ext)s"  # Upload date
+#+end_src
+
+So you could call it like: =ytsrt "my-filename" <url>=
+
+Note: when using =$argv[1]= as filename, you'd need to pass the URL as =$argv[2]=.
+* Shell function
+#+begin_src fish
+function ytt
+    yt-dlp \
+        --write-auto-subs \
+        --sub-langs es \
+        --skip-download \
+        --convert-subs srt \
+        --extractor-arg "youtube:skip=hls,dash" \
+        --ignore-no-formats \
+        --output "$argv[1]" \
+        "$argv[2]"
+end
+#+end_src

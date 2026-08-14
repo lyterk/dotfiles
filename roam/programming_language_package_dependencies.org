@@ -1,0 +1,56 @@
+#+title: Programming Language Package Dependencies
+
+* Request
+:PROPERTIES:
+:ID:       4c7d99ba-89e8-4a56-b36c-607a048204b6
+:END:
+
+#+BEGIN_QUOTE
+This is returning me the error (below). What could I be doing wrong here?
+
+warning: Git tree '/etc/nixos' is dirty
+building the system configuration...
+warning: Git tree '/etc/nixos' is dirty
+error:
+       … while calling the 'head' builtin
+         at «github:NixOS/nixpkgs/0ad6f47ea4fe188f4bc8f0380f93ae8523337c6c?narHash=sha256-0xIy4dVLqq47rA%2BmRy0hXDfjhQd4E5PoIns/RmB7nR4%3D»/lib/attrsets.nix:1717:13:
+         1716|           if length values == 1 || pred here (elemAt values 1) (head values) then
+         1717|             head values
+             |             ^
+         1718|           else
+
+       … while evaluating the attribute 'value'
+         at «github:NixOS/nixpkgs/0ad6f47ea4fe188f4bc8f0380f93ae8523337c6c?narHash=sha256-0xIy4dVLqq47rA%2BmRy0hXDfjhQd4E5PoIns/RmB7nR4%3D»/lib/modules.nix:1167:7:
+         1166|     // {
+         1167|       value = addErrorContext "while evaluating the option `${showOption loc}':" value;
+             |       ^
+         1168|       inherit (res.defsFinal') highestPrio;
+
+       … while evaluating the option `system.build.toplevel':
+
+       … while evaluating definitions from `/nix/store/7blcfay1hap81n2bc9j4d8b1cxrvng50-source/nixos/modules/system/activation/top-level.nix':
+
+       … while evaluating the option `warnings':
+
+       … while evaluating definitions from `/nix/store/7blcfay1hap81n2bc9j4d8b1cxrvng50-source/nixos/modules/system/boot/systemd.nix':
+
+       … while evaluating the option `systemd.services.home-manager-work.serviceConfig':
+
+       … while evaluating definitions from `/nix/store/63yk6ym7i5n1jyq992p4j4rnskgi256i-source/nixos':
+
+       … while evaluating the option `home-manager.users.work.home.activation.installPackages.data':
+
+       … while evaluating definitions from `/nix/store/63yk6ym7i5n1jyq992p4j4rnskgi256i-source/modules/home-environment.nix':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: A definition for option `home-manager.users.work.home.packages."[definition 27-entry 3]"' is not of type `package'. Definition values:
+       - In `/nix/store/rmb3dpisafcr5s3vwmrzbv1pcp92x9dj-source/hosts/miranda/users/work-home.nix': <function>
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '/etc/nixos#nixosConfigurations."miranda".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       ca556f7c-1a41-456f-8e50-3b09df83ed9f
+:END:
+

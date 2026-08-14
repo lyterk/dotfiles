@@ -33,6 +33,7 @@ let
     wob
     qrencode
     libgourou # Adobe DRM removal
+    busybox # Deep debugging in the OS, lsusb
   ];
   environments = with pkgs; [
     docker
@@ -55,6 +56,7 @@ let
     # gleam
     # fvm
     rustup
+    flutter
   ];
   gui = with pkgs; [
     gtklock # lock screen
@@ -161,6 +163,19 @@ in
             rm -f -- $tmp
           '';
         };
+        ytsrt = {
+          body = ''
+            yt-dlp \
+              --write-auto-subs \
+              --sub-langs es \
+              --skip-download \
+              --convert-subs srt \
+              --extractor-arg "youtube:skip=hls,dash" \
+              --ignore-no-formats \
+              --output "$argv[1]" \      # Use first argument as filename
+              "$argv[2]"
+          '';
+        };
       };
     };
 
@@ -200,6 +215,9 @@ in
   };
 
   services = {
+    # bell = {
+    #   enable = true;
+    # };
     emacs = {
       enable = true;
       package =

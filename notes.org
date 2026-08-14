@@ -10,6 +10,13 @@
 :ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
 :END:
 ** [[id:66bcaaa6-5340-403b-b5df-54bd9a826f6b][Sops Key Deployment]]
+* Packages
+:PROPERTIES:
+:ID:       c2f352a9-06f8-46ba-b904-e51de4d1fa11
+:END:
+** Programming language package dependencies
+** [[id:6a6e4244-3d4c-4bc5-94fa-4dce209f4a4c][Rustup]]
+** [[id:ffe85946-47ce-400f-b86f-b9b2a68e8540][Using personally built packages]]
 * Multi-user stuff
 ** [[id:62fbd32d-ebe0-4fb1-ad1c-627be318f457][Adding a user]]
 ** [[id:0e612db9-7976-4ba9-98c8-6bb43a83071d][Secrets to multiple users]]
@@ -33,6 +40,7 @@
 :PROPERTIES:
 :ID:       74315e98-930b-4616-adc9-b2a4ba0372a3
 :END:
+** Splitting up strings for clear communication
 * systemd
 :PROPERTIES:
 :ID:       9e70a5e7-1373-4ceb-bd74-af0b3377c13f

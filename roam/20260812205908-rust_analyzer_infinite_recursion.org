@@ -1,0 +1,64 @@
+:PROPERTIES:
+:ID:       80648024-9f8f-42bd-96e7-a7a7b2e30608
+:END:
+#+title: rust-analyzer infinite recursion
+
+* Request
+:PROPERTIES:
+:ID:       0a07625c-5d8e-4c3c-9d8b-2490e9807655
+:END:
+
+#+BEGIN_QUOTE
+Please explain this nixos + rust-analyzer error:
+
+info: falling back to "/home/lyterk/.nix-profile/bin/rust-analyzer"
+info: `rust-analyzer` is unavailable for the active toolchain
+info: falling back to "/home/lyterk/.nix-profile/bin/rust-analyzer"
+error: infinite recursion detected
+lyterk@miranda ~/c/bell (mainline) [1]> which rust-analyzer
+/home/lyterk/.nix-profile/bin/rust-analyzer
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       1e8e673b-4ec5-43e8-b426-7ac22bb16bf6
+:END:
+
+
+** What's Happening
+
+The error is caused by a *circular fallback loop*:
+
+1. =rustup= (or some toolchain manager) looks for =rust-analyzer= for the active toolchain
+2. It can't find it, so it "falls back" to =/home/lyterk/.nix-profile/bin/rust-analyzer=
+3. But that binary *is* =rustup='s shim (or a wrapper that calls back into rustup)
+4. Which again can't find rust-analyzer → falls back → infinite recursion
+
+** Root Cause
+
+Your =/home/lyterk/.nix-profile/bin/rust-analyzer= is likely a *rustup shim*, not the actual =rust-analyzer= binary. When rustup can't find rust-analyzer for your active toolchain, it calls the fallback, which is itself.
+
+** Fixes
+
+*Option 1: Install rust-analyzer via rustup*
+#+begin_src bash
+rustup component add rust-analyzer
+#+end_src
+
+*Option 2: Install the real binary via Nix*
+#+begin_src nix
+# configuration.nix or home-manager
+environment.systemPackages = [ pkgs.rust-analyzer ];
+#+end_src
+
+*Option 3: Check what the binary actually is*
+#+begin_src bash
+cat /home/lyterk/.nix-profile/bin/rust-analyzer
+# or
+file /home/lyterk/.nix-profile/bin/rust-analyzer
+#+end_src
+
+If it's a shell script wrapping rustup, that confirms the loop.
+
+** Likely Best Fix
+
+Since you're on NixOS, the cleanest solution is having *both* present: rust-analyzer from nixpkgs /and/ =rustup component add rust-analyzer= so the toolchain-specific lookup succeeds without falling back.

@@ -15,6 +15,9 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    bell = {
+      url = "github:lyterk/bell";
+    };
     # TODO: Decide if this is worth the change
     # firefox-addons = {
     #   url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -30,6 +33,7 @@
       home-manager,
       sops-nix,
       stylix,
+      bell,
       ...
     }@flakeInputs:
     let
@@ -61,6 +65,7 @@
                 sops-nix.nixosModules.sops
                 # sops-nix.homeManagerModules.sops
                 stylix.nixosModules.stylix
+                bell.nixosModules.default
                 # stylix.homeManagerModules.stylix
                 ./shared
                 (./hosts + "/${name}" + /configuration.nix)

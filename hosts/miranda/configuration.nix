@@ -238,6 +238,11 @@ in
       # port = 8888;
       # database.createLocally = true;
     };
+    # bell = {
+    #   enable = true;
+    #   user = "lyterk";
+    #   # resourcesDir = "${bell.packages.x86_64-linux.default}/resources";
+    # };
     # anki-sync-server = {
     #   enable = true;
     #   address = "0.0.0.0";
@@ -476,7 +481,7 @@ in
       nixfmt
       nix-ld
       # build
-      gcc
+      gcc-unwrapped
       # editors
       neovim
       # shells
@@ -528,6 +533,8 @@ in
       yazi # file browser
       xdg-desktop-portal-termfilechooser
       yaziFilePicker
+
+      pkg-config
     ];
   };
 

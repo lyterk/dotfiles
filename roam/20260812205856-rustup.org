@@ -1,0 +1,6 @@
+:PROPERTIES:
+:ID:       6a6e4244-3d4c-4bc5-94fa-4dce209f4a4c
+:END:
+#+title: Rustup
+
+* [[id:80648024-9f8f-42bd-96e7-a7a7b2e30608][rust-analyzer infinite recursion]]

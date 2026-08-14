@@ -1,0 +1,233 @@
+:PROPERTIES:
+:ID:       ffe85946-47ce-400f-b86f-b9b2a68e8540
+:END:
+#+title: Using personally built packages
+
+* Bell Package
+:PROPERTIES:
+:ID:       68a7b4b7-9db6-4be0-81fc-0f31f8322435
+:END:
+** Request
+:PROPERTIES:
+:ID:       7d8097be-8bca-4d29-b7dd-87c5c8c7999e
+:END:
+#+BEGIN_QUOTE
+I have this personally created package, created with a flake. I have provided my nixos' flake, and the configuration.nix file. I think I've provided the flake input correctly, but I also need to figure out how to create a service, which I've never done before, and provide that for my configuration.nix file.
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       fa4248d2-ee1c-4336-8ed4-dd91d37a0b88
+:END:
+
+
+Looking at your files, you've already done most of this correctly! Let me point out what's working and what needs fixing.
+
+*What's already correct:*
+- =bell= input in =/etc/nixos/flake.nix= ✓
+- =bell.nixosModules.default= included in your module list ✓
+- =services.bell.enable = true= in =configuration.nix= ✓
+
+*The problem:* In =configuration.nix=, you have:
+
+#+begin_src nix
+{ config, pkgs, lib, pkgs-unstable, bell, ... }:
+#+end_src
+
+But =bell= isn't passed as a =specialArgs= — it comes through the module system. The =resourcesDir= line:
+
+#+begin_src nix
+resourcesDir = "${bell.packages.x86_64-linux.default}/resources";
+#+end_src
+
+...won't work because =bell= (the flake) isn't in scope in a module file.
+
+*Fix — use the package that's already built into the flake output:*
+
+#+begin_src nix
+services.bell = {
+  enable = true;
+  resourcesDir = "${pkgs.bell}/resources";  # if overlaid, or:
+};
+#+end_src
+
+Or more simply, since your =postInstall= copies resources into the package output, just reference it via the NixOS module's own package. The cleanest fix is to add a =package= option to your bell module:
+
+In =bell/flake.nix=, add to the module options:
+#+begin_src nix
+package = lib.mkOption {
+  type = lib.types.package;
+  default = self.packages.${pkgs.system}.default;
+};
+#+end_src
+
+Then in =serviceConfig=:
+#+begin_src nix
+ExecStart = "${config.services.bell.package}/bin/bell";
+WorkingDirectory = config.services.bell.resourcesDir;
+#+end_src
+
+And in =configuration.nix=, remove =bell= from the function args (it's not passed there) and use:
+#+begin_src nix
+services.bell = {
+  enable = true;
+  resourcesDir = "/run/current-system/sw/share/bell/resources"; # or hardcode path
+};
+#+end_src
+
+*Simplest working approach* — just hardcode the resources path to what =postInstall= puts in the store, by making the module default to the bundled resources:
+
+#+begin_src nix
+# In the module, make resourcesDir optional with a sensible default:
+resourcesDir = lib.mkOption {
+  type = lib.types.str;
+  default = "${self.packages.${pkgs.system}.default}/share/bell/resources";
+  description = "Path to directory containing audio files";
+};
+#+end_src
+
+Then =configuration.nix= just needs:
+#+begin_src nix
+services.bell.enable = true;
+#+end_src
+
+And remove =bell= from the function argument list in =configuration.nix=.
+
+** Followup with git diff
+:PROPERTIES:
+:ID:       1b4e7c98-e938-4e08-9c26-5743f1124dbe
+:END:
+#+BEGIN_QUOTE
+Provide your responses above with git diffs.
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       41e9447a-dd7a-46c2-8864-6db97d88931b
+:END:
+
+
+Here are the changes needed:
+
+*1. =~/code/bell/flake.nix= — add default for =resourcesDir=:*
+
+#+begin_src diff
+--- a/flake.nix
++++ b/flake.nix
+@@ -60,7 +60,7 @@
+           resourcesDir = lib.mkOption {
+             type = lib.types.str;
+-            description = "Path to directory containing audio files";
++            default = "${self.packages.${pkgs.system}.default}/share/bell/resources";
++            description = "Path to directory containing audio files";
+           };
+#+end_src
+
+*2. =~/code/bell/flake.nix= — fix =postInstall= path (resources were copied to wrong location):*
+
+#+begin_src diff
+--- a/flake.nix
++++ b/flake.nix
+@@ -35,7 +35,7 @@
+           postInstall = ''
+-            mkdir -p $out/share/bell/resources
+-            cp -r resources/* $out/share/bell/resources/
++            mkdir -p $out/share/bell/resources
++            cp -r resources/* $out/share/bell/resources/
+           '';
+#+end_src
+
+(postInstall is already correct — no change needed there.)
+
+*3. =/etc/nixos/hosts/miranda/configuration.nix= — remove =bell= from args, simplify service config:*
+
+#+begin_src diff
+--- a/hosts/miranda/configuration.nix
++++ b/hosts/miranda/configuration.nix
+@@ -1,6 +1,6 @@
+ {
+   config,
+   pkgs,
+   lib,
+   pkgs-unstable,
+-  bell,
+   ...
+ }:
+@@ -200,8 +200,7 @@
+     bell = {
+       enable = true;
+-      resourcesDir = "${bell.packages.x86_64-linux.default}/resources";
+     };
+#+end_src
+
+With the default set in the module, =services.bell.enable = true;= is sufficient and =resourcesDir= doesn't need to be specified in =configuration.nix=.
+** nixos rebuild 
+:PROPERTIES:
+:ID:       6106afb0-87e2-4fe5-b8ec-9f1ce58c004d
+:END:
+#+BEGIN_QUOTE
+I'm seeing this error. What's up with that? The bell package files are up to date in github.
+
+building the system configuration...
+warning: Git tree '/etc/nixos' is dirty
+evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'
+error:
+       … while calling the 'head' builtin
+         at «github:NixOS/nixpkgs/0ad6f47ea4fe188f4bc8f0380f93ae8523337c6c?narHash=sha256-0xIy4dVLqq47rA%2BmRy0hXDfjhQd4E5PoIns/RmB7nR4%3D»/lib/attrsets.nix:1717:13:
+         1716|           if length values == 1 || pred here (elemAt values 1) (head values) then
+         1717|             head values
+             |             ^
+         1718|           else
+
+       … while evaluating the attribute 'value'
+         at «github:NixOS/nixpkgs/0ad6f47ea4fe188f4bc8f0380f93ae8523337c6c?narHash=sha256-0xIy4dVLqq47rA%2BmRy0hXDfjhQd4E5PoIns/RmB7nR4%3D»/lib/modules.nix:1167:7:
+         1166|     // {
+         1167|       value = addErrorContext "while evaluating the option `${showOption loc}':" value;
+             |       ^
+         1168|       inherit (res.defsFinal') highestPrio;
+
+       … while evaluating the option `system.build.toplevel':
+
+       … while evaluating definitions from `/nix/store/7blcfay1hap81n2bc9j4d8b1cxrvng50-source/nixos/modules/system/activation/top-level.nix':
+
+       … while evaluating the option `warnings':
+
+       … while evaluating definitions from `/nix/store/7blcfay1hap81n2bc9j4d8b1cxrvng50-source/nixos/modules/system/boot/systemd.nix':
+
+       … while evaluating the option `systemd.services.bell.serviceConfig':
+
+       … while evaluating definitions from `/nix/store/7blcfay1hap81n2bc9j4d8b1cxrvng50-source/flake.nix':
+
+       … while evaluating the option `services.bell.resourcesDir':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: The option `services.bell.resourcesDir' was accessed but has no value defined. Try setting the option.
+Command 'nix --extra-experimental-features 'nix-command flakes' build --print-out-paths '/etc/nixos#nixosConfigurations."miranda".config.system.build.toplevel' --no-link' returned non-zero exit status 1.
+#+END_QUOTE
+*** Response :ai:
+:PROPERTIES:
+:ID:       b783be56-777a-4676-a2ba-b98ca3e89a32
+:END:
+
+
+The error says =services.bell.resourcesDir= has no value defined, meaning the default isn't being evaluated properly.
+
+The issue is in your =bell/flake.nix= module — the =default= for =resourcesDir= references =self.packages.${pkgs.system}.default=, but =pkgs.system= may not be available in the module context when evaluated from an external flake.
+
+Fix in =bell/flake.nix=:
+
+#+begin_src nix
+resourcesDir = lib.mkOption {
+  type = lib.types.str;
+  default = "${self.packages.${pkgs.stdenv.hostPlatform.system}.default}/share/bell/resources";
+  description = "Path to directory containing audio files";
+};
+#+end_src
+
+Note =pkgs.stdenv.hostPlatform.system= instead of =pkgs.system= — which also matches the deprecation warning you're seeing: ='system' has been renamed to/replaced by 'stdenv.hostPlatform.system'=.
+
+Push that change to GitHub, then update your flake lock:
+
+#+begin_src bash
+sudo nix flake update bell --flake /etc/nixos
+sudo nixos-rebuild switch --flake /etc/nixos#miranda
+#+end_src
