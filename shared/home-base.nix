@@ -48,13 +48,6 @@ let
     nerd-fonts.jetbrains-mono
   ];
   programmingLanguages = with pkgs; [
-    # cargo
-    # clojure
-    # erlang
-    # elixir
-    # go
-    # gleam
-    # fvm
     rustup
     flutter
   ];
@@ -88,7 +81,6 @@ let
     black
     # elixir-ls
     # rust-analyzer
-    nodejs # Basically only for the copilot plugin
     # beancount-language-server
   ];
   python = with pkgs.python313Packages; [

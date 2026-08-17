@@ -10,6 +10,7 @@
 :ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
 :END:
 ** [[id:66bcaaa6-5340-403b-b5df-54bd9a826f6b][Sops Key Deployment]]
+** Create a new sops secret
 * Packages
 :PROPERTIES:
 :ID:       c2f352a9-06f8-46ba-b904-e51de4d1fa11
@@ -17,6 +18,8 @@
 ** Programming language package dependencies
 ** [[id:6a6e4244-3d4c-4bc5-94fa-4dce209f4a4c][Rustup]]
 ** [[id:ffe85946-47ce-400f-b86f-b9b2a68e8540][Using personally built packages]]
+** [[id:5cc1f51c-f601-4725-a3a7-32bbb911dbd8][numpy and nix-ld]]
+** [[id:b4f427ed-0424-4b7b-b3c5-b09ad8be0ddc][pkgs-unstable]]
 * Multi-user stuff
 ** [[id:62fbd32d-ebe0-4fb1-ad1c-627be318f457][Adding a user]]
 ** [[id:0e612db9-7976-4ba9-98c8-6bb43a83071d][Secrets to multiple users]]
@@ -27,6 +30,11 @@
 :ID:       bb5ea45d-fc54-4c27-a345-b679c26f9627
 :END:
 *** [[id:e7750e3e-cfa2-4c14-b283-627bc6e5891c][Per-user wallpaper images]]
+* Flake inputs
+:PROPERTIES:
+:ID:       60299631-5c99-4bb2-a79e-cd9e444f0f34
+:END:
+** [[id:c1bfeb75-db3d-4bb7-a727-6a2cfda58738][Repository throttling (github 429s)]]
 * Home-Manager
 :PROPERTIES:
 :ID:       76bda23a-f78c-44a5-98de-0ffb2014d8e2
@@ -46,6 +54,7 @@
 :ID:       9e70a5e7-1373-4ceb-bd74-af0b3377c13f
 :END:
 ** Emitting systemd units
+** [[id:68e77025-b923-4db3-a736-b080d922a1ca][Playing sound from Systemd]]
 * Sway
 :PROPERTIES:
 :ID:       2db0a407-ec1b-41cd-922e-03008e0fabd9
@@ -92,3 +101,17 @@
 ** Fixing the duplicity backup settings for work
 * Imports
 ** TODO [[id:d10b8a35-29cc-49d6-8799-52df47165425][Deep relative import fixing]]
+* Machines
+:PROPERTIES:
+:ID:       2f968a86-09bb-45bc-9e5f-1437490c0b3f
+:END:
+** Mac (if you must)
+:PROPERTIES:
+:ID:       a14a6f6c-60df-4d5d-82a4-44d630845c83
+:END:
+*** [[id:27becfa9-b49e-41b1-b3dd-e3f2a5d643c9][Updating the configuration for macos]]
+** Desktop
+:PROPERTIES:
+:ID:       8f5aabb6-ee40-4182-a4f2-1ba0065a311d
+:END:
+*** [[id:b1041efd-e6c3-4329-8f26-a9acdfbb4e79][Bringing desktop up to date]]

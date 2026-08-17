@@ -1,6 +1,6 @@
 {
   pkgs,
-  lib,
+  pkgs-unstable,
   config,
   ...
 }:
@@ -17,11 +17,11 @@ let
 in
 {
   imports = [
-    ../../../shared/home-base.nix
-    ../../../shared/firefox
-    ../../../shared/waybar
-    ../../../shared/sway
-    ../../../shared/sway/gtklock.nix
+    ../home-base.nix
+    ../firefox
+    ../waybar
+    ../sway
+    ../sway/gtklock.nix
   ];
 
   home.username = "work";
@@ -29,6 +29,10 @@ in
   home.packages = with pkgs; [
     typescript-language-server
     aws-cdk-cli
+    nodejs_22
+    pnpm
+    claude-code
+    pkgs-unstable.code-cursor
     (python313.withPackages (
       ps: with ps; [
         pandas

@@ -1,0 +1,532 @@
+:PROPERTIES:
+:ID:       27becfa9-b49e-41b1-b3dd-e3f2a5d643c9
+:END:
+#+title: Updating the configuration for macos 
+
+* Context
+:PROPERTIES:
+:ID:       1a366312-ec54-4790-9362-6ac5b7d951ce
+:END:
+#+begin_src emacs-lisp
+(setq gptel-context-sources
+      '(("/etc/nixos/hosts/mac-lyterk/flake.nix")
+        ("/etc/nixos/hosts/mac-lyterk/configuration.nix")
+        ("/etc/nixos/hosts/mac-lyterk/home.nix")
+        ("/etc/nixos/hosts/miranda/users/lyterk-home.nix")
+        ("/etc/nixos/hosts/miranda/configuration.nix")
+        ("/etc/nixos/shared/firefox/tridactylrc")
+        ("/etc/nixos/shared/firefox/policies.nix")
+        ("/etc/nixos/shared/firefox/leechblock.json")
+        ("/etc/nixos/shared/firefox/extensions.nix")
+        ("/etc/nixos/shared/firefox/default.nix")
+        ("/etc/nixos/shared/firefox/bookmarks.nix")
+        ("/etc/nixos/shared/home-base.nix")))
+#+end_src
+ 
+* Request
+:PROPERTIES:
+:ID:       3833facf-f4a0-4575-a3b4-df8cebc5060c
+:END:
+#+BEGIN_QUOTE
+I have updated a good deal of my nixos configuration to make it more modular. My macos nix configuration always stood out though, because it has such different needs from the linux installation.
+
+Help me figure out things to update for mac. Brews are ok to use, but I would prefer nixpkgs wherever possible. 
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       42064350-582c-4314-ac42-84bb37727a37
+:END:
+
+
+
+Looking at your mac configuration, here are some things to update:
+
+** Issues & Improvements
+
+*** 1. =home.nix= is not being imported
+Your =flake.nix= doesn't include home-manager, so =hosts/mac-lyterk/home.nix= is never loaded. You need to add home-manager to the flake.
+
+*** 2. Outdated packages in =home.nix=
+- =emacs29= → =emacs30= (matches your linux config)
+- =python311Packages= → =python313Packages= (matches linux)
+- =pinentryPackage= → =pinentry.package= (API changed in 24.0, as noted in your linux config)
+- =mako.defaultTimeout= → =mako.settings.default-timeout= (matches linux)
+
+*** 3. Packages already in =shared/home-base.nix=
+Since you're not importing =home-base.nix= on mac, there's duplication, but if you /were/ to import it, these would conflict: =atuin=, =direnv=, =gnupg=, =gnumake=, =keychain=, =ripgrep=, =pandoc=, =wl-clipboard=, =anki=, =nil=, =pyright=, =black=, =sqlite=, =libreoffice=, =gimp=, =thunderbird=.
+
+*** 4. Linux-specific packages in =home.nix=
+Remove these (wayland/linux-only, not useful on mac):
+- =gtklock=, =wl-clipboard=, =wev=, =wob=, =grim=, =slurp=, =kanshi=, =mako=, =blueman=, =bluez*=, =pamixer=, =pinentry-qt=, =xorg.xhost=
+- The entire =wayland.windowManager.sway= block
+- =services.swayidle=, =services.mako=, =services.kdeconnect=
+
+*** 5. Missing from mac that would be useful
+#+begin_src nix
+# In flake.nix inputs:
+home-manager.url = "github:nix-community/home-manager/release-25.05";
+home-manager.inputs.nixpkgs.follows = "nixpkgs";
+#+end_src
+
+---
+
+Would you like me to produce a revised =flake.nix= and a cleaned-up mac-specific =home.nix= that imports =shared/home-base.nix= where applicable?
+
+* Followup 
+:PROPERTIES:
+:ID:       36c35764-09d0-4e0e-83d7-357d824efd6e
+:END:
+
+#+BEGIN_QUOTE
+Yes, do that.
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       4a1371f9-6a24-4291-a0d1-73e34e0198f7
+:END:
+
+
+
+Looking at your setup, the mac =home.nix= can't easily import =shared/home-base.nix= directly because it contains many Linux/Wayland-specific things. I'll create a shared "shell-base" subset and a clean mac home instead.
+
+#+begin_src diff
+diff --git a/hosts/mac-lyterk/flake.nix b/hosts/mac-lyterk/flake.nix
+index 1111111..2222222 100644
+--- a/hosts/mac-lyterk/flake.nix
++++ b/hosts/mac-lyterk/flake.nix
+@@ -6,17 +6,23 @@
+     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+     darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
++    home-manager.url = "github:nix-community/home-manager/release-25.05";
++    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+     flake-utils.url = "github:numtide/flake-utils";
+   };
+ 
+-  outputs = { self, nixpkgs, darwin, flake-utils, ... }:
++  outputs = { self, nixpkgs, darwin, home-manager, flake-utils, ... }:
+       {
+         darwinConfigurations."mac-lyterk" = darwin.lib.darwinSystem {
+-	  system = "aarch64-darwin";
++          system = "aarch64-darwin";
+           modules = [
+             ./configuration.nix
++            home-manager.darwinModules.home-manager
++            {
++              home-manager.useGlobalPkgs = true;
++              home-manager.useUserPackages = true;
++              home-manager.users.lyterk = import ./home.nix;
++            }
+           ];
+-	pkgs = import nixpkgs {
+-          system = "aarch64-darwin";
+-          config = { allowUnfree = true; };
+-        };
++          pkgs = import nixpkgs {
++            system = "aarch64-darwin";
++            config = { allowUnfree = true; };
++          };
+         };
+       };
+ }
+diff --git a/hosts/mac-lyterk/home.nix b/hosts/mac-lyterk/home.nix
+index 3333333..4444444 100644
+--- a/hosts/mac-lyterk/home.nix
++++ b/hosts/mac-lyterk/home.nix
+@@ -1,114 +1,73 @@
+-{ pkgs, lib, ... }:
+-
+-let
+-  shellTools = with pkgs; [
+-    alacritty
+-    atuin
+-    cmake
+-    direnv
+-    libtool
+-    pwgen
+-    gnupg
+-    gnumake
+-    keychain
+-    node2nix
+-  ];
+-  fonts = with pkgs; [
+-    font-awesome
+-    noto-fonts
+-    noto-fonts-cjk-sans
+-    noto-fonts-color-emoji
+-    noto-fonts-monochrome-emoji
+-  ];
+-  accounting = with pkgs; [
+-    beancount
+-    fava
+-    beancount-language-server
+-  ];
+-  programmingLanguages = with pkgs; [
+-    cargo
+-    clojure
+-    python3
+-    poetry
+-    elixir
+-  ];
+-  gui = with pkgs; [
+-    gtklock
+-    imagemagick
+-    rofi-wayland
+-  ];
+-  dataStores = with pkgs; [ sqlite ];
+-  collaboration = with pkgs; [
+-    thunderbird
+-    plantuml-c4
+-  ];
+-  fileViz = with pkgs; [
+-    calibre
+-    thunar
+-  ];
+-  studying = with pkgs; [ anki ];
+-  languageTools = with pkgs; [
+-    nil
+-    cljfmt
+-    clojure-lsp
+-    pyright
+-    black
+-    elixir-ls
+-    rust-analyzer
+-  ];
+-  python = with pkgs.python311Packages; [
+-    bpython
+-    ipython
+-    pytest
+-    pyscaffold
+-    uv
+-  ];
+-  cpp = with pkgs; [
+-    clang
+-    clang-tools
+-  ];
+-  javascript = with pkgs; [
+-    yarn
+-  ];
+-in
+-{
++{ pkgs, lib, ... }:
++{
+   home.username = "lyterk";
+   home.homeDirectory = "/Users/lyterk";
++  home.stateVersion = "23.11";
+ 
+-  nixpkgs = {
+-    config = {
+-      allowUnfree = true;
+-      allowUnfreePredicate = (_: true);
+-    };
+-  };
+-
+-  home.stateVersion = "23.11";
++  imports = [
++    ../../shared/home-mac.nix
++  ];
+ 
+-  home.packages =
+-    with pkgs;
+-    [
+-      android-file-transfer
+-      deja-dup
+-      chromium
+-      captive-browser
+-      mako
+-      blueman
+-      bluez
+-      bluez-tools
+-      pulseaudio
+-      pamixer
+-      wl-clipboard
+-      pinentry-qt
+-      wev
+-      wob
+-      pandoc
+-      xorg.xhost
+-      parted
+-      gparted
+-      libreoffice-qt
+-      signal-desktop
+-      innoextract
+-      steam
+-      protonup-qt
+-      transmission_4-qt
+-      tor
+-      grim
+-      slurp
+-      kanshi
+-    ]
+-    ++ shellTools
+-    ++ fonts
+-    ++ programmingLanguages
+-    ++ studying
+-    ++ collaboration
+-    ++ fileViz
+-    ++ dataStores
+-    ++ languageTools
+-    ++ python
+-    ++ cpp
+-    ++ javascript
+-    ++ accounting
+-    ++ gui;
+-
+-  home.file = {
+-    ".gitignore".source = ../../shared/gitignore;
+-    ".config/gtklock/config.ini".text = ''
+-      [main]
+-      gtk-theme=Adwaita-dark
+-      style=.config/gtklock/layout.css
+-    '';
+-    ".config/gtklock/layout.css".text = ''
+-      window {
+-         background-image: url("/home/lyterk/Pictures/backgrounds/lockscreen.png");
+-         ...
+-      }
+-    '';
+-  };
++  home.file.".gitignore".source = ../../shared/gitignore;
+ 
+   programs = {
+     home-manager.enable = true;
+ 
+-    zsh = {
+-      enable = true;
+-      shellAliases = {
+-        ppush = "pass git push origin mainline";
+-        ppull = "pass git pull --rebase origin mainline";
+-        ls = "exa";
+-        vim = "nvim";
+-      };
+-    };
+-
+-    fish.enable = true;
+-
+-    keychain = {
+-      enable = true;
+-      enableFishIntegration = true;
+-      keys = [ "~/.ssh/id_ed25519" ];
+-    };
+-
+     git = {
+       enable = true;
+       userEmail = "code@lyterk.com";
+       userName = "Kevin Lyter";
+       signing.key = "0F39E83B";
+-
+-      extraConfig = {
+-        commit.gpgsign = true;
+-        init = {
+-          templateDir = "~/dotfiles/common/git_templates/";
+-          defaultBranch = "mainline";
+-        };
+-        pull.rebase = true;
+-        credential.helper = "cache";
+-        core.excludesFile = "~/dotfiles/common/gitignore";
++      settings = {
++        commit.gpgsign = true;
++        init.defaultBranch = "mainline";
++        pull.rebase = true;
++        credential.helper = "cache";
+       };
+     };
+ 
+-    firefox = {
++    ssh = {
+       enable = true;
+-      profiles = {
+-        default = {
+-          id = 0;
+-          name = "defaultNix";
+-          isDefault = true;
+-          settings = {
+-            "browser.aboutConfig.showWarning" = false;
+-            "browser.tabs.closeWindowWithLastTab" = false;
+-            "browser.startup.homepage" = "https://wikipedia.org";
+-            "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+-            "browser.newtabpage.activity-stream.showSponsored" = false;
+-            "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+-            "extensions.pocket.enabled" = false;
+-          };
+-          userChrome = ''
+-            @namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+-            #TabsToolbar {
+-              visibility: collapse !important;
+-            }
+-          '';
++      enableDefaultConfig = false;
++      matchBlocks = {
++        "*" = { user = "git"; port = 22; };
++        git = {
++          hostname = "txru.me";
++          port = 65222;
++          user = "git";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        github = {
++          hostname = "github.com";
++          user = "git";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        desktop = {
++          hostname = "txru.me";
++          port = 65222;
++          user = "lyterk";
++          identityFile = "~/.ssh/id_ed25519";
+         };
+       };
+     };
+-
+-    ssh = {
+-      enable = true;
+-      matchBlocks = { ... };
+-    };
+   };
+ 
+-  # Remove all wayland/sway/swayidle/mako/kdeconnect service blocks
+-
+   services = {
+     emacs = {
+       enable = true;
+       package =
+         with pkgs;
+-        ((emacsPackagesFor emacs29).emacsWithPackages (
++        ((emacsPackagesFor emacs30).emacsWithPackages (
+           epkgs: with epkgs; [
+             vterm
+             treesit-grammars.with-all-grammars
+           ]
+         ));
+     };
+     gpg-agent = {
+       enable = true;
+       defaultCacheTtl = 3600;
+       maxCacheTtl = 86400;
+-      pinentryPackage = pkgs.pinentry-qt;
++      pinentry.package = pkgs.pinentry-curses;
+     };
+   };
+ }
+diff --git a/shared/home-mac.nix b/shared/home-mac.nix
+new file mode 100644
+index 0000000..5555555
+--- /dev/null
++++ b/shared/home-mac.nix
+@@ -0,0 +1,73 @@
++# Shared home-manager config for macOS (subset of home-base.nix, no Wayland deps)
++{ pkgs, lib, ... }:
++
++let
++  shellTools = with pkgs; [
++    atuin
++    direnv
++    libtool
++    pwgen
++    gnupg
++    gnumake
++    keychain
++    ripgrep-all
++    pandoc
++    xan
++    zip
++    yt-dlp
++  ];
++  fonts = with pkgs; [
++    font-awesome
++    noto-fonts
++    noto-fonts-cjk-sans
++    noto-fonts-color-emoji
++    nerd-fonts.jetbrains-mono
++  ];
++  programmingLanguages = with pkgs; [
++    rustup
++  ];
++  dataStores = with pkgs; [ sqlite ];
++  collaboration = with pkgs; [
++    libreoffice
++    thunderbird
++  ];
++  studying = with pkgs; [ anki ];
++  languageTools = with pkgs; [
++    nil
++    pyright
++    black
++    nodejs
++  ];
++  python = with pkgs.python313Packages; [
++    ipython
++    pyscaffold
++    uv
++  ];
++in
++{
++  home.packages =
++    shellTools
++    ++ fonts
++    ++ programmingLanguages
++    ++ dataStores
++    ++ collaboration
++    ++ studying
++    ++ languageTools
++    ++ python;
++
++  home.file.".gitignore".source = ./gitignore;
++
++  home.sessionVariables = {
++    EDITOR = "nvim";
++  };
++
++  programs = {
++    home-manager.enable = true;
++
++    zsh = {
++      enable = true;
++      shellAliases = {
++        ppush = "pass git push origin mainline";
++        ppull = "pass git pull --rebase origin mainline";
++        ls = "exa";
++        vim = "nvim";
++      };
++    };
++
++    fish = {
++      enable = true;
++      interactiveShellInit = ''
++        atuin init fish | source
++      '';
++      functions.yy = {
++        body = ''
++          set tmp (mktemp -t "yazi-cwd.XXXXXX")
++          yazi $argv --cwd-file="$tmp"
++          set cwd (cat -- $tmp)
++          if test -n "$cwd" && test "$cwd" != "$PWD"
++              cd -- $cwd
++          end
++          rm -f -- $tmp
++        '';
++      };
++    };
++
++    keychain = {
++      enable = true;
++      enableFishIntegration = true;
++      keys = [ "~/.ssh/id_ed25519" ];
++    };
++
++    git = {
++      enable = true;
++      settings = {
++        pull.rebase = true;
++        credential.helper = "cache";
++        init.defaultBranch = "mainline";
++      };
++    };
++  };
++}
+#+end_src
+
+*Key decisions:*
+- =pinentry-curses= on mac instead of =pinentry-qt= (no Qt readily available; alternatively use the brew =pinentry-mac= via =extraConfig=)
+- =libreoffice= may not build on aarch64-darwin — you may want to move it to a brew cask
+- =thunderbird= is available in nixpkgs for darwin
+- Dropped =calibre=, =gimp=, =obs-studio=, =yazi=, =wlr-which-key= from mac shared — add back to =home.nix= individually if desired

@@ -1,0 +1,56 @@
+:PROPERTIES:
+:ID:       b4f427ed-0424-4b7b-b3c5-b09ad8be0ddc
+:END:
+#+title: pkgs-unstable
+
+* Drilling to home-manager
+:PROPERTIES:
+:ID:       794619d3-2bdc-48fb-a193-c82187adb253
+:END:
+#+BEGIN_QUOTE
+I have a =pkgs-unstable= variable injected from the flake. I would like to provide that to my work-home.nix and lyterk-home.nix files. How would I do that?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       fee08fbe-72cc-42ba-8558-08db27f4e8f3
+:END:
+
+
+(setq gptel-context '(("/etc/nixos/flake.nix") ("/etc/nixos/hosts/miranda/configuration.nix") ("/etc/nixos/shared/configuration-base.nix") ("/etc/nixos/shared/users/work-home.nix")))
+
+The =pkgs-unstable= is passed as a =specialArg= in the flake, so it's already available to all NixOS modules. You just need to declare it as a parameter in your home-manager files.
+
+#+begin_src diff
+--- a/etc/nixos/shared/users/work-home.nix
++++ b/etc/nixos/shared/users/work-home.nix
+@@ -1,6 +1,7 @@
+ {
+   pkgs,
++  pkgs-unstable,
+   config,
+   ...
+ }:
+#+end_src
+
+However, for home-manager modules specifically, =specialArgs= from the NixOS flake aren't automatically forwarded. You need to pass them via =home-manager.extraSpecialArgs= in your configuration:
+
+#+begin_src diff
+--- a/etc/nixos/shared/configuration-base.nix
++++ b/etc/nixos/shared/configuration-base.nix
+@@ -1,6 +1,7 @@
+ {
+   config,
+   pkgs,
++  pkgs-unstable,
+   ...
+ }:
+ 
+@@ -200,6 +200,7 @@ in
+ 
+   home-manager.users.lyterk = ./users/lyterk-home.nix;
++  home-manager.extraSpecialArgs = { inherit pkgs-unstable; };
+#+end_src
+
+And similarly in =miranda/configuration.nix= if you override it there (but since =extraSpecialArgs= is set in =configuration-base.nix=, it will apply to all users including =work=).
+
+Then in your home files you can use =pkgs-unstable.somePackage= freely.

@@ -6,7 +6,6 @@
   config,
   pkgs,
   lib,
-  pkgs-unstable,
   ...
 }:
 
@@ -44,63 +43,13 @@ let
     }
   ) users;
 
-  yaziFilePicker = pkgs.writeShellScriptBin "yazi-filepicker.sh" ''
-    echo "Called with: $@" >> /tmp/yazi-picker.log
-    ${pkgs.foot}/bin/foot -e ${pkgs.yazi}/bin/yazi  --chooser-file="$5"
-  '';
-
-  refreshConfigScript = pkgs.writeShellScriptBin "refreshNix.sh" ''
-      SUDO_PASSWORD=$(rofi -dmenu -password -no-fixed-num-lines -p "[sudo] password for $USER: ")
-      REBUILD_COMMAND="echo \"$SUDO_PASSWORD\" | sudo -S ${pkgs.nixos-rebuild}/bin/nixos-rebuild switch --flake /etc/nixos#miranda"
-      if eval "$REBUILD_COMMAND"; then
-      ${pkgs.libnotify}/bin/notify-send \
-        --urgency=normal \
-        --icon=emblem-default \
-        "NixOS Rebuild" \
-        "Configuration switched successfully ✓"
-    else
-      ${pkgs.libnotify}/bin/notify-send \
-        --urgency=critical \
-        --icon=dialog-error \
-        "NixOS Rebuild" \
-        "Rebuild failed ✗"
-    fi
-  '';
-
-  mkU2fMapping = username: ''
-    # oberon
-    ${username}:/O9GzHla8dBfV1xiSYRDNjcmd8jt+JWNhpvJYQeZMvn6aTuml82v2/WP1TV4NtbY9AXCvr7b9mNZbr4CnJMYjWOIiZOp58GvrEXwRSUMxC3Y3S9ApLhogs+c3LniEyhg,O0J0U8hKVWHsXw3RccQnP4Vp/GoAK8qBgF3Tm5UbE9OiVSXe5XyWYB+c8p1BmjSNvng5aJBU5e/0t6ZdySbmkg==,es256,+presence
-
-    # horatio
-    ${username}:ixQHaz3f6ry/Q7CXXeA/1F9CZSRGD5VVGXFEv59FY15nkYl19Fi0H8rpKFfGQ+IgB9JIcx8M5Exzx9oWuVrEk4N1xk3nbmHYE3CrLg3FAh4Dnm0zlYe64LKLJeUdaSz4,U7KqjFrOVo9kntDClTyvBQ7swV9dcNL0GGlVJ6ncs83UEx7QUSaLDGZHR+A+uUjQSgXKen1AM+3UdcCrdkWl/Q==,es256,+presence
-
-    # desdemona
-    ${username}:MUCS5cu6PVjs7oER1iUWo7bEuyhzhwgCMTUXMY3LP/Tl+lxjJJC9Lmq5FI8sZeXep6LfRtdm7t9kCzLQMAjaZGuJ3pH/5/ZY+/uQPjtE+Ni8HiyuXBn8ks+ve0wFYAV8,AN8w1w35NYghnhV4COcn3tvN+aPwptoYItsbkIdCZud7/XQ8GxywbOHowV9goqsoO6xm3Em5+vAsmAWepAxChw==,es256,+presence
-
-    # yotta
-    ${username}:k4r1o2GJnKWpx/SWAOZ66psAlB8oNwoog5yMUgwPpvJPBUcGwdhO2Dc13AYoWabXOOMsqpxTlPILdn/BBOqBPg==,5hGxVmOVPnUBOPWWb1ni3i3xEfxubk8Fg3bamopkxe++en8Du1afYz65B8/afJtedVT638SLz1SVpkOKpUGoJA==,es256,+presence
-  '';
-  targetUsers = [
-    "lyterk"
-    "work"
-  ];
-  combinedU2fMappings = builtins.concatStringsSep "\n" (map mkU2fMapping targetUsers);
 in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware.nix
-    ../../shared/sops.nix
-    ../../shared/restic.nix
-    # ../../shared/flutter.nix
-    # ./home.nix
-    # <home-manager/nixos>
+    ../../shared/configuration-base.nix
   ];
-
-  stylix = {
-    enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  };
 
   boot = {
     # Bootloader.
@@ -111,70 +60,8 @@ in
     initrd.systemd.enable = true;
   };
 
-  virtualisation.docker.enable = true;
-
   networking = {
     hostName = "miranda";
-
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-    networkmanager.enable = true;
-
-    firewall = rec {
-      enable = true;
-      allowedTCPPortRanges = [
-        {
-          # kdeconnect range
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = allowedTCPPortRanges;
-    };
-    # networking.firewall.allowedTCPPorts = [ ... ];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
-    iproute2.enable = true; # ostensibly useful for mullvad
-  };
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
-    config.common.default = "wlr";
-  };
-
-  environment.etc."libinput/local-overrides.quirks".text = ''
-    [Serial Keyboards]
-    MatchUdevType=keyboard
-    MatchName=keyd virtual keyboard
-    AttrKeyboardIntegration=internal
-  '';
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
   };
 
   # Configure console keymap
@@ -182,176 +69,10 @@ in
   console.keyMap = "us";
 
   services = {
-    # Enable CUPS to print documents.
-    printing.enable = true;
-    # vpn configuration
-    tailscale.enable = true;
-    # privacy vpn
-    mullvad-vpn.enable = true;
-    # For gpg key reading -- smart cards
-
-    emacs.enable = true;
-
-    privoxy = {
+    bell = {
       enable = true;
-      settings = {
-        listen-address = "127.0.0.01:8118";
-      };
-    };
-
-    greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
-          user = "lyterk";
-        };
-      };
-    };
-
-    pcscd.enable = true;
-    pulseaudio.enable = false;
-    # Sound control, better api than pavucontrol. But I still install that anyway
-    pipewire = {
-      enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
-      pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      #jack.enable = true;
-
-      # use the example session manager (no others are packaged yet so this is enabled by default,
-      # no need to redefine it in your config for now)
-      #media-session.enable = true;
-    };
-
-    # ollama = {
-    #   enable = true;
-    #   loadModels = [ "qwen3.6" ];
-    #   acceleration = "cuda";
-    # };
-
-    atuin = {
-      enable = true;
-      # openRegistration = false;
-      # host = "0.0.0.0";
-      # port = 8888;
-      # database.createLocally = true;
-    };
-    # bell = {
-    #   enable = true;
-    #   user = "lyterk";
-    #   # resourcesDir = "${bell.packages.x86_64-linux.default}/resources";
-    # };
-    # anki-sync-server = {
-    #   enable = true;
-    #   address = "0.0.0.0";
-    #   openFirewall = true;
-    #   users = [
-    #     {
-    #       username = "lyterk";
-    #       password = "freddy";
-    #     }
-    #   ];
-    # };
-
-    blueman.enable = true;
-
-    # home-assistant = {
-    #   enable = true;
-    #   extraComponents = [
-    #     # Components required to complete the onboarding
-    #     "analytics"
-    #     "google_translate"
-    #     "met"
-    #     "radio_browser"
-    #     "shopping_list"
-    #     # Recommended for fast zlib compression
-    #     # https://www.home-assistant.io/integrations/isal
-    #     "isal"
-    #   ];
-    #   config = {
-    #     # Includes dependencies for a basic setup
-    #     # https://www.home-assistant.io/integrations/default_config/
-    #     default_config = { };
-    #   };
-    # };
-    logind.settings.Login = {
-      HandleLidSwitchDocked = "ignore";
-      # HandleLidSwitchExternalPower = "ignore";
-    };
-
-    keyd = {
-      enable = true;
-      keyboards = {
-        default = {
-          ## the id of your keyboard taken from the monitor command - specifying it here and not using a wildcard * might avoid the aforementioned libinput issue with palm rejection.
-          ids = [ "0001:0001:70533846" ];
-          settings = {
-            main = {
-              ## taking the key combination from the monitor command and remapping it to meta / super key
-              "f23" = "rightcontrol";
-            };
-          };
-        };
-      };
-    };
-
-    syncthing = {
-      enable = true;
-      openDefaultPorts = true;
-      settings = {
-        gui = {
-          user = "lyterk";
-          password = "freddy";
-        };
-      };
-    };
-
-    resolved = {
-      enable = true;
-      settings.Resolve = {
-        DNSSEC = true;
-        DNSOverTLS = true;
-        Domains = [ "~." ];
-        FallbackDNS = [
-          "1.1.1.1#one.one.one.one"
-          "1.0.0.1#one.one.one.one"
-        ];
-      };
-    };
-
-    udev.packages = [ pkgs.yubikey-personalization ];
-
-  };
-
-  # Enable sound with pipewire.
-  hardware.bluetooth.enable = true; # enabled by default
-  hardware.graphics.enable = true;
-  # hardware.pulseaudio.enable = true;
-
-  # https://github.com/NixOS/nixpkgs/issues/240886
-  security.pam.services.gtklock = { };
-  # text = ''
-  #   auth      sufficient  pam_u2f.so
-  #   auth      include     login
-  #   account   include     login
-  #   session   include     login
-  # '';
-
-  security = {
-    polkit.enable = true;
-    rtkit.enable = true;
-    pam = {
-      services.sudo.u2fAuth = true;
-      u2f = {
-        enable = false; # do not enable, will require FIDO for login
-        control = "required";
-        settings = {
-          cue = true;
-          authFile = pkgs.writeText "u2f-mappings" combinedU2fMappings;
-        };
-      };
+      user = "lyterk";
+      intervalMinutes = 33;
     };
   };
 
@@ -371,7 +92,6 @@ in
         Slice = "session.slice";
       };
     };
-
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -393,7 +113,7 @@ in
   users.users.work = {
     shell = pkgs.fish;
     isNormalUser = true;
-    description = "Yotta work profile";
+    description = "Kevin Lyter (Yotta)";
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -402,160 +122,11 @@ in
     ];
   };
 
-  home-manager.users.work = ./users/work-home.nix;
-  home-manager.users.lyterk = ./users/lyterk-home.nix;
-
-  # home-manager.users.lyterk = import /home/lyterk/.config/home-manager/home.nix;
-
-  programs = {
-    # sway.enable = true;
-    # System-wide I guess?
-    # Mounting phones with mtp
-    fuse = {
-      mountMax = 1000;
-      userAllowOther = true;
-    };
-    kdeconnect.enable = true;
-
-    fish = {
-      enable = true;
-
-      shellAliases = {
-        ppush = "pass git push origin mainline";
-        ppull = "pass git pull --rebase origin mainline";
-        ls = "exa";
-        vim = "nvim";
-      };
-      # Making this per-user
-      # loginShellInit = ''
-      #   if test (id --user $USER) -ge 1000 && string match -qr '/dev/tty[0-9]' (tty)
-      #     exec sway
-      #   end
-      # '';
-    };
-    # steam.enable = true;
-  };
+  home-manager.users.work = ../../shared/users/work-home.nix;
+  # home-manager.users.lyterk = ../../shared/users/lyterk-home.nix;
 
   # Building raspberry pis
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-  nix = {
-    # Also for building pis
-    settings.extra-platforms = config.boot.binfmt.emulatedSystems;
-    nixPath = [
-      "/nix/var/nix/profiles/per-user/root/channels/nixos"
-      "/nix/var/nix/profiles/per-user/root/channels"
-    ];
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-      "pipe-operators"
-    ];
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-    };
-  };
-  nixpkgs.config = {
-    allowUnfree = true;
-    android_sdk.accept_license = true;
-  };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment = {
-    variables = {
-      EDITOR = "emacsclient -t";
-      # SHELL = "fish";
-      BROWSER = "${pkgs.firefox}/bin/firefox";
-      # History in elixir and erlang shells
-      ERL_AFLAGS = "-kernel shell_history enabled";
-      # Sound bar
-      WOBSOCK = "$XDG_RUNTIME_DIR/wob.sock";
-      ANDROID_HOME = "${pkgs.androidenv.androidPkgs.androidsdk}/libexec/android-sdk";
-    };
-
-    systemPackages = with pkgs; [
-      # nix specific
-      home-manager
-      nixfmt
-      nix-ld
-      # build
-      gcc-unwrapped
-      # editors
-      neovim
-      # shells
-      fish
-      zsh
-      # shell utilities
-      bat
-      eza
-      fd
-      git
-      jq
-      xan
-      rlwrap
-      htop
-      unzip
-      ripgrep
-      tree
-      wget
-      ffmpeg
-      # network
-      tailscale
-      mullvad-vpn
-      # phone connection
-      kdePackages.kdeconnect-kde
-      kdePackages.okular
-      # wm
-      sway
-      sops # secrets
-      xwayland # necessary for proxying x connections for wayland
-      age
-      bluez # necessary for home-assistant
-      # android-studio
-      # androidenv.androidPkgs.androidsdk
-      # window manager
-      greetd
-      # AI yo
-      pkgs-unstable.code-cursor
-      nodejs_22
-      pnpm
-      awscli2
-      claude-code
-      # tidal
-      # tidal-dl
-      restic
-      pam_u2f
-      refreshConfigScript
-      wlr-randr
-      foot
-      yazi # file browser
-      xdg-desktop-portal-termfilechooser
-      yaziFilePicker
-
-      pkg-config
-    ];
-  };
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Connecting devices via USB to calibre
-  # https://nixos.wiki/wiki/Calibre
-  services.udisks2.enable = true;
-
-  # Open ports in the firewall.
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

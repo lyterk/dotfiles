@@ -1,0 +1,58 @@
+:PROPERTIES:
+:ID:       c1bfeb75-db3d-4bb7-a727-6a2cfda58738
+:END:
+#+title: Repository throttling (github 429s)
+
+* Request
+:PROPERTIES:
+:ID:       6ae2d9fe-0e37-4c12-a2bf-c45758856419
+:END:
+
+#+BEGIN_QUOTE
+I'm a nixos user and I'm getting throttled by github. I created an access token, and put it in ~/.config/nix/nix.conf, with format
+
+```
+access_tokens = github.com=ghp_019238401...
+```
+
+and I'm still getting 429'd. What can I do?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       af05fc92-8b3c-4e59-a980-09be3207671c
+:END:
+
+
+(setq gptel-context '())
+
+A few things to try:
+
+*1. Verify the config is being read*
+#+begin_src bash
+nix show-config | grep access-tokens
+#+end_src
+
+*2. Correct setting name*
+The setting is =access-tokens= (hyphen), not =access_tokens= (underscore):
+#+begin_src 
+access-tokens = github.com=ghp_019238401...
+#+end_src
+
+*3. System-level nix.conf*
+User-level config (=~/.config/nix/nix.conf=) may not be picked up in all contexts. Try adding it to =/etc/nix/nix.conf= or via NixOS config:
+
+#+begin_src nix
+nix.extraConfig = ''
+  access-tokens = github.com=ghp_019238401...
+'';
+#+end_src
+
+*4. Token permissions*
+Make sure the token has at least =public_repo= (or =repo=) scope. A fine-grained token with no repo permissions won't help with rate limiting.
+
+*5. Check it's actually being used*
+#+begin_src bash
+nix flake metadata github:NixOS/nixpkgs --debug 2>&1 | grep -i token
+#+end_src
+
+The hyphen vs underscore issue is the most common gotcha here.

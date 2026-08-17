@@ -170,17 +170,11 @@ in
     tree
     wget
     neovim
-    emacs
     atuin
     pwgen
     keychain
     plex
-    beancount-language-server
     cargo
-    clojure
-    python3
-    poetry
-    elixir
     (pass.withExtensions (ext: [ ext.pass-otp ]))
     rofi-pass-wayland
     gnupg

@@ -1,0 +1,116 @@
+:PROPERTIES:
+:ID:       68e77025-b923-4db3-a736-b080d922a1ca
+:END:
+#+title: Playing sound from Systemd
+
+* Request
+:PROPERTIES:
+:ID:       f83089a5-7a57-47f9-9990-e0ab3cd58f4f
+:END:
+#+BEGIN_QUOTE
+I have created this package and flake to play a bell sound. I have wired it up to be installed as a systemd unit. However, I think there is a user issue-- it's not being played as the currently active user. If that were the case, how would I know? How should I do this in a sustainable way? Could I do a systemd user unit?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       21c2d587-f872-4db8-a87f-bfa8efb57bfb
+:END:
+*** Diagnosing the Issue
+
+You'd know it's a user/audio issue if you see errors like:
+- =ALSA: no soundcards found=
+- =Connection refused= (PipeWire/PulseAudio socket)
+- The service runs but no audio plays
+
+Check with:
+#+begin_src bash
+journalctl -u bell.service -f
+#+end_src
+
+*** The Core Problem
+
+Audio on modern Linux (PipeWire/PulseAudio) runs as a *user session daemon*. System services run outside that session and can't reach the audio socket at =$XDG_RUNTIME_DIR/pipewire-0= (or pulse equivalent).
+
+*** The Right Solution: systemd User Unit
+
+Yes, a user unit is the correct approach. Here's the diff:
+
+#+begin_src diff
+--- a/flake.nix
++++ b/flake.nix
+@@ -53,27 +53,35 @@
+           options.services.bell = {
+             enable = lib.mkEnableOption "bell audio reminder service";
+             resourcesDir = lib.mkOption {
+               type = lib.types.str;
+               default = "${self.packages.${pkgs.stdenv.hostPlatform.system}.default}/share/bell/resources";
+               description = "Path to directory containing audio files";
+             };
+             user = lib.mkOption {
+               type = lib.types.str;
+               default = "bell";
+               description = "User to run the service as";
+             };
+           };
+ 
+           config = lib.mkIf config.services.bell.enable {
+-            systemd.services.bell = {
++            systemd.user.services.bell = {
+               description = "Bell audio reminder";
+-              wantedBy = [ "default.target" ];
++              wantedBy = [ "default.target" ];
+ 
+               serviceConfig = {
+-                ExecStart = "${self.packages.${pkgs.system}.default}/bin/bell";
++                ExecStart = "${self.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/bell";
+                 WorkingDirectory = config.services.bell.resourcesDir;
+                 Restart = "always";
+                 RestartSec = "5s";
+               };
+             };
++
++            # Ensure the user's systemd session persists even without a login session
++            loginctl-linger = config.services.bell.user;
+           };
+         };
+     };
+ }
+#+end_src
+
+Wait — =loginctl-linger= isn't a NixOS option directly. Use:
+
+#+begin_src diff
++            users.users.${config.services.bell.user}.linger = true;
+#+end_src
+
+Actually the correct NixOS option is:
+
+#+begin_src diff
++            systemd.services."user-linger-${config.services.bell.user}" = { ... }
+#+end_src
+
+No — the real NixOS option is =users.users.<name>.linger=:
+
+#+begin_src nix
+users.users.${config.services.bell.user}.linger = true;
+#+end_src
+
+This ensures the user unit starts at boot without an active login session.
+
+*** In your configuration.nix
+
+#+begin_src diff
+-    # bell = {
+-    #   enable = true;
+-    #   user = "lyterk";
+-    # };
++    bell = {
++      enable = true;
++      user = "lyterk";
++    };
+#+end_src
+
+*** Key Points
+
+- =systemd.user.services= runs within the user's session, inheriting =$XDG_RUNTIME_DIR= and access to PipeWire
+- =linger = true= means the unit starts at boot, not just at login
+- The =WorkingDirectory= pointing to the nix store is fine since it's world-readable

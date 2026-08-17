@@ -44,6 +44,10 @@
         sopsFile = ../secrets/resticSecrets.yaml;
         mode = "0444";
       };
+      githubToken = {
+        sopsFile = ../secrets/githubToken.yaml;
+        mode = "0444";
+      };
     };
   };
 }

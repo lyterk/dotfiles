@@ -159,7 +159,7 @@ in
         keybindings = lib.mkOptionDefault {
           "${modifier}+f2" = "exec ${pkgs.firefox}/bin/firefox";
           "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -show drun";
-          "${modifier}+p" = "exec ${../../shared/passmenu.sh}";
+          "${modifier}+p" = "exec ${../passmenu.sh}";
           "Shift+Print" =
             "exec ${pkgs.grim}/bin/grim ~/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S_screenshot.png')";
           # Switch to workspace

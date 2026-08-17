@@ -17,11 +17,11 @@ in
   imports = [
     # ./nix/batteryNotifier.nix
     # ./nix/unstables/flake.nix
-    ../../../shared/home-base.nix
-    ../../../shared/firefox
-    ../../../shared/waybar
-    ../../../shared/sway
-    ../../../shared/sway/gtklock.nix
+    ../home-base.nix
+    ../firefox
+    ../waybar
+    ../sway
+    ../sway/gtklock.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
