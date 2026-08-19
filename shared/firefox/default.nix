@@ -13,12 +13,13 @@ in
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     policies = lib.mkMerge [
       policies
       extensions
     ];
     profiles = {
-      default = {
+      kevinDefault = {
         id = 0;
         name = "kevinDefault";
         isDefault = true;

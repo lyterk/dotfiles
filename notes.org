@@ -10,7 +10,7 @@
 :ID:       22431ae0-3d18-4f23-969b-52600ae3b9e3
 :END:
 ** [[id:66bcaaa6-5340-403b-b5df-54bd9a826f6b][Sops Key Deployment]]
-** Create a new sops secret
+** [[id:29ffd59c-b482-46a5-8ed0-2520b460dc4a][Create a new sops secret]]
 * Packages
 :PROPERTIES:
 :ID:       c2f352a9-06f8-46ba-b904-e51de4d1fa11
@@ -87,6 +87,8 @@
 :ID:       cc16c497-41e8-4353-8f81-d7716cd14579
 :END:
 ** [[id:d2e59a6c-1627-4486-afd1-9f69b6eb6b6a][Make one monitor main]]
+* Firefox
+** [[id:d7e41f70-6218-44a2-a7bc-9deb016e3f38][profile setting with stylix]]
 * Window Manager
 :PROPERTIES:
 :ID:       c0c8e3b8-189a-4e64-b440-3ac5f6360491

@@ -1,0 +1,47 @@
+:PROPERTIES:
+:ID:       d7e41f70-6218-44a2-a7bc-9deb016e3f38
+:END:
+#+title: profile setting with stylix
+
+* Request
+:PROPERTIES:
+:ID:       17d9fe96-224d-42f1-9c65-8c2e2bde4f37
+:END:
+
+#+BEGIN_QUOTE
+I have these settings for firefox in nixos, and I'm getting this error:
+
+       Failed assertions:
+       - lyterk profile: Must have exactly one default Firefox profile but found 2, namely kevinDefault, kevinDefault
+       - lyterk profile: Must not have a Firefox profile with an existing ID but
+         - ID 0 is used by default, kevinDefault
+
+What might I need to change?
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       5ba3b679-e40b-495a-a37a-b95981e0bec2
+:END:
+
+
+#+begin_src elisp
+(setq gptel-context '(("default.nix") ("lyterk-home.nix")))
+#+end_src
+
+The error indicates that the =default= profile name and your =kevinDefault= profile are conflicting — the system is creating two profiles: one named =default= (the key in the =profiles= attrset) and one named =kevinDefault= (the =name= field), both with =isDefault = true= and =id = 0=.
+
+The fix is to either rename the attrset key to match your profile name, or remove the redundant =name= field:
+
+#+begin_src diff
+--- a/default.nix
++++ b/default.nix
+@@ -1,7 +1,6 @@
+     profiles = {
+-      default = {
++      kevinDefault = {
+         id = 0;
+-        name = "kevinDefault";
+         isDefault = true;
+#+end_src
+
+The attrset key is used as the profile name by home-manager, so setting =name= separately creates a mismatch. Using =kevinDefault= as the key (which matches what =lyterk-home.nix= references in =profileNames=) should resolve both assertions.

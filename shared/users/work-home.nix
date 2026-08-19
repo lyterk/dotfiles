@@ -51,11 +51,12 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   stylix = {
     enable = true;
     image = cityStreet;
+    targets.firefox.profileNames = [ "kevinDefault" ];
   };
 
   programs = {
@@ -89,11 +90,11 @@ in
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
+      settings = {
         "gitlab.com" = {
-          hostname = "gitlab.com";
-          user = "git";
-          identityFile = "~/.ssh/work_ed25519";
+          HostName = "gitlab.com";
+          User = "git";
+          IdentityFile = "~/.ssh/work_ed25519";
         };
       };
     };

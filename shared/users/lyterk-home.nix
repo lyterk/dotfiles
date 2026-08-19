@@ -39,6 +39,7 @@ in
   stylix = {
     enable = true;
     image = milkyWay;
+    targets.firefox.profileNames = [ "kevinDefault" ];
   };
 
   # This value determines the Home Manager release that your configuration is
@@ -48,7 +49,7 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  home.stateVersion = "26.05"; # Please read the comment before changing.
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -92,52 +93,48 @@ in
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = {
-        "*" = {
-          user = "git";
-          port = 22;
-        };
-        git = {
+      settings = {
+        "git" = {
           hostname = "txru.me";
           port = 65222;
           user = "git";
           identityFile = "~/.ssh/id_ed25519";
         };
-        github = {
+        "github" = {
           hostname = "github.com";
           user = "git";
           identityFile = "~/.ssh/id_ed25519";
         };
-        bitbucket = {
+        "bitbucket" = {
           hostname = "bitbucket.org";
           user = "git";
           identityFile = "~/.ssh/id_ed25519";
         };
-        desktop = {
+        "desktop" = {
           hostname = "txru.me";
           port = 65222;
           user = "lyterk";
           identityFile = "~/.ssh/id_ed25519";
         };
-        remarkable = {
+        "remarkable" = {
           hostname = "10.11.99.1";
           user = "root";
           identityFile = "~/.ssh/id_ed25519";
         };
         # Not working atm
-        plexProxy = {
-          hostname = "txru.me";
-          port = 65222;
-          user = "lyterk";
-          identityFile = "~/.ssh/id_ed25519";
-          remoteForwards = [
-            {
-              bind.port = 8080;
-              host.address = "127.0.0.1";
-              host.port = 32400;
-            }
-          ];
-        };
+        # "plexProxy" = {
+        #   hostname = "txru.me";
+        #   port = 65222;
+        #   user = "lyterk";
+        #   identityFile = "~/.ssh/id_ed25519";
+        #   remoteForwards = [
+        #     {
+        #       bind.port = 8080;
+        #       host.address = "127.0.0.1";
+        #       host.port = 32400;
+        #     }
+        #   ];
+        # };
       };
     };
   };

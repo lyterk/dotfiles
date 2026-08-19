@@ -1,0 +1,228 @@
+:PROPERTIES:
+:ID:       b93d70d5-e159-417a-b015-74e2d0eceb0a
+:END:
+#+title: SSH MatchBlocks
+
+* Request
+:PROPERTIES:
+:ID:       9785b262-b217-4549-8a74-9a601d56fde2
+:END:
+
+#+BEGIN_QUOTE
+I have these errors from my nixos reload:
+
+evaluation warning: lyterk profile: `programs.ssh.matchBlocks` defined in `/nix/store/3war69jchqa2j0gqcczpd43b9kavilli-source/shared/users/lyterk-home.nix' is deprecated. Use `programs.ssh.settings`.
+evaluation warning: work profile: `programs.ssh.matchBlocks` defined in `/nix/store/3war69jchqa2j0gqcczpd43b9kavilli-source/shared/users/work-home.nix' is deprecated. Use `programs.ssh.settings`.
+
+I tried teo set this in programs.ssh.settings but I think I did it wrong
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       94a88836-550e-44db-ba96-446df54570d6
+:END:
+
+
+
+
+(setq gptel-context '(("lyterk-home.nix")))
+
+The =programs.ssh.settings= option uses a different structure. Match blocks in the new format use =Match= blocks with the =match= keyword. Here's the diff:
+
+#+begin_src diff
+     ssh = {
+       enable = true;
+       enableDefaultConfig = false;
+
+-      matchBlocks = {
+-        "*" = {
+-          user = "git";
+-          port = 22;
+-        };
+-        git = {
+-          hostname = "txru.me";
+-          port = 65222;
+-          user = "git";
+-          identityFile = "~/.ssh/id_ed25519";
+-        };
+-        github = {
+-          hostname = "github.com";
+-          user = "git";
+-          identityFile = "~/.ssh/id_ed25519";
+-        };
+-        bitbucket = {
+-          hostname = "bitbucket.org";
+-          user = "git";
+-          identityFile = "~/.ssh/id_ed25519";
+-        };
+-        desktop = {
+-          hostname = "txru.me";
+-          port = 65222;
+-          user = "lyterk";
+-          identityFile = "~/.ssh/id_ed25519";
+-        };
+-        remarkable = {
+-          hostname = "10.11.99.1";
+-          user = "root";
+-          identityFile = "~/.ssh/id_ed25519";
+-        };
+-        # Not working atm
+-        plexProxy = {
+-          hostname = "txru.me";
+-          port = 65222;
+-          user = "lyterk";
+-          identityFile = "~/.ssh/id_ed25519";
+-          remoteForwards = [
+-            {
+-              bind.port = 8080;
+-              host.address = "127.0.0.1";
+-              host.port = 32400;
+-            }
+-          ];
+-        };
+-      };
++      settings = {
++        Host = {
++          "*" = {
++            User = "git";
++            Port = 22;
++          };
++          "git" = {
++            HostName = "txru.me";
++            Port = 65222;
++            User = "git";
++            IdentityFile = "~/.ssh/id_ed25519";
++          };
++          "github" = {
++            HostName = "github.com";
++            User = "git";
++            IdentityFile = "~/.ssh/id_ed25519";
++          };
++          "bitbucket" = {
++            HostName = "bitbucket.org";
++            User = "git";
++            IdentityFile = "~/.ssh/id_ed25519";
++          };
++          "desktop" = {
++            HostName = "txru.me";
++            Port = 65222;
++            User = "lyterk";
++            IdentityFile = "~/.ssh/id_ed25519";
++          };
++          "remarkable" = {
++            HostName = "10.11.99.1";
++            User = "root";
++            IdentityFile = "~/.ssh/id_ed25519";
++          };
++        };
++      };
+     };
+#+end_src
+
+Note: =RemoteForward= for =plexProxy= is omitted — =programs.ssh.settings= may not support it directly. You might need to handle that via a separate config file or script. Check the home-manager docs for the exact =settings= schema if this doesn't evaluate correctly, as it's still relatively new.
+* Still broken
+:PROPERTIES:
+:ID:       67ce9308-b64e-4b6e-bd99-e96e79cd5676
+:END:
+#+BEGIN_QUOTE
+
+I'm seeing these errors with these ssh configurations
+       … while evaluating the option `home-manager.users.lyterk.home.file.".ssh/config".text':
+
+       … while evaluating definitions from `/nix/store/63yk6ym7i5n1jyq992p4j4rnskgi256i-source/modules/programs/ssh.nix':
+
+       (stack trace truncated; use '--show-trace' to show the full, detailed trace)
+
+       error: cannot coerce a set to a string: { Port = «thunk»; User = «thunk»; }
+#+END_QUOTE
+** Response :ai:
+:PROPERTIES:
+:ID:       c08f27f2-fde7-493a-8d9b-e7f660065919
+:END:
+
+
+(setq gptel-context '(("lyterk-home.nix")))
+
+The issue is that the ="*"= wildcard host entry is being interpreted differently. The =Host= attribute in home-manager's SSH module expects a specific structure. The wildcard ="*"= with nested attributes is likely causing the coercion error.
+
+The correct structure uses =matchBlocks= instead of =Host=:
+
+#+begin_src diff
+-    ssh = {
+-      enable = true;
+-
+-      settings = {
+-        Host = {
+-          "*" = {
+-            User = "git";
+-            Port = 22;
+-          };
+-          "git" = {
+-            HostName = "txru.me";
+-            Port = 65222;
+-            User = "git";
+-            IdentityFile = "~/.ssh/id_ed25519";
+-          };
+-          "github" = {
+-            HostName = "github.com";
+-            User = "git";
+-            IdentityFile = "~/.ssh/id_ed25519";
+-          };
+-          "bitbucket" = {
+-            HostName = "bitbucket.org";
+-            User = "git";
+-            IdentityFile = "~/.ssh/id_ed25519";
+-          };
+-          "desktop" = {
+-            HostName = "txru.me";
+-            Port = 65222;
+-            User = "lyterk";
+-            IdentityFile = "~/.ssh/id_ed25519";
+-          };
+-          "remarkable" = {
+-            HostName = "10.11.99.1";
+-            User = "root";
+-            IdentityFile = "~/.ssh/id_ed25519";
+-          };
+-        };
+-      };
+-    };
++    ssh = {
++      enable = true;
++
++      matchBlocks = {
++        "*" = {
++          user = "git";
++          port = 22;
++        };
++        "git" = {
++          hostname = "txru.me";
++          port = 65222;
++          user = "git";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        "github" = {
++          hostname = "github.com";
++          user = "git";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        "bitbucket" = {
++          hostname = "bitbucket.org";
++          user = "git";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        "desktop" = {
++          hostname = "txru.me";
++          port = 65222;
++          user = "lyterk";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++        "remarkable" = {
++          hostname = "10.11.99.1";
++          user = "root";
++          identityFile = "~/.ssh/id_ed25519";
++        };
++      };
++    };
+#+end_src
+
+Note the option names are camelCase and lowercase (e.g., =hostname=, =identityFile=, =port=, =user=) when using =matchBlocks=.
